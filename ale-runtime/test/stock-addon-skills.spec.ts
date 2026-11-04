@@ -215,7 +215,7 @@ describe('complemento 1.0.1 a 1.0.8: hallazgos del simulador (IVB-023), del ensa
       expect(inventory).toMatch(/Si la tarjeta trae el producto que nombró el dueño, cuentas ese producto: no preguntes de qué producto es/);
       // Sin producto nombrado, la foto va primero (etiqueta «por identificar»): Stock lo reconoce o pregunta con el total.
       expect(inventory).toMatch(/Si la tarjeta no nombra producto .*no bloquees ni preguntes antes de mirar/);
-      expect(read('profiles/stock/skills/stock-vision/SKILL.md')).toMatch(/Si la tarjeta no nombra producto, la `etiqueta` es `por identificar`/);
+      expect(read('profiles/stock/skills/stock-vision/SKILL.md')).toMatch(/Si la tarjeta no nombra producto, la `etiqueta` es `por identificar <8 primeros caracteres de tarjeta.id>`/);
       expect(orchestration()).toMatch(/coméntale `producto: <lo que dijo>` y usa `kanban_unblock` en ese mismo turno/);
       expect(orchestration()).toMatch(/Nunca le pidas al dueño que te mande ni que tome una foto para contar/);
       // R15 no se afloja: con variantes que la foto no distingue, sigue preguntando.
