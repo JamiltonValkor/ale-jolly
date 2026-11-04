@@ -101,3 +101,28 @@ export class HttpMcpToolClient implements McpToolClient {
     try {await response.body?.cancel();} catch {/* ya consumido */}
   }
 }
+
+/**
+ * La web sondea el primer ciclo cada 3–10 s y cada lectura pregunta al MCP qué negocios tiene el dueño y cuál eligió:
+ * unas 12 llamadas por minuto a `saleads_get_account_overview` con la página abierta. Este envoltorio comparte esa
+ * respuesta por token durante `ttlMs` (y la llamada en vuelo). Solo esa herramienta y sin argumentos; los fallos no
+ * se guardan, y elegir otro negocio por este cliente (`saleads_select_business`) borra la del dueño. El token es la
+ * llave en memoria y nunca se registra.
+ */
+export function withAccountOverviewCache(inner: McpToolClient, ttlMs: number, now: () => number = Date.now): McpToolClient {
+  const cache = new Map<string, {at: number; outcome: Promise<McpCallOutcome>}>();
+  return {
+    call(accessToken, name, args, timeoutMs) {
+      if (name === 'saleads_select_business') cache.delete(accessToken);
+      if (name !== 'saleads_get_account_overview' || Object.keys(args).length) return inner.call(accessToken, name, args, timeoutMs);
+      const at = now();
+      for (const [token, entry] of cache) if (at - entry.at >= ttlMs) cache.delete(token);
+      const hit = cache.get(accessToken);
+      if (hit) return hit.outcome;
+      const outcome = inner.call(accessToken, name, args, timeoutMs);
+      cache.set(accessToken, {at, outcome});
+      void outcome.then(result => {if (!result.ok) cache.delete(accessToken);}, () => cache.delete(accessToken));
+      return outcome;
+    },
+  };
+}

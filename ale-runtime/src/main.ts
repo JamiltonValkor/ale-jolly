@@ -21,7 +21,7 @@ import {InstallSkillExecutor, SkillsApprovalCatalog, UninstallSkillExecutor} fro
 import {SkillsWriter} from './skills/skills-writer';
 import {OrqaSync, readySyncCallback} from './orqa/orqa-sync';
 import {OrqaSweep} from './orqa/orqa-sweep';
-import {HttpMcpToolClient} from './orqa/mcp-client';
+import {HttpMcpToolClient, withAccountOverviewCache} from './orqa/mcp-client';
 import {ownedBusinessIds, selectedBusinessId, SEED_CONTENT_TYPE, SeedScheduler, SeedService, SeedSweepStore} from './orqa/seed';
 import {BrainSnapshotService, BrainSnapshotStore} from './orqa/brain-snapshots';
 import {BrainSnapshotPoller} from './orqa/brain-snapshot-poller';
@@ -233,7 +233,8 @@ async function main(): Promise<void> {
   }, {orqa, repository});
   const seedWriter = new GcsObjectWriter(config.STORAGE_API_BASE, gcpTokens, fetcher);
   const objectReader = new GcsObjectReader(config.STORAGE_API_BASE, gcpTokens, fetcher);
-  const ownerMcp = new HttpMcpToolClient(config.MCP_URL, outboundFetch({userAgent: config.OUTBOUND_USER_AGENT, timeoutMs: config.SEED_TOOL_TIMEOUT_MS}));
+  const ownerMcp = withAccountOverviewCache(
+    new HttpMcpToolClient(config.MCP_URL, outboundFetch({userAgent: config.OUTBOUND_USER_AGENT, timeoutMs: config.SEED_TOOL_TIMEOUT_MS})), 15_000);
   const seed = new SeedService({
     ttlSeconds: config.SEED_URL_TTL_SECONDS, toolTimeoutMs: config.SEED_TOOL_TIMEOUT_MS, debounceMs: 30 * 60_000,
   }, {
