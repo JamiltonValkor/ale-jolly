@@ -1,0 +1,107 @@
+{
+  "name": "saleads_retry_special_plan_audiences",
+  "title": "Reintentar audiencias del plan especial",
+  "description": "Reanuda las audiencias de la fecha especial cuando quedaron fallidas y SaleADS ya agotó sus reintentos automáticos. Pide OK explícito al usuario antes de llamarla. Si aún hay reintentos automáticos en curso, no hace nada y te dice cuándo volver a consultar.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Reintentar audiencias del plan especial",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/strategy/seasonal-plans/:planId (audiences.status)",
+    "POST /api/strategy/seasonal-plans/:planId/audiences/retry (Idempotency-Key UUID derivada; solo con status failed)",
+    "(interno MCP) handoff open-special-plan si la causa depende del usuario"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "special_plan_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "ID del plan especial (de saleads_list_special_plans o saleads_create_special_plan). No es un strategy_plan_id: no lo pases a saleads_get_plan, saleads_update_plan ni a otras tools del plan estratégico normal."
+      },
+      "user_confirmed": {
+        "type": "boolean",
+        "const": true,
+        "description": "Debe ser true y solo después de que el usuario dio su OK explícito en la conversación."
+      }
+    },
+    "required": [
+      "special_plan_id",
+      "user_confirmed"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "special_plan_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "ID del plan especial (de saleads_list_special_plans o saleads_create_special_plan). No es un strategy_plan_id: no lo pases a saleads_get_plan, saleads_update_plan ni a otras tools del plan estratégico normal."
+      },
+      "run_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Run de audiencias en SaleADS."
+      },
+      "status": {
+        "type": "string",
+        "description": "Estado de las audiencias BF tal como lo reporta Strategy (SeasonalAudienceStatusSchema).",
+        "enum": [
+          "not_required",
+          "not_started",
+          "queued",
+          "discovering",
+          "provisioning",
+          "verifying",
+          "waiting_retry",
+          "succeeded",
+          "failed",
+          "unknown"
+        ]
+      },
+      "retried": {
+        "type": "boolean",
+        "const": true,
+        "description": "Siempre true en una respuesta exitosa."
+      },
+      "poll_after_s": {
+        "type": "integer",
+        "description": "Segundos sugeridos antes de volver a consultar. No consultes más seguido.",
+        "minimum": 10,
+        "maximum": 3600
+      },
+      "action_url": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uri",
+        "description": "open-special-plan si la causa depende del usuario (permiso o activo de Meta); si no, null."
+      },
+      "next_step": {
+        "type": "string",
+        "description": "Siguiente acción sugerida, en lenguaje simple."
+      }
+    },
+    "required": [
+      "special_plan_id",
+      "run_id",
+      "status",
+      "retried",
+      "poll_after_s",
+      "action_url"
+    ],
+    "additionalProperties": false
+  },
+  "notes": "audiences/retry está permitida solo para esta tool (decisión 3 del owner). queued|discovering|provisioning|verifying|waiting_retry|unknown → MCP-E-SPECIAL-AUDIENCES-AUTO-RETRY-PENDING sin llamar; succeeded|not_required|not_started → MCP-E-SPECIAL-AUDIENCES-NOT-RETRYABLE."
+}

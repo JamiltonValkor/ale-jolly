@@ -1,0 +1,67 @@
+{
+  "name": "saleads_agent_generate_pieces",
+  "title": "Generar piezas",
+  "description": "Genera la maestra o las variaciones cotizadas: exige el quote_token y los créditos aceptados de saleads_agent_quote_pieces para exactamente el mismo pedido. Respeta el tope mensual del dueño (si falta o no alcanza, MCP-E-AGENT-CREDIT-CAP trae action_url absoluto a Mi asistente → Límites); devuelve los job_id y los créditos usados.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Generar piezas",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "POST /api/gen-image/jobs agent_brief_v1 (AAB-015/016/017)",
+    "POST /campaigns/internal/agent-trace/v1/actions (AAB-010)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "client_request_id": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_.:-]{8,128}$",
+        "description": "Id del pedido que genera el CLI; repetirlo devuelve el mismo resultado. Es también el client_request_id del pedido de imagen."
+      },
+      "piece": {
+        "type": "object",
+        "description": "Pedido agent-image-brief.v1 sin business_id, client_request_id ni datos de cotización: maestra (offering, brief de 8 campos, bet_context, aspect_ratio, bet_id, skill_ref, agent_run_id) o variaciones (role:'variation', master_ref, variations[{changes, keeps, aspect_ratio}], bet_id, skill_ref, agent_run_id). gen-image lo valida estricto (D18)."
+      },
+      "quote_token": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 8192
+      },
+      "accepted_credits": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "es",
+          "en"
+        ],
+        "description": "Idioma del dueño para el enlace de Límites (action_url) si falta o no alcanza el tope."
+      }
+    },
+    "required": [
+      "business_id",
+      "client_request_id",
+      "piece",
+      "quote_token",
+      "accepted_credits"
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object"
+  }
+}

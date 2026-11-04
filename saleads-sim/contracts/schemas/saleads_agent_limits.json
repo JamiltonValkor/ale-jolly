@@ -1,0 +1,53 @@
+{
+  "name": "saleads_agent_limits",
+  "title": "Ver los límites",
+  "description": "Lee lo que el dueño configuró en Mi asistente → Límites, sin escribir nada: el presupuesto mensual aprobado, lo gastado en el mes, lo comprometido por lo activo y lo que queda (budget: decision within|exceeds|no_budget, code, approved_monthly_minor, revision, spent_to_date_minor, projected_active_rest_of_month_minor, committed_minor, left_minor, unavailable), el tope mensual de créditos del dueño y lo usado (credits: cap, used_this_period, remaining, period_end, scope=user —lo comparten todos sus negocios—, unavailable), el mes de la cuenta de Meta (period: start, end, days_left, source) y el enlace absoluto a Límites (limits_url). Montos en la unidad menor de Meta (la de daily_budget) con currency y currency_offset. Si una fuente falla, el resto sale y la que falló va en null con su motivo en unavailable. next_action solo trae texto cuando no hay presupuesto fijado o la moneda no coincide.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Ver los límites",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "GET /internal/assistants/businesses/:businessId/agent-budget (AAB-012)",
+    "POST /internal/assistants/agent-budget/evaluate requested_delta_minor=0 (AAB-012, evaluación pura, no escribe)",
+    "GET /api/integration/internal/agentic/v1/meta/businesses/:businessId/agent-spend-projection (C-10)",
+    "GET /api/subscription/credits/internal/agent-cap (AAB-016)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "cap_propuesto": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 10000000,
+        "description": "Opcional: la cifra de créditos que quieres proponerle al dueño. Solo se usa para armar limits_url con &cap= (el dueño la confirma en Límites); no fija nada."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "es",
+          "en"
+        ],
+        "description": "Idioma del dueño para limits_url."
+      }
+    },
+    "required": [
+      "business_id"
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object"
+  }
+}

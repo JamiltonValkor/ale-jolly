@@ -1,0 +1,89 @@
+{
+  "name": "saleads_create_media_upload",
+  "title": "Crear subida de imagen",
+  "description": "Devuelve una URL temporal para subir una imagen (HTTP PUT). Úsala cuando la imagen es un archivo local (p. ej. en Claude Code o Codex). Si la imagen ya tiene una URL https pública, pásala directamente a saleads_set_campaign_images.",
+  "requiredScope": "saleads:campaigns",
+  "annotations": {
+    "title": "Crear subida de imagen",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "(interno MCP) GCS signed URL en bucket staging"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio sobre el que se actúa. El MCP verifica que pertenezca al usuario autenticado."
+      },
+      "content_type": {
+        "type": "string",
+        "description": "Tipo MIME.",
+        "enum": [
+          "image/jpeg",
+          "image/png",
+          "image/webp"
+        ]
+      },
+      "filename": {
+        "type": "string",
+        "description": "Nombre de archivo.",
+        "maxLength": 120
+      }
+    },
+    "required": [
+      "business_id",
+      "content_type"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "upload_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "upload_url": {
+        "type": "string",
+        "description": "URL firmada para PUT (15 min).",
+        "format": "uri"
+      },
+      "method": {
+        "type": "string",
+        "description": "PUT",
+        "enum": [
+          "PUT"
+        ]
+      },
+      "headers": {
+        "type": "object",
+        "description": "Envía en el PUT TODOS estos headers (incluye x-goog-content-length-range)."
+      },
+      "expires_at": {
+        "type": "string",
+        "description": "Expiración.",
+        "format": "date-time"
+      },
+      "max_bytes": {
+        "type": "integer",
+        "description": "Tamaño máximo."
+      }
+    },
+    "required": [
+      "upload_id",
+      "upload_url",
+      "method",
+      "expires_at"
+    ],
+    "additionalProperties": false
+  }
+}

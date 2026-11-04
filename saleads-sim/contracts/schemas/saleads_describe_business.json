@@ -1,0 +1,97 @@
+{
+  "name": "saleads_describe_business",
+  "title": "Describir negocio",
+  "description": "Guarda una descripción en texto del negocio (útil cuando no tiene web). Pide al usuario qué vende, a quién y qué lo diferencia.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Describir negocio",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "POST /api/business-intelligence/businesses/:id/description ({method:'text', answers:{...}})"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio sobre el que se actúa. El MCP verifica que pertenezca al usuario autenticado."
+      },
+      "description": {
+        "type": "string",
+        "description": "Descripción del negocio en lenguaje natural.",
+        "minLength": 30,
+        "maxLength": 4000
+      },
+      "answers": {
+        "type": "object",
+        "properties": {
+          "what_do_you_sell": {
+            "type": "string",
+            "description": "Qué vende.",
+            "maxLength": 1000
+          },
+          "who_is_your_client": {
+            "type": "string",
+            "description": "Quién es su cliente.",
+            "maxLength": 1000
+          },
+          "what_makes_you_unique": {
+            "type": "string",
+            "description": "Qué lo diferencia.",
+            "maxLength": 1000
+          },
+          "what_problem_do_you_solve": {
+            "type": "string",
+            "description": "Qué problema resuelve.",
+            "maxLength": 1000
+          },
+          "what_is_your_value_proposition": {
+            "type": "string",
+            "description": "Propuesta de valor.",
+            "maxLength": 1000
+          },
+          "how_do_you_communicate": {
+            "type": "string",
+            "description": "Cómo se comunica.",
+            "maxLength": 1000
+          }
+        },
+        "required": [],
+        "additionalProperties": false,
+        "description": "Opcional: respuestas estructuradas como en el wizard web."
+      }
+    },
+    "required": [
+      "business_id",
+      "description"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "saved": {
+        "type": "boolean",
+        "description": "true si se guardó."
+      }
+    },
+    "required": [
+      "business_id",
+      "saved"
+    ],
+    "additionalProperties": false
+  },
+  "notes": "El cliente tipado mapea `description` a `answers` de BI; las claves exactas de `answers` quedan por verificar en vivo (DoR de MCP-002)."
+}

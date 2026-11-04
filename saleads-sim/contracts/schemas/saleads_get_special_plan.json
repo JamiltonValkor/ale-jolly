@@ -1,0 +1,929 @@
+{
+  "name": "saleads_get_special_plan",
+  "title": "Ver plan especial",
+  "description": "Devuelve la configuración del plan especial: fechas y duración, ciudades, presupuesto, oferta real con el descuento que calcula SaleADS, comunicación, audiencias, fases con sus campañas y pendientes con su link. Indica qué se puede cambiar todavía. No incluye textos ni piezas.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Ver plan especial",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/strategy/seasonal-plans/:planId",
+    "GET /api/strategy/seasonal-plans/:planId/offer-terms",
+    "GET /api/strategy/seasonal-plans/:planId/copy-authoring (solo con TEMPORAL_COPY_EXTERNAL_AUTHORING_ENABLED; 404 = todas saleads_ai)",
+    "(interno MCP) handoffs open-special-plan y de pendientes"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "special_plan_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "ID del plan especial (de saleads_list_special_plans o saleads_create_special_plan). No es un strategy_plan_id: no lo pases a saleads_get_plan, saleads_update_plan ni a otras tools del plan estratégico normal."
+      }
+    },
+    "required": [
+      "special_plan_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "special_plan_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "ID del plan especial (de saleads_list_special_plans o saleads_create_special_plan). No es un strategy_plan_id: no lo pases a saleads_get_plan, saleads_update_plan ni a otras tools del plan estratégico normal."
+      },
+      "business_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "object",
+        "properties": {
+          "es": {
+            "type": "string",
+            "description": "Texto en español."
+          },
+          "en": {
+            "type": "string",
+            "description": "Texto en inglés."
+          }
+        },
+        "required": [
+          "es"
+        ],
+        "additionalProperties": false,
+        "description": "Texto localizado del catálogo."
+      },
+      "catalog_version_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "revision": {
+        "type": "integer",
+        "description": "Revisión del plan en Strategy (informativa; el MCP gestiona If-Match y expected_revision).",
+        "minimum": 0
+      },
+      "created_at": {
+        "type": "string",
+        "description": "Creación (ISO 8601 UTC).",
+        "format": "date-time"
+      },
+      "currency": {
+        "type": "string",
+        "description": "Moneda del plan."
+      },
+      "timezone": {
+        "type": "string",
+        "description": "Zona horaria del plan."
+      },
+      "offering": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Tipo.",
+            "enum": [
+              "product",
+              "service",
+              "business"
+            ]
+          },
+          "id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "description": "ID de la oferta."
+          }
+        },
+        "required": [
+          "type",
+          "id"
+        ],
+        "additionalProperties": false
+      },
+      "settings": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "locations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string",
+                  "description": "Clave de saleads_search_locations.",
+                  "minLength": 1
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Nombre."
+                },
+                "type": {
+                  "type": "string",
+                  "description": "Tipo (city, region, country...)."
+                },
+                "country_code": {
+                  "type": "string",
+                  "description": "País ISO-3166 alfa-2."
+                }
+              },
+              "required": [
+                "key",
+                "name"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "accepted_language": {
+            "type": "string",
+            "description": "Idioma de la estrategia y de la comunicación.",
+            "enum": [
+              "es",
+              "en"
+            ]
+          },
+          "creatives_language": {
+            "type": "string",
+            "description": "Idioma de los creativos.",
+            "enum": [
+              "es",
+              "en",
+              "pt"
+            ]
+          },
+          "editable": {
+            "type": "boolean",
+            "description": "true si aún se puede cambiar con saleads_update_special_plan."
+          },
+          "locked_reason": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Código del congelamiento (p. ej. SEAS_COMMUNICATION_SETTINGS_FROZEN, TEMPORAL_EVENTS_FROZEN)."
+          }
+        },
+        "required": [
+          "locations",
+          "accepted_language",
+          "creatives_language",
+          "editable",
+          "locked_reason"
+        ],
+        "additionalProperties": false,
+        "description": "Ciudades e idiomas. Se congelan cuando se genera la comunicación."
+      },
+      "budget": {
+        "type": "object",
+        "properties": {
+          "monthly_budget": {
+            "type": "object",
+            "properties": {
+              "amount": {
+                "type": "number",
+                "description": "Monto en unidades mayores (p. ej. 120.5).",
+                "minimum": 0
+              },
+              "currency": {
+                "type": "string",
+                "description": "Moneda ISO-4217.",
+                "pattern": "^[A-Z]{3}$"
+              }
+            },
+            "required": [
+              "amount",
+              "currency"
+            ],
+            "additionalProperties": false,
+            "description": "Presupuesto confirmado."
+          },
+          "launch_investment_total": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "amount": {
+                "type": "number",
+                "description": "Monto en unidades mayores (p. ej. 120.5).",
+                "minimum": 0
+              },
+              "currency": {
+                "type": "string",
+                "description": "Moneda ISO-4217.",
+                "pattern": "^[A-Z]{3}$"
+              }
+            },
+            "required": [
+              "amount",
+              "currency"
+            ],
+            "additionalProperties": false,
+            "description": "Inversión total del lanzamiento con las fechas guardadas."
+          },
+          "editable": {
+            "type": "boolean",
+            "description": "true si aún se puede cambiar con saleads_update_special_plan."
+          },
+          "locked_reason": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Código del congelamiento (p. ej. SEAS_COMMUNICATION_SETTINGS_FROZEN, TEMPORAL_EVENTS_FROZEN)."
+          }
+        },
+        "required": [
+          "monthly_budget",
+          "editable",
+          "locked_reason"
+        ],
+        "additionalProperties": false,
+        "description": "Presupuesto. Se congela cuando se genera la comunicación."
+      },
+      "event_schedule": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "configured": {
+            "type": "boolean",
+            "description": "Las fechas requeridas están guardadas."
+          },
+          "timezone": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Zona horaria de las fechas."
+          },
+          "events": {
+            "type": "object",
+            "description": "Fechas guardadas por ancla (hora local).",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "required_event_anchors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "missing_event_anchors": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          },
+          "capture": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "phase_key": {
+                "type": "string",
+                "description": "Clave de fase del catálogo seasonal (en Black Friday: captacion, expectativa, venta, cierre). Sale del catálogo; no es una lista fija.",
+                "pattern": "^[a-z0-9_]{1,64}$"
+              },
+              "min_days": {
+                "type": "integer",
+                "description": "Mínimo de días.",
+                "minimum": 0
+              },
+              "max_days": {
+                "type": "integer",
+                "description": "Máximo de días.",
+                "minimum": 0
+              },
+              "recommended_days": {
+                "type": "integer",
+                "description": "Recomendado.",
+                "minimum": 0
+              },
+              "chosen_days": {
+                "type": [
+                  "integer",
+                  "null"
+                ],
+                "description": "Elegido."
+              }
+            },
+            "required": [
+              "phase_key",
+              "min_days",
+              "max_days"
+            ],
+            "additionalProperties": false,
+            "description": "Duración de captación; null si la fecha no tiene captación."
+          },
+          "phase_dates": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "phase_key": {
+                  "type": "string",
+                  "description": "Clave de fase del catálogo seasonal (en Black Friday: captacion, expectativa, venta, cierre). Sale del catálogo; no es una lista fija.",
+                  "pattern": "^[a-z0-9_]{1,64}$"
+                },
+                "temporal_mode": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "autopilot (SaleADS arma piezas y textos por día) o manual (Captación y Venta en Black Friday); null si el catálogo no lo declara.",
+                  "enum": [
+                    "autopilot",
+                    "manual",
+                    null
+                  ]
+                },
+                "start_local": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "Inicio local."
+                },
+                "end_local": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "Fin local."
+                }
+              },
+              "required": [
+                "phase_key",
+                "start_local",
+                "end_local"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "editable": {
+            "type": "boolean",
+            "description": "true si aún se puede cambiar con saleads_update_special_plan."
+          },
+          "locked_reason": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Código del congelamiento (p. ej. SEAS_COMMUNICATION_SETTINGS_FROZEN, TEMPORAL_EVENTS_FROZEN)."
+          }
+        },
+        "required": [
+          "configured",
+          "events",
+          "required_event_anchors",
+          "missing_event_anchors",
+          "editable",
+          "locked_reason"
+        ],
+        "additionalProperties": false,
+        "description": "Fechas. Se congelan cuando existe la revisión creativa (la persona preparó)."
+      },
+      "offer_terms": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "regular_price": {
+            "type": "number",
+            "description": "Precio regular del usuario."
+          },
+          "offer_price": {
+            "type": "number",
+            "description": "Precio de oferta del usuario."
+          },
+          "currency": {
+            "type": "string",
+            "description": "Moneda."
+          },
+          "discount_pct": {
+            "type": "integer",
+            "description": "Descuento calculado por SaleADS. Es el único porcentaje que puedes usar en textos.",
+            "minimum": 0,
+            "maximum": 100
+          },
+          "editable": {
+            "type": "boolean",
+            "description": "true si aún se puede cambiar con saleads_update_special_plan."
+          },
+          "locked_reason": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Código del congelamiento (p. ej. SEAS_COMMUNICATION_SETTINGS_FROZEN, TEMPORAL_EVENTS_FROZEN)."
+          }
+        },
+        "required": [
+          "regular_price",
+          "offer_price",
+          "currency",
+          "discount_pct",
+          "editable",
+          "locked_reason"
+        ],
+        "additionalProperties": false,
+        "description": "Oferta real; null si aún no se guardó."
+      },
+      "communication": {
+        "type": "object",
+        "properties": {
+          "mode": {
+            "type": "string",
+            "description": "Modo.",
+            "enum": [
+              "standard",
+              "canonical"
+            ]
+          },
+          "state": {
+            "type": "string",
+            "description": "Estado de la comunicación del plan (Strategy seasonal-plan.v1 communication.state).",
+            "enum": [
+              "not_required",
+              "required",
+              "generating",
+              "review_required",
+              "in_review",
+              "approved"
+            ]
+          },
+          "communication_strategy_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "description": "Estrategia de comunicación del plan especial. Se aprueba solo en SaleADS: no la pases a saleads_approve_strategy ni a saleads_regenerate_strategy."
+          },
+          "communication_strategy_version_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "description": "Versión de esa estrategia."
+          },
+          "execution_bound": {
+            "type": "boolean",
+            "description": "La comunicación aprobada ya quedó fijada para ejecución."
+          }
+        },
+        "required": [
+          "mode",
+          "state",
+          "communication_strategy_id",
+          "communication_strategy_version_id"
+        ],
+        "additionalProperties": false
+      },
+      "audiences": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "status": {
+            "type": "string",
+            "description": "Estado de las audiencias BF tal como lo reporta Strategy (SeasonalAudienceStatusSchema).",
+            "enum": [
+              "not_required",
+              "not_started",
+              "queued",
+              "discovering",
+              "provisioning",
+              "verifying",
+              "waiting_retry",
+              "succeeded",
+              "failed",
+              "unknown"
+            ]
+          },
+          "retry_available": {
+            "type": "boolean",
+            "description": "true solo en failed: saleads_retry_special_plan_audiences con OK del usuario."
+          }
+        },
+        "required": [
+          "status",
+          "retry_available"
+        ],
+        "additionalProperties": false
+      },
+      "phases": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "phase_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "phase_key": {
+              "type": "string",
+              "description": "Clave de fase del catálogo seasonal (en Black Friday: captacion, expectativa, venta, cierre). Sale del catálogo; no es una lista fija.",
+              "pattern": "^[a-z0-9_]{1,64}$"
+            },
+            "ordinal": {
+              "type": "integer",
+              "description": "Orden de la fase.",
+              "minimum": 1
+            },
+            "name": {
+              "type": "object",
+              "properties": {
+                "es": {
+                  "type": "string",
+                  "description": "Texto en español."
+                },
+                "en": {
+                  "type": "string",
+                  "description": "Texto en inglés."
+                }
+              },
+              "required": [
+                "es"
+              ],
+              "additionalProperties": false,
+              "description": "Texto localizado del catálogo."
+            },
+            "temporal_mode": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "autopilot (SaleADS arma piezas y textos por día) o manual (Captación y Venta en Black Friday); null si el catálogo no lo declara.",
+              "enum": [
+                "autopilot",
+                "manual",
+                null
+              ]
+            },
+            "state": {
+              "type": "string",
+              "description": "Estado de la fase (Strategy SeasonalPhaseDto.state).",
+              "enum": [
+                "not_prepared",
+                "preparing",
+                "ready",
+                "publishing",
+                "partial",
+                "launched",
+                "attention"
+              ]
+            },
+            "can_prepare": {
+              "type": "boolean",
+              "description": "Strategy permite preparar la fase (lo hace una persona en SaleADS)."
+            },
+            "can_launch": {
+              "type": "boolean",
+              "description": "Strategy permite activar la fase (lo hace una persona en SaleADS)."
+            },
+            "issue_codes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Códigos estables de readiness de Strategy (p. ej. SEAS_RESOURCE_MISSING)."
+            },
+            "daily_budget": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "amount": {
+                  "type": "number",
+                  "description": "Monto en unidades mayores (p. ej. 120.5).",
+                  "minimum": 0
+                },
+                "currency": {
+                  "type": "string",
+                  "description": "Moneda ISO-4217.",
+                  "pattern": "^[A-Z]{3}$"
+                }
+              },
+              "required": [
+                "amount",
+                "currency"
+              ],
+              "additionalProperties": false,
+              "description": "Asignación diaria de la fase."
+            },
+            "copy_authoring": {
+              "type": "string",
+              "description": "Quién escribe los textos de la fase.",
+              "enum": [
+                "saleads_ai",
+                "external_agent"
+              ]
+            },
+            "awaiting_agent_copies": {
+              "type": "integer",
+              "description": "Días de esta fase que esperan tus textos (copy_authoring = external_agent).",
+              "minimum": 0
+            },
+            "items": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "item_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "name": {
+                    "type": "object",
+                    "properties": {
+                      "es": {
+                        "type": "string",
+                        "description": "Texto en español."
+                      },
+                      "en": {
+                        "type": "string",
+                        "description": "Texto en inglés."
+                      }
+                    },
+                    "required": [
+                      "es"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Texto localizado del catálogo."
+                  },
+                  "destination": {
+                    "type": "string",
+                    "description": "Destino (web, whatsapp, instagram, messenger)."
+                  },
+                  "format": {
+                    "type": "string",
+                    "description": "Formato.",
+                    "enum": [
+                      "IMAGE",
+                      "VIDEO",
+                      "MIXED"
+                    ]
+                  },
+                  "execution_template_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Plantilla de ejecución (strategy_id de Strategy). Informativo: no es una estrategia de comunicación ni un plan."
+                  },
+                  "preparation_state": {
+                    "type": "string",
+                    "description": "Preparación.",
+                    "enum": [
+                      "not_prepared",
+                      "preparing",
+                      "ready",
+                      "attention"
+                    ]
+                  },
+                  "launch_state": {
+                    "type": "string",
+                    "description": "Lanzamiento.",
+                    "enum": [
+                      "not_launched",
+                      "in_progress",
+                      "succeeded",
+                      "failed",
+                      "unknown"
+                    ]
+                  },
+                  "days": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "total": {
+                        "type": "integer",
+                        "description": "Días (campañas por día) de la fase.",
+                        "minimum": 0
+                      },
+                      "not_launched": {
+                        "type": "integer",
+                        "description": "Sin lanzar.",
+                        "minimum": 0
+                      },
+                      "in_progress": {
+                        "type": "integer",
+                        "description": "Lanzándose.",
+                        "minimum": 0
+                      },
+                      "succeeded": {
+                        "type": "integer",
+                        "description": "Lanzados.",
+                        "minimum": 0
+                      },
+                      "failed": {
+                        "type": "integer",
+                        "description": "Fallidos.",
+                        "minimum": 0
+                      },
+                      "unknown": {
+                        "type": "integer",
+                        "description": "Estado desconocido.",
+                        "minimum": 0
+                      },
+                      "window_missed": {
+                        "type": "integer",
+                        "description": "Ventana perdida.",
+                        "minimum": 0
+                      },
+                      "skipped": {
+                        "type": "integer",
+                        "description": "Omitidos al activar.",
+                        "minimum": 0
+                      }
+                    },
+                    "required": [
+                      "total",
+                      "not_launched",
+                      "in_progress",
+                      "succeeded",
+                      "failed"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Conteo de campañas por día (window_summary de Strategy)."
+                  }
+                },
+                "required": [
+                  "item_id",
+                  "name",
+                  "execution_template_id",
+                  "preparation_state",
+                  "launch_state",
+                  "days"
+                ],
+                "additionalProperties": false
+              },
+              "description": "Campañas de la fase. Sin textos, URLs de piezas ni IDs de borradores."
+            }
+          },
+          "required": [
+            "phase_id",
+            "phase_key",
+            "ordinal",
+            "name",
+            "temporal_mode",
+            "state",
+            "can_prepare",
+            "can_launch",
+            "copy_authoring",
+            "awaiting_agent_copies",
+            "items"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "pending_actions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "description": "Tipo de pendiente.",
+              "enum": [
+                "complete_configuration",
+                "generate_communication",
+                "approve_communication",
+                "review_catalog",
+                "prepare_phase",
+                "review_pieces",
+                "submit_agent_copies",
+                "approve_copies",
+                "activate_phase",
+                "retry_audiences",
+                "resolve_connections"
+              ]
+            },
+            "actor": {
+              "type": "string",
+              "description": "Quién lo resuelve: human (una persona en SaleADS, con action_url), agent (tú, con una tool) o agent_with_user_confirmation (tú, con OK explícito del usuario).",
+              "enum": [
+                "human",
+                "agent",
+                "agent_with_user_confirmation"
+              ]
+            },
+            "phase_key": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Fase a la que aplica, o null si es del plan."
+            },
+            "phase_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid",
+              "description": "ID de la fase, o null."
+            },
+            "days": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0,
+              "description": "Solo submit_agent_copies: días que esperan tus textos."
+            },
+            "spends_money": {
+              "type": "boolean",
+              "description": "true solo para activate_phase: activar empieza a gastar."
+            },
+            "consumes_credits": {
+              "type": "boolean",
+              "description": "true solo para prepare_phase: preparar genera piezas y consume créditos."
+            },
+            "tool": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Tool del MCP que lo resuelve cuando actor no es human (p. ej. saleads_submit_special_plan_copies)."
+            },
+            "action_url": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uri",
+              "description": "Link de handoff a SaleADS (contracts/handoff-intents.md) o null."
+            },
+            "reason": {
+              "type": "string",
+              "description": "Por qué está pendiente, en lenguaje simple."
+            }
+          },
+          "required": [
+            "kind",
+            "actor",
+            "phase_key",
+            "spends_money",
+            "consumes_credits",
+            "action_url",
+            "reason"
+          ],
+          "additionalProperties": false
+        },
+        "description": "Pendientes del plan. Los humanos llevan action_url; submit_agent_copies nunca lleva action_url."
+      },
+      "action_url": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uri",
+        "description": "Link de handoff a SaleADS (contracts/handoff-intents.md) o null."
+      },
+      "next_step": {
+        "type": "string",
+        "description": "Siguiente acción sugerida, en lenguaje simple."
+      }
+    },
+    "required": [
+      "special_plan_id",
+      "business_id",
+      "name",
+      "catalog_version_id",
+      "currency",
+      "settings",
+      "budget",
+      "event_schedule",
+      "offer_terms",
+      "communication",
+      "audiences",
+      "phases",
+      "pending_actions",
+      "action_url"
+    ],
+    "additionalProperties": false
+  }
+}

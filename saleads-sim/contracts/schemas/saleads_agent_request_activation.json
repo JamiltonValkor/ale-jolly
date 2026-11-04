@@ -1,0 +1,57 @@
+{
+  "name": "saleads_agent_request_activation",
+  "title": "Pedir encendido",
+  "description": "Pide al dueño encender una publicación (una campaña). Proyecta el gasto, deja la acción en espera de aprobación y devuelve el enlace del panel donde el dueño aprueba con un botón. Nada se enciende desde aquí.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Pedir encendido",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/integration/internal/agentic/v1/meta/businesses/:businessId/agent-spend-projection?publication_id= (C-10)",
+    "POST /internal/assistants/approvals kind=activate_agent_publication (AAB-012)",
+    "POST /campaigns/internal/agent-trace/v1/actions (AAB-010)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "client_request_id": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_.:-]{8,128}$",
+        "description": "Id del pedido que genera el CLI; repetirlo devuelve el mismo resultado."
+      },
+      "publication_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "es",
+          "en"
+        ],
+        "description": "Idioma del dueño para el enlace del panel."
+      }
+    },
+    "required": [
+      "business_id",
+      "client_request_id",
+      "publication_id"
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object"
+  }
+}

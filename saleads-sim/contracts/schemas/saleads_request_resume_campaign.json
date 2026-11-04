@@ -1,0 +1,80 @@
+{
+  "name": "saleads_request_resume_campaign",
+  "title": "Solicitar reanudar campaña",
+  "description": "Verifica que la campaña sea del usuario y esté pausada, y devuelve approval_url para que el usuario la reanude en SaleADS (botón 'Reanudar'). Reanudar vuelve a gastar: esta tool NO reanuda nada. Si la campaña no está pausada, lo indica sin link.",
+  "requiredScope": "saleads:launch",
+  "annotations": {
+    "title": "Solicitar reanudar campaña",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/campaigns/:campaignId (propiedad y estado)",
+    "(interno MCP) handoff resume-campaign"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "campaign_id": {
+        "type": "string",
+        "description": "ID de campaña en SaleADS (de saleads_get_launch_status o saleads_get_results), no el ID de Meta.",
+        "minLength": 1,
+        "maxLength": 128,
+        "pattern": "^[A-Za-z0-9_-]+$"
+      }
+    },
+    "required": [
+      "campaign_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "campaign_id": {
+        "type": "string",
+        "description": "ID."
+      },
+      "status": {
+        "type": "string",
+        "description": "Estado actual de la campaña en SaleADS (paused, active, ...)."
+      },
+      "resumable": {
+        "type": "boolean",
+        "description": "true si está pausada y se puede reanudar desde la web."
+      },
+      "approval_url": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uri",
+        "description": "Link para que el usuario pulse 'Reanudar' en SaleADS (null si no aplica)."
+      },
+      "expires_at": {
+        "type": "string",
+        "format": "date-time",
+        "description": "Expiración del link."
+      },
+      "reason": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Por qué no se puede reanudar (si resumable=false)."
+      }
+    },
+    "required": [
+      "campaign_id",
+      "status",
+      "resumable",
+      "approval_url"
+    ],
+    "additionalProperties": false
+  }
+}

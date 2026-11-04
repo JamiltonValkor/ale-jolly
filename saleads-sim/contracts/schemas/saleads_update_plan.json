@@ -1,0 +1,153 @@
+{
+  "name": "saleads_update_plan",
+  "title": "Editar plan estratégico",
+  "description": "Cambia presupuesto mensual, ubicaciones o idioma de los creativos del plan (antes del lanzamiento). Confirma los cambios con el usuario. Si devuelve replaced_plan_id, SaleADS creó un plan nuevo y canceló el anterior: usa replaced_plan_id desde ese momento. Un cambio de presupuesto mensual no se aplica desde el chat: crea una aprobación change_budget (budget_approval con su enlace) que el dueño aprueba en SaleADS con un código; ubicaciones e idioma se aplican de inmediato.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Editar plan estratégico",
+    "readOnlyHint": false,
+    "destructiveHint": true,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "PATCH /api/strategy/plan/:planId (If-Match gestionado por el MCP)",
+    "POST /internal/assistants/approvals (sa-assistant-service, política exacta ASSISTANT_INTERNAL_ROUTE_POLICY, x-internal-api-token + x-user-id; aprobación change_budget)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "strategy_plan_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "monthly_budget": {
+        "type": "number",
+        "description": "Nuevo presupuesto mensual total de pauta, en la moneda del plan (normalmente USD; ver saleads_get_plan.currency). No lo conviertas sin confirmar con el usuario.",
+        "exclusiveMinimum": 0
+      },
+      "currency": {
+        "type": "string",
+        "description": "Opcional. Moneda ISO-4217 de monthly_budget; si no coincide con la moneda del plan se rechaza con MCP-E-INVALID-INPUT (details.reason = currency_mismatch).",
+        "pattern": "^[A-Z]{3}$"
+      },
+      "locations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "description": "Clave de saleads_search_locations."
+            },
+            "name": {
+              "type": "string",
+              "description": "Nombre."
+            },
+            "type": {
+              "type": "string",
+              "description": "Tipo."
+            },
+            "country_code": {
+              "type": "string",
+              "description": "País."
+            }
+          },
+          "required": [
+            "key",
+            "name",
+            "type"
+          ],
+          "additionalProperties": false
+        },
+        "maxItems": 5,
+        "description": "Máximo 5 (incluye pines personalizados existentes)."
+      },
+      "creatives_language": {
+        "type": "string",
+        "description": "Idioma de los creativos.",
+        "enum": [
+          "es",
+          "en",
+          "pt"
+        ]
+      }
+    },
+    "required": [
+      "strategy_plan_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "strategy_plan_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "updated": {
+        "type": "boolean",
+        "description": "true si se aplicó."
+      },
+      "replaced_plan_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid",
+        "description": "Plan nuevo que reemplaza al editado cuando SaleADS recompila el plan al cambiar el presupuesto (el anterior queda cancelado). null si el cambio se aplicó al mismo plan."
+      },
+      "monthly_budget": {
+        "type": "number",
+        "description": "Presupuesto vigente."
+      },
+      "currency": {
+        "type": "string",
+        "description": "Moneda del presupuesto vigente."
+      },
+      "next_step": {
+        "type": "string",
+        "description": "Siguiente acción sugerida."
+      },
+      "budget_approval": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "approval_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string"
+          },
+          "action_url": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "note": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "approval_id",
+          "status",
+          "action_url",
+          "note"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "strategy_plan_id",
+      "updated"
+    ],
+    "additionalProperties": false
+  }
+}

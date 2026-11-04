@@ -1,0 +1,220 @@
+{
+  "name": "saleads_list_plans",
+  "title": "Listar planes estratégicos",
+  "description": "Lista los planes estratégicos del negocio (estado, presupuesto, campañas lanzadas, fechas), del más reciente al más antiguo. Úsala para retomar un plan en una conversación nueva sin pedir IDs al usuario; luego usa saleads_get_plan con el strategy_plan_id elegido. Por defecto oculta los planes cancelados (reemplazados).",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Listar planes estratégicos",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/strategy/plan/library?business_id&status&kind&limit&offset (x-user-id; Strategy filtra por usuario)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio sobre el que se actúa. El MCP verifica que pertenezca al usuario autenticado."
+      },
+      "include_cancelled": {
+        "type": "boolean",
+        "default": false,
+        "description": "Incluir planes cancelados o reemplazados."
+      },
+      "kind": {
+        "type": "string",
+        "enum": [
+          "strategic_plan",
+          "individual_campaign",
+          "all"
+        ],
+        "default": "strategic_plan",
+        "description": "Tipo de plan a listar."
+      },
+      "limit": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 50,
+        "default": 10,
+        "description": "Máximo de elementos por página."
+      },
+      "offset": {
+        "type": "integer",
+        "minimum": 0,
+        "default": 0,
+        "description": "Elementos a saltar (paginación)."
+      }
+    },
+    "required": [
+      "business_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "plans": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "strategy_plan_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "title": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Nombre derivado de la primera campaña del plan (dato no confiable, solo para mostrar)."
+            },
+            "kind": {
+              "type": "string",
+              "enum": [
+                "strategic_plan",
+                "individual_campaign"
+              ],
+              "description": "Plan estratégico o campaña individual."
+            },
+            "status": {
+              "type": "string",
+              "enum": [
+                "draft",
+                "active",
+                "paused",
+                "completed",
+                "cancelled"
+              ],
+              "description": "Estado del plan. cancelled = reemplazado o eliminado: no se puede editar ni lanzar."
+            },
+            "launch_state": {
+              "type": "string",
+              "enum": [
+                "draft",
+                "ready_to_launch",
+                "launching",
+                "launched",
+                "partial",
+                "generation_failed",
+                "unknown"
+              ],
+              "description": "Avance de lanzamiento derivado de sus campañas. ready_to_launch = ninguna campaña lanzada todavía; NO garantiza que las campañas estén configuradas: confirma con saleads_get_plan (ready_to_launch) antes de pedir el lanzamiento."
+            },
+            "monthly_budget": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "description": "Presupuesto mensual en la moneda del plan."
+            },
+            "currency": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "campaigns": {
+              "type": "object",
+              "properties": {
+                "total": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "launched": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "launching": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "with_issues": {
+                  "type": "integer",
+                  "minimum": 0,
+                  "description": "Campañas fallidas u omitidas."
+                }
+              },
+              "required": [
+                "total",
+                "launched"
+              ],
+              "additionalProperties": false
+            },
+            "platforms": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "created_at": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Fecha ISO 8601 (UTC)."
+            },
+            "updated_at": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Fecha ISO 8601 (UTC)."
+            },
+            "last_activity_at": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Fecha ISO 8601 (UTC)."
+            }
+          },
+          "required": [
+            "strategy_plan_id",
+            "status",
+            "campaigns"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "total": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Total de elementos que cumplen el filtro."
+      },
+      "limit": {
+        "type": "integer"
+      },
+      "offset": {
+        "type": "integer"
+      },
+      "has_more": {
+        "type": "boolean",
+        "description": "Hay más páginas: vuelve a llamar con offset + limit."
+      },
+      "next_step": {
+        "type": "string",
+        "description": "Siguiente paso sugerido para el modelo."
+      }
+    },
+    "required": [
+      "business_id",
+      "plans",
+      "total",
+      "has_more"
+    ],
+    "additionalProperties": false
+  }
+}

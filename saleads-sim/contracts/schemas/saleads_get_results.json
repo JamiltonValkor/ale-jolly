@@ -1,0 +1,130 @@
+{
+  "name": "saleads_get_results",
+  "title": "Resultados de campañas",
+  "description": "Devuelve métricas de las campañas lanzadas (gasto, impresiones, clics, conversaciones/resultados, CPA). Con compare_previous agrega el cambio frente al periodo anterior de igual duración. No declares ganadores causales a partir de estos números.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Resultados de campañas",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/campaigns/:id (propiedad)",
+    "GET /api/campaigns/:id/metrics (period; lifetime = 3650d, igual que el lifetime del negocio)",
+    "GET /api/campaigns/business/:businessId/metrics (period 1d…90d o lifetime; trae change_pct vs periodo anterior)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio sobre el que se actúa. El MCP verifica que pertenezca al usuario autenticado."
+      },
+      "strategy_plan_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "campaign_id": {
+        "type": "string",
+        "description": "Campaña concreta (opcional)."
+      },
+      "period": {
+        "type": "string",
+        "description": "Periodo. lifetime = toda la vida de la campaña (sin comparación).",
+        "enum": [
+          "1d",
+          "7d",
+          "14d",
+          "30d",
+          "60d",
+          "90d",
+          "lifetime"
+        ],
+        "default": "7d"
+      },
+      "compare_previous": {
+        "type": "boolean",
+        "default": false,
+        "description": "Agregar el cambio porcentual frente al periodo anterior de igual duración (descriptivo)."
+      }
+    },
+    "required": [
+      "business_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "period": {
+        "type": "string",
+        "description": "Periodo."
+      },
+      "currency": {
+        "type": "string",
+        "description": "Moneda."
+      },
+      "totals": {
+        "type": "object"
+      },
+      "campaigns": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "comparison": {
+        "type": "object",
+        "properties": {
+          "available": {
+            "type": "boolean"
+          },
+          "reference": {
+            "type": "string",
+            "enum": [
+              "previous_period"
+            ]
+          },
+          "date_from": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "date_to": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "changes": {
+            "type": "object",
+            "description": "Cambio porcentual por métrica (null si el periodo anterior no tiene datos)."
+          },
+          "reason": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "available"
+        ],
+        "additionalProperties": false,
+        "description": "Comparación con el periodo anterior (solo con compare_previous). Cada campaña trae la suya en campaigns[].comparison."
+      }
+    },
+    "required": [
+      "period",
+      "campaigns"
+    ],
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,95 @@
+{
+  "name": "saleads_approve_strategy",
+  "title": "Aprobar estrategia y crear plan",
+  "description": "Aprueba la versión de la estrategia (queda inmutable) y compila el plan estratégico con todas sus campañas. Solo después de que el usuario la aprobó explícitamente. No gasta dinero.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Aprobar estrategia y crear plan",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "POST /api/strategy/v1/communication-strategies/:sid/versions/:vid/approve (Idempotency-Key)",
+    "POST .../compile-plan (Idempotency-Key)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "communication_strategy_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "communication_strategy_version_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "destination": {
+        "type": "string",
+        "description": "Destino de las campañas: 'messages' (WhatsApp/Messenger) o 'web' (sitio del negocio).",
+        "enum": [
+          "messages",
+          "web"
+        ]
+      },
+      "language": {
+        "type": "string",
+        "description": "Idioma de la estrategia y los creativos.",
+        "enum": [
+          "es",
+          "es-CO",
+          "es-MX",
+          "en"
+        ]
+      },
+      "approval_note": {
+        "type": "string",
+        "description": "Nota opcional.",
+        "maxLength": 500
+      },
+      "client_request_id": {
+        "type": "string",
+        "description": "Opcional. Identificador estable de este intento para que un reintento no duplique trabajo.",
+        "minLength": 8,
+        "maxLength": 100
+      }
+    },
+    "required": [
+      "communication_strategy_id",
+      "communication_strategy_version_id",
+      "destination",
+      "language"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "strategy_plan_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "campaign_count": {
+        "type": "integer",
+        "description": "Número de campañas del plan."
+      },
+      "content_hash": {
+        "type": "string",
+        "description": "Hash de la versión aprobada."
+      },
+      "resumed_existing_plan": {
+        "type": "boolean",
+        "description": "true si se retomó un plan activo existente."
+      }
+    },
+    "required": [
+      "strategy_plan_id",
+      "campaign_count"
+    ],
+    "additionalProperties": false
+  }
+}

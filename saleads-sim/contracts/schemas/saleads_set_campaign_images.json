@@ -1,0 +1,204 @@
+{
+  "name": "saleads_set_campaign_images",
+  "title": "Asignar imágenes a una campaña",
+  "description": "Asigna imágenes a una campaña del plan. La imagen en la posición i llena el slot i; los slots no enviados conservan su imagen. Las imágenes rechazadas vuelven con accepted=false y reason por slot. Cada imagen: upload_id (de saleads_create_media_upload) o url https. Formatos jpeg/png/webp, ≤8 MB, ≥600 px, ratio 1:1, 4:5 o 9:16. SaleADS valida y las sube a Meta.",
+  "requiredScope": "saleads:campaigns",
+  "annotations": {
+    "title": "Asignar imágenes a una campaña",
+    "readOnlyHint": false,
+    "destructiveHint": true,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": true,
+  "downstream": [
+    "POST /api/integration/meta/upload/thumbnails"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "strategy_plan_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "item_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Campaña del plan (item_id de saleads_get_plan)."
+      },
+      "images": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "upload_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "url": {
+              "type": "string",
+              "description": "URL https pública.",
+              "format": "uri"
+            }
+          },
+          "required": [],
+          "additionalProperties": false,
+          "description": "Exactamente uno de upload_id o url."
+        },
+        "minItems": 1,
+        "maxItems": 10
+      },
+      "client_request_id": {
+        "type": "string",
+        "description": "Opcional. Identificador estable de este intento para que un reintento no duplique trabajo.",
+        "minLength": 8,
+        "maxLength": 100
+      }
+    },
+    "required": [
+      "strategy_plan_id",
+      "item_id",
+      "images"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "slots": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "slot_index": {
+                  "type": "integer",
+                  "description": "Posición."
+                },
+                "ratio": {
+                  "type": "string",
+                  "description": "Ratio detectado."
+                },
+                "accepted": {
+                  "type": "boolean",
+                  "description": "Aceptada."
+                },
+                "reason": {
+                  "type": "string",
+                  "description": "Motivo si fue rechazada."
+                }
+              },
+              "required": [
+                "slot_index",
+                "accepted"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required_count": {
+            "type": "integer",
+            "description": "Cantidad requerida por la campaña."
+          },
+          "complete": {
+            "type": "boolean",
+            "description": "La campaña ya tiene todas sus imágenes."
+          },
+          "action_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri",
+            "description": "Handoff upload-images si conviene subirlas desde la web."
+          }
+        },
+        "required": [
+          "item_id",
+          "slots",
+          "complete"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "operation_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID de la operación. Consultar con saleads_get_operation."
+          },
+          "status": {
+            "type": "string",
+            "description": "Estado.",
+            "enum": [
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "poll_after_s": {
+            "type": "integer",
+            "description": "Segundos sugeridos antes de volver a consultar.",
+            "minimum": 1
+          },
+          "result": {
+            "type": "object",
+            "description": "Resultado final cuando status = succeeded (forma de la tool original)."
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Código MCP-E-*."
+              },
+              "message": {
+                "type": "string",
+                "description": "Mensaje."
+              },
+              "next_action": {
+                "type": "string",
+                "description": "Qué hacer."
+              },
+              "retryable": {
+                "type": "boolean",
+                "description": "Reintentable."
+              },
+              "details": {
+                "type": "object"
+              },
+              "action_url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "operation_id",
+          "status"
+        ],
+        "additionalProperties": false,
+        "description": "Envoltorio de operación asíncrona. Si el cliente soporta la extensión Tasks se usa la task nativa."
+      }
+    ]
+  },
+  "notes": "Nunca usa POST /api/integration/meta/upload/generate-token."
+}

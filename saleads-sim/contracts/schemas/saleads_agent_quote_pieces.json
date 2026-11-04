@@ -1,0 +1,55 @@
+{
+  "name": "saleads_agent_quote_pieces",
+  "title": "Cotizar piezas",
+  "description": "Cotiza en créditos una imagen maestra o sus variaciones antes de generarlas (no gasta). Devuelve quote_token, el total, el precio por pieza y cuánto queda del tope mensual que fijó el dueño. Suma cap_status (ok | not_set | short | unknown), min_cap_needed (el mínimo de tope para ESTA cotización: credits si falta, o used_this_period + credits si no alcanza; no es una sugerencia de gasto) y limits_url (enlace absoluto a Mi asistente → Límites, con &cap=min_cap_needed cuando el tope falta o no alcanza).",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Cotizar piezas",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "POST /api/gen-image/agent-briefs/quotes (AAB-017)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "client_request_id": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_.:-]{8,128}$",
+        "description": "Id del pedido que genera el CLI; repetirlo devuelve el mismo resultado. Es también el client_request_id del pedido de imagen."
+      },
+      "piece": {
+        "type": "object",
+        "description": "Pedido agent-image-brief.v1 sin business_id, client_request_id ni datos de cotización: maestra (offering, brief de 8 campos, bet_context, aspect_ratio, bet_id, skill_ref, agent_run_id) o variaciones (role:'variation', master_ref, variations[{changes, keeps, aspect_ratio}], bet_id, skill_ref, agent_run_id). gen-image lo valida estricto (D18)."
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "es",
+          "en"
+        ],
+        "description": "Idioma del dueño para limits_url."
+      }
+    },
+    "required": [
+      "business_id",
+      "client_request_id",
+      "piece"
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object"
+  }
+}

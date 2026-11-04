@@ -1,0 +1,301 @@
+{
+  "name": "saleads_list_special_dates",
+  "title": "Fechas especiales disponibles",
+  "description": "Lista las fechas especiales (Black Friday y cualquier otra del catálogo de SaleADS) disponibles para el negocio: fases, anclas de fecha que debes confirmar con el usuario, presupuesto mínimo y sugerido, y si el negocio es elegible. Úsala antes de cotizar un plan especial. No inventes fechas ni descuentos.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Fechas especiales disponibles",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/strategy/seasonal-catalog",
+    "GET /api/strategy/seasonal-context?version_id&accepted_language (una por versión publicada)",
+    "GET /api/strategy/seasonal-catalog/:slug/versions/:versionId (solo si el contexto no trae nombre o temporal_mode de una fase)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio sobre el que se actúa. El MCP verifica que pertenezca al usuario autenticado."
+      },
+      "accepted_language": {
+        "type": "string",
+        "description": "Opcional. Idioma para el contexto (por defecto es).",
+        "enum": [
+          "es",
+          "en"
+        ]
+      }
+    },
+    "required": [
+      "business_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "dates": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "catalog_slug": {
+              "type": "string",
+              "description": "Slug del catálogo (p. ej. black-friday-servicios)."
+            },
+            "catalog_version_id": {
+              "type": "string",
+              "format": "uuid",
+              "description": "Versión publicada; úsala en saleads_quote_special_plan."
+            },
+            "catalog_family": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Familia de la fecha (p. ej. black_friday)."
+            },
+            "name": {
+              "type": "object",
+              "properties": {
+                "es": {
+                  "type": "string",
+                  "description": "Texto en español."
+                },
+                "en": {
+                  "type": "string",
+                  "description": "Texto en inglés."
+                }
+              },
+              "required": [
+                "es"
+              ],
+              "additionalProperties": false,
+              "description": "Texto localizado del catálogo."
+            },
+            "offering_type": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Tipo de oferta para el que está pensado (infoproduct, physical_product, service...)."
+            },
+            "eligible": {
+              "type": "boolean",
+              "description": "true si el negocio puede crear un plan con esta fecha."
+            },
+            "ineligible_reason": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Motivo si no es elegible.",
+              "enum": [
+                "catalog_entry_disabled",
+                "meta_connection_unavailable",
+                "account_currency_unavailable",
+                null
+              ]
+            },
+            "communication_mode": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Modo de comunicación que exige SaleADS hoy para esta fecha.",
+              "enum": [
+                "standard",
+                "canonical",
+                null
+              ]
+            },
+            "phases": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "phase_key": {
+                    "type": "string",
+                    "description": "Clave de fase del catálogo seasonal (en Black Friday: captacion, expectativa, venta, cierre). Sale del catálogo; no es una lista fija.",
+                    "pattern": "^[a-z0-9_]{1,64}$"
+                  },
+                  "source_phase_id": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "uuid",
+                    "description": "ID de la fase en el catálogo."
+                  },
+                  "name": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "es": {
+                        "type": "string",
+                        "description": "Texto en español."
+                      },
+                      "en": {
+                        "type": "string",
+                        "description": "Texto en inglés."
+                      }
+                    },
+                    "required": [
+                      "es"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Texto localizado del catálogo."
+                  },
+                  "temporal_mode": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "autopilot (SaleADS arma piezas y textos por día) o manual (Captación y Venta en Black Friday); null si el catálogo no lo declara.",
+                    "enum": [
+                      "autopilot",
+                      "manual",
+                      null
+                    ]
+                  },
+                  "copy_editable_by_agent": {
+                    "type": "boolean",
+                    "description": "true si puedes escribir los textos de esta fase (solo autopilot)."
+                  }
+                },
+                "required": [
+                  "phase_key",
+                  "temporal_mode",
+                  "copy_editable_by_agent"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "event_anchors": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "required": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  },
+                  "description": "Anclas de fecha que el usuario debe confirmar (p. ej. event_start)."
+                },
+                "defaults": {
+                  "type": "array",
+                  "items": {
+                    "type": "object",
+                    "properties": {
+                      "anchor_key": {
+                        "type": "string",
+                        "description": "Ancla calculada."
+                      },
+                      "source_anchor_key": {
+                        "type": "string",
+                        "description": "Ancla de origen."
+                      },
+                      "offset_days": {
+                        "type": "integer",
+                        "description": "Días de diferencia."
+                      },
+                      "offset_minutes": {
+                        "type": "integer",
+                        "description": "Minutos de diferencia."
+                      }
+                    },
+                    "required": [
+                      "anchor_key",
+                      "source_anchor_key",
+                      "offset_days"
+                    ],
+                    "additionalProperties": false
+                  },
+                  "description": "Anclas que SaleADS completa si no las envías (p. ej. sale_close = event_start + 8 días)."
+                }
+              },
+              "required": [
+                "required",
+                "defaults"
+              ],
+              "additionalProperties": false
+            },
+            "budget": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "currency": {
+                  "type": "string",
+                  "description": "Moneda de la cuenta publicitaria."
+                },
+                "minimum": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "description": "Mínimo, en unidades mayores."
+                },
+                "suggested": {
+                  "type": [
+                    "number",
+                    "null"
+                  ],
+                  "description": "Sugerido, en unidades mayores (no es el confirmado)."
+                },
+                "period": {
+                  "type": "string",
+                  "description": "Base del monto (launch = inversión del lanzamiento completo)."
+                }
+              },
+              "required": [
+                "currency",
+                "minimum",
+                "suggested",
+                "period"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required": [
+            "catalog_slug",
+            "catalog_version_id",
+            "name",
+            "eligible",
+            "ineligible_reason",
+            "phases"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "next_step": {
+        "type": "string",
+        "description": "Siguiente acción sugerida, en lenguaje simple."
+      }
+    },
+    "required": [
+      "business_id",
+      "dates"
+    ],
+    "additionalProperties": false
+  },
+  "notes": "Todas las fechas del catálogo visible para el negocio (decisión 4 del owner): sin filtro por slug. Sin admisión (flag PostHog ff-strategic-plan-special-date) la lista viene vacía y next_step lo explica."
+}

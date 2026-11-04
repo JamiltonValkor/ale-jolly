@@ -1,0 +1,214 @@
+{
+  "name": "saleads_agent_prepare_landing_destination",
+  "title": "Prepare a published landing destination",
+  "description": "Bind the owner-published Hermes landing version to its canonical agent bet without creating advertising objects or spending. URL, digest and publication evidence are resolved by the server. Reuse the same client_request_id; read the destination to reconcile an uncertain acknowledgement.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Prepare a published landing destination",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": true,
+  "downstream": [
+    "GET /api/strategy/internal/agent-authored/bets",
+    "GET /api/landing/landings/:id",
+    "GET /api/landing/agent/v1/landings/:id/versions/:n",
+    "GET /api/strategy/internal/agent_authored/bets/:betId/landing_destination",
+    "POST /api/strategy/internal/agent_authored/bets/:betId/landing_destination"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "bet_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "es",
+          "en"
+        ]
+      },
+      "landing_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "published_n": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 9007199254740991
+      },
+      "expected_revision": {
+        "type": "integer",
+        "minimum": 0,
+        "maximum": 9007199254740991
+      },
+      "client_request_id": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_.:-]{8,128}$"
+      }
+    },
+    "required": [
+      "business_id",
+      "bet_id",
+      "landing_id",
+      "published_n",
+      "expected_revision",
+      "client_request_id"
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "oneOf": [
+      {
+        "type": "object",
+        "additionalProperties": false,
+        "properties": {
+          "schema_version": {
+            "const": "agent_landing_destination_receipt_v1"
+          },
+          "binding_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "business_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "bet_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "campaign_intent_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "communication_strategy_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "communication_strategy_version_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "revision": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 9007199254740991
+          },
+          "client_request_id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9_.:-]{8,128}$"
+          },
+          "publication": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "landing_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "business_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "origin": {
+                "const": "hermes"
+              },
+              "published_n": {
+                "type": "integer",
+                "minimum": 1,
+                "maximum": 9007199254740991
+              },
+              "url": {
+                "type": "string",
+                "format": "uri",
+                "pattern": "^https://",
+                "maxLength": 2048
+              },
+              "artifact_digest": {
+                "type": "string",
+                "pattern": "^[a-f0-9]{64}$"
+              },
+              "bet_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "strategy_version_id": {
+                "type": "string",
+                "format": "uuid"
+              },
+              "observed_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            },
+            "required": [
+              "landing_id",
+              "business_id",
+              "origin",
+              "published_n",
+              "url",
+              "artifact_digest",
+              "bet_id",
+              "strategy_version_id",
+              "observed_at"
+            ]
+          },
+          "prepared_at": {
+            "type": "string",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "schema_version",
+          "binding_id",
+          "business_id",
+          "bet_id",
+          "campaign_intent_id",
+          "communication_strategy_id",
+          "communication_strategy_version_id",
+          "revision",
+          "client_request_id",
+          "publication",
+          "prepared_at"
+        ]
+      },
+      {
+        "type": "object",
+        "properties": {
+          "operation_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "status": {
+            "type": "string",
+            "enum": [
+              "queued",
+              "running"
+            ]
+          },
+          "poll_after_s": {
+            "type": "number"
+          }
+        },
+        "required": [
+          "operation_id",
+          "status",
+          "poll_after_s"
+        ]
+      }
+    ]
+  },
+  "notes": "MAL-026. REST-only agent command, independently gated by MCP_AGENT_LANDING_DESTINATION_ENABLED. Never publishes, activates, deletes, creates Meta objects, changes budgets, or accepts caller-provided intent, URL, digest, actor or approval."
+}

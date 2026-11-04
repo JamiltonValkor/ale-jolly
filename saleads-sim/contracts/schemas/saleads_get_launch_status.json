@@ -1,0 +1,112 @@
+{
+  "name": "saleads_get_launch_status",
+  "title": "Estado del lanzamiento",
+  "description": "Muestra el avance del lanzamiento del plan después de que el usuario pulsó 'Activar': estado por campaña e IDs de Meta.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Estado del lanzamiento",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/strategy/plan/:planId (estado por ítem)",
+    "GET /api/campaigns/draft/:draftId (IDs y estado real)",
+    "GET /api/strategy/plan/:planId/launch/status solo como complemento hasta corregir H8 (MCP-021)",
+    "(interno MCP) handoff fix-launch-failure (campañas fallidas)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "strategy_plan_id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "strategy_plan_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "strategy_plan_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "phase": {
+        "type": "string",
+        "description": "Fase del lanzamiento.",
+        "enum": [
+          "not_started",
+          "preparing",
+          "launching",
+          "activating",
+          "completed",
+          "partial",
+          "failed"
+        ]
+      },
+      "campaigns": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "item_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "status": {
+              "type": "string",
+              "description": "Estado."
+            },
+            "campaign_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "ID de campaña en SaleADS (usar en saleads_pause_campaign y saleads_get_results)."
+            },
+            "meta_campaign_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "ID en Meta, solo informativo."
+            },
+            "error": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "action_url": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uri",
+              "description": "Si la campaña falló al lanzar: handoff fix-launch-failure al plan en SaleADS para revisarla y reintentar."
+            }
+          },
+          "required": [
+            "item_id",
+            "status"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "strategy_plan_id",
+      "phase",
+      "campaigns"
+    ],
+    "additionalProperties": false
+  }
+}

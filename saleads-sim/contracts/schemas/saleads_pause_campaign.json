@@ -1,0 +1,82 @@
+{
+  "name": "saleads_pause_campaign",
+  "title": "Pausar campaña",
+  "description": "Pide al dueño que apruebe pausar una campaña activa (detiene el gasto). No pausa desde el chat: crea una aprobación y devuelve el enlace; el dueño aprueba en SaleADS con su sesión y un código de un solo uso, y SaleADS pausa. Hace falta el campaign_id de SaleADS y un motivo.",
+  "requiredScope": "saleads:launch",
+  "annotations": {
+    "title": "Pausar campaña",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/campaigns/:campaignId (propiedad)",
+    "POST /internal/assistants/approvals (sa-assistant-service, política exacta ASSISTANT_INTERNAL_ROUTE_POLICY, x-internal-api-token + x-user-id; aprobación pause_campaign)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "campaign_id": {
+        "type": "string",
+        "description": "ID de campaña en SaleADS (campaign_id de saleads_get_launch_status o saleads_get_results), no el ID de Meta."
+      },
+      "reason": {
+        "type": "string",
+        "description": "Motivo de la pausa (se registra en SaleADS).",
+        "minLength": 3,
+        "maxLength": 300
+      }
+    },
+    "required": [
+      "campaign_id",
+      "reason"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "campaign_id": {
+        "type": "string"
+      },
+      "status": {
+        "type": "string",
+        "const": "approval_required"
+      },
+      "approval_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "approval_status": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "executing",
+          "executed",
+          "failed",
+          "rejected",
+          "expired",
+          "stale"
+        ]
+      },
+      "action_url": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "required": [
+      "campaign_id",
+      "status",
+      "approval_id",
+      "approval_status",
+      "action_url"
+    ],
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,539 @@
+{
+  "name": "saleads_get_growth_cycle",
+  "title": "Seguimiento del Growth Cycle",
+  "description": "Seguimiento del plan lanzado (Growth Cycle de 30 días: activar, aprender, optimizar, remarketing, repetir): ciclo y etapa actuales, acción pendiente, remarketing, métricas del ciclo, ventas registradas, actividad reciente y, si existe, el reporte del ciclo. Si el reporte se está generando devuelve una operación (consulta saleads_get_operation). Describe los datos sin conclusiones causales.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Seguimiento del Growth Cycle",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": true,
+  "downstream": [
+    "GET /api/strategy/plan/:planId (propiedad)",
+    "GET /api/strategy/plan/:planId/growth-cycle",
+    "GET /api/strategy/plan/:planId/growth-cycle/activity (solo con include_activity)",
+    "GET /api/strategy/plan/:planId/growth-cycles (solo con include_history)",
+    "GET /api/strategy/plan/:planId/growth-cycles/:cycleId/report (200 listo, 202 generando → operación, 404 no disponible, 503 fallido)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "strategy_plan_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "include_activity": {
+        "type": "boolean",
+        "default": false,
+        "description": "Actividad completa (hasta 20 eventos) en vez del resumen."
+      },
+      "include_history": {
+        "type": "boolean",
+        "default": false,
+        "description": "Incluir ciclos anteriores terminados."
+      },
+      "cycle_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Ciclo del que leer el reporte (por defecto, el del resumen)."
+      }
+    },
+    "required": [
+      "strategy_plan_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "strategy_plan_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "business_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "as_of": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "cycle": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "cycle_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "number": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "status": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "day": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "total_days": {
+                "type": [
+                  "integer",
+                  "null"
+                ]
+              },
+              "progress_percent": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "current_stage": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "activate, learn, optimize, remarketing o repeat."
+              },
+              "started_at": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "estimated_end_at": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "next_evaluation_at": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": false,
+            "description": "Ciclo actual (30 días). null si el plan aún no se lanzó."
+          },
+          "state": {
+            "type": "object",
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "severity": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "required": [
+              "key"
+            ],
+            "additionalProperties": false,
+            "description": "Estado de la experiencia (catálogo de SaleADS)."
+          },
+          "stages": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "key": {
+                  "type": "string"
+                },
+                "status": {
+                  "type": "string"
+                },
+                "day_start": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "day_end": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "progress_percent": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "blocked_by": {
+                  "type": "array",
+                  "items": {
+                    "type": "string"
+                  }
+                }
+              },
+              "required": [
+                "key",
+                "status"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "required_action": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "key": {
+                "type": "string"
+              },
+              "status": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "blocks_cycle": {
+                "type": "boolean"
+              }
+            },
+            "additionalProperties": false,
+            "description": "Acción pendiente que SaleADS pide al usuario (se completa en la web)."
+          },
+          "remarketing": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "eligible": {
+                "type": "boolean"
+              },
+              "blocked_by": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "next_evaluation_at": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              }
+            },
+            "additionalProperties": false
+          },
+          "metrics": {
+            "type": "object",
+            "description": "Métricas descriptivas del ciclo (cycle_to_date, latest_day). Sin causalidad."
+          },
+          "sales": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "has_first_sale": {
+                "type": "boolean"
+              },
+              "first_sale": {
+                "type": [
+                  "object",
+                  "null"
+                ],
+                "properties": {
+                  "amount": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "currency": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  },
+                  "occurred_at": {
+                    "type": [
+                      "string",
+                      "null"
+                    ]
+                  }
+                },
+                "additionalProperties": false
+              }
+            },
+            "additionalProperties": false,
+            "description": "Ventas registradas manualmente por el usuario."
+          },
+          "account_health": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "status": {
+                "type": "string"
+              },
+              "issues": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "additionalProperties": false
+          },
+          "activity": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "event": {
+                  "type": "string"
+                },
+                "occurred_at": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "stage": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "event"
+              ],
+              "additionalProperties": false
+            },
+            "description": "Actividad reciente, de la más nueva a la más antigua."
+          },
+          "history": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "cycle_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "number": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ]
+                },
+                "status": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "started_at": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "ended_at": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "metrics": {
+                  "type": "object"
+                },
+                "report_status": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "cycle_id"
+              ],
+              "additionalProperties": false
+            },
+            "description": "Ciclos terminados (solo con include_history)."
+          },
+          "report": {
+            "type": "object",
+            "properties": {
+              "status": {
+                "type": "string",
+                "enum": [
+                  "not_available",
+                  "generating",
+                  "ready",
+                  "failed"
+                ]
+              },
+              "cycle_id": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "generated_at": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "summary_key": {
+                "type": [
+                  "string",
+                  "null"
+                ]
+              },
+              "metrics": {
+                "type": "object"
+              },
+              "learning_keys": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              },
+              "next_cycle_changes": {
+                "type": "array",
+                "items": {
+                  "type": "string"
+                }
+              }
+            },
+            "required": [
+              "status"
+            ],
+            "additionalProperties": false,
+            "description": "Reporte del ciclo. Si se está generando, la tool devuelve una operación."
+          },
+          "freshness": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "next_step": {
+            "type": "string",
+            "description": "Siguiente paso sugerido para el modelo."
+          }
+        },
+        "required": [
+          "strategy_plan_id",
+          "state",
+          "stages",
+          "report"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "operation_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID de la operación. Consultar con saleads_get_operation."
+          },
+          "status": {
+            "type": "string",
+            "description": "Estado.",
+            "enum": [
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "poll_after_s": {
+            "type": "integer",
+            "description": "Segundos sugeridos antes de volver a consultar.",
+            "minimum": 1
+          },
+          "result": {
+            "type": "object",
+            "description": "Resultado final cuando status = succeeded (forma de la tool original)."
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Código MCP-E-*."
+              },
+              "message": {
+                "type": "string",
+                "description": "Mensaje."
+              },
+              "next_action": {
+                "type": "string",
+                "description": "Qué hacer."
+              },
+              "retryable": {
+                "type": "boolean",
+                "description": "Reintentable."
+              },
+              "details": {
+                "type": "object"
+              },
+              "action_url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "operation_id",
+          "status"
+        ],
+        "additionalProperties": false,
+        "description": "Envoltorio de operación asíncrona. Si el cliente soporta la extensión Tasks se usa la task nativa."
+      }
+    ]
+  }
+}

@@ -1,0 +1,175 @@
+{
+  "name": "saleads_create_offering",
+  "title": "Crear oferta",
+  "description": "Crea un producto o servicio del negocio. Usa solo datos que el usuario confirmó; no inventes precios ni características.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Crear oferta",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "POST /api/business-intelligence/products",
+    "POST /api/business-intelligence/services/businesses/:id"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio sobre el que se actúa. El MCP verifica que pertenezca al usuario autenticado."
+      },
+      "type": {
+        "type": "string",
+        "description": "Tipo.",
+        "enum": [
+          "product",
+          "service"
+        ]
+      },
+      "name": {
+        "type": "string",
+        "description": "Nombre.",
+        "minLength": 2,
+        "maxLength": 150
+      },
+      "description": {
+        "type": "string",
+        "description": "Descripción.",
+        "maxLength": 300
+      },
+      "price": {
+        "type": "number",
+        "description": "Precio (obligatorio y > 0 para productos).",
+        "exclusiveMinimum": 0
+      },
+      "currency": {
+        "type": "string",
+        "description": "Moneda ISO-4217.",
+        "pattern": "^[A-Z]{3}$"
+      },
+      "url": {
+        "type": "string",
+        "description": "Página del producto/servicio.",
+        "format": "uri"
+      },
+      "client_request_id": {
+        "type": "string",
+        "description": "Opcional. Identificador estable de este intento para que un reintento no duplique trabajo.",
+        "minLength": 8,
+        "maxLength": 100
+      }
+    },
+    "required": [
+      "business_id",
+      "type",
+      "name"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "product|service"
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nombre."
+          }
+        },
+        "required": [
+          "type",
+          "id",
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "operation_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID de la operación. Consultar con saleads_get_operation."
+          },
+          "status": {
+            "type": "string",
+            "description": "Estado.",
+            "enum": [
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "poll_after_s": {
+            "type": "integer",
+            "description": "Segundos sugeridos antes de volver a consultar.",
+            "minimum": 1
+          },
+          "result": {
+            "type": "object",
+            "description": "Resultado final cuando status = succeeded (forma de la tool original)."
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Código MCP-E-*."
+              },
+              "message": {
+                "type": "string",
+                "description": "Mensaje."
+              },
+              "next_action": {
+                "type": "string",
+                "description": "Qué hacer."
+              },
+              "retryable": {
+                "type": "boolean",
+                "description": "Reintentable."
+              },
+              "details": {
+                "type": "object"
+              },
+              "action_url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "operation_id",
+          "status"
+        ],
+        "additionalProperties": false,
+        "description": "Envoltorio de operación asíncrona. Si el cliente soporta la extensión Tasks se usa la task nativa."
+      }
+    ]
+  }
+}

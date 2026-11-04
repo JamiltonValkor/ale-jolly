@@ -1,0 +1,504 @@
+{
+  "name": "saleads_stock_get_bet_signal",
+  "title": "Señal de stock para apostar",
+  "description": "Stock, costo, ritmo, margen y cobertura de una variante, para decidir si se puede pautar, y si la apuesta en curso está pegando (pegando, ritmo_actual_semana, motivo_pegando, dias_cobertura_al_ritmo_actual). Los datos simulados vienen marcados.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Señal de stock para apostar",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /internal/stock/businesses/:businessId/bet-signal/:variantId"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "variante_id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "business_id",
+      "variante_id"
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "variante_id": {
+        "type": "string",
+        "format": "uuid",
+        "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+      },
+      "stock": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "saldo": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "esperado": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "ultimo_conteo_en": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "format": "date-time",
+                    "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "saldo",
+              "esperado",
+              "ultimo_conteo_en"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "costo": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "unitario": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^\\d{1,13}(\\.\\d{1,2})?$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "moneda": {
+                "type": "string",
+                "minLength": 3,
+                "maxLength": 3
+              },
+              "fuente": {
+                "type": "string"
+              }
+            },
+            "required": [
+              "unitario",
+              "moneda",
+              "fuente"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "ritmo": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "base_semanal": {
+                "type": "number"
+              },
+              "actual_semanal": {
+                "type": "number"
+              },
+              "estado": {
+                "type": "string",
+                "enum": [
+                  "sin_datos",
+                  "frenazo",
+                  "lento",
+                  "sin_pauta",
+                  "sano"
+                ]
+              }
+            },
+            "required": [
+              "base_semanal",
+              "actual_semanal",
+              "estado"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "margen": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "dinero": {
+                "type": "string"
+              },
+              "pct": {
+                "type": "number"
+              }
+            },
+            "required": [
+              "dinero",
+              "pct"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "cobertura_dias": {
+        "type": [
+          "number",
+          "null"
+        ]
+      },
+      "motivo_cobertura": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "pauta": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "activa": {
+                "anyOf": [
+                  {
+                    "type": "boolean"
+                  },
+                  {
+                    "type": "string",
+                    "const": "desconocido"
+                  }
+                ]
+              },
+              "simulado": {
+                "type": "boolean"
+              },
+              "presupuesto_diario": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^\\d{1,13}(\\.\\d{1,2})?$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "senales": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "gasto": {
+                        "type": "number"
+                      },
+                      "mensajes": {
+                        "type": "number"
+                      }
+                    },
+                    "required": [
+                      "gasto",
+                      "mensajes"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "activa",
+              "simulado",
+              "presupuesto_diario",
+              "senales"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "alcance_pauta": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "apuesta_id": {
+                "type": "string",
+                "format": "uuid",
+                "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+              },
+              "estado": {
+                "type": "string",
+                "enum": [
+                  "alcanza",
+                  "no_alcanza",
+                  "sin_dato"
+                ]
+              },
+              "unidades_necesarias": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "unidades_disponibles": {
+                "type": "integer",
+                "minimum": -9007199254740991,
+                "maximum": 9007199254740991
+              },
+              "dias_alcanza": {
+                "anyOf": [
+                  {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "unidades_semana_alcanzables": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "presupuesto_diario_proporcional": {
+                "anyOf": [
+                  {
+                    "type": "string",
+                    "pattern": "^\\d{1,13}(\\.\\d{1,2})?$"
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              }
+            },
+            "required": [
+              "apuesta_id",
+              "estado",
+              "unidades_necesarias",
+              "unidades_disponibles",
+              "dias_alcanza",
+              "unidades_semana_alcanzables",
+              "presupuesto_diario_proporcional"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "seguimiento": {
+        "anyOf": [
+          {
+            "type": "object",
+            "properties": {
+              "desde": {
+                "type": "string",
+                "format": "date-time",
+                "pattern": "^(?:(?:\\d\\d[2468][048]|\\d\\d[13579][26]|\\d\\d0[48]|[02468][048]00|[13579][26]00)-02-29|\\d{4}-(?:(?:0[13578]|1[02])-(?:0[1-9]|[12]\\d|3[01])|(?:0[469]|11)-(?:0[1-9]|[12]\\d|30)|(?:02)-(?:0[1-9]|1\\d|2[0-8])))T(?:(?:[01]\\d|2[0-3]):[0-5]\\d:[0-5]\\d(?:\\.\\d+)?(?:Z|([+-](?:[01]\\d|2[0-3]):[0-5]\\d)))$"
+              },
+              "pauta": {
+                "anyOf": [
+                  {
+                    "type": "object",
+                    "properties": {
+                      "gasto": {
+                        "type": "number"
+                      },
+                      "mensajes": {
+                        "type": "number"
+                      },
+                      "simulado": {
+                        "type": "boolean"
+                      }
+                    },
+                    "required": [
+                      "gasto",
+                      "mensajes",
+                      "simulado"
+                    ],
+                    "additionalProperties": false
+                  },
+                  {
+                    "type": "null"
+                  }
+                ]
+              },
+              "ventas_reportadas": {
+                "type": "object",
+                "properties": {
+                  "unidades": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "simulado": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "unidades",
+                  "simulado"
+                ],
+                "additionalProperties": false
+              },
+              "salida_inventario": {
+                "type": "object",
+                "properties": {
+                  "unidades": {
+                    "type": "integer",
+                    "minimum": -9007199254740991,
+                    "maximum": 9007199254740991
+                  },
+                  "simulado": {
+                    "type": "boolean"
+                  }
+                },
+                "required": [
+                  "unidades",
+                  "simulado"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "required": [
+              "desde",
+              "pauta",
+              "ventas_reportadas",
+              "salida_inventario"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "se_puede_pautar": {
+        "type": "boolean"
+      },
+      "motivo_no": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "datos_simulados": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      },
+      "pegando": {
+        "type": "boolean"
+      },
+      "ritmo_actual_semana": {
+        "type": "number",
+        "minimum": 0
+      },
+      "motivo_pegando": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "dias_cobertura_al_ritmo_actual": {
+        "type": [
+          "number",
+          "null"
+        ]
+      },
+      "variantes": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "variante_id": {
+              "type": "string",
+              "format": "uuid",
+              "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+            },
+            "nombre": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "variante_id",
+            "nombre"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "variante_id",
+      "stock",
+      "costo",
+      "ritmo",
+      "margen",
+      "cobertura_dias",
+      "motivo_cobertura",
+      "pauta",
+      "alcance_pauta",
+      "seguimiento",
+      "se_puede_pautar",
+      "motivo_no",
+      "datos_simulados",
+      "pegando",
+      "ritmo_actual_semana",
+      "motivo_pegando",
+      "dias_cobertura_al_ritmo_actual"
+    ],
+    "additionalProperties": false
+  }
+}

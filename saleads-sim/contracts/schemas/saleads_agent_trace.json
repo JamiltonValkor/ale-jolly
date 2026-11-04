@@ -1,0 +1,74 @@
+{
+  "name": "saleads_agent_trace",
+  "title": "Ver la traza",
+  "description": "Lee la traza de lo que hizo el agente: por negocio (con filtros y cursor), por acción (con pasos y gasto) o por objeto (id interno o de Meta).",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Ver la traza",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "GET /campaigns/internal/agent-trace/v1/businesses/:businessId/agent-actions (AAB-010)",
+    "GET /campaigns/internal/agent-trace/v1/agent-actions/:actionId (AAB-010)",
+    "GET /campaigns/internal/agent-trace/v1/objects/:objectType/:objectId/agent-actions (AAB-010)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "action_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "object_type": {
+        "enum": [
+          "campaign",
+          "ad_set",
+          "ad"
+        ]
+      },
+      "object_id": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9-]{1,64}$"
+      },
+      "kind": {
+        "type": "string",
+        "maxLength": 40
+      },
+      "since": {
+        "type": "string",
+        "maxLength": 40
+      },
+      "until": {
+        "type": "string",
+        "maxLength": 40
+      },
+      "cursor": {
+        "type": "string",
+        "maxLength": 200
+      },
+      "limit": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 100
+      }
+    },
+    "required": [
+      "business_id"
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object"
+  }
+}

@@ -1,0 +1,109 @@
+{
+  "name": "saleads_agent_register_bets",
+  "title": "Registrar apuestas",
+  "description": "Registra una vuelta de apuestas tal cual las decidió el agente (sin LLM, sin plan). Devuelve la versión, los ids de cada apuesta (bet_id = communication_hypothesis_id) con su brain_bet_ref, variantes e intents, y las advertencias del invariante 8 (solo avisan). Una vuelta nueva va con source_version_id de la anterior.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Registrar apuestas",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "POST /api/strategy/internal/agent-authored/versions (AAB-014, x-internal-token + x-user-id + x-agent-client-app-id)",
+    "POST /campaigns/internal/agent-trace/v1/actions (AAB-010)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "client_request_id": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_.:-]{8,128}$",
+        "description": "Id del pedido que genera el CLI; repetirlo devuelve el mismo resultado."
+      },
+      "offering_scope": {
+        "type": "object",
+        "required": [
+          "type",
+          "ids"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "type": {
+            "enum": [
+              "business",
+              "product",
+              "service"
+            ]
+          },
+          "ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "maxItems": 20
+          }
+        }
+      },
+      "locale": {
+        "type": "string",
+        "pattern": "^[a-z]{2}(-[A-Z]{2})?$"
+      },
+      "source_version_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "declared_capacity": {
+        "type": "object",
+        "properties": {
+          "active_bets": {
+            "type": "integer",
+            "minimum": 1,
+            "maximum": 50
+          }
+        },
+        "additionalProperties": false
+      },
+      "bets": {
+        "type": "array",
+        "minItems": 1,
+        "maxItems": 20,
+        "items": {
+          "type": "object",
+          "description": "agent-bet.v1 (AAB-014): avatar, ángulo, promesa, prueba, formato, copies, evidencia e investigación. brain_bet_ref (opcional, ≤128): el bet_uuid del cerebro (brain_record_bet), para unir las dos ids. strategy lo valida estricto.",
+          "required": [
+            "bet_key",
+            "avatar",
+            "angle",
+            "promise",
+            "test",
+            "format",
+            "attribution_unit",
+            "copies",
+            "confidence"
+          ]
+        }
+      }
+    },
+    "required": [
+      "business_id",
+      "client_request_id",
+      "offering_scope",
+      "bets"
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object"
+  }
+}

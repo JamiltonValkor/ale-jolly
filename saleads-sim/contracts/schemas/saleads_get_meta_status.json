@@ -1,0 +1,300 @@
+{
+  "name": "saleads_get_meta_status",
+  "title": "Estado de Meta",
+  "description": "Indica si la cuenta de Meta del negocio está lista para publicar (página, cuenta publicitaria, pixel, Instagram, WhatsApp). Revisa el destino indicado; sin destination usa el del último plan del negocio y, si no hay plan, revisa web y mensajes por separado. Cada bloqueo viene en blocker_details con su causa, dónde se resuelve y su propio action_url: comparte el link del bloqueo concreto y explica el paso; no cambies el destino sin preguntar al usuario. Después vuelve a llamar esta tool.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Estado de Meta",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/integration/meta/connection",
+    "GET /api/integration/meta/configuration",
+    "POST /api/integration/meta/readiness/check-v3 (una vez por destino revisado)",
+    "GET /api/strategy/plan/business/:businessId (solo sin destination, para usar el destino del último plan)",
+    "(interno MCP) handoffs fix-meta-*, select-meta-assets, reconnect-meta, connect-meta"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio sobre el que se actúa. El MCP verifica que pertenezca al usuario autenticado."
+      },
+      "destination": {
+        "type": "string",
+        "description": "Destino de las campañas: 'messages' (WhatsApp/Messenger) o 'web' (sitio del negocio). Si se omite: destino del último plan del negocio; sin plan, se revisan los dos.",
+        "enum": [
+          "messages",
+          "web"
+        ]
+      }
+    },
+    "required": [
+      "business_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "connected": {
+        "type": "boolean",
+        "description": "Hay conexión OAuth activa."
+      },
+      "ready": {
+        "type": "boolean",
+        "description": "Lista para lanzar en destination_checked (si se revisaron los dos destinos, true solo si ambos están listos; ver destinations)."
+      },
+      "assets": {
+        "type": "object",
+        "properties": {
+          "business_manager": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "page": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "ad_account": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "pixel": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "instagram": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "whatsapp": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [],
+        "additionalProperties": false,
+        "description": "Nombres de los activos seleccionados (sin tokens)."
+      },
+      "asset_ids": {
+        "type": "object",
+        "properties": {
+          "page_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "pixel_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "instagram_user_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "whatsapp_phone_number_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [],
+        "additionalProperties": false,
+        "description": "Opcional: ids no secretos de la conexión (página, pixel confirmado, Instagram y el id del número de WhatsApp; nunca tokens), con la misma regla que usa SaleADS al publicar."
+      },
+      "blockers": {
+        "type": "array",
+        "description": "Identificadores estables de los bloqueos (compatibilidad). Usa blocker_details para explicar y resolver.",
+        "items": {
+          "type": "string",
+          "description": "Bloqueo (reason_code o check:<id>)."
+        }
+      },
+      "action_url": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uri",
+        "description": "Link del bloqueo principal (el primero de blocker_details), o null si está lista."
+      },
+      "destination_checked": {
+        "type": "string",
+        "enum": [
+          "messages",
+          "web",
+          "both"
+        ],
+        "description": "Destino revisado. 'both' cuando no se indicó destino ni hay plan: revisa destinations."
+      },
+      "destination_source": {
+        "type": "string",
+        "enum": [
+          "input",
+          "plan",
+          "none"
+        ],
+        "description": "De dónde salió el destino: argumento, último plan del negocio o ninguno (se revisaron los dos)."
+      },
+      "destinations": {
+        "type": "array",
+        "description": "Resultado por destino revisado.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "destination": {
+              "type": "string",
+              "enum": [
+                "messages",
+                "web"
+              ]
+            },
+            "ready": {
+              "type": "boolean",
+              "description": "Lista para lanzar en este destino."
+            },
+            "reason_codes": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "reason_code de los bloqueos de este destino."
+            }
+          },
+          "required": [
+            "destination",
+            "ready",
+            "reason_codes"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "blocker_details": {
+        "type": "array",
+        "description": "Bloqueos estructurados, en orden de resolución. Cada uno trae su propio action_url (handoff específico).",
+        "items": {
+          "type": "object",
+          "properties": {
+            "reason_code": {
+              "type": "string",
+              "description": "Código estable del bloqueo (p. ej. whatsapp_not_configured, missing_payment_source, pixel_missing, meta_token_invalid_or_revoked)."
+            },
+            "domain": {
+              "type": "string",
+              "enum": [
+                "whatsapp",
+                "permissions",
+                "billing",
+                "instagram",
+                "pixel",
+                "assets",
+                "connection"
+              ],
+              "description": "Área del bloqueo."
+            },
+            "title": {
+              "type": "string",
+              "description": "Qué falla, en una frase para el usuario."
+            },
+            "next_action": {
+              "type": "string",
+              "description": "Qué debe hacer el usuario y dónde (SaleADS o Meta)."
+            },
+            "action_url": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uri",
+              "description": "Handoff a la pantalla exacta de SaleADS para este bloqueo, o null si no hay link disponible."
+            },
+            "fix_in": {
+              "type": "string",
+              "enum": [
+                "saleads",
+                "meta"
+              ],
+              "description": "Dónde se resuelve: en SaleADS (selección de activos, reconexión) o en Meta (pago, permisos, cuenta restringida)."
+            },
+            "check_id": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "description": "Check de readiness de Meta que lo originó (solo diagnóstico)."
+            },
+            "destinations": {
+              "type": "array",
+              "items": {
+                "type": "string",
+                "enum": [
+                  "messages",
+                  "web"
+                ]
+              },
+              "description": "Destinos que bloquea."
+            },
+            "verified": {
+              "type": "boolean",
+              "description": "false cuando Meta no permitió verificarlo (estado desconocido, no un fallo comprobado)."
+            }
+          },
+          "required": [
+            "reason_code",
+            "domain",
+            "title",
+            "next_action",
+            "action_url"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "alternatives": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "enum": [
+            "messages",
+            "web"
+          ]
+        },
+        "description": "Destinos revisados que sí están listos cuando otro no lo está. Pregunta al usuario antes de cambiar de destino."
+      }
+    },
+    "required": [
+      "connected",
+      "ready",
+      "blockers",
+      "blocker_details",
+      "destination_checked"
+    ],
+    "additionalProperties": false
+  }
+}

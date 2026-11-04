@@ -1,0 +1,444 @@
+{
+  "name": "saleads_get_special_plan_copies",
+  "title": "Textos del plan especial",
+  "description": "Lee los textos de cada fase y día del plan especial y los requisitos que deben cumplir (claims aprobados, texto del día, límites). Para cambiarlos escribe tú los textos y envíalos con saleads_submit_special_plan_copies. La aprobación final la hace la persona con el link. Esta tool no edita nada.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Textos del plan especial",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/strategy/seasonal-plans/:planId",
+    "GET /api/strategy/seasonal-plans/:planId/creative-revisions/current",
+    "GET /api/strategy/seasonal-plans/:planId/creative-revisions/:revisionId/content-preparation?view=copies",
+    "GET /api/strategy/seasonal-plans/:planId/creative-revisions/:revisionId/copies/:renderVariantId (una por día)",
+    "GET /api/strategy/seasonal-plans/:planId/copy-authoring (solo con el flag de MBF-018)",
+    "(interno MCP) handoffs approve-special-copies / open-special-plan"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "special_plan_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "ID del plan especial (de saleads_list_special_plans o saleads_create_special_plan). No es un strategy_plan_id: no lo pases a saleads_get_plan, saleads_update_plan ni a otras tools del plan estratégico normal."
+      },
+      "phase_key": {
+        "type": "string",
+        "description": "Opcional. Solo esta fase.",
+        "pattern": "^[a-z0-9_]{1,64}$"
+      },
+      "window_key": {
+        "type": "string",
+        "description": "Opcional. Solo este día (clave del catálogo, p. ej. day-minus-3).",
+        "pattern": "^[a-z0-9_-]{1,64}$"
+      }
+    },
+    "required": [
+      "special_plan_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "special_plan_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "ID del plan especial (de saleads_list_special_plans o saleads_create_special_plan). No es un strategy_plan_id: no lo pases a saleads_get_plan, saleads_update_plan ni a otras tools del plan estratégico normal."
+      },
+      "creative_revision_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid",
+        "description": "Revisión creativa vigente; null si nadie preparó todavía."
+      },
+      "phases": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "phase_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "phase_key": {
+              "type": "string",
+              "description": "Clave de fase del catálogo seasonal (en Black Friday: captacion, expectativa, venta, cierre). Sale del catálogo; no es una lista fija.",
+              "pattern": "^[a-z0-9_]{1,64}$"
+            },
+            "temporal_mode": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "autopilot (SaleADS arma piezas y textos por día) o manual (Captación y Venta en Black Friday); null si el catálogo no lo declara.",
+              "enum": [
+                "autopilot",
+                "manual",
+                null
+              ]
+            },
+            "copy_authoring": {
+              "type": "string",
+              "description": "Quién escribe los textos de la fase.",
+              "enum": [
+                "saleads_ai",
+                "external_agent"
+              ]
+            },
+            "editable_by_agent": {
+              "type": "boolean",
+              "description": "true si puedes escribir los textos de esta fase."
+            },
+            "not_editable_reason": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Por qué no.",
+              "enum": [
+                "manual_phase",
+                "not_prepared",
+                null
+              ]
+            },
+            "action_url": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uri",
+              "description": "approve-special-copies cuando ningún día espera tus textos; si no, null."
+            },
+            "days": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "item_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Campaña (ítem padre) del día."
+                  },
+                  "window_key": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Clave del día en el catálogo (p. ej. day-minus-3)."
+                  },
+                  "window_label": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Etiqueta del día (p. ej. 'Faltan 3 días')."
+                  },
+                  "copy_set_id": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "format": "uuid",
+                    "description": "Conjunto de textos del día."
+                  },
+                  "render_variant_id": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "Pieza ancla del día: úsala en saleads_submit_special_plan_copies."
+                  },
+                  "status": {
+                    "type": "string",
+                    "description": "Estado de los textos del día.",
+                    "enum": [
+                      "awaiting_external_copy",
+                      "pending",
+                      "failed",
+                      "review_required",
+                      "needs_action"
+                    ]
+                  },
+                  "revision": {
+                    "type": "integer",
+                    "description": "Revisión vigente en SaleADS: pásala como expected_revision (0 si aún no hay textos).",
+                    "minimum": 0
+                  },
+                  "origin": {
+                    "type": [
+                      "string",
+                      "null"
+                    ],
+                    "description": "Quién produjo la revisión vigente.",
+                    "enum": [
+                      "ai",
+                      "approved_fallback",
+                      "user_edit",
+                      null
+                    ]
+                  },
+                  "provenance": {
+                    "type": [
+                      "object",
+                      "null"
+                    ],
+                    "properties": {
+                      "source": {
+                        "type": "string",
+                        "description": "Origen del texto.",
+                        "enum": [
+                          "agent"
+                        ]
+                      },
+                      "client_app_id": {
+                        "type": "string",
+                        "description": "ID de la app cliente OAuth que envió el texto (lo pone el MCP)."
+                      },
+                      "recorded_at": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Cuándo lo registró SaleADS (ISO 8601 UTC).",
+                        "format": "date-time"
+                      }
+                    },
+                    "required": [
+                      "source",
+                      "client_app_id"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Procedencia de la revisión vigente (MBF-015); null si no la escribió un agente."
+                  },
+                  "context_current": {
+                    "type": "boolean",
+                    "description": "Los textos se hicieron con el contexto aprobado vigente."
+                  },
+                  "can_edit": {
+                    "type": "boolean",
+                    "description": "true si saleads_submit_special_plan_copies puede escribir este día ahora."
+                  },
+                  "copies": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "copy_index": {
+                          "type": "integer",
+                          "description": "Posición del texto en el día (0..4).",
+                          "minimum": 0,
+                          "maximum": 4
+                        },
+                        "title": {
+                          "type": "string",
+                          "description": "Título."
+                        },
+                        "body": {
+                          "type": "string",
+                          "description": "Texto principal."
+                        },
+                        "description": {
+                          "type": "string",
+                          "description": "Descripción."
+                        },
+                        "status": {
+                          "type": "string",
+                          "description": "Estado del texto.",
+                          "enum": [
+                            "review_required",
+                            "needs_action"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "copy_index",
+                        "title",
+                        "body",
+                        "description"
+                      ],
+                      "additionalProperties": false
+                    },
+                    "description": "Textos vigentes (0..5)."
+                  },
+                  "issues": {
+                    "type": "array",
+                    "items": {
+                      "type": "object",
+                      "properties": {
+                        "copy_index": {
+                          "type": "integer",
+                          "description": "Texto.",
+                          "minimum": 0,
+                          "maximum": 4
+                        },
+                        "code": {
+                          "type": "string",
+                          "description": "Código de Draft."
+                        },
+                        "severity": {
+                          "type": "string",
+                          "description": "blocking o advisory (sin severidad en Draft = blocking).",
+                          "enum": [
+                            "blocking",
+                            "advisory"
+                          ]
+                        }
+                      },
+                      "required": [
+                        "copy_index",
+                        "code",
+                        "severity"
+                      ],
+                      "additionalProperties": false
+                    }
+                  },
+                  "requirements": {
+                    "type": "object",
+                    "properties": {
+                      "exact_window_text": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "Textos de ventana que deben aparecer tal cual (p. ej. 'Faltan 3 días')."
+                      },
+                      "focus_text": {
+                        "type": "string",
+                        "description": "Foco estratégico aprobado del día."
+                      },
+                      "approved_claims": {
+                        "type": "array",
+                        "items": {
+                          "type": "object",
+                          "properties": {
+                            "claim_id": {
+                              "type": "string",
+                              "description": "ID del claim."
+                            },
+                            "text": {
+                              "type": "string",
+                              "description": "Texto del claim aprobado."
+                            }
+                          },
+                          "required": [
+                            "claim_id",
+                            "text"
+                          ],
+                          "additionalProperties": false
+                        },
+                        "description": "Únicos claims que puedes usar."
+                      },
+                      "cta": {
+                        "type": [
+                          "string",
+                          "null"
+                        ],
+                        "description": "Llamado a la acción aprobado."
+                      },
+                      "prohibited_assertions": {
+                        "type": "array",
+                        "items": {
+                          "type": "string"
+                        },
+                        "description": "Afirmaciones prohibidas."
+                      },
+                      "limits": {
+                        "type": "object",
+                        "properties": {
+                          "title": {
+                            "type": "integer",
+                            "description": "Máximo del título.",
+                            "minimum": 1
+                          },
+                          "body": {
+                            "type": "integer",
+                            "description": "Máximo del texto principal.",
+                            "minimum": 1
+                          },
+                          "description": {
+                            "type": "integer",
+                            "description": "Máximo de la descripción.",
+                            "minimum": 1
+                          }
+                        },
+                        "required": [
+                          "title",
+                          "body",
+                          "description"
+                        ],
+                        "additionalProperties": false,
+                        "description": "Límites de Meta (TEMPORAL_COPY_LIMITS)."
+                      }
+                    },
+                    "required": [
+                      "exact_window_text",
+                      "focus_text",
+                      "approved_claims",
+                      "cta",
+                      "prohibited_assertions",
+                      "limits"
+                    ],
+                    "additionalProperties": false,
+                    "description": "Requisitos aprobados que tus textos deben cumplir (temporal-copy-review.v1 requirements)."
+                  }
+                },
+                "required": [
+                  "item_id",
+                  "render_variant_id",
+                  "status",
+                  "revision",
+                  "provenance",
+                  "context_current",
+                  "can_edit",
+                  "copies",
+                  "issues",
+                  "requirements"
+                ],
+                "additionalProperties": false
+              }
+            }
+          },
+          "required": [
+            "phase_id",
+            "phase_key",
+            "temporal_mode",
+            "copy_authoring",
+            "editable_by_agent",
+            "not_editable_reason",
+            "action_url",
+            "days"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "action_url": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uri",
+        "description": "open-special-plan cuando aún no hay revisión creativa (hay que preparar en SaleADS)."
+      },
+      "next_step": {
+        "type": "string",
+        "description": "Siguiente acción sugerida, en lenguaje simple."
+      }
+    },
+    "required": [
+      "special_plan_id",
+      "creative_revision_id",
+      "phases",
+      "action_url"
+    ],
+    "additionalProperties": false
+  },
+  "notes": "Única tool, junto con el eco de saleads_submit_special_plan_copies, que devuelve texto de copies. Fases manuales (Captación y Venta en Black Friday) salen con editable_by_agent=false, not_editable_reason=manual_phase y days vacío."
+}

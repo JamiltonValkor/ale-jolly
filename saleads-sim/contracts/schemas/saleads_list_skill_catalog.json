@@ -1,0 +1,54 @@
+{
+  "name": "saleads_list_skill_catalog",
+  "title": "Habilidades nuevas del Cerebro SaleADS",
+  "description": "Lista las habilidades del catálogo de SaleADS que sirven a la industria del negocio y todavía no están instaladas, propuestas ni rechazadas, más las instaladas que SaleADS retiró. Úsala en silencio (por ejemplo en el job diario) y propón cada habilidad UNA sola vez con saleads_request_approval: «Hay una habilidad nueva para … ¿la instalo?». Nunca la instales sin la aprobación del dueño.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Habilidades nuevas del Cerebro SaleADS",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/business-intelligence/internal/businesses/:id/owner (guard de propiedad)",
+    "GET /api/business-intelligence/businesses/:id/wizard-state (categoría → industria)",
+    "GET /internal/brain-hub/catalog?business_id=&industry_slug= (sa-assistant-service, política exacta ASSISTANT_INTERNAL_ROUTE_POLICY)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": { "type": "string", "format": "uuid" }
+    },
+    "required": ["business_id"],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "industry_slug": { "type": ["string", "null"] },
+      "available": { "type": "array", "items": { "$ref": "#/$defs/item" } },
+      "installed": { "type": "array", "items": { "$ref": "#/$defs/item" } },
+      "retired_installed": { "type": "array", "items": { "$ref": "#/$defs/item" }, "description": "Instaladas que SaleADS retiró: propón desinstalarlas una sola vez." }
+    },
+    "required": ["industry_slug", "available", "installed", "retired_installed"],
+    "additionalProperties": false,
+    "$defs": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": { "type": "string" },
+          "version": { "type": "string" },
+          "name": { "type": "string" },
+          "summary": { "type": ["string", "null"] },
+          "source": { "type": "string" }
+        },
+        "required": ["id", "version", "name", "summary", "source"],
+        "additionalProperties": false
+      }
+    }
+  }
+}

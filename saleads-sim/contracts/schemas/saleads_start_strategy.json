@@ -1,0 +1,246 @@
+{
+  "name": "saleads_start_strategy",
+  "title": "Crear estrategia de comunicación",
+  "description": "Genera la estrategia de comunicación para una oferta. ANTES confirma con el usuario el presupuesto mensual de pauta, la moneda y el destino. Si ya existe un plan activo para esa oferta lo devuelve en lugar de crear otro. Tarda hasta ~3 minutos (operación).",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Crear estrategia de comunicación",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+  },
+  "async": true,
+  "downstream": [
+    "POST /api/strategy/v1/communication-strategies/plan-resolutions",
+    "POST /api/strategy/v1/communication-strategies/generations (Idempotency-Key, media_budget.source=user_confirmed)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio sobre el que se actúa. El MCP verifica que pertenezca al usuario autenticado."
+      },
+      "offering": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "Tipo de oferta.",
+            "enum": [
+              "product",
+              "service"
+            ]
+          },
+          "id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID del producto o servicio (ver saleads_list_offerings)."
+          }
+        },
+        "required": [
+          "type",
+          "id"
+        ],
+        "additionalProperties": false,
+        "description": "Oferta que promociona el plan."
+      },
+      "destination": {
+        "type": "string",
+        "description": "Destino de las campañas: 'messages' (WhatsApp/Messenger) o 'web' (sitio del negocio).",
+        "enum": [
+          "messages",
+          "web"
+        ]
+      },
+      "locale": {
+        "type": "string",
+        "description": "Idioma de la estrategia y los creativos.",
+        "enum": [
+          "es",
+          "es-CO",
+          "es-MX",
+          "en"
+        ]
+      },
+      "monthly_budget": {
+        "type": "number",
+        "description": "Presupuesto mensual total de pauta confirmado por el usuario. Si es bajo, SaleADS reduce la cantidad de hipótesis/variantes financiadas; el mínimo estricto se aplica al editar el plan.",
+        "exclusiveMinimum": 0
+      },
+      "currency": {
+        "type": "string",
+        "description": "Moneda ISO-4217 del presupuesto.",
+        "pattern": "^[A-Z]{3}$"
+      },
+      "client_request_id": {
+        "type": "string",
+        "description": "Opcional. Identificador estable de este intento para que un reintento no duplique trabajo.",
+        "minLength": 8,
+        "maxLength": 100
+      }
+    },
+    "required": [
+      "business_id",
+      "offering",
+      "destination",
+      "locale",
+      "monthly_budget",
+      "currency"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "outcome": {
+            "type": "string",
+            "description": "created | existing_plan",
+            "enum": [
+              "created",
+              "existing_plan"
+            ]
+          },
+          "communication_strategy_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "Raíz de la estrategia. En existing_plan puede faltar si SaleADS no la expone; entonces revisa la estrategia en SaleADS."
+          },
+          "communication_strategy_version_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "strategy_plan_id": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uuid",
+            "description": "Presente si outcome = existing_plan."
+          },
+          "budget_mismatch": {
+            "type": "object",
+            "description": "Solo en existing_plan: el plan existente tiene un presupuesto/moneda distinto del pedido. Confirma con el usuario y, si quiere cambiarlo, usa saleads_update_plan.",
+            "properties": {
+              "plan_monthly_budget": {
+                "type": [
+                  "number",
+                  "null"
+                ],
+                "description": "Presupuesto mensual del plan existente."
+              },
+              "plan_currency": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "description": "Moneda del plan existente."
+              },
+              "requested_monthly_budget": {
+                "type": "number",
+                "description": "Presupuesto pedido en esta llamada."
+              },
+              "requested_currency": {
+                "type": "string",
+                "description": "Moneda pedida en esta llamada."
+              }
+            },
+            "required": [
+              "plan_monthly_budget",
+              "plan_currency",
+              "requested_monthly_budget",
+              "requested_currency"
+            ],
+            "additionalProperties": false
+          },
+          "next_step": {
+            "type": "string",
+            "description": "Siguiente acción sugerida (existing_plan)."
+          }
+        },
+        "required": [
+          "outcome"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "operation_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID de la operación. Consultar con saleads_get_operation."
+          },
+          "status": {
+            "type": "string",
+            "description": "Estado.",
+            "enum": [
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "poll_after_s": {
+            "type": "integer",
+            "description": "Segundos sugeridos antes de volver a consultar.",
+            "minimum": 1
+          },
+          "result": {
+            "type": "object",
+            "description": "Resultado final cuando status = succeeded (forma de la tool original)."
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Código MCP-E-*."
+              },
+              "message": {
+                "type": "string",
+                "description": "Mensaje."
+              },
+              "next_action": {
+                "type": "string",
+                "description": "Qué hacer."
+              },
+              "retryable": {
+                "type": "boolean",
+                "description": "Reintentable."
+              },
+              "details": {
+                "type": "object"
+              },
+              "action_url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "operation_id",
+          "status"
+        ],
+        "additionalProperties": false,
+        "description": "Envoltorio de operación asíncrona. Si el cliente soporta la extensión Tasks se usa la task nativa."
+      }
+    ]
+  }
+}

@@ -1,0 +1,169 @@
+{
+  "name": "saleads_prepare_campaign",
+  "title": "Preparar campaña",
+  "description": "Crea o reutiliza el borrador de una campaña del plan con sus imágenes y genera los textos (copies). Requiere imágenes completas. Operación de hasta ~1 minuto.",
+  "requiredScope": "saleads:campaigns",
+  "annotations": {
+    "title": "Preparar campaña",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": true,
+  "downstream": [
+    "POST /api/draft-campaign/drafts (409 → existing_draft_id)",
+    "POST /api/draft-campaign/drafts/prepare-draft (Idempotency-Key UUIDv4)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "strategy_plan_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "item_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "client_request_id": {
+        "type": "string",
+        "description": "Opcional. Identificador estable de este intento para que un reintento no duplique trabajo.",
+        "minLength": 8,
+        "maxLength": 100
+      }
+    },
+    "required": [
+      "strategy_plan_id",
+      "item_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "item_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "draft_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "copies": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "copy_index": {
+                  "type": "integer",
+                  "description": "Posición del copy en el borrador.",
+                  "minimum": 0
+                },
+                "primary_text": {
+                  "type": "string",
+                  "description": "Texto principal."
+                },
+                "headline": {
+                  "type": "string",
+                  "description": "Titular."
+                },
+                "description": {
+                  "type": "string",
+                  "description": "Descripción."
+                }
+              },
+              "required": [
+                "copy_index",
+                "primary_text"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [
+          "item_id",
+          "draft_id",
+          "copies"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "operation_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID de la operación. Consultar con saleads_get_operation."
+          },
+          "status": {
+            "type": "string",
+            "description": "Estado.",
+            "enum": [
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "poll_after_s": {
+            "type": "integer",
+            "description": "Segundos sugeridos antes de volver a consultar.",
+            "minimum": 1
+          },
+          "result": {
+            "type": "object",
+            "description": "Resultado final cuando status = succeeded (forma de la tool original)."
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Código MCP-E-*."
+              },
+              "message": {
+                "type": "string",
+                "description": "Mensaje."
+              },
+              "next_action": {
+                "type": "string",
+                "description": "Qué hacer."
+              },
+              "retryable": {
+                "type": "boolean",
+                "description": "Reintentable."
+              },
+              "details": {
+                "type": "object"
+              },
+              "action_url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "operation_id",
+          "status"
+        ],
+        "additionalProperties": false,
+        "description": "Envoltorio de operación asíncrona. Si el cliente soporta la extensión Tasks se usa la task nativa."
+      }
+    ]
+  }
+}

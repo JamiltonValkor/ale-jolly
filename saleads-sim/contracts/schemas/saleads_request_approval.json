@@ -1,0 +1,161 @@
+{
+  "name": "saleads_request_approval",
+  "title": "Pedir aprobación al dueño",
+  "description": "Pide al dueño que apruebe en SaleADS una acción: instalar o desinstalar una habilidad del catálogo o un MCP, o una acción que gasta o detiene gasto: launch_plan (lanzar un plan), change_budget (cambiar el presupuesto mensual de un plan sin lanzar), pause_campaign o resume_campaign. Devuelve el enlace a la página de aprobación: el dueño decide en la web con su sesión y, para las acciones de gasto, un código de un solo uso. Nada se ejecuta desde el chat. Si el dueño ya rechazó lo mismo, devuelve status=rejected sin enlace: no insistas.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Pedir aprobación al dueño",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/business-intelligence/internal/businesses/:id/owner (guard de propiedad)",
+    "GET /api/strategy/plan/:planId o GET /api/campaigns/:id (propiedad del recurso)",
+    "POST /internal/assistants/approvals (sa-assistant-service, política exacta ASSISTANT_INTERNAL_ROUTE_POLICY, x-internal-api-token + x-user-id)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "kind": {
+        "type": "string",
+        "enum": [
+          "install_skill",
+          "uninstall_skill",
+          "install_mcp",
+          "launch_plan",
+          "change_budget",
+          "pause_campaign",
+          "resume_campaign"
+        ],
+        "description": "Qué se pide aprobar."
+      },
+      "item_id": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$",
+        "description": "Id del ítem del catálogo, del plan (launch_plan, change_budget) o de la campaña de SaleADS (pause_campaign, resume_campaign)."
+      },
+      "params": {
+        "type": "object",
+        "description": "Solo para acciones de gasto: change_budget {monthly_budget:{amount,currency}}; launch_plan {campaign_ids?} (item_id del plan); pause_campaign {reason} (3 a 300 caracteres); resume_campaign sin params.",
+        "properties": {
+          "monthly_budget": {
+            "type": "object",
+            "properties": {
+              "amount": {
+                "type": "number",
+                "exclusiveMinimum": 0
+              },
+              "currency": {
+                "type": "string",
+                "pattern": "^[A-Z]{3}$"
+              }
+            },
+            "required": [
+              "amount",
+              "currency"
+            ],
+            "additionalProperties": false
+          },
+          "campaign_ids": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+            },
+            "minItems": 1,
+            "maxItems": 50
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 3,
+            "maxLength": 300
+          }
+        },
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "business_id",
+      "kind",
+      "item_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "approval_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "pending",
+          "executing",
+          "executed",
+          "failed",
+          "rejected",
+          "expired",
+          "stale"
+        ]
+      },
+      "item": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "name": {
+            "type": "string"
+          },
+          "version": {
+            "type": "string"
+          },
+          "summary": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "name",
+          "version",
+          "summary"
+        ],
+        "additionalProperties": false
+      },
+      "action_url": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Página de aprobación (solo con status=pending)."
+      },
+      "expires_at": {
+        "type": "string",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "approval_id",
+      "status",
+      "item",
+      "action_url",
+      "expires_at"
+    ],
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,163 @@
+{
+  "name": "saleads_create_business",
+  "title": "Crear negocio",
+  "description": "Crea un negocio nuevo y lo deja seleccionado. Después usa saleads_analyze_website (si tiene web) o saleads_describe_business, y saleads_create_offering si falta la oferta.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Crear negocio",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "POST /api/businesses",
+    "POST /api/businesses/:id/select",
+    "PATCH /api/business-intelligence/businesses/:id"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "name": {
+        "type": "string",
+        "description": "Nombre comercial.",
+        "minLength": 2,
+        "maxLength": 120
+      },
+      "offering_type": {
+        "type": "string",
+        "description": "Qué vende.",
+        "enum": [
+          "products",
+          "services",
+          "both"
+        ]
+      },
+      "category": {
+        "type": "string",
+        "description": "Categoría del negocio (p. ej. 'moda', 'restaurante', 'software').",
+        "maxLength": 80
+      },
+      "website_url": {
+        "type": "string",
+        "description": "Sitio web, si tiene.",
+        "format": "uri"
+      },
+      "client_request_id": {
+        "type": "string",
+        "description": "Opcional. Identificador estable de este intento para que un reintento no duplique trabajo.",
+        "minLength": 8,
+        "maxLength": 100
+      }
+    },
+    "required": [
+      "name",
+      "offering_type"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "business_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "name": {
+            "type": "string",
+            "description": "Nombre."
+          },
+          "next_steps": {
+            "type": "array",
+            "items": {
+              "type": "string",
+              "description": "Paso sugerido."
+            }
+          }
+        },
+        "required": [
+          "business_id",
+          "name"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "operation_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID de la operación. Consultar con saleads_get_operation."
+          },
+          "status": {
+            "type": "string",
+            "description": "Estado.",
+            "enum": [
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "poll_after_s": {
+            "type": "integer",
+            "description": "Segundos sugeridos antes de volver a consultar.",
+            "minimum": 1
+          },
+          "result": {
+            "type": "object",
+            "description": "Resultado final cuando status = succeeded (forma de la tool original)."
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Código MCP-E-*."
+              },
+              "message": {
+                "type": "string",
+                "description": "Mensaje."
+              },
+              "next_action": {
+                "type": "string",
+                "description": "Qué hacer."
+              },
+              "retryable": {
+                "type": "boolean",
+                "description": "Reintentable."
+              },
+              "details": {
+                "type": "object"
+              },
+              "action_url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "operation_id",
+          "status"
+        ],
+        "additionalProperties": false,
+        "description": "Envoltorio de operación asíncrona. Si el cliente soporta la extensión Tasks se usa la task nativa."
+      }
+    ]
+  }
+}

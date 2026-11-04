@@ -1,0 +1,149 @@
+{
+  "name": "saleads_get_account_overview",
+  "title": "Resumen de la cuenta SaleADS",
+  "description": "Devuelve el estado de la cuenta conectada: acceso contratado, cupos disponibles de negocios y campañas, saldo de créditos, negocios y negocio seleccionado. Consulta los valores vigentes sin inventarlos. No inicia ni promueve compras de créditos o cambios de suscripción.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Resumen de la cuenta SaleADS",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/subscription/internal/current/:userId (interna, excepción §5.4)",
+    "GET /api/businesses",
+    "GET /api/businesses/selected"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {},
+    "required": [],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "subscription": {
+        "type": "object",
+        "properties": {
+          "plan": {
+            "type": "string",
+            "description": "Plan actual."
+          },
+          "status": {
+            "type": "string",
+            "description": "Estado."
+          },
+          "campaigns_remaining": {
+            "type": "integer",
+            "description": "Campañas que aún puede lanzar."
+          },
+          "businesses_remaining": {
+            "type": "integer",
+            "description": "Negocios que aún puede crear."
+          }
+        },
+        "required": [
+          "plan",
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      "businesses": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "business_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": {
+              "type": "string",
+              "description": "Nombre."
+            },
+            "selected": {
+              "type": "boolean",
+              "description": "Es el negocio seleccionado."
+            }
+          },
+          "required": [
+            "business_id",
+            "name",
+            "selected"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "selected_business_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid"
+      },
+      "credits": {
+        "type": "object",
+        "properties": {
+          "balance": {
+            "type": "number",
+            "description": "Créditos disponibles ahora (mensuales restantes + comprados)."
+          },
+          "monthly_included": {
+            "type": "number",
+            "description": "Créditos incluidos por mes en el plan."
+          },
+          "monthly_used": {
+            "type": "number",
+            "description": "Créditos mensuales usados en el periodo actual."
+          },
+          "purchased": {
+            "type": "number",
+            "description": "Créditos comprados aparte."
+          },
+          "unlimited": {
+            "type": "boolean",
+            "description": "El plan tiene créditos ilimitados."
+          },
+          "period_end": {
+            "type": [
+              "string",
+              "null"
+            ]
+          }
+        },
+        "required": [
+          "balance",
+          "unlimited"
+        ],
+        "additionalProperties": false,
+        "description": "Saldo de créditos (para imágenes y otras generaciones). Ausente si la suscripción no lo informa."
+      },
+      "action_url": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uri",
+        "description": "Campo legacy opcional de acción. La versión pública actual no lo emite para compras o cambios de suscripción."
+      },
+      "action_reason": {
+        "type": "string",
+        "enum": [
+          "buy-credits",
+          "upgrade-plan"
+        ],
+        "description": "Motivo legacy opcional, retenido por compatibilidad. La versión pública actual no emite acciones de compra o upgrade."
+      }
+    },
+    "required": [
+      "subscription",
+      "businesses"
+    ],
+    "additionalProperties": false
+  }
+}

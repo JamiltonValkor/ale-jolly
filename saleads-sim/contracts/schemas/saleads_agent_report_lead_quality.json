@@ -1,0 +1,85 @@
+{
+  "name": "saleads_agent_report_lead_quality",
+  "title": "Reportar calidad de leads",
+  "description": "Guarda lo que el dueño dijo de la calidad de los leads de una caja o anuncio en un periodo (bueno/regular/malo). Sin datos personales.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Reportar calidad de leads",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "POST /campaigns/internal/agent-metrics/v1/lead-quality-reports (AAB-011)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "client_request_id": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_.:-]{8,128}$",
+        "description": "Id del pedido que genera el CLI; repetirlo devuelve el mismo resultado."
+      },
+      "campaign_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "ad_set_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "ad_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "quality": {
+        "enum": [
+          "bueno",
+          "regular",
+          "malo"
+        ]
+      },
+      "period_start": {
+        "type": "string",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+      },
+      "period_end": {
+        "type": "string",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+      },
+      "count": {
+        "type": "integer",
+        "minimum": 0
+      },
+      "note": {
+        "type": "string",
+        "maxLength": 500
+      },
+      "corrects_report_id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "business_id",
+      "client_request_id",
+      "campaign_id",
+      "quality",
+      "period_start",
+      "period_end"
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object"
+  }
+}

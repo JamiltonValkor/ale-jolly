@@ -1,0 +1,107 @@
+{
+  "name": "saleads_agent_upload_media",
+  "title": "Subir medios",
+  "description": "Sube un medio a la cuenta publicitaria del dueño: URL firmada para un archivo propio (signed_url; file_size es opcional), imagen propia o de un job de gen-image (image), video (video) o estado de un video (video_status). Devuelve image_hash y media_ref (lo que va en media_refs del árbol) o video_id.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Subir medios",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "POST /api/integration/internal/agentic/v1/meta/media/images/signed-url (AAB-027)",
+    "POST /api/integration/internal/agentic/v1/meta/media/images (AAB-027)",
+    "POST /api/integration/internal/agentic/v1/meta/media/videos (AAB-027)",
+    "GET /api/integration/internal/agentic/v1/meta/media/videos/:videoId/status (AAB-027)",
+    "POST /campaigns/internal/agent-trace/v1/actions (AAB-010)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "client_request_id": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_.:-]{8,128}$",
+        "description": "Id del pedido que genera el CLI; repetirlo devuelve el mismo resultado."
+      },
+      "action": {
+        "enum": [
+          "signed_url",
+          "image",
+          "video",
+          "video_status"
+        ]
+      },
+      "media_type": {
+        "enum": [
+          "image",
+          "video"
+        ]
+      },
+      "file_name": {
+        "type": "string",
+        "maxLength": 255
+      },
+      "content_type": {
+        "type": "string",
+        "maxLength": 100
+      },
+      "file_size": {
+        "type": "integer",
+        "minimum": 1,
+        "description": "Opcional: tamaño en bytes. Si falta, Integration firma con el máximo del tipo y revalida el tamaño real al leer."
+      },
+      "source": {
+        "type": "object",
+        "description": "{kind:gcs_upload, gcsPath, fileName} | {kind:gen_image, jobId, variationId}"
+      },
+      "gcs_path": {
+        "type": "string",
+        "maxLength": 2048
+      },
+      "video_id": {
+        "type": "string",
+        "pattern": "^\\d{1,32}$"
+      }
+    },
+    "required": [
+      "business_id",
+      "client_request_id",
+      "action"
+    ],
+    "allOf": [
+      {
+        "if": {
+          "properties": {
+            "action": {
+              "const": "signed_url"
+            }
+          },
+          "required": [
+            "action"
+          ]
+        },
+        "then": {
+          "required": [
+            "media_type",
+            "file_name",
+            "content_type"
+          ]
+        }
+      }
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object"
+  }
+}

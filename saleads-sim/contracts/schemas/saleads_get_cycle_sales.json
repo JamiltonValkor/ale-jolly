@@ -1,0 +1,127 @@
+{
+  "name": "saleads_get_cycle_sales",
+  "title": "Ventas del ciclo",
+  "description": "Ventas que el dueño registró en el ciclo de crecimiento de un plan lanzado (monto, moneda, fecha, canal). Úsala para contrastar lo que dice la plataforma con las ventas reales. Si no está disponible, dilo así; no inventes ventas.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Ventas del ciclo",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/business-intelligence/internal/businesses/:id/owner (guard de propiedad)",
+    "GET /api/strategy/plan/:planId (propiedad)",
+    "GET /api/strategy/plan/:planId/growth-cycle/sales"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "plan_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Plan lanzado (strategy_plan_id)."
+      },
+      "limit": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 100
+      },
+      "cursor": {
+        "type": "string",
+        "maxLength": 200
+      }
+    },
+    "required": [
+      "business_id",
+      "plan_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "plan_id": {
+        "type": "string"
+      },
+      "available": {
+        "type": "boolean"
+      },
+      "next_cursor": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "sales": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "sale_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "amount": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "currency": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "sold_at": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "channel": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "sale_id",
+            "amount",
+            "currency",
+            "sold_at",
+            "channel",
+            "status"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "plan_id",
+      "available",
+      "sales",
+      "next_cursor"
+    ],
+    "additionalProperties": false
+  }
+}

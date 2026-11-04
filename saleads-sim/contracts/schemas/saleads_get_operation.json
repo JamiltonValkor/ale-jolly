@@ -1,0 +1,104 @@
+{
+  "name": "saleads_get_operation",
+  "title": "Estado de una operación",
+  "description": "Consulta una operación asíncrona (análisis de web, estrategia, imágenes, preparación de campaña). Respeta poll_after_s.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Estado de una operación",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "(interno MCP) tabla operations"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "operation_id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "operation_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "operation_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "ID de la operación. Consultar con saleads_get_operation."
+      },
+      "status": {
+        "type": "string",
+        "description": "Estado.",
+        "enum": [
+          "queued",
+          "running",
+          "succeeded",
+          "failed",
+          "cancelled"
+        ]
+      },
+      "poll_after_s": {
+        "type": "integer",
+        "description": "Segundos sugeridos antes de volver a consultar.",
+        "minimum": 1
+      },
+      "result": {
+        "type": "object",
+        "description": "Resultado final cuando status = succeeded (forma de la tool original)."
+      },
+      "error": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "description": "Código MCP-E-*."
+          },
+          "message": {
+            "type": "string",
+            "description": "Mensaje."
+          },
+          "next_action": {
+            "type": "string",
+            "description": "Qué hacer."
+          },
+          "retryable": {
+            "type": "boolean",
+            "description": "Reintentable."
+          },
+          "details": {
+            "type": "object"
+          },
+          "action_url": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "format": "uri"
+          }
+        },
+        "required": [
+          "code",
+          "message"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "required": [
+      "operation_id",
+      "status"
+    ],
+    "additionalProperties": false,
+    "description": "Envoltorio de operación asíncrona. Si el cliente soporta la extensión Tasks se usa la task nativa."
+  }
+}

@@ -1,0 +1,117 @@
+{
+  "name": "saleads_stock_supplier_send",
+  "title": "Enviar mensaje al proveedor",
+  "description": "Envía un mensaje de la negociación de un pedido, dentro del mandato aprobado. El destino lo fija el servidor según el pedido.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Enviar mensaje al proveedor",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "POST /internal/stock/businesses/:businessId/supplier/send"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "idempotency_key": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_-]{8,128}$"
+      },
+      "order_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "texto": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 1000
+      },
+      "precio_unitario_ofrecido": {
+        "anyOf": [
+          {
+            "type": "string",
+            "pattern": "^\\d{1,13}(\\.\\d{1,2})?$"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "cantidad": {
+        "anyOf": [
+          {
+            "type": "integer",
+            "minimum": 1
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "cierre": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "business_id",
+      "idempotency_key",
+      "order_id",
+      "texto",
+      "precio_unitario_ofrecido",
+      "cantidad",
+      "cierre"
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "enviado"
+          },
+          "mensaje_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "status",
+          "mensaje_id"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "bloqueado"
+          },
+          "motivo": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "motivo"
+        ],
+        "additionalProperties": false
+      }
+    ],
+    "type": "object"
+  }
+}

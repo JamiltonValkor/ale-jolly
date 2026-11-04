@@ -1,0 +1,372 @@
+{
+  "name": "saleads_quote_special_plan",
+  "title": "Cotizar plan especial",
+  "description": "Cotiza un plan especial SIN crearlo: fases, campañas, inversión por fase y mínimos, con el presupuesto, la moneda, las ciudades y la oferta real (precio regular y precio de oferta) que el usuario confirmó. Devuelve quote_token para saleads_create_special_plan. No crea ni gasta nada.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Cotizar plan especial",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/strategy/seasonal-context?version_id&accepted_language (communication_mode, moneda y unidad menor)",
+    "POST /api/strategy/seasonal-plans/preview (solo cálculo, sin escrituras)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio sobre el que se actúa. El MCP verifica que pertenezca al usuario autenticado."
+      },
+      "catalog_version_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "catalog_version_id de saleads_list_special_dates."
+      },
+      "offering": {
+        "description": "Oferta del plan: producto o servicio del negocio (saleads_list_offerings) o el negocio completo.",
+        "oneOf": [
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "Producto o servicio.",
+                "enum": [
+                  "product",
+                  "service"
+                ]
+              },
+              "id": {
+                "type": "string",
+                "format": "uuid",
+                "description": "ID del producto o servicio (saleads_list_offerings)."
+              }
+            },
+            "required": [
+              "type",
+              "id"
+            ],
+            "additionalProperties": false
+          },
+          {
+            "type": "object",
+            "properties": {
+              "type": {
+                "type": "string",
+                "description": "El negocio completo, sin oferta concreta.",
+                "enum": [
+                  "business"
+                ]
+              }
+            },
+            "required": [
+              "type"
+            ],
+            "additionalProperties": false
+          }
+        ]
+      },
+      "monthly_budget": {
+        "type": "number",
+        "exclusiveMinimum": 0,
+        "description": "Presupuesto de pauta del plan especial confirmado por el usuario, en unidades mayores de currency. El MCP no calcula mínimos: los aplica SaleADS."
+      },
+      "currency": {
+        "type": "string",
+        "description": "Moneda ISO-4217 del presupuesto y de los precios; debe ser la de la cuenta publicitaria de Meta.",
+        "pattern": "^[A-Z]{3}$"
+      },
+      "regular_price": {
+        "type": "number",
+        "exclusiveMinimum": 0,
+        "multipleOf": 0.01,
+        "description": "Precio regular REAL dado por el usuario (máximo 2 decimales). Nunca lo inventes ni lo estimes."
+      },
+      "offer_price": {
+        "type": "number",
+        "exclusiveMinimum": 0,
+        "multipleOf": 0.01,
+        "description": "Precio de oferta REAL dado por el usuario, menor que regular_price. SaleADS calcula el descuento; no envíes un porcentaje."
+      },
+      "offer_includes": {
+        "type": "string",
+        "description": "Opcional. Qué incluye la oferta, en palabras del usuario (máximo 200 caracteres). Sin testimonios, métricas ni garantías.",
+        "minLength": 1,
+        "maxLength": 200
+      },
+      "locations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "description": "Clave de saleads_search_locations.",
+              "minLength": 1
+            },
+            "name": {
+              "type": "string",
+              "description": "Nombre."
+            },
+            "type": {
+              "type": "string",
+              "description": "Tipo (city, region, country...)."
+            },
+            "country_code": {
+              "type": "string",
+              "description": "País ISO-3166 alfa-2."
+            }
+          },
+          "required": [
+            "key",
+            "name"
+          ],
+          "additionalProperties": false
+        },
+        "description": "Ubicaciones confirmadas por el usuario, tomadas de saleads_search_locations.",
+        "minItems": 1,
+        "maxItems": 50
+      },
+      "accepted_language": {
+        "type": "string",
+        "description": "Opcional. Idioma de la comunicación (por defecto el del contexto).",
+        "enum": [
+          "es",
+          "en"
+        ]
+      },
+      "creatives_language": {
+        "type": "string",
+        "description": "Opcional. Idioma de los creativos (por defecto el del contexto).",
+        "enum": [
+          "es",
+          "en",
+          "pt"
+        ]
+      },
+      "timezone": {
+        "type": "string",
+        "description": "Opcional. Zona horaria IANA de las fechas (p. ej. America/Bogota). Sin ella SaleADS usa la de la ubicación objetivo.",
+        "minLength": 3,
+        "maxLength": 64,
+        "pattern": "^[A-Za-z_]+(?:/[A-Za-z0-9_+-]+)*$"
+      }
+    },
+    "required": [
+      "business_id",
+      "catalog_version_id",
+      "offering",
+      "monthly_budget",
+      "currency",
+      "regular_price",
+      "offer_price",
+      "locations"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "quote_token": {
+        "type": "string",
+        "description": "Token opaco del MCP con los hashes de la cotización; pásalo tal cual a saleads_create_special_plan.",
+        "minLength": 16,
+        "maxLength": 2048
+      },
+      "expires_at": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Vencimiento de la cotización (ISO 8601 UTC).",
+        "format": "date-time"
+      },
+      "catalog_version_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "communication_mode": {
+        "type": "string",
+        "description": "Modo de comunicación resuelto por SaleADS.",
+        "enum": [
+          "standard",
+          "canonical"
+        ]
+      },
+      "monthly_budget": {
+        "type": "object",
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Monto en unidades mayores (p. ej. 120.5).",
+            "minimum": 0
+          },
+          "currency": {
+            "type": "string",
+            "description": "Moneda ISO-4217.",
+            "pattern": "^[A-Z]{3}$"
+          }
+        },
+        "required": [
+          "amount",
+          "currency"
+        ],
+        "additionalProperties": false,
+        "description": "Presupuesto cotizado."
+      },
+      "minimum_budget": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Monto en unidades mayores (p. ej. 120.5).",
+            "minimum": 0
+          },
+          "currency": {
+            "type": "string",
+            "description": "Moneda ISO-4217.",
+            "pattern": "^[A-Z]{3}$"
+          }
+        },
+        "required": [
+          "amount",
+          "currency"
+        ],
+        "additionalProperties": false,
+        "description": "Mínimo de SaleADS para este plan."
+      },
+      "launch_investment_total": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Monto en unidades mayores (p. ej. 120.5).",
+            "minimum": 0
+          },
+          "currency": {
+            "type": "string",
+            "description": "Moneda ISO-4217.",
+            "pattern": "^[A-Z]{3}$"
+          }
+        },
+        "required": [
+          "amount",
+          "currency"
+        ],
+        "additionalProperties": false,
+        "description": "Inversión total estimada del lanzamiento."
+      },
+      "phases": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "phase_key": {
+              "type": "string",
+              "description": "Clave de fase del catálogo seasonal (en Black Friday: captacion, expectativa, venta, cierre). Sale del catálogo; no es una lista fija.",
+              "pattern": "^[a-z0-9_]{1,64}$"
+            },
+            "campaign_count": {
+              "type": "integer",
+              "description": "Campañas de la fase.",
+              "minimum": 0
+            },
+            "daily_budget": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "amount": {
+                  "type": "number",
+                  "description": "Monto en unidades mayores (p. ej. 120.5).",
+                  "minimum": 0
+                },
+                "currency": {
+                  "type": "string",
+                  "description": "Moneda ISO-4217.",
+                  "pattern": "^[A-Z]{3}$"
+                }
+              },
+              "required": [
+                "amount",
+                "currency"
+              ],
+              "additionalProperties": false,
+              "description": "Asignación diaria."
+            }
+          },
+          "required": [
+            "phase_key",
+            "campaign_count"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "omitted_campaigns": {
+        "type": "integer",
+        "description": "Campañas que el catálogo dejó fuera por recursos faltantes de la cuenta.",
+        "minimum": 0
+      },
+      "issue_codes": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Avisos de la cotización (códigos de Strategy)."
+      },
+      "offer": {
+        "type": "object",
+        "properties": {
+          "regular_price": {
+            "type": "number",
+            "description": "Eco del precio regular."
+          },
+          "offer_price": {
+            "type": "number",
+            "description": "Eco del precio de oferta."
+          },
+          "currency": {
+            "type": "string",
+            "description": "Moneda."
+          }
+        },
+        "required": [
+          "regular_price",
+          "offer_price",
+          "currency"
+        ],
+        "additionalProperties": false,
+        "description": "Eco de la oferta; el descuento lo calcula SaleADS al crear."
+      },
+      "next_step": {
+        "type": "string",
+        "description": "Siguiente acción sugerida, en lenguaje simple."
+      }
+    },
+    "required": [
+      "quote_token",
+      "catalog_version_id",
+      "communication_mode",
+      "monthly_budget",
+      "phases",
+      "offer"
+    ],
+    "additionalProperties": false
+  },
+  "notes": "Usa POST /seasonal-plans/preview. POST /seasonal-plans/:planId/quote está prohibida (escribe una cotización en el plan)."
+}

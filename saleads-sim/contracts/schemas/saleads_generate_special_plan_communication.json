@@ -1,0 +1,115 @@
+{
+  "name": "saleads_generate_special_plan_communication",
+  "title": "Generar comunicación del plan especial",
+  "description": "Pide a SaleADS generar la estrategia de comunicación del plan especial (no consume créditos). Úsala SOLO con el OK explícito del usuario: congela ciudades y presupuesto. Requiere ciudades, fechas y oferta guardadas. La aprobación de la comunicación la hace la persona en SaleADS con el link; esta tool nunca aprueba.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Generar comunicación del plan especial",
+    "readOnlyHint": false,
+    "destructiveHint": true,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/strategy/seasonal-plans/:planId (precondiciones)",
+    "GET /api/strategy/seasonal-plans/:planId/offer-terms (precondición de oferta)",
+    "POST /api/strategy/seasonal-plans/:planId/communication/ensure (body {}; 202 mientras genera, 200 cuando queda vinculada)",
+    "(interno MCP) handoff approve-special-communication"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "special_plan_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "ID del plan especial (de saleads_list_special_plans o saleads_create_special_plan). No es un strategy_plan_id: no lo pases a saleads_get_plan, saleads_update_plan ni a otras tools del plan estratégico normal."
+      },
+      "user_confirmed": {
+        "type": "boolean",
+        "const": true,
+        "description": "Debe ser true y solo después de que el usuario dio su OK explícito en la conversación."
+      }
+    },
+    "required": [
+      "special_plan_id",
+      "user_confirmed"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "special_plan_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "ID del plan especial (de saleads_list_special_plans o saleads_create_special_plan). No es un strategy_plan_id: no lo pases a saleads_get_plan, saleads_update_plan ni a otras tools del plan estratégico normal."
+      },
+      "communication_state": {
+        "type": "string",
+        "description": "Estado de la comunicación del plan (Strategy seasonal-plan.v1 communication.state).",
+        "enum": [
+          "not_required",
+          "required",
+          "generating",
+          "review_required",
+          "in_review",
+          "approved"
+        ]
+      },
+      "communication_strategy_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid",
+        "description": "Estrategia de comunicación generada (solo lectura con saleads_get_strategy; se aprueba en SaleADS)."
+      },
+      "communication_strategy_version_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid",
+        "description": "Versión generada."
+      },
+      "settings_frozen": {
+        "type": "boolean",
+        "description": "Ciudades e idiomas ya no se pueden cambiar."
+      },
+      "budget_frozen": {
+        "type": "boolean",
+        "description": "El presupuesto ya no se puede cambiar."
+      },
+      "poll_after_s": {
+        "type": "integer",
+        "description": "Mientras communication_state = generating, consulta saleads_get_special_plan_status después de estos segundos.",
+        "minimum": 10,
+        "maximum": 3600
+      },
+      "action_url": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uri",
+        "description": "approve-special-communication cuando communication_state = in_review; si no, null."
+      },
+      "next_step": {
+        "type": "string",
+        "description": "Siguiente acción sugerida, en lenguaje simple."
+      }
+    },
+    "required": [
+      "special_plan_id",
+      "communication_state",
+      "settings_frozen",
+      "budget_frozen",
+      "action_url"
+    ],
+    "additionalProperties": false
+  },
+  "notes": "Decisión 3 de progress.md (2026-10-08): communication/ensure pasa de prohibida a permitida solo para esta tool, con user_confirmed. La aprobación (POST v1/communication-strategies/:sid/versions/:vid/approve) sigue prohibida para recursos de planes especiales (contracts/mvp-tool-guards.md). destructiveHint=true porque congela ciudades y presupuesto sin vuelta atrás desde el chat."
+}
