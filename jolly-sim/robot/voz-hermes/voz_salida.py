@@ -86,3 +86,36 @@ class Fragmentador:
         if self.buf.strip():
             self.locutor.decir(self.buf)
         self.buf = ""
+
+
+class LocutorEspeak(Locutor):
+    """Respaldo para Linux sin Cartesia: el mismo contrato que Locutor, hablado con espeak-ng, espeak o spd-say."""
+
+    MOTORES = ("espeak-ng", "espeak", "spd-say")
+
+    def __init__(self, voz: str | None = None, velocidad: int = 165):
+        import shutil
+        self.motor = next((m for m in self.MOTORES if shutil.which(m)), None)
+        if self.motor is None:
+            print("⚠️ No encuentro espeak-ng, espeak ni spd-say: Jolly no hablará en voz alta", flush=True)
+        super().__init__(voz or ("es" if self.motor == "spd-say" else "es-419"), velocidad)
+
+    def _orden(self, texto: str) -> list[str]:
+        if self.motor == "spd-say":
+            return ["spd-say", "-w", "-l", self.voz, texto]       # -w: espera a que termine, como say
+        return [self.motor, "-v", self.voz, "-s", str(self.velocidad), texto]
+
+    def _bucle(self):
+        while True:
+            texto = self.cola.get()
+            if self.t_primer_audio is None:
+                self.t_primer_audio = time.monotonic()
+            if self.cron:
+                self.cron(f"🔊 empieza a sonar: {texto[:50]!r}")
+            if self.motor:
+                subprocess.run(self._orden(texto), check=False)
+            if self.cron:
+                self.cron("🔇 terminó esa frase")
+            if self.cola.empty():
+                self.ultimo_fin = time.monotonic()
+                self.hablando.clear()

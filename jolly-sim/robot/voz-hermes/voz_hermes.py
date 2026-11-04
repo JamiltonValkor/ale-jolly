@@ -604,8 +604,8 @@ def main():
         else:
             if args.tts == "cartesia":
                 print("⚠️ Falta CARTESIA_API_KEY en .env: uso la voz del Mac", flush=True)
-            from voz_salida import Locutor
-            args.locutor = Locutor(args.voz or "Paulina")
+            from voz_salida import Locutor, LocutorEspeak
+            args.locutor = LocutorEspeak(args.voz) if sys.platform.startswith("linux") else Locutor(args.voz or "Paulina")
         args.locutor.cron = cron
     if avisos_activos and args.locutor:
         args.candado, args.conv = CandadoTurno(), Conversacion()
