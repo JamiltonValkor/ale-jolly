@@ -69,7 +69,9 @@ OFFICIAL=$(sed -n 's/^HERMES_IMAGE="\${HERMES_IMAGE:-\(.*\)}"$/\1/p' "$SCRIPT" |
 [ -n "$OFFICIAL" ] || { log "pinned HERMES_IMAGE not found in startup-script"; exit 1; }
 export HERMES_IMAGE="$OFFICIAL"
 if [ -f "$CA" ]; then
-  tag="ale-local/hermes-agent:$(printf '%s' "$OFFICIAL" | cat - "$CA" | sha256sum | cut -c1-16)"
+  # La receta va en el hash: cambiarla reconstruye la capa.
+  recipe=ca-layer-v2
+  tag="ale-local/hermes-agent:$(printf '%s %s' "$recipe" "$OFFICIAL" | cat - "$CA" | sha256sum | cut -c1-16)"
   if ! docker image inspect "$tag" >/dev/null 2>&1; then
     until docker image inspect "$OFFICIAL" >/dev/null 2>&1 || docker pull -q "$OFFICIAL" >/dev/null; do
       log "pull of pinned Hermes image failed; retrying"; sleep 10
@@ -81,10 +83,16 @@ if [ -f "$CA" ]; then
       echo "FROM $OFFICIAL"
       echo "USER root"
       echo "COPY ale-local-ca.crt /usr/local/share/ca-certificates/ale-local-ca.crt"
-      echo "RUN cat /usr/local/share/ca-certificates/ale-local-ca.crt >>/etc/ssl/certs/ca-certificates.crt; \\"
-      echo "    for f in \$(find / -xdev -name cacert.pem -path '*certifi*' 2>/dev/null); do \\"
-      echo "      cat /usr/local/share/ca-certificates/ale-local-ca.crt >>\"\$f\"; done"
-      echo "ENV NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/ale-local-ca.crt"
+      # Bundle del sistema (y sus enlaces por hash), certifi de cada venv y las
+      # variables que leen OpenSSL, requests y Node: el Python de la imagen
+      # viene compilado aparte y no mira /etc/ssl/certs/ca-certificates.crt solo.
+      echo "RUN set -e; ca=/usr/local/share/ca-certificates/ale-local-ca.crt; \\"
+      echo "    if command -v update-ca-certificates >/dev/null; then update-ca-certificates >/dev/null; \\"
+      echo "    else cat \$ca >>/etc/ssl/certs/ca-certificates.crt; fi; \\"
+      echo "    for f in \$(find / -xdev -name cacert.pem -path '*certifi*' 2>/dev/null); do cat \$ca >>\"\$f\"; done"
+      echo "ENV SSL_CERT_FILE=/etc/ssl/certs/ca-certificates.crt \\"
+      echo "    REQUESTS_CA_BUNDLE=/etc/ssl/certs/ca-certificates.crt \\"
+      echo "    NODE_EXTRA_CA_CERTS=/usr/local/share/ca-certificates/ale-local-ca.crt"
       [ -z "$user" ] || echo "USER $user"
     } >"$ctx/Dockerfile"
     docker build -q -t "$tag" "$ctx" >/dev/null

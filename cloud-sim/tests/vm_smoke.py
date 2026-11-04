@@ -100,9 +100,27 @@ def set_metadata(values):
 
 
 def hermes_healthy():
-    out = sh("docker", "exec", f"vm-{NAME}", "curl", "-s", "-o", "/dev/null", "-w", "%{http_code}",
-             "http://127.0.0.1:8642/health", check=False)
-    return out == "200"
+    """Como lo ve ale-runtime: otro contenedor de la red, a la IP de la VM y el puerto 8642."""
+    _, inst = call("GET", zone(f"/instances/{NAME}"))
+    ip = inst["networkInterfaces"][0].get("networkIP")
+    out = sh("docker", "exec", "smoke-cloud-sim", "wget", "-qO-", "-T", "5", f"http://{ip}:8642/health", check=False)
+    return '"status": "ok"' in out
+
+
+TLS_PROBE = """
+import urllib.request, urllib.error
+try:
+    urllib.request.urlopen("https://storage.googleapis.com/ale-local-assistant-memories/probe", timeout=10)
+except urllib.error.HTTPError:
+    pass
+print("tls-ok")
+"""
+
+
+def hermes_trusts_local_ca():
+    """Hermes (contenedor anidado) resuelve storage.googleapis.com y confía en la CA local."""
+    out = sh("docker", "exec", f"vm-{NAME}", "docker", "exec", "hermes", "python3", "-c", TLS_PROBE, check=False)
+    return out.endswith("tls-ok")
 
 
 def up(startup_script, mirror):
@@ -173,7 +191,8 @@ def main():
         expected = applied_version(items)
         wait("applied-version ack", lambda: guest("applied-version") == expected, 900)
         wait("Hermes /health", hermes_healthy, 300)
-        print(f"[{time.time() - t0:5.0f}s] ack ok + Hermes healthy", flush=True)
+        assert hermes_trusts_local_ca(), "Hermes does not trust the local CA"
+        print(f"[{time.time() - t0:5.0f}s] ack ok + Hermes healthy + local CA trusted", flush=True)
 
         sh("docker", "exec", f"vm-{NAME}", "sh", "-c",
            "mkdir -p /var/lib/hermes/data/memories && echo 'recuerdo de humo' > /var/lib/hermes/data/memories/MEMORY.md")
