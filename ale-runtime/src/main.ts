@@ -230,7 +230,11 @@ async function main(): Promise<void> {
     intervalMs: config.ORQA_SYNC_SWEEP_INTERVAL_MS,
     pauseMs: config.ORQA_SYNC_SWEEP_PAUSE_MS,
     includeLab: config.ORQA_SYNC_SWEEP_INCLUDE_LAB,
-  }, {orqa, repository});
+  }, {
+    // Por el envoltorio de la readiness: una sincronización del barrido también siembra el cerebro.
+    orqa: {get enabled() {return orqa.enabled;}, onReady: (userId, instanceName, readySince) => orqa.syncNotifying(userId, instanceName, readySince)},
+    repository,
+  });
   const seedWriter = new GcsObjectWriter(config.STORAGE_API_BASE, gcpTokens, fetcher);
   const objectReader = new GcsObjectReader(config.STORAGE_API_BASE, gcpTokens, fetcher);
   const ownerMcp = withAccountOverviewCache(
@@ -375,6 +379,7 @@ async function main(): Promise<void> {
   const onReady = readySyncCallback(orqa, userId => Promise.all([
     seed.onReady(userId), brainSnapshots.onReady(userId), brainFeedback.deliver(userId).catch(() => 0),
   ]), config.MANAGED_META_ENABLED);
+  orqa.useReadyCallback(onReady);
   const stateReader = new ReadinessStateReader({
     healthTimeoutMs: config.READINESS_HEALTH_TIMEOUT_MS,
     budgetMs: config.READINESS_BUDGET_MS,

@@ -6,6 +6,7 @@ import {gunzipSync} from 'node:zlib';
 import {BRAIN_MCP_URL, hermesConfig, initialHermesMetadata, jobTextHash, loadAgentBundle, type AgentBundle} from '../src/activation/hermes-files';
 import {hermesProfiles, profileConfig} from '../src/activation/profiles';
 import {ReadinessStateReader} from '../src/lifecycle/readiness-state-reader';
+import {readySyncCallback} from '../src/orqa/orqa-sync';
 import {AssistantRepository, type AssistantEvent, type AssistantRow} from '../src/persistence/assistant-repository';
 import {SkillsWriter} from '../src/skills/skills-writer';
 import {FakeInstances, INSTANCE, NO_MODEL, VM_IP, API_SERVER_KEY} from './support/hermes-fakes';
@@ -224,6 +225,22 @@ describe('bundle 1.3.0 por tipo de negocio (MLB-003)', () => {
     expect(typeSkills(instances)).toEqual(['saleads-type-service']);
     expect(hermes.created.filter(call => call.job.name === 'saleads:loop-tick')).toHaveLength(1);
     expect(hermes.jobs.filter(job => job.name === 'saleads:loop-tick')).toHaveLength(1);
+  });
+
+  it('un resync antes de la readiness siembra el cerebro una vez y la readiness no lo repite (E2E 4-nov)', async () => {
+    const run = async (wired: boolean) => {
+      const {make, types} = setup({}, BUNDLE_13);
+      const orqa = make(), seeded = jest.fn(async () => undefined);
+      const onReady = readySyncCallback(orqa, async () => seeded(), true);
+      if (wired) orqa.useReadyCallback(onReady);
+      types.push('physical_product');
+      await orqa.resync(USER);                 // el perfil del negocio cambió durante la activación
+      await new Promise(setImmediate);
+      await onReady(USER, INSTANCE, null);     // luego la readiness: misma clave, `done` ya marcado
+      return seeded.mock.calls.length;
+    };
+    expect(await run(false)).toBe(0);          // el fallo: nadie sembraba el cerebro
+    expect(await run(true)).toBe(1);
   });
 
   it('conserva todos los trabajos de 1.2.0 y las skills que cargan, y agrega saleads:loop-tick', () => {

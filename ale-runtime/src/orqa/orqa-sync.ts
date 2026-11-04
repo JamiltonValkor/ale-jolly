@@ -142,6 +142,7 @@ export class OrqaSync {
   private readonly failedAt = new Map<string, number>();
   private readonly running = new Map<string, Promise<OrqaSyncResult>>();
   private readonly revisions = new Map<string, number>();
+  private readyHook: ((userId: string, instanceName: string | null, readySince: Date | null) => unknown) | null = null;
   private readonly now: () => Date;
   private readonly sleep: (ms: number) => Promise<void>;
 
@@ -152,6 +153,21 @@ export class OrqaSync {
 
   get enabled(): boolean {
     return !!this.options.brainImage;
+  }
+
+  /**
+   * El `onReady` envuelto de `main.ts` (`readySyncCallback`): la semilla del cerebro y lo demás que va tras una
+   * sincronización cuelgan de él. Sin esto, `resync` (cambio de tipo, reintento de 30 s) y el barrido sincronizaban
+   * por fuera, dejaban `done` marcado y la readiness ya no volvía a disparar la semilla: cerebro vacío (E2E 4-nov).
+   */
+  useReadyCallback(hook: (userId: string, instanceName: string | null, readySince: Date | null) => unknown): void {
+    this.readyHook = hook;
+  }
+
+  /** `onReady` pasando por el envoltorio: el gancho arranca la sincronización y aquí se recibe esa misma promesa. */
+  syncNotifying(userId: string, instanceName: string | null, readySince: Date | null = null): Promise<OrqaSyncResult> {
+    this.readyHook?.(userId, instanceName, readySince);
+    return this.onReady(userId, instanceName, readySince);
   }
 
   /** Disparo sin espera desde la readiness. Devuelve la promesa para las pruebas. */
@@ -202,7 +218,7 @@ export class OrqaSync {
     this.failedAt.delete(userId);
     await this.running.get(userId);
     const row = await this.deps.repository.findActive(userId);
-    if (row?.status === 'ready') await this.onReady(userId, row.instance_name, row.ready_since);
+    if (row?.status === 'ready') await this.syncNotifying(userId, row.instance_name, row.ready_since);
   }
 
   /**
