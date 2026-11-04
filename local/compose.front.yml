@@ -11,7 +11,7 @@ services:
     image: ghcr.io/jamiltonvalkor/ale-jolly-front:local
     restart: unless-stopped
     ports:
-      - '3000:3000'
+      - '${FRONT_PORT:-3000}:3000'
     environment:
       # Backend real de Meta Assistant (cambio 2 del plan: http interno).
       META_ASSISTANT_SERVICE_URL: http://ale-runtime:8060
@@ -21,7 +21,10 @@ services:
       KEYCLOAK_ISSUER: https://saleads.local/realms/sale-ads
       KEYCLOAK_TOKEN_URL: https://saleads.local/realms/sale-ads/protocol/openid-connect/token
       # Origen que el BFF exige a las peticiones del navegador (mismo origen).
-      ASSISTANT_BFF_PUBLIC_ORIGIN: http://localhost:3000
+      ASSISTANT_BFF_PUBLIC_ORIGIN: http://localhost:${FRONT_PORT:-3000}
+      # Cambio 4: el BFF resuelve el acceso OAuth del asistente dentro de la red
+      # (el navegador del evaluador no ve https://saleads.local).
+      LOCAL_OAUTH_INTERNAL: 'true'
       NODE_EXTRA_CA_CERTS: /certs/ca.crt
     volumes:
       - ./certs/ca.crt:/certs/ca.crt:ro
