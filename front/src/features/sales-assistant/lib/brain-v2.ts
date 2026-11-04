@@ -207,3 +207,23 @@ export function toGraphV1(graph: BrainBusinessGraphV2): BrainBusinessGraph {
     stats: { nodes: graph.stats.nodes, edges: graph.stats.edges },
   }
 }
+
+const SOURCE_LABEL = /^Source: ([a-z_]+)$/
+
+/**
+ * El cerebro nombra sus evidencias `Source: <tipo>` (p. ej. `Source:
+ * specialist_result`). En la web se leen en el idioma del dueño.
+ */
+export function withReadableSources(
+  graph: BrainBusinessGraphV2,
+  sourceLabel: (kind: string) => string
+): BrainBusinessGraphV2 {
+  if (!graph.nodes.some(n => SOURCE_LABEL.test(n.label))) return graph
+  return {
+    ...graph,
+    nodes: graph.nodes.map(n => {
+      const kind = SOURCE_LABEL.exec(n.label)?.[1]
+      return kind ? { ...n, label: sourceLabel(kind) } : n
+    }),
+  }
+}

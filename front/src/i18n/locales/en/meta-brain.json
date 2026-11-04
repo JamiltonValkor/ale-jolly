@@ -263,5 +263,13 @@
     "label": "What your assistant knows, by family",
     "count": "{count, plural, one {# idea} other {# ideas}}",
     "open": "Open detail of “{label}”"
+  },
+  "sources": {
+    "label": "Source: {kind}",
+    "kinds": {
+      "specialist_result": "a specialist's result",
+      "owner_message": "owner's message",
+      "api_observation": "SaleADS data"
+    }
   }
 }

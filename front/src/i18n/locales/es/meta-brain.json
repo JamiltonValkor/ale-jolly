@@ -263,5 +263,13 @@
     "label": "Lo que sabe tu asistente, por familia",
     "count": "{count, plural, one {# idea} other {# ideas}}",
     "open": "Abrir detalle de «{label}»"
+  },
+  "sources": {
+    "label": "Fuente: {kind}",
+    "kinds": {
+      "specialist_result": "resultado de un especialista",
+      "owner_message": "mensaje del dueño",
+      "api_observation": "dato de SaleADS"
+    }
   }
 }

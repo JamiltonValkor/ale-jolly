@@ -1,6 +1,7 @@
 'use client'
 
 import { useMemo, useState } from 'react'
+import { useTranslations } from 'next-intl'
 import { MetaUiScope } from '@/shared/meta-ui'
 import { useBusinessStore } from '@/store/use-business-store'
 import { useBrainFeedback } from '../../hooks/use-orqa-mutations'
@@ -10,7 +11,8 @@ import {
   useBrainSnapshotV2,
 } from '../../hooks/use-orqa-queries'
 import { useSalesAssistantMe } from '../../hooks/use-sales-assistant-me'
-import { asV2 } from '../../lib/brain-v2'
+import { asV2, withReadableSources } from '../../lib/brain-v2'
+import { humanizeToken } from '../../lib/meta-brain/describe'
 import {
   brainStatus,
   changesStatus,
@@ -113,9 +115,19 @@ function BusinessBrain({
   const [chosen, setChosen] = useState<number | null>(null)
   const version = chosen ?? items[0]?.version ?? null
   const snapshot = useBrainSnapshotV2(businessId, version)
+  const t = useTranslations('metaBrain')
   const graph = useMemo(
-    () => (snapshot.data ? asV2(snapshot.data.graph) : null),
-    [snapshot.data]
+    () =>
+      snapshot.data
+        ? withReadableSources(asV2(snapshot.data.graph), kind =>
+            t('sources.label', {
+              kind: t.has(`sources.kinds.${kind}`)
+                ? t(`sources.kinds.${kind}`)
+                : humanizeToken(kind).toLowerCase(),
+            })
+          )
+        : null,
+    [snapshot.data, t]
   )
   const { changes, setRange, retry } = useChanges(businessId, snapshots.data)
   const feedback = useFeedback(businessId, stopped)
