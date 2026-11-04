@@ -28,7 +28,7 @@ type Call = Parameters<SaleadsServicesClient['call']>[0];
 /** campaign-service (C-8 y activación) y subscription (cuota) en memoria. */
 class FakeServices {
   calls: Call[] = [];
-  updatedAt = '2027-08-16T02:00:00.000Z';
+  updatedAt = '2027-10-21T02:00:00.000Z';
   state = 'awaiting_owner_approval';
   activationStatus = 200;
   reservation = 'reserved';
@@ -56,7 +56,7 @@ class FakeServices {
     }
     if (input.service === 'integration' && input.path === `/api/integration/internal/agentic/v1/meta/businesses/${BUSINESS}/agent-spend-projection`) {
       if (this.integrationStatus !== 200) return ok({success: false}, this.integrationStatus);
-      return ok({success: true, data: {currency: 'COP', account_timezone: 'America/Bogota', period_start: '2027-07-27',
+      return ok({success: true, data: {currency: 'COP', account_timezone: 'America/Bogota', period_start: '2027-10-01',
         spent_to_date_minor: 50_000, projected_active_minor: 100_000, requested_delta_minor: this.liveDelta}});
     }
     if (input.path === '/api/subscription/internal/quota-reservation-status') return ok({reservation_status: this.reservation});
@@ -85,7 +85,7 @@ describe('encender lo que publicó el agente (AAB-012, D21)', () => {
   beforeEach(async () => {
     await db.database.pool.query('DELETE FROM assistant.approvals');
     await db.database.pool.query('DELETE FROM assistant.agent_monthly_budgets');
-    now = new Date('2027-08-16T12:00:00Z');
+    now = new Date('2027-10-21T12:00:00Z');
     services = new FakeServices();
     budgets = new AgentBudgetRepository(db.database);
     build();
@@ -93,7 +93,7 @@ describe('encender lo que publicó el agente (AAB-012, D21)', () => {
 
   const propose = () => service.propose(USER_ID, {business_id: BUSINESS, kind: 'activate_agent_publication', item_id: PUBLICATION, params: {projection}});
   const activations = () => services.calls.filter(call => call.path.endsWith('/activation'));
-  const setBudget = (amountMinor: number) => budgets.set({businessId: BUSINESS, userId: USER_ID, amountMinor, currency: 'COP', periodStart: '2027-07-27', expectedRevision: null, now});
+  const setBudget = (amountMinor: number) => budgets.set({businessId: BUSINESS, userId: USER_ID, amountMinor, currency: 'COP', periodStart: '2027-10-01', expectedRevision: null, now});
 
   it('C-31: con la bandera apagada no se puede proponer', async () => {
     build(false);
@@ -155,9 +155,9 @@ describe('encender lo que publicó el agente (AAB-012, D21)', () => {
     expect((await budgets.current(BUSINESS))?.revision).toBe(1);
   });
 
-  it('si la publicación cambió y el agente vuelve a pedir: queda UNA aprobación pendiente, la nueva (dev E2E 2027-08-16)', async () => {
+  it('si la publicación cambió y el agente vuelve a pedir: queda UNA aprobación pendiente, la nueva (dev E2E 2027-10-21)', async () => {
     const first = await propose();
-    services.updatedAt = '2027-08-16T03:00:00.000Z';
+    services.updatedAt = '2027-10-21T03:00:00.000Z';
     const second = await propose();
     expect(second.id).not.toBe(first.id);
     const {rows} = await db.database.pool.query(
@@ -167,7 +167,7 @@ describe('encender lo que publicó el agente (AAB-012, D21)', () => {
 
   it('si la publicación cambió entre la propuesta y la decisión: APPROVAL_STALE y no enciende', async () => {
     const approval = await propose();
-    services.updatedAt = '2027-08-16T03:00:00.000Z';
+    services.updatedAt = '2027-10-21T03:00:00.000Z';
     await expect(service.approve(USER_ID, approval.id, 'decision-0004')).rejects.toMatchObject({code: 'APPROVAL_STALE'});
     expect(activations()).toHaveLength(0);
   });
@@ -187,7 +187,7 @@ describe('encender lo que publicó el agente (AAB-012, D21)', () => {
   it('si el dueño bajó el presupuesto después de la propuesta, no se enciende (BUDGET_EXCEEDED)', async () => {
     await setBudget(1_000_000);
     const approval = await propose();
-    await budgets.set({businessId: BUSINESS, userId: USER_ID, amountMinor: 100_000, currency: 'COP', periodStart: '2027-07-27', expectedRevision: 1, now});
+    await budgets.set({businessId: BUSINESS, userId: USER_ID, amountMinor: 100_000, currency: 'COP', periodStart: '2027-10-01', expectedRevision: 1, now});
     const done = await service.approve(USER_ID, approval.id, 'decision-0006');
     expect(done.details?.result).toMatchObject({code: 'BUDGET_EXCEEDED'});
     expect(activations()).toHaveLength(0);
@@ -220,7 +220,7 @@ describe('encender lo que publicó el agente (AAB-012, D21)', () => {
     it('al día siguiente, con los mismos presupuestos, no queda vencida (se compara el gasto diario)', async () => {
       await setBudget(1_000_000);
       const approval = await propose();
-      now = new Date('2027-08-17T11:00:00Z');
+      now = new Date('2027-10-22T11:00:00Z');
       services.liveDelta = Math.round(300_000 * 10 / 11);
       expect((await service.get(USER_ID, approval.id)).status).toBe('pending');
       expect((await service.approve(USER_ID, approval.id, 'decision-0032')).status).toBe('executed');

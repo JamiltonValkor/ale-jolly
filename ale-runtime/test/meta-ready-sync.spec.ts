@@ -18,7 +18,7 @@ async function harness(mode: Mode = {}) {
   const ctx = setup({managedMeta: scope, ...(mode.disabled ? {brainImage: null} : {})}, bundle,
     user => mode.classic || meta.isReady(user, {configured: true, provider: META_PROVIDER_ID, model: META_MODEL_ID}));
   Object.assign(ctx.row, {status: 'ready', ai_configured: true, ai_provider: META_PROVIDER_ID, ai_model: META_MODEL_ID,
-    private_ip: VM_IP, bundle_version: 'saleads-sales-agent@1.5.9', ready_since: new Date('2027-08-24T10:00:00Z')});
+    private_ip: VM_IP, bundle_version: 'saleads-sales-agent@1.5.9', ready_since: new Date('2026-10-29T10:00:00Z')});
   ctx.instances.view!.generation = 'same-existing-generation';
   const guest = ctx.instances.guestAttribute.bind(ctx.instances);
   ctx.instances.guestAttribute = async (name, key) => key === 'hermes/watcher-version' ? '11' : guest(name, key);

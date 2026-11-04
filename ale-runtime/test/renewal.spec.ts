@@ -113,7 +113,7 @@ describe('renovación de la credencial del asistente (OCB-009)', () => {
 
   beforeEach(async () => {
     await db.database.pool.query('TRUNCATE assistant.assistants, assistant.assistant_credentials, assistant.oauth_flows, assistant.assistant_events', []);
-    nowMs = Date.parse('2027-08-10T12:00:00.000Z');
+    nowMs = Date.parse('2027-10-15T12:00:00.000Z');
     repository = new AssistantRepository(db.database);
     store = new CredentialStore(db.database);
     tokens = new FakeTokens();

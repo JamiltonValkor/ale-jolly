@@ -5,7 +5,7 @@ import {loadAgentBundle, withCliConfig} from '../src/activation/hermes-files';
 import {composeSkills, MAX_SKILLS_METADATA_BYTES} from '../src/skills/skills-writer';
 
 /**
- * AAB-024 (plan de correcciones 2027-08-17): 1.5.3 = archivos de trabajo dentro de /opt/data, una publicación por
+ * AAB-024 (plan de correcciones 2027-10-22): 1.5.3 = archivos de trabajo dentro de /opt/data, una publicación por
  * apuesta, encendido con publication_id, evidencia consultiva y servicio con el método de Juan.
  */
 const DIR = 'distribution/saleads-sales-agent/1.5.3';

@@ -55,7 +55,7 @@ describe('tipo de negocio (MLB-002)', () => {
       accessToken: async () => token,
       repository: {appendEvent: async event => {events.push(event);}},
       onTypeChanged: userId => {changed.push(userId);},
-      now: () => new Date('2027-08-14T15:00:00.000Z'),
+      now: () => new Date('2027-10-19T15:00:00.000Z'),
     });
     const moduleRef = await Test.createTestingModule({imports: [AppModule.register({
       database: db.database,
@@ -117,7 +117,7 @@ describe('tipo de negocio (MLB-002)', () => {
 
   it('PUT guarda la elección del dueño; cambiar el tipo deja un evento y vence el bundle una sola vez', async () => {
     const saved = BusinessProfileV1.parse(await put(BOTH, {business_type: 'infoproduct'}, 200));
-    expect(saved).toEqual({business_id: BOTH, business_type: 'infoproduct', needs_choice: false, source: 'owner', updated_at: '2027-08-14T15:00:00.000Z'});
+    expect(saved).toEqual({business_id: BOTH, business_type: 'infoproduct', needs_choice: false, source: 'owner', updated_at: '2027-10-19T15:00:00.000Z'});
     expect(BusinessProfileV1.parse(await get(BOTH, 200))).toEqual(saved);
     await put(BOTH, {business_type: 'infoproduct'}, 200);
     expect(events).toEqual([{userId: USER_ID, kind: 'business_profile.changed', phase: 'profile', detail: 'from=none to=infoproduct'}]);

@@ -22,7 +22,7 @@ import {startTestDatabase, type TestDatabase} from './support/pglite-db';
 import {ISSUER, testKeys, USER_ID, type TestKeys} from './support/tokens';
 
 const cipher = new FieldCipher(Buffer.alloc(32, 9));
-const T0 = Date.parse('2027-08-10T12:00:00.000Z');
+const T0 = Date.parse('2027-10-15T12:00:00.000Z');
 const MCP = {mcpUrl: 'https://dev.saleads.ai/mcp', clientId: 'mcp-saleads-assistant-dev', scope: 'openid offline_access saleads-mcp'};
 const KEY = 'sk-or-v1-SECRETKEY-0123456789abcdef0123456789'; // gitleaks:allow -- synthetic test credential
 const NEW_KEY = 'sk-or-v1-NEWSECRET-fedcba9876543210fedcba98'; // gitleaks:allow -- synthetic test credential

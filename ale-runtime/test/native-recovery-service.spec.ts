@@ -14,7 +14,7 @@ const OWNER='service-recovery-fixture',KEY='synthetic-state-native-key',RUN='run
 describe('continuous state dispatcher and private run projection integration',()=>{
  let pg:TestDatabase,repository:FirstLoopRepository,cipher:FieldCipher,languages:LanguagePreferences,notices:NotificationRepository;
  beforeAll(async()=>{pg=await startTestDatabase();cipher=new FieldCipher(randomBytes(32));repository=new FirstLoopRepository(pg.database,cipher);languages=new LanguagePreferences(pg.database);notices=new NotificationRepository(pg.database,cipher);
-  await languages.synchronize(OWNER,{language_code:'en',source_updated_at:'2027-08-22T10:00:00Z'});
+  await languages.synchronize(OWNER,{language_code:'en',source_updated_at:'2026-10-27T10:00:00Z'});
  });
  afterAll(async()=>pg.close());
  function fixture(){

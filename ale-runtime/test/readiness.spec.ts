@@ -17,7 +17,7 @@ import {startTestDatabase, type TestDatabase} from './support/pglite-db';
 import {testKeys, USER_ID, ISSUER, type TestKeys} from './support/tokens';
 
 const cipher = new FieldCipher(Buffer.alloc(32, 9));
-const T0 = Date.parse('2027-08-10T12:00:00.000Z');
+const T0 = Date.parse('2027-10-15T12:00:00.000Z');
 
 class CaptureLogger implements LoggerService {
   readonly lines: string[] = [];

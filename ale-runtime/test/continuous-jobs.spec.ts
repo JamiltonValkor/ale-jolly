@@ -349,11 +349,11 @@ describe('exact pinned native cron HTTP adapter',()=>{
     expect((await client.pause(target,'../foreign',1000)).kind).toBe('rejected');expect(calls).toHaveLength(3);
   });
   it('reads disabled jobs and preserves canonical native cron/interval schedules',async()=>{
-    const job={id:'abcdef123456',name:base.name,prompt:base.prompt,skills:base.skills,enabled:false,state:'paused',paused_reason:MANAGED_JOB_HOLD,paused_at:'2026-10-28T03:04:05Z',deliver:MANAGED_JOB_DELIVERY,origin:{platform:'api_server',chat_id:'api'}};
+    const job={id:'abcdef123456',name:base.name,prompt:base.prompt,skills:base.skills,enabled:false,state:'paused',paused_reason:MANAGED_JOB_HOLD,paused_at:'2027-01-02T03:04:05Z',deliver:MANAGED_JOB_DELIVERY,origin:{platform:'api_server',chat_id:'api'}};
     const client=new NativeManagedJobsClient(async()=>Response.json({jobs:[{...job,schedule:{kind:'cron',expr:'0 4 * * *'}},{...job,id:'abcdef123457',schedule:{kind:'interval',minutes:15}}]}),8642);
     const read=await client.list(target,1000);
     expect(read.kind).toBe('ok');if(read.kind!=='ok')throw new Error('fixture failed');
-    expect(read.jobs.map(j=>j.schedule)).toEqual(['0 4 * * *','every 15m']);expect(read.jobs.every(j=>j.enabled===false)).toBe(true);expect(read.jobs.every(j=>j.paused_at==='2026-10-28T03:04:05Z')).toBe(true);
+    expect(read.jobs.map(j=>j.schedule)).toEqual(['0 4 * * *','every 15m']);expect(read.jobs.every(j=>j.enabled===false)).toBe(true);expect(read.jobs.every(j=>j.paused_at==='2027-01-02T03:04:05Z')).toBe(true);
     expect(scopedJobPrompt(base,context)).toContain(base.prompt);
   });
 });

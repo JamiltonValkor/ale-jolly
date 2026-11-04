@@ -169,9 +169,9 @@ describe('propuesta de conteo con foto y kit con fuentes', () => {
 
     it('salen en la propuesta, limpios y en una línea', async () => {
       const detalle = kitOf(await kit({diagnostico: 'precio\n​bajo', precio_fuente: 'Tres\ttiendas‮ de Bogotá',
-        fuentes: [{url: 'https://tienda.example/mascarilla', fecha: '2027-08-25'}, {url: 'http://otra.example/p?a=1', fecha: '30\noct'}]}));
+        fuentes: [{url: 'https://tienda.example/mascarilla', fecha: '2026-10-30'}, {url: 'http://otra.example/p?a=1', fecha: '30\noct'}]}));
       expect(detalle).toMatchObject({diagnostico: 'precio bajo', precio_fuente: 'Tres tiendas de Bogotá',
-        fuentes: [{url: 'https://tienda.example/mascarilla', fecha: '2027-08-25'}, {url: 'http://otra.example/p?a=1', fecha: '30 oct'}]});
+        fuentes: [{url: 'https://tienda.example/mascarilla', fecha: '2026-10-30'}, {url: 'http://otra.example/p?a=1', fecha: '30 oct'}]});
     });
 
     it('sin precio_fuente sale nulo; sin fuentes, lista vacía', async () => {

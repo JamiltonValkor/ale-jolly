@@ -15,7 +15,7 @@ const pdf = (pages: number) => Buffer.from(`%PDF-1.4\n${Array.from({length: page
 const sha = (bytes: Buffer) => createHash('sha256').update(bytes).digest('hex');
 const line = (over: Record<string, unknown> = {}) => ({descripcion: 'Shampoo 250 ml', cantidad: 10, costo_unitario: '100.00', total_linea: '1000.00', confianza_cantidad: 0.95, confianza_costo: 0.95, ...over});
 const invoice = (over: Record<string, unknown> = {}) => ({
-  es_factura: true, paginas_leidas: 1, proveedor: {nombre: 'Distribuidora', nit: '900'}, fecha: '2027-08-25', moneda: 'COP', lineas: [line()], total: '1000.00', dudas: [], ...over,
+  es_factura: true, paginas_leidas: 1, proveedor: {nombre: 'Distribuidora', nit: '900'}, fecha: '2026-10-30', moneda: 'COP', lineas: [line()], total: '1000.00', dudas: [], ...over,
 });
 
 class MemoryStore implements DocumentStore {
@@ -278,7 +278,7 @@ describe('facturas de Stock', () => {
       expect(model.extract).toHaveBeenCalledTimes(1);
       const {rows} = await world.db.query<{status: string}>('SELECT status FROM assistant.stock_documents WHERE id = $1', [id]);
       expect(rows[0]!.status).toBe('registrado');
-      world.now.value = new Date('2027-08-28T10:00:00.000Z');
+      world.now.value = new Date('2026-11-02T10:00:00.000Z');
       model.extract.mockResolvedValue(invoice({paginas_leidas: 2}));
       expect((await extract(id)).status).toBe('ok');
     });
@@ -443,7 +443,7 @@ describe('facturas de Stock', () => {
 
     it('la URL firma el content-type: otro tipo da otra firma de encabezados', async () => {
       const store2 = gcsDocumentStore('bucket', signer, {objectExists: async () => true}, {download: async () => null});
-      const url = await store2.signPut('o.pdf', 'application/pdf', 300, new Date('2027-08-27T00:00:00Z'));
+      const url = await store2.signPut('o.pdf', 'application/pdf', 300, new Date('2026-11-01T00:00:00Z'));
       expect(new URL(url).searchParams.get('X-Goog-SignedHeaders')).toContain('content-type');
     });
 

@@ -33,11 +33,11 @@ describe('topes de gasto', () => {
   describe('reloj', () => {
     it('sin run_id cuenta por día de la zona del negocio: las 23:00 en Bogotá ya son mañana en UTC', async () => {
       const world = await createWorld(db);
-      world.now.value = new Date('2027-08-29T04:00:00.000Z');
+      world.now.value = new Date('2026-11-03T04:00:00.000Z');
       await world.stock.usage.spend(world.db, world.businessId, 'despertares_ale');
-      world.now.value = new Date('2027-08-28T20:00:00.000Z');
+      world.now.value = new Date('2026-11-02T20:00:00.000Z');
       await world.stock.usage.spend(world.db, world.businessId, 'despertares_ale');
-      expect(await usageRow(world, 'despertares_ale')).toEqual([{value: 2, day: '2027-08-28'}]);
+      expect(await usageRow(world, 'despertares_ale')).toEqual([{value: 2, day: '2026-11-02'}]);
     });
 
     it('con el día nuevo vuelve a haber cupo', async () => {
@@ -100,7 +100,7 @@ describe('topes de gasto', () => {
     it('sam_llamadas: `tope_diario`, sin foto ni orden al robot', async () => {
       const world = await createWorld(db, {deps: {photoStore: store, toolWaitMs: 0}});
       await online(world);
-      await world.db.query(`INSERT INTO assistant.stock_usage(business_id,day,metric,value) VALUES ($1,'2027-08-27','sam_llamadas',59)`, [world.businessId]);
+      await world.db.query(`INSERT INTO assistant.stock_usage(business_id,day,metric,value) VALUES ($1,'2026-11-01','sam_llamadas',59)`, [world.businessId]);
       expect((await photo(world)).status).toBe('pending');
       expect((await photo(world, 'otra')).status).toBe('tope_diario');
       const {rows: photos} = await world.db.query('SELECT 1 FROM assistant.stock_photos WHERE business_id = $1', [world.businessId]);
@@ -130,7 +130,7 @@ describe('topes de gasto', () => {
     it('extraccion: `tope_diario`, y el documento vuelve a quedar registrado', async () => {
       const extract = jest.fn();
       const world = await createWorld(db, {deps: {documentStore: {exists: async () => true} as never, invoiceModel: {id: 'modelo', extract} as never}});
-      await world.db.query(`INSERT INTO assistant.stock_usage(business_id,day,metric,value) VALUES ($1,'2027-08-27','extraccion',$2)`, [world.businessId, STOCK_TOPES.extraccion]);
+      await world.db.query(`INSERT INTO assistant.stock_usage(business_id,day,metric,value) VALUES ($1,'2026-11-01','extraccion',$2)`, [world.businessId, STOCK_TOPES.extraccion]);
       const {documentId} = await seedDocument(world, []);
       await world.db.query(`UPDATE assistant.stock_documents SET status = 'registrado', object = 'o', extraction = NULL WHERE id = $1`, [documentId]);
       expect(await world.stock.documents.extract(world.userId, world.businessId, documentId)).toEqual({status: 'tope_diario'});
@@ -151,7 +151,7 @@ describe('topes de gasto', () => {
 
     it('avisos_voz: el cuarto del día queda `tope_diario` con el mismo contador', async () => {
       const world = await createWorld(db);
-      await world.db.query(`INSERT INTO assistant.stock_usage(business_id,day,metric,value) VALUES ($1,'2027-08-27','avisos_voz',$2)`, [world.businessId, STOCK_TOPES.avisos_voz]);
+      await world.db.query(`INSERT INTO assistant.stock_usage(business_id,day,metric,value) VALUES ($1,'2026-11-01','avisos_voz',$2)`, [world.businessId, STOCK_TOPES.avisos_voz]);
       await world.db.query(`INSERT INTO assistant.stock_device_presence(device_id,user_id,device_state,events_seen_at) VALUES ($1,$2,'activo',$3)`, [randomUUID(), world.userId, world.now.value]);
       const said = await world.stock.notices.say(world.userId, world.businessId, {texto: 'Se acaba el shampoo', pregunta: false, prioridad: 'normal', producto_id: null, proposal_id: null} as never);
       expect(said.status).toBe('tope_diario');

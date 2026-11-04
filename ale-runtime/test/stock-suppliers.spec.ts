@@ -11,16 +11,16 @@ const quote = (over: Partial<QuoteOption> = {}): QuoteOption => ({
 
 describe('reposición y costo total', () => {
   describe('cuentas sin base', () => {
-    const hoy = new Date('2027-08-27T15:00:00.000Z');
+    const hoy = new Date('2026-11-01T15:00:00.000Z');
 
     it('R23: saldo 40 a 14 por semana, entrega 5 y colchón 3: cubre 20 días y se pide en 12', () => {
       expect(reorderPlan({saldo: 40, ritmoVigente: 14, ritmoEstable: 14, diasEntrega: 5, horizonteDias: 30, minimo: 1, hoy})).toEqual({
-        cobertura_dias: 20, punto_pedido_dias: 8, fecha_pedido: '2027-09-08', cantidad_sugerida: 36}); // 2 × 38 = 76, menos 40.
+        cobertura_dias: 20, punto_pedido_dias: 8, fecha_pedido: '2026-11-13', cantidad_sugerida: 36}); // 2 × 38 = 76, menos 40.
     });
 
     it('R23: la pauta prevista adelanta la fecha, y dentro del punto de pedido se pide hoy', () => {
-      expect(reorderPlan({saldo: 40, ritmoVigente: 28, ritmoEstable: 14, diasEntrega: 5, horizonteDias: 30, minimo: 1, hoy}).fecha_pedido).toBe('2027-08-29');
-      expect(reorderPlan({saldo: 2, ritmoVigente: 14, ritmoEstable: 14, diasEntrega: 5, horizonteDias: 30, minimo: 1, hoy}).fecha_pedido).toBe('2027-08-27');
+      expect(reorderPlan({saldo: 40, ritmoVigente: 28, ritmoEstable: 14, diasEntrega: 5, horizonteDias: 30, minimo: 1, hoy}).fecha_pedido).toBe('2026-11-03');
+      expect(reorderPlan({saldo: 2, ritmoVigente: 14, ritmoEstable: 14, diasEntrega: 5, horizonteDias: 30, minimo: 1, hoy}).fecha_pedido).toBe('2026-11-01');
     });
 
     it('R23: sin ritmo no hay fecha, y el mínimo sube la cantidad; lo que alcanza no se pide', () => {
@@ -29,7 +29,7 @@ describe('reposición y costo total', () => {
     });
 
     it('R24: un pico de un día, en cualquier semana, no cambia el ritmo que da la cantidad', () => {
-      const now = new Date('2027-08-27T12:00:00.000Z');
+      const now = new Date('2026-11-01T12:00:00.000Z');
       const week = (back: number, units: number) => ({at: new Date(now.getTime() - (back * 7 + 2) * 86_400_000), units});
       const steady = Array.from({length: 9}, (_, back) => week(back, 14));
       expect(saleRhythm(steady, now).steady).toBe(14);
@@ -90,7 +90,7 @@ describe('reposición y costo total', () => {
     });
 
     it('solo cuenta la última cotización del proveedor', async () => {
-      const id = await supplier('Capilar', {price: '17000', recordedAt: '2027-07-27T00:00:00Z'});
+      const id = await supplier('Capilar', {price: '17000', recordedAt: '2026-10-28T00:00:00Z'});
       await world.db.query(`INSERT INTO assistant.stock_supplier_quotes(id,supplier_id,variant_id,price,currency) VALUES ($1,$2,$3,15000,'COP')`, [randomUUID(), id, variantId]);
       const proposal = await propose(world, 'pedido', order(id, 2));
       if (proposal.tipo !== 'pedido') throw new Error('tipo');
@@ -119,7 +119,7 @@ describe('reposición y costo total', () => {
       await supplier('Sin plazo', {price: '100', lead: null});
       const plan = await world.stock.suppliers.plan(world.businessId, variantId);
       expect(plan).toMatchObject({saldo: 26, ritmo_vigente: 14, ritmo_estable: 0, moneda: 'COP'});
-      expect(plan!.opciones.map(row => [row.nombre, row.elegible, row.fecha_pedido, row.cobertura_dias])).toEqual([['Capilar', true, '2027-09-01', 13], ['Sin plazo', false, null, 13]]);
+      expect(plan!.opciones.map(row => [row.nombre, row.elegible, row.fecha_pedido, row.cobertura_dias])).toEqual([['Capilar', true, '2026-11-06', 13], ['Sin plazo', false, null, 13]]);
       expect(() => STOCK_TOOLS.saleads_stock_list_suppliers.output.parse({proveedores: [], reposicion: plan})).not.toThrow();
       expect(await world.stock.suppliers.plan(world.businessId, randomUUID())).toBeNull();
     });
@@ -131,7 +131,7 @@ describe('reposición y costo total', () => {
       await propose(world, 'apuesta', {variante_id: variantId, presupuesto_diario: '10', tope: '100', duracion_dias: 14, unidades_semana_previstas: 28, fuente_prevision: 'dato'});
       const plan = await world.stock.suppliers.plan(world.businessId, variantId);
       expect(plan).toMatchObject({ritmo_vigente: 28, ritmo_estable: 28});
-      expect(plan!.opciones[0]).toMatchObject({cobertura_dias: 10, punto_pedido_dias: 8, fecha_pedido: '2027-08-29', cantidad_sugerida: 48}); // Horizonte = apuesta de 14 días: 4 por día × 22 = 88, menos 40.
+      expect(plan!.opciones[0]).toMatchObject({cobertura_dias: 10, punto_pedido_dias: 8, fecha_pedido: '2026-11-03', cantidad_sugerida: 48}); // Horizonte = apuesta de 14 días: 4 por día × 22 = 88, menos 40.
     });
 
     it('IVB-024 (oficial, P6): una apuesta sin previsión no mueve fecha ni cantidad; con previsión, sí (R23, R24)', async () => {
@@ -140,7 +140,7 @@ describe('reposición y costo total', () => {
       await propose(world, 'apuesta', {variante_id: variantId, presupuesto_diario: '10', tope: '100', duracion_dias: 14, unidades_semana_previstas: null, fuente_prevision: 'supuesto'});
       expect((await world.stock.suppliers.plan(world.businessId, variantId))!.opciones[0]).toMatchObject({fecha_pedido: null, cantidad_sugerida: 0});
       await propose(world, 'apuesta', {variante_id: variantId, presupuesto_diario: '10', tope: '100', duracion_dias: 14, unidades_semana_previstas: 28, fuente_prevision: 'supuesto'});
-      expect((await world.stock.suppliers.plan(world.businessId, variantId))!.opciones[0]).toMatchObject({fecha_pedido: '2027-08-29', cantidad_sugerida: 48});
+      expect((await world.stock.suppliers.plan(world.businessId, variantId))!.opciones[0]).toMatchObject({fecha_pedido: '2026-11-03', cantidad_sugerida: 48});
     });
 
     it('idempotencia de pedido: misma clave, misma propuesta', async () => {

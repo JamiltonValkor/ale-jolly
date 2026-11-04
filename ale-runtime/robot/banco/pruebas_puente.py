@@ -55,7 +55,7 @@ def puente(tmp_path, tg, srv):
 
 
 def saliente(i, body="Hola, soy el asistente virtual de Masquebella", sent=True, bloqueado=None):
-    return {"id": f"m{i}", "body": body, "sent_at": "2026-10-27T10:00:00Z" if sent else None, "blocked_reason": bloqueado}
+    return {"id": f"m{i}", "body": body, "sent_at": "2027-01-01T10:00:00Z" if sent else None, "blocked_reason": bloqueado}
 
 
 # ---- Primer arranque ---------------------------------------------------------------------------------------------

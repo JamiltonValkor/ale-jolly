@@ -24,8 +24,8 @@ type Call = Parameters<SaleadsServicesClient['call']>[0];
 /** strategy y campaign en memoria: responde como los endpoints reales que usa la web. */
 class FakeServices {
   calls: Call[] = [];
-  plan: Record<string, unknown> = {plan_id: PLAN, business_id: BUSINESS, name: 'Plan kit capilar', status: 'draft', updated_at: '2027-08-14T10:00:00Z'};
-  campaign: Record<string, unknown> = {campaign_id: CAMPAIGN, business_id: BUSINESS, user_id: USER_ID, campaign_name: 'Kit mamás', status: 'active', updated_at: '2027-08-14T09:00:00Z'};
+  plan: Record<string, unknown> = {plan_id: PLAN, business_id: BUSINESS, name: 'Plan kit capilar', status: 'draft', updated_at: '2027-10-19T10:00:00Z'};
+  campaign: Record<string, unknown> = {campaign_id: CAMPAIGN, business_id: BUSINESS, user_id: USER_ID, campaign_name: 'Kit mamás', status: 'active', updated_at: '2027-10-19T09:00:00Z'};
   pauseStatus = 200;
   patchBody: Record<string, unknown> = {success: true, plan: {plan_id: PLAN}};
 
@@ -54,7 +54,7 @@ describe('aprobaciones de gasto con código (MLB-013)', () => {
   afterAll(async () => {await db.close();});
   beforeEach(async () => {
     await db.database.pool.query('DELETE FROM assistant.approvals');
-    now = new Date('2027-08-14T12:00:00Z');
+    now = new Date('2027-10-19T12:00:00Z');
     services = new FakeServices();
     const spend = new SpendActions(services as unknown as SaleadsServicesClient);
     service = new ApprovalsService({repository: new ApprovalsRepository(db.database), spend, executors: spendExecutors(spend), now: () => now});
@@ -105,7 +105,7 @@ describe('aprobaciones de gasto con código (MLB-013)', () => {
   it('una aprobación vencida, rechazada o desactualizada no ejecuta nada; un plan editado deja el launch stale', async () => {
     const launch = await service.propose(USER_ID, {business_id: BUSINESS, kind: 'launch_plan', item_id: PLAN});
     const {code} = await service.requestCode(USER_ID, launch.id);
-    services.plan = {...services.plan, updated_at: '2027-08-14T11:30:00Z'};
+    services.plan = {...services.plan, updated_at: '2027-10-19T11:30:00Z'};
     await expect(service.approve(USER_ID, launch.id, 'decision-0001', code)).rejects.toMatchObject({code: 'APPROVAL_STALE'});
     const rejected = await pause();
     await service.reject(USER_ID, rejected.id, 'decision-0002');
@@ -140,7 +140,7 @@ describe('aprobaciones de gasto con código (MLB-013)', () => {
     const {code} = await service.requestCode(USER_ID, a.id);
     const done = await service.approve(USER_ID, a.id, 'decision-0001', code);
     expect(done.details?.result).toMatchObject({action: 'change_budget', replaced_plan_id: '00000000-0000-4000-8000-000000000025'});
-    expect(sideEffects()[0]).toMatchObject({method: 'PATCH', ifMatch: '"2027-08-14T10:00:00Z"', body: {monthly_budget: 600}, businessId: BUSINESS});
+    expect(sideEffects()[0]).toMatchObject({method: 'PATCH', ifMatch: '"2027-10-19T10:00:00Z"', body: {monthly_budget: 600}, businessId: BUSINESS});
   });
 
   it('el recurso tiene que ser del negocio; un plan lanzado no cambia de presupuesto desde aquí', async () => {

@@ -8,7 +8,7 @@ import {approve, createWorld, key, propose, seedDocument, seedVariant, type Worl
  * IVB-024, avisos pendientes: qué aviso ya se le dijo a la dueña lo sabe el servidor, no la memoria del modelo
  * (`evidencia/diagnostico-memoria-vieja.md`). El tick sin memoria solo dice lo pendiente, y la sesión larga no lo calla.
  */
-const NOW = new Date('2027-08-27T15:00:00.000Z');   // 10:00 en Bogotá: Jolly puede hablar
+const NOW = new Date('2026-11-01T15:00:00.000Z');   // 10:00 en Bogotá: Jolly puede hablar
 const DAY = 86_400_000;
 const ago = (days: number): Date => new Date(NOW.getTime() - days * DAY);
 

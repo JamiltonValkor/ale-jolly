@@ -345,7 +345,7 @@ def documento(c: Corrida, a) -> None:
             raise SystemExit("esta factura pide --cantidad y --precio (los del pedido acordado, de la pantalla de Pedidos)")
         sys.path.insert(0, str(AQUI / "facturas"))
         import generar
-        f = {"proveedor": d["proveedor"], "nit": d["nit"], "numero": d["numero"], "fecha": c.estado.get("ahora_simulado", "")[:10] or "2026-10-29",
+        f = {"proveedor": d["proveedor"], "nit": d["nit"], "numero": d["numero"], "fecha": c.estado.get("ahora_simulado", "")[:10] or "2027-01-01",
              "moneda": "COP", "lineas": [(d["descripcion"], int(a.cantidad), int(a.precio))]}
         f["total_impreso"] = int(a.cantidad) * int(a.precio)
         datos = generar.pdf(generar.paginas(f))

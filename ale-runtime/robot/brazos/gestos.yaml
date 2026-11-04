@@ -1,4 +1,4 @@
-# Gestos de los brazos de Mini-Muse — COMPLEMENTARIOS a la cara. v2 (feedback del owner 2026-11-03: notorios, los dos
+# Gestos de los brazos de Mini-Muse — COMPLEMENTARIOS a la cara. v2 (feedback del owner 2026-11-01: notorios, los dos
 # brazos, rango según expresividad y pool variado).
 # poses: [ms, der%, izq%]  ·  % de elevación: 0 reposo · 100 máximo · −100 mínimo · null = no tocar ese brazo.
 # espejo: true = lo hace una mano y se alternan. bucle: true = se repite hasta otro gesto.

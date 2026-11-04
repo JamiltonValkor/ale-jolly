@@ -5,7 +5,7 @@
     "sha256": "1fc046d764316f0088805ed0e13128f6309e2cc88b8abf15b6d62ff369c93790",
     "proveedor": "Distribuidora Capilar Andina SAS",
     "nit": "900111222-3",
-    "fecha": "2026-10-27",
+    "fecha": "2026-10-28",
     "moneda": "COP",
     "total": "1416000.00",
     "lineas": [
@@ -34,7 +34,7 @@
     "sha256": "fec4130adda827079bc46d33682861aab0e9651d8ec764621cf428fc5b42dbca",
     "proveedor": "Insumos Belleza del Valle Ltda",
     "nit": "800222333-1",
-    "fecha": "2026-10-28",
+    "fecha": "2026-10-29",
     "moneda": "COP",
     "total": "6951000.00",
     "lineas": [
@@ -228,7 +228,7 @@
     "sha256": "bb1a5462ddd6bdcc1ce031f58b7782442729026210ac6bc4b6d72a7513519510",
     "proveedor": "Cosméticos La Sabana SAS",
     "nit": "901333444-7",
-    "fecha": "2026-11-02",
+    "fecha": "2026-10-30",
     "moneda": "COP",
     "total": "962000.00",
     "lineas": [
@@ -262,7 +262,7 @@
     "sha256": "018436e40da62c9c96a6526fba2e905df13818a0a1ee1354d272172bf07712a0",
     "proveedor": "Droguería Mayorista Norte SAS",
     "nit": "900444555-2",
-    "fecha": "2026-11-01",
+    "fecha": "2026-10-30",
     "moneda": "COP",
     "total": "915000.00",
     "lineas": [
@@ -291,7 +291,7 @@
     "sha256": "2f8370c8cb792ee7d89dcb98237f50b81c21cb2affb49dd4a895411e8b6a6bca",
     "proveedor": "Laboratorios Nativa SAS",
     "nit": "901555666-9",
-    "fecha": "2026-11-02",
+    "fecha": "2026-10-31",
     "moneda": "COP",
     "total": "786000.00",
     "lineas": [
@@ -322,7 +322,7 @@
     "sha256": "88c649c919973f085d74fd8c695beb327671f239e9f6f9593b3fda42652876eb",
     "proveedor": "Global Beauty Supply Inc",
     "nit": "US-77001",
-    "fecha": "2026-11-03",
+    "fecha": "2026-10-31",
     "moneda": "USD",
     "total": "450.00",
     "lineas": [

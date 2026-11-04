@@ -1,6 +1,6 @@
 """Táctil resistivo de la MPI3508 (ADS7846). SDL no conoce esta calibración: se lee el evdev directo y se entrega el
 toque ya en coordenadas lógicas de 480×320, tal como se ve la pantalla montada a 180°.
-Medido el 2026-10-29 con 3 blancos (el centro cayó a 1,2 % de donde debía): los ejes del panel van cruzados.
+Medido el 2026-11-01 con 3 blancos (el centro cayó a 1,2 % de donde debía): los ejes del panel van cruzados.
 """
 import os, struct
 

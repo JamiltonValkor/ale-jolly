@@ -152,7 +152,7 @@ class BancoFalso:
         if cuerpo["op"] == "bench_state":
             return 200, {"variantes": [{"id": f"v-{p['key']}", "producto": p["nombre"], "variante": p["variante"]} for p in SC["productos"]]}
         if cuerpo["op"] == "bench_clock":
-            return 200, {"ahora": "2026-10-27T14:00:00Z"}
+            return 200, {"ahora": "2027-01-01T14:00:00Z"}
         return 200, {"ok": True, "aplicadas": len(cuerpo.get("semilla", {}).get("aplicar", [])), "pendientes": 0, "lote": cuerpo.get("lote")}
 
 

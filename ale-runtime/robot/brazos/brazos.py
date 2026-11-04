@@ -1,4 +1,4 @@
-"""Brazos: siguen a la cara, también en reposo (decisiones S1/S2 del owner, tabla aprobada 2026-10-30).
+"""Brazos: siguen a la cara, también en reposo (decisiones S1/S2 del owner, tabla aprobada 2026-10-28).
 Escuchan el mismo bus que la cara (cuerpo/*, robot/emparejamiento en :5560) y sus gestos de reposo (cara/micro en
 :5561; contrato en voz-hermes/cuerpo/CONTRATO.md). Cada gesto sale a su hora `t`, sobre los límites de brazos.yaml.
 

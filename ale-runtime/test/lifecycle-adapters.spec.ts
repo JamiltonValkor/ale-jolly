@@ -22,31 +22,31 @@ function fakeFetch(...responses: Array<Response | Error>) {
   return {calls, fetcher};
 }
 const tokens = {token: async () => 'gcp-token'};
-const NOW = new Date('2027-08-10T12:00:00.000Z');
+const NOW = new Date('2027-10-15T12:00:00.000Z');
 
 describe('signed URL V4 del archivo de memorias', () => {
   const {privateKey, publicKey} = generateKeyPairSync('rsa', {modulusLength: 2048});
   const signer: BlobSigner = {email: 'sa-assistant-service@saleads-dev.iam.gserviceaccount.com', sign: async payload => sign('sha256', payload, privateKey)};
 
   it('objeto <user_id>/<YYYYMMDDTHHMMSSZ>.tgz', () => {
-    expect(archiveObjectName('f3c1a2b4-1111', NOW)).toBe('f3c1a2b4-1111/20270810T120000Z.tgz');
+    expect(archiveObjectName('f3c1a2b4-1111', NOW)).toBe('f3c1a2b4-1111/20271015T120000Z.tgz');
   });
 
   it('canonical request PUT con content-type application/gzip firmado y firma RSA-SHA256 verificable', async () => {
-    const parts = await signedPutUrlV4({bucket: 'saleads-dev-assistant-memories', object: 'u:1/20270810T120000Z.tgz', now: NOW, ttlSeconds: 900, signer});
+    const parts = await signedPutUrlV4({bucket: 'saleads-dev-assistant-memories', object: 'u:1/20271015T120000Z.tgz', now: NOW, ttlSeconds: 900, signer});
     const query = 'X-Goog-Algorithm=GOOG4-RSA-SHA256'
-      + '&X-Goog-Credential=sa-assistant-service%40saleads-dev.iam.gserviceaccount.com%2F20261015%2Fauto%2Fstorage%2Fgoog4_request'
-      + '&X-Goog-Date=20270810T120000Z&X-Goog-Expires=900&X-Goog-SignedHeaders=content-type%3Bhost';
+      + '&X-Goog-Credential=sa-assistant-service%40saleads-dev.iam.gserviceaccount.com%2F20271015%2Fauto%2Fstorage%2Fgoog4_request'
+      + '&X-Goog-Date=20271015T120000Z&X-Goog-Expires=900&X-Goog-SignedHeaders=content-type%3Bhost';
     const canonical = [
-      'PUT', '/saleads-dev-assistant-memories/u%3A1/20270810T120000Z.tgz', query,
+      'PUT', '/saleads-dev-assistant-memories/u%3A1/20271015T120000Z.tgz', query,
       'content-type:application/gzip', 'host:storage.googleapis.com', '', 'content-type;host', 'UNSIGNED-PAYLOAD',
     ].join('\n');
     expect(parts.canonicalRequest).toBe(canonical);
-    const stringToSign = ['GOOG4-RSA-SHA256', '20270810T120000Z', '20261015/auto/storage/goog4_request',
+    const stringToSign = ['GOOG4-RSA-SHA256', '20271015T120000Z', '20271015/auto/storage/goog4_request',
       createHash('sha256').update(canonical).digest('hex')].join('\n');
     expect(parts.stringToSign).toBe(stringToSign);
     const url = new URL(parts.url);
-    expect(url.origin + url.pathname).toBe('https://storage.googleapis.com/saleads-dev-assistant-memories/u%3A1/20270810T120000Z.tgz');
+    expect(url.origin + url.pathname).toBe('https://storage.googleapis.com/saleads-dev-assistant-memories/u%3A1/20271015T120000Z.tgz');
     const signature = url.searchParams.get('X-Goog-Signature')!;
     expect(signature).toMatch(/^[a-f0-9]{512}$/);
     expect(verify('sha256', Buffer.from(stringToSign), publicKey, Buffer.from(signature, 'hex'))).toBe(true);
@@ -66,8 +66,8 @@ describe('signed URL V4 del archivo de memorias', () => {
   it('GCS objects.get: 200 con tamaño = existe; 404 = todavía no; otros = error sin cuerpo', async () => {
     const {calls, fetcher} = fakeFetch(json(200, {name: 'o', size: '1234'}), json(404, {}), json(500, {error: 'detalle'}));
     const store = new GcsArchiveStore('https://storage.test', tokens, fetcher);
-    expect(await store.objectExists('saleads-dev-assistant-memories', 'u:1/20270810T120000Z.tgz')).toBe(true);
-    expect(calls[0]!.url).toBe('https://storage.test/storage/v1/b/saleads-dev-assistant-memories/o/u%3A1%2F20270810T120000Z.tgz?fields=name,size');
+    expect(await store.objectExists('saleads-dev-assistant-memories', 'u:1/20271015T120000Z.tgz')).toBe(true);
+    expect(calls[0]!.url).toBe('https://storage.test/storage/v1/b/saleads-dev-assistant-memories/o/u%3A1%2F20271015T120000Z.tgz?fields=name,size');
     expect(await store.objectExists('b', 'o')).toBe(false);
     const error = await store.objectExists('b', 'o').catch(e => e);
     expect(error).toBeInstanceOf(ArchiveError);

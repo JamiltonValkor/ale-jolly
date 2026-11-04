@@ -35,7 +35,7 @@ class Simulado:
                 if self.path == "/devices/pairing":
                     sim.codigos += 1
                     return self._json(200, {"pairing_id": "p1", "code": "K7QM-3XPA", "poll_secret": "s" * 43,
-                                            "expires_at": "2026-10-30T00:00:00Z", "claim_url": "https://x.test/v?code=K7QM-3XPA"})
+                                            "expires_at": "2099-01-01T00:00:00Z", "claim_url": "https://x.test/v?code=K7QM-3XPA"})
                 if self.path == "/devices/pairing/p1/poll":
                     if sim.pendientes > 0:
                         sim.pendientes -= 1

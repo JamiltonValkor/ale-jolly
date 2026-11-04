@@ -1,4 +1,4 @@
-"""Botón desplegable Dormir/Despertar (owner 2026-11-02): el primer toque lo abre, el segundo ejecuta.
+"""Botón desplegable Dormir/Despertar (owner 2026-10-31): el primer toque lo abre, el segundo ejecuta.
 
 Recogido es un círculo discreto en la esquina; abierto, una píldora que se recoge sola a los 4 s. Despierta se
 ve siempre, salvo en las animaciones. Dormida, tocar en cualquier parte lo abre, para que un roce no la despierte.

@@ -121,7 +121,7 @@ describe('usuario habilitado', () => {
 
   it('readyForFirstUse sigue en verdadero con la metadata efectiva', async () => {
     const {harness, sync} = enabled();
-    Object.assign(harness.row, {ai_configured: true, private_ip: VM_IP, ready_since: new Date('2027-08-24T10:00:00Z')});
+    Object.assign(harness.row, {ai_configured: true, private_ip: VM_IP, ready_since: new Date('2026-10-29T10:00:00Z')});
     harness.instances.view!.generation = 'g1';
     expect(await sync.onReady(USER, INSTANCE, harness.row.ready_since)).toBe('synced');
     expect(await sync.readyForFirstUse(harness.row)).toBe(true);

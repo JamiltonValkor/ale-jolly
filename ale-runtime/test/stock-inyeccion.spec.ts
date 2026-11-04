@@ -245,7 +245,7 @@ describe('corpus de inyección de Stock', () => {
       expect(proposal.estado).toBe('pendiente');
     },
     10: async who => {
-      invoice.mockResolvedValue({es_factura: true, paginas_leidas: 1, proveedor: {nombre: 'Dist', nit: '9'}, fecha: '2027-08-25', moneda: 'COP', total: '999999.00', dudas: [],
+      invoice.mockResolvedValue({es_factura: true, paginas_leidas: 1, proveedor: {nombre: 'Dist', nit: '9'}, fecha: '2026-10-30', moneda: 'COP', total: '999999.00', dudas: [],
         lineas: [{descripcion: 'Crema', cantidad: 10, costo_unitario: '100.00', total_linea: '1000.00', confianza_cantidad: 0.99, confianza_costo: 0.99}]});
       const sha256 = createHash('sha256').update(PDF).digest('hex');
       const registered = await model('ale').call<{document_id: string; object?: string; url?: string}>('saleads_stock_document_register', {idempotency_key: key(), tipo: 'factura', content_type: 'application/pdf', tamano: PDF.length, sha256, canal: 'whatsapp'});
@@ -320,7 +320,7 @@ describe('corpus de inyección de Stock', () => {
     },
     17: async (who, {texto}) => {
       const {body} = await who.call<{propuesta: Proposal}>('saleads_stock_propose', {idempotency_key: key(), kind: 'kit', detalle: {subtipo: 'kit', componentes: [{variante_id: variantId, cantidad: 1}], diagnostico: 'demanda',
-        fuentes: [{url: 'https://mercado.test/p', fecha: '2027-08-27'}], hipotesis: texto}});
+        fuentes: [{url: 'https://mercado.test/p', fecha: '2026-11-01'}], hipotesis: texto}});
       expect(body.propuesta).toMatchObject({estado: 'pendiente', detalle: {hipotesis: texto}});
       expect(body.propuesta.motivo).not.toContain(texto);
     },

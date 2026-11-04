@@ -4,7 +4,7 @@ import {betReach, hotSignal, rotationState, saleRhythm, type SaleMark} from '../
 import {startTestDatabase, type TestDatabase} from './support/pglite-db';
 import {approve, count, createWorld, key, propose, seedDocument, seedKit, seedVariant, stockIn, type World} from './support/stock-world';
 
-const NOW = new Date('2027-08-27T10:00:00.000Z');
+const NOW = new Date('2026-11-01T10:00:00.000Z');
 const DAY = 86_400_000;
 const OFFER = randomUUID();
 const ago = (days: number): Date => new Date(NOW.getTime() - days * DAY);

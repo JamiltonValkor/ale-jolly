@@ -146,13 +146,13 @@ describe('normalización Hermes → v1 (OCB-011)', () => {
       {id: 1, role: 'user', content: 'hola', timestamp: 1_760_000_000.5},
       {id: 2, role: 'assistant', content: '', tool_calls: [{}]} as never,
       {id: 3, role: 'tool', content: '{"businesses":3}', tool_name: OVERVIEW} as never,
-      {id: 4, role: 'assistant', content: [{type: 'text', text: 'Tienes 3'}, {type: 'image_url'}], timestamp: '2027-08-10T05:00:00Z'},
+      {id: 4, role: 'assistant', content: [{type: 'text', text: 'Tienes 3'}, {type: 'image_url'}], timestamp: '2027-10-15T05:00:00Z'},
       {id: 5, role: 'system', content: 'SOUL'},
       {id: 6, role: 'assistant', content: 'compactado', display_kind: 'hidden'},
       {role: 'user', content: 'sin id', timestamp: null},
     ])).toEqual({messages: [
       {id: '1', role: 'user', text: 'hola', created_at: new Date(1_760_000_000_500).toISOString()},
-      {id: '4', role: 'assistant', text: 'Tienes 3', created_at: '2027-08-10T05:00:00.000Z'},
+      {id: '4', role: 'assistant', text: 'Tienes 3', created_at: '2027-10-15T05:00:00.000Z'},
       {id: 'm6', role: 'user', text: 'sin id', created_at: null},
     ]});
   });

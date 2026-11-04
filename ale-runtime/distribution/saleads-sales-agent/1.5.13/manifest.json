@@ -391,8 +391,8 @@
     },
     {
       "path": "skills/functions/saleads-estructura-optimizacion-juan/references/metodo.md",
-      "sha256": "427dcf625d453ee232b9cac0ef14c1f3ffd0052bbe8f074c9fb70a366c6821b4",
-      "base_sha256": "427dcf625d453ee232b9cac0ef14c1f3ffd0052bbe8f074c9fb70a366c6821b4",
+      "sha256": "3987b63758ee32a704bacbb3f2f57f699b9d88b36b0f593f1e07ad977d4ea746",
+      "base_sha256": "3987b63758ee32a704bacbb3f2f57f699b9d88b36b0f593f1e07ad977d4ea746",
       "instruction_language": "en",
       "origin": "juan-attributed",
       "literal_contract_data_preserved": false
@@ -702,8 +702,8 @@
     },
     {
       "path": "skills/types/physical_product/saleads-type-physical-product/SKILL.md",
-      "sha256": "bf5527e5abceaa8c0ccbe4025e30fb1a8ed37f5c5c97e8b3846502688f11d0b4",
-      "base_sha256": "2169bfa5efff01dedac20706629f41eac1f7485aee5f1eb5ef9ecd4b33507dd0",
+      "sha256": "a5884745bda5a3e4a5f62cb930e91c1aad0a6e6614654d01ffd27f7398b7dbb9",
+      "base_sha256": "71556fc415bebbef81f2b3bc8770408156c395a905f5ba4e330c34baeeb105d9",
       "instruction_language": "en",
       "origin": "juan-attributed",
       "literal_contract_data_preserved": false

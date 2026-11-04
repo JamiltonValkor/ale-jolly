@@ -11,7 +11,7 @@ const readyRow = {status: 'ready' as const, step: null, instance_name: 'example-
 const state = (): AssistantStateV1 => ({
   status: 'ready', step: null, slow: false, session_id: 'existing-conversation',
   ai: {configured: true, provider: 'openrouter', model: 'existing-legacy-model'},
-  ready_since: '2027-08-21T00:00:00Z', timezone: 'America/Bogota',
+  ready_since: '2027-10-26T00:00:00Z', timezone: 'America/Bogota',
 });
 
 describe('automatic managed Meta setup', () => {

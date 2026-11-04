@@ -67,7 +67,7 @@ def main():
         loop = asyncio.new_event_loop()
         thread = threading.Thread(target=loop.run_forever); thread.start()
         token = enter_cron_execution({'id': 'synthetic-job', 'name': 'Synthetic'},
-            'synthetic-execution', {'source': 'direct', 'started_at': '2027-08-22T00:00:00+00:00'})
+            'synthetic-execution', {'source': 'direct', 'started_at': '2026-10-27T00:00:00+00:00'})
         try:
             identity = ctx.current_cron_execution()
             assert notifications.capture(context, identity, 'Synthetic owner result.', root=root,

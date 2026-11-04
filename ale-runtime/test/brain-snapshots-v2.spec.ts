@@ -25,7 +25,7 @@ const graph2 = (nodes: unknown[]) => ({
   business_id: B1, nodes, edges: [], stats: {nodes: nodes.length, edges: 0},
   sections: {my_business: [], active_bets: [], learned: [], did_not_work: [], your_corrections: [], to_confirm: [], history: []},
 });
-const snap2 = (...businesses: unknown[]) => ({schema: 'saleads-explorer-snapshot/2', generated_at: '2027-08-14T09:00:00+00:00', businesses});
+const snap2 = (...businesses: unknown[]) => ({schema: 'saleads-explorer-snapshot/2', generated_at: '2027-10-19T09:00:00+00:00', businesses});
 
 class MemoryStorage implements SnapshotStorage {
   readonly objects = new Map<string, Buffer>();

@@ -4,7 +4,7 @@ import {startTestDatabase, type TestDatabase} from './support/pglite-db';
 import {createWorld, key, seedVariant, type World} from './support/stock-world';
 
 /** 15:00 UTC = 10:00 en Bogotá, la zona por defecto. */
-const DAY = '2027-08-28T15:00:00.000Z';
+const DAY = '2026-11-02T15:00:00.000Z';
 const at = (iso: string) => new Date(iso);
 const say = (overrides: Record<string, unknown> = {}) => ({texto: 'Te quedan 3 frascos.', pregunta: false, proposal_id: null, producto_id: null, prioridad: 'normal' as const, dedupe_key: key(), ...overrides});
 
@@ -53,13 +53,13 @@ describe('Avisos de Jolly', () => {
     });
 
     it('el tope se reinicia con el día local, no con el día UTC', async () => {
-      world.now.value = at('2027-08-28T23:30:00.000Z');       // 18:30 en Bogotá
+      world.now.value = at('2026-11-02T23:30:00.000Z');       // 18:30 en Bogotá
       await online();
       for (let index = 0; index < 3; index++) await speak();
-      world.now.value = at('2027-08-29T01:30:00.000Z');       // 20:30 del mismo día local, ya es 3 en UTC
+      world.now.value = at('2026-11-03T01:30:00.000Z');       // 20:30 del mismo día local, ya es 3 en UTC
       await online();
       expect(await speak()).toBe('tope_diario');
-      world.now.value = at('2027-08-29T15:00:00.000Z');
+      world.now.value = at('2026-11-03T15:00:00.000Z');
       await online();
       expect(await speak()).toBe('en_cola');
     });
@@ -69,7 +69,7 @@ describe('Avisos de Jolly', () => {
       expect(await speak({producto_id})).toBe('en_cola');
       expect(await speak({producto_id})).toBe('agrupado');
       expect((await rows()).map(row => row.status)).toEqual(['pendiente', 'para_canal']);
-      world.now.value = at('2027-08-29T15:00:01.000Z');
+      world.now.value = at('2026-11-03T15:00:01.000Z');
       await online();
       expect(await speak({producto_id})).toBe('en_cola');
     });
@@ -78,12 +78,12 @@ describe('Avisos de Jolly', () => {
       const producto_id = await product();
       const alerta = {producto_id, dedupe_key: `turno:${randomUUID()}`, texto: 'El Sérum vendía 5,13 por semana y esta semana va en 0. Ventas simuladas.'};
       expect(await speak(alerta)).toBe('en_cola');
-      world.now.value = at('2027-08-28T18:00:00.000Z');       // el tick siguiente, mismo día local
+      world.now.value = at('2026-11-02T18:00:00.000Z');       // el tick siguiente, mismo día local
       await online();
       await speak(alerta);
       await speak({...alerta, dedupe_key: `turno:${randomUUID()}`});   // otra variante del mismo producto
       expect((await rows()).filter(row => row.status === 'pendiente')).toHaveLength(1);
-      world.now.value = at('2027-08-29T15:00:01.000Z');
+      world.now.value = at('2026-11-03T15:00:01.000Z');
       await online();
       expect(await speak(alerta)).toBe('en_cola');
       expect((await rows()).filter(row => row.status === 'pendiente')).toHaveLength(2);
@@ -106,7 +106,7 @@ describe('Avisos de Jolly', () => {
       expect(await speak({dedupe_key})).toBe('ya_dicho');
       const {rows: usage} = await world.db.query<{value: string}>(`SELECT value FROM assistant.stock_usage WHERE business_id = $1 AND metric = 'avisos_voz'`, [world.businessId]);
       expect(Number(usage[0]!.value)).toBe(1);
-      world.now.value = at('2027-08-29T15:00:00.000Z');
+      world.now.value = at('2026-11-03T15:00:00.000Z');
       await online();
       expect(await speak({dedupe_key})).toBe('en_cola');
       expect(await rows()).toHaveLength(2);
@@ -180,18 +180,18 @@ describe('Avisos de Jolly', () => {
 
   describe('horario y vencimiento', () => {
     it('la zona sale de la fila del asistente', async () => {
-      expect(localTime(at('2027-08-28T22:00:00.000Z'), 'America/Bogota').hour).toBe(17);
-      expect(localTime(at('2027-08-28T22:00:00.000Z'), 'Europe/Madrid').hour).toBe(23);
-      expect(localTime(at('2027-08-28T22:00:00.000Z'), 'zona/rara').hour).toBe(17);
+      expect(localTime(at('2026-11-02T22:00:00.000Z'), 'America/Bogota').hour).toBe(17);
+      expect(localTime(at('2026-11-02T22:00:00.000Z'), 'Europe/Madrid').hour).toBe(23);
+      expect(localTime(at('2026-11-02T22:00:00.000Z'), 'zona/rara').hour).toBe(17);
       await world.db.query(`INSERT INTO assistant.assistants(user_id,status,timezone,created_at,updated_at) VALUES ($1,'ready','Europe/Madrid',now(),now())`, [world.userId]);
-      world.now.value = at('2027-08-28T22:00:00.000Z');
+      world.now.value = at('2026-11-02T22:00:00.000Z');
       await online();
       expect(await speak()).toBe('fuera_de_horario');
     });
 
     it.each([
-      ['07:00 abre', '2027-08-28T12:00:00.000Z', 'en_cola'], ['06:59 cerrado', '2027-08-28T11:59:00.000Z', 'fuera_de_horario'],
-      ['20:59 abierto', '2027-08-29T01:59:00.000Z', 'en_cola'], ['21:00 cerrado', '2027-08-29T02:00:00.000Z', 'fuera_de_horario'],
+      ['07:00 abre', '2026-11-02T12:00:00.000Z', 'en_cola'], ['06:59 cerrado', '2026-11-02T11:59:00.000Z', 'fuera_de_horario'],
+      ['20:59 abierto', '2026-11-03T01:59:00.000Z', 'en_cola'], ['21:00 cerrado', '2026-11-03T02:00:00.000Z', 'fuera_de_horario'],
     ])('borde %s', async (_name, iso, expected) => {
       world.now.value = at(iso);
       await online();
@@ -208,20 +208,20 @@ describe('Avisos de Jolly', () => {
     });
 
     it('creado de madrugada se entrega a las 07:00', async () => {
-      world.now.value = at('2027-08-29T08:00:00.000Z');                            // 03:00, vence a las 09:00
+      world.now.value = at('2026-11-03T08:00:00.000Z');                            // 03:00, vence a las 09:00
       await online();
       expect(await speak()).toBe('fuera_de_horario');
       expect(await due()).toEqual([]);
-      world.now.value = at('2027-08-29T12:00:00.000Z');
+      world.now.value = at('2026-11-03T12:00:00.000Z');
       await online();
       expect(await due()).toHaveLength(1);
     });
 
     it('creado a las 22:00 vence antes de abrir: queda para_canal, nunca se dice', async () => {
-      world.now.value = at('2027-08-29T03:00:00.000Z');
+      world.now.value = at('2026-11-03T03:00:00.000Z');
       await online();
       expect(await speak()).toBe('fuera_de_horario');
-      world.now.value = at('2027-08-29T12:00:00.000Z');
+      world.now.value = at('2026-11-03T12:00:00.000Z');
       await online();
       expect(await due()).toEqual([]);
       expect((await rows())[0]!.status).toBe('para_canal');
@@ -229,10 +229,10 @@ describe('Avisos de Jolly', () => {
     });
 
     it('lo de la noche gasta el cupo de mañana', async () => {
-      world.now.value = at('2027-08-29T03:00:00.000Z');
+      world.now.value = at('2026-11-03T03:00:00.000Z');
       await online();
       for (let index = 0; index < 3; index++) await speak();
-      world.now.value = at('2027-08-29T15:00:00.000Z');
+      world.now.value = at('2026-11-03T15:00:00.000Z');
       await online();
       expect(await speak()).toBe('tope_diario');
     });
@@ -247,7 +247,7 @@ describe('Avisos de Jolly', () => {
     });
 
     it('el robot recibe el plazo hasta el cierre: lo retenido no suena de noche', async () => {
-      world.now.value = at('2027-08-29T01:00:00.000Z');     // 20:00, cierra en 1 h aunque venza en 6 h
+      world.now.value = at('2026-11-03T01:00:00.000Z');     // 20:00, cierra en 1 h aunque venza en 6 h
       await online();
       await speak();
       expect((await due())[0]!.payload.vence_s).toBe(3600);
@@ -256,7 +256,7 @@ describe('Avisos de Jolly', () => {
     it('un aviso entregado que vence sin ack también pasa al canal', async () => {
       await speak();
       await due();
-      world.now.value = at('2027-08-28T21:00:00.000Z');
+      world.now.value = at('2026-11-02T21:00:00.000Z');
       await notices().settle({businessId: world.businessId});
       expect((await rows())[0]!.status).toBe('para_canal');
     });
@@ -264,7 +264,7 @@ describe('Avisos de Jolly', () => {
 
   describe('robot', () => {
     it('sin robot responde robot_offline y no deja fila: Ale usa el canal', async () => {
-      world.now.value = at('2027-08-28T15:02:00.000Z');
+      world.now.value = at('2026-11-02T15:02:00.000Z');
       expect(await speak()).toBe('robot_offline');
       expect(await rows()).toEqual([]);
       expect((await world.db.query(`SELECT 1 FROM assistant.stock_usage WHERE business_id = $1`, [world.businessId])).rows).toEqual([]);
@@ -281,7 +281,7 @@ describe('Avisos de Jolly', () => {
     it('dormido hasta que vence', async () => {
       await online('dormido');
       await speak();
-      world.now.value = at('2027-08-28T21:30:00.000Z');
+      world.now.value = at('2026-11-02T21:30:00.000Z');
       await online('dormido');
       await due();
       await online('activo');
@@ -316,7 +316,7 @@ describe('Avisos de Jolly', () => {
       expect(row).toMatchObject({status: 'pendiente', proposal_id: propuesta.id, payload: {plantilla: 'conteo', pregunta: true}});
       expect(row!.payload.texto).toMatch(/^Conté 7 de Mascarilla .* y esperaba 0\. ¿Qué pasó con la diferencia de 7\?$/);
       expect(await due()).toEqual([]);
-      world.now.value = at('2027-08-28T15:02:01.000Z');
+      world.now.value = at('2026-11-02T15:02:01.000Z');
       await online();
       expect(await due()).toHaveLength(1);
     });
@@ -329,7 +329,7 @@ describe('Avisos de Jolly', () => {
     });
 
     it('la plantilla no depende del robot en línea: espera a que vuelva', async () => {
-      world.now.value = at('2027-08-28T15:02:00.000Z');
+      world.now.value = at('2026-11-02T15:02:00.000Z');
       await countProposal();
       expect((await rows())[0]).toMatchObject({status: 'pendiente', payload: {plantilla: 'conteo'}});
     });
@@ -343,7 +343,7 @@ describe('Avisos de Jolly', () => {
     it('propuesta decidida: la plantilla sobra', async () => {
       const propuesta = await countProposal();
       await world.db.query(`UPDATE assistant.stock_proposals SET status = 'rechazada' WHERE id = $1`, [propuesta.id]);
-      world.now.value = at('2027-08-28T15:03:00.000Z');
+      world.now.value = at('2026-11-02T15:03:00.000Z');
       await online();
       expect(await due()).toEqual([]);
       expect((await rows())[0]!.status).toBe('descartado');
@@ -400,13 +400,13 @@ describe('Avisos de Jolly', () => {
 
     it('una pregunta vieja no entra', async () => {
       await spoken('¿Te llegaron 22 o 24?');
-      world.now.value = at('2027-08-28T15:03:01.000Z');
+      world.now.value = at('2026-11-02T15:03:01.000Z');
       expect(await notices().turnContext(world.userId)).toBeNull();
     });
 
     it('entra la última', async () => {
       await spoken('Primera.');
-      world.now.value = at('2027-08-28T15:00:05.000Z');
+      world.now.value = at('2026-11-02T15:00:05.000Z');
       await online();
       await spoken('Segunda.');
       expect(await notices().turnContext(world.userId)).toContain('Segunda.');
@@ -415,7 +415,7 @@ describe('Avisos de Jolly', () => {
     it('F-R4a: entran todos los avisos que acaban de sonar, y uno del servidor lleva su alerta_id y la clave de su tarjeta', async () => {
       await spoken('Primera.');
       await world.db.query(`UPDATE assistant.stock_robot_events SET dedupe_key = 'alerta:a1b2@corrida-x' WHERE business_id = $1`, [world.businessId]);
-      world.now.value = at('2027-08-28T15:00:05.000Z');
+      world.now.value = at('2026-11-02T15:00:05.000Z');
       await online();
       await spoken('Segunda.');
       const context = await notices().turnContext(world.userId);
@@ -428,7 +428,7 @@ describe('Avisos de Jolly', () => {
     it('F-R6a: el sí a un aviso de marketing manda crear la tarjeta del investigador con su clave; el de pedido, la de Stock', async () => {
       await spoken('El Sérum lleva 10 días sin ventas. ¿Se lo paso a marketing para que lo mueva?');
       await world.db.query(`UPDATE assistant.stock_robot_events SET dedupe_key = 'alerta:m1@corrida-x' WHERE business_id = $1`, [world.businessId]);
-      world.now.value = at('2027-08-28T15:00:05.000Z');
+      world.now.value = at('2026-11-02T15:00:05.000Z');
       await online();
       await spoken('El Tónico alcanza para 7 días. ¿Le pido a Stock que prepare el pedido?');
       await world.db.query(`UPDATE assistant.stock_robot_events SET dedupe_key = 'alerta:p1@corrida-x' WHERE business_id = $1 AND dedupe_key <> 'alerta:m1@corrida-x'`, [world.businessId]);

@@ -16,7 +16,7 @@ const deferred = () => {let resolve!: () => void; const promise = new Promise<vo
 
 function runtime() {
   const ctx = setup({managedMeta: {enabled: true, userId: USER, allUsers: true}, ackTimeoutMs: 10, retryAfterMs: 600_000}, bundle);
-  Object.assign(ctx.row, {ai_configured: true, private_ip: VM_IP, ready_since: new Date('2027-08-24T10:00:00Z')});
+  Object.assign(ctx.row, {ai_configured: true, private_ip: VM_IP, ready_since: new Date('2026-10-29T10:00:00Z')});
   ctx.instances.view!.generation = 'new-instance-generation';
   const guest = ctx.instances.guestAttribute.bind(ctx.instances);
   let ack = true;
@@ -33,8 +33,8 @@ describe('initial managed setup completion barrier', () => {
     const ctx = runtime();
     const repository = new FirstLoopRepository(pg.database, ctx.cipher);
     const languages = new LanguagePreferences(pg.database);
-    await languages.synchronize(USER, {language_code: 'en', source_updated_at: '2027-08-24T10:00:00Z'});
-    await languages.synchronize(OTHER_OWNER, {language_code: 'en', source_updated_at: '2027-08-24T10:00:00Z'});
+    await languages.synchronize(USER, {language_code: 'en', source_updated_at: '2026-10-29T10:00:00Z'});
+    await languages.synchronize(OTHER_OWNER, {language_code: 'en', source_updated_at: '2026-10-29T10:00:00Z'});
     const start = jest.fn(async () => ({run_id: 'run-initial-guidance', status: 'queued'}));
     const rowA = {...ctx.row, user_id: OTHER_OWNER, instance_name: 'existing-vm', api_server_key_enc: ctx.cipher.seal('assistants.api_server_key_enc', OTHER_OWNER, 'existing-key')};
     let profileStored = false, readinessUnavailable = true;

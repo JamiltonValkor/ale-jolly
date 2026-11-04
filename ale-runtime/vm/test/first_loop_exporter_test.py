@@ -44,7 +44,7 @@ class ExporterTests(unittest.TestCase):
   self.task();self.db.execute('UPDATE tasks SET result=NULL');self.db.execute('UPDATE task_runs SET summary=?,metadata=? WHERE id=1',('Actual completed native research without inline links',json.dumps({'worker_session_id':session,'findings':['Preserve the real native summary']})));self.db.commit()
  def receipt(self,number=1,**changes):
   directory=self.root/'profiles'/'investigador'/'plugin-data'/'saleads-meta-search'/'receipts';directory.mkdir(parents=True,exist_ok=True)
-  value={'status':'completed','model':'muse-spark-1.3-contributor','response_id':f'resp-{number}','search_calls':2,'citations':[{'url':f'https://example.org/research/{number}','title':'Actual hosted-search source'}],'observed_at':'2026-10-31T07:27:12+00:00','usage':{},'query_sha256':'0'*64,'session_id':'worker-session-1'}
+  value={'status':'completed','model':'muse-spark-1.3-contributor','response_id':f'resp-{number}','search_calls':2,'citations':[{'url':f'https://example.org/research/{number}','title':'Actual hosted-search source'}],'observed_at':'2026-10-27T10:00:00+00:00','usage':{},'query_sha256':'0'*64,'session_id':'worker-session-1'}
   value.update(changes);path=directory/(f'{number:064x}'+'.json');path.write_text(json.dumps(value));return path
  def test_verified_research_joins_exact_worker_session_and_hermes_task_alias(self):
   self.researcher();self.receipt();self.receipt(2,session_id=None,task_id='worker-session-1')

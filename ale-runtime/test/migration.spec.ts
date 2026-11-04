@@ -56,7 +56,7 @@ describe('migraciones Flyway', () => {
        VALUES ('${id}','u1','00000000-0000-4000-8000-000000000002','${kind}','item.a','1','Item','pending',now())`);
     const budget = (id: string, revision: number, superseded: boolean, extra = '') => exec(
       `INSERT INTO assistant.agent_monthly_budgets(id,business_id,user_id,amount_minor,currency,period_start,revision,set_by,superseded_at)
-       VALUES ('${id}','00000000-0000-4000-8000-000000000002','u1',500000,'COP','2027-07-27',${revision},${extra || "'owner'"},${superseded ? 'now()' : 'NULL'})`);
+       VALUES ('${id}','00000000-0000-4000-8000-000000000002','u1',500000,'COP','2027-10-01',${revision},${extra || "'owner'"},${superseded ? 'now()' : 'NULL'})`);
     const results = run([
       exec(V1), exec(V2), exec(V4), exec(V7),
       approval('00000000-0000-4000-8000-000000000001', 'pause_campaign'),

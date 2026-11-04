@@ -55,7 +55,7 @@ describe('libro de inventario', () => {
     world.now.value = at(0);
     await stockIn(world, variantId, 5);
     const {rows} = await world.db.query<{occurred_at: Date}>('SELECT occurred_at FROM assistant.stock_movements WHERE variant_id = $1', [variantId]);
-    expect(new Date(rows[0]!.occurred_at).toISOString()).toBe('2027-08-27T11:00:00.000Z');
+    expect(new Date(rows[0]!.occurred_at).toISOString()).toBe('2026-11-01T11:00:00.000Z');
   });
 
   it('una devolución entre conteos no produce diferencia en el siguiente conteo exacto', async () => {

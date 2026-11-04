@@ -49,7 +49,7 @@ describe('aprobaciones de instalación (OSB-013)', () => {
   afterAll(async () => {await db.close();});
   beforeEach(async () => {
     await db.database.pool.query('DELETE FROM assistant.approvals');
-    now = new Date('2027-08-11T12:00:00Z');
+    now = new Date('2027-10-16T12:00:00Z');
     executor = new FakeExecutor();
     catalog = new FakeCatalog();
     service = new ApprovalsService({repository: new ApprovalsRepository(db.database), catalog, executors: [executor], now: () => now});

@@ -1,4 +1,4 @@
-"""Modo dormir de la cara: gorrito, ojos cerrados, zzz y las dos animaciones (aprobado por el owner 2026-11-02).
+"""Modo dormir de la cara: gorrito, ojos cerrados, zzz y las dos animaciones (aprobado por el owner 2026-10-31).
 
 Cuatro estados: despierta → durmiendose (3,8 s) → dormida → despertando (3,0 s) → despierta. La voz decide cuándo
 dormir: la cara pide con cara/toque, obedece a cuerpo/sueno {orden: dormir|despertar} y avisa con cara/sueno

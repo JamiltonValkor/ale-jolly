@@ -87,7 +87,7 @@ describe('managed Meta all-account identity and continuous loop', () => {
         .expect(200, [{id: META_PROVIDER_ID, label: 'Meta Model API', needs_key: false}]);
       await request(app.getHttpServer()).put('/assistants/me/ai').set('Authorization', authorization).send({provider: 'openrouter'}).expect(400);
       await request(app.getHttpServer()).put('/assistants/me/preferences/language').set('Authorization', authorization)
-        .send({language_code: locale, source_updated_at: '2027-08-24T10:00:00Z'}).expect(200);
+        .send({language_code: locale, source_updated_at: '2026-10-29T10:00:00Z'}).expect(200);
       const response = await request(app.getHttpServer()).get(path(business)).set('Authorization', authorization).expect(200);
       await service.idle();
       flows.push(response.body.flow_id); sessions.push(response.body.session_id);
@@ -125,13 +125,13 @@ describe('managed Meta all-account identity and continuous loop', () => {
     await expect(service.message(OWNER_B, BUSINESS_B, {flow_id: flowA.id, client_message_id: CLIENT, text: 'Cross-account request', response_locale: 'pt'}))
       .rejects.toMatchObject({code: 'NOT_FOUND'});
     expect(start).toHaveBeenCalledTimes(before);
-    await service.synchronizeLanguage(OWNER_B, {language_code: 'fr', source_updated_at: '2027-08-24T11:00:00Z'});
+    await service.synchronizeLanguage(OWNER_B, {language_code: 'fr', source_updated_at: '2026-10-29T11:00:00Z'});
     expect(await languages.require(OWNER_B)).toMatchObject({response_locale: 'fr', locale_revision: 2});
     expect(await languages.require(OWNER_A)).toMatchObject({response_locale: 'en', locale_revision: 1});
     expect(languageChanged).toHaveBeenLastCalledWith(rows.get(OWNER_B), expect.objectContaining({response_locale: 'fr'}));
     const pilot = new FirstLoopService({enabled: true, userId: OWNER_A, continuousLearning: true}, deps);
     await expect(pilot.state(OWNER_B, BUSINESS_B)).rejects.toMatchObject({code: 'NOT_FOUND'});
-    await expect(pilot.synchronizeLanguage(OWNER_B, {language_code: 'en', source_updated_at: '2027-08-24T12:00:00Z'})).rejects.toMatchObject({code: 'NOT_FOUND'});
+    await expect(pilot.synchronizeLanguage(OWNER_B, {language_code: 'en', source_updated_at: '2026-10-29T12:00:00Z'})).rejects.toMatchObject({code: 'NOT_FOUND'});
     const disabled = new FirstLoopService({enabled: false, userId: OWNER_A, allUsers: true}, deps);
     await expect(disabled.state(OWNER_B, BUSINESS_B)).rejects.toMatchObject({code: 'SERVICE_UNAVAILABLE'});
   });
