@@ -1,0 +1,144 @@
+# Ale + Jolly en local. Arranque: ./demo.sh up (genera certs/ y .env, y llama a este compose).
+# Las piezas viven en compose.cloud.yml (P1), compose.saleads.yml (P2) y compose.front.yml (P3).
+include:
+  - compose.cloud.yml
+  - compose.saleads.yml
+  - compose.front.yml
+
+services:
+  postgres:
+    image: postgres:16.6
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: ale
+      POSTGRES_USER: ale
+      POSTGRES_PASSWORD: ale
+    volumes:
+      - postgres-data:/var/lib/postgresql/data
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U ale -d ale"]
+      interval: 3s
+      retries: 20
+    networks: [ale]
+
+  # Esquema `assistant` de ale-runtime: el servicio no ejecuta DDL al arrancar
+  # (migrations/README.md); se aplica con Flyway, como en sus despliegues.
+  migrate:
+    image: flyway/flyway:10.22.0
+    command:
+      - -url=jdbc:postgresql://postgres:5432/ale
+      - -user=ale
+      - -password=ale
+      - -locations=filesystem:/flyway/sql
+      - -schemas=assistant
+      - -defaultSchema=assistant
+      - -table=flyway_schema_history
+      - -cleanDisabled=true
+      - -validateMigrationNaming=true
+      - migrate
+    volumes:
+      - ${ALE_RUNTIME_SRC:?ALE_RUNTIME_SRC}/migrations:/flyway/sql:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+    restart: "no"
+    networks: [ale]
+
+  # TLS local (D1): el producto exige https para Keycloak, el MCP, PostHog y el relay de Meta.
+  # Los nombres se resuelven dentro de la red `ale` como alias de este servicio.
+  caddy:
+    image: caddy:2.8.4
+    restart: unless-stopped
+    volumes:
+      - ./Caddyfile:/etc/caddy/Caddyfile:ro
+      - ./certs:/certs:ro
+    networks:
+      ale:
+        aliases:
+          - saleads.local
+          - posthog.local
+          - relay.local
+          - storage.googleapis.com
+          - us-central1-docker.pkg.dev
+    ports:
+      # Para que el navegador del evaluador abra las landings y la revisión de saleads-sim.
+      - "8443:443"
+
+  ale-runtime:
+    build: ${ALE_RUNTIME_SRC:?ALE_RUNTIME_SRC}
+    image: ale-jolly/ale-runtime:local
+    restart: unless-stopped
+    ports:
+      - "8060:8060"
+    env_file: .env
+    environment:
+      PORT: "8060"
+      NODE_EXTRA_CA_CERTS: /certs/ca.crt
+      DATABASE_URL: postgres://ale:ale@postgres:5432/ale
+      # Identidad: saleads-sim imita Keycloak (realm sale-ads).
+      KEYCLOAK_ISSUER: https://saleads.local/realms/sale-ads
+      KEYCLOAK_JWKS_URL: http://saleads-sim:8090/realms/sale-ads/protocol/openid-connect/certs
+      KEYCLOAK_TOKEN_URL: http://saleads-sim:8090/realms/sale-ads/protocol/openid-connect/token
+      KEYCLOAK_REVOKE_URL: http://saleads-sim:8090/realms/sale-ads/protocol/openid-connect/revoke
+      KEYCLOAK_AUTHORIZE_URL: https://saleads.local/realms/sale-ads/protocol/openid-connect/auth
+      OIDC_ALLOWED_CLIENTS: front
+      ASSISTANT_OAUTH_CLIENT_ID: mcp-saleads-assistant-dev
+      ASSISTANT_OAUTH_REDIRECT_URI: http://localhost:${FRONT_PORT:-3000}/api/meta-assistant/oauth/callback
+      MCP_URL: https://saleads.local/mcp
+      AGENT_API_URL: https://saleads.local
+      POSTHOG_HOST: https://posthog.local
+      POSTHOG_API_KEY: phc_local_demo
+      # Servicios internos de SaleADS: los atiende saleads-sim.
+      STRATEGY_SERVICE_URL: http://saleads-sim:8090
+      CAMPAIGN_SERVICE_URL: http://saleads-sim:8090
+      INTEGRATION_SERVICE_URL: http://saleads-sim:8090
+      SUBSCRIPTION_SERVICE_URL: http://saleads-sim:8090
+      BI_SERVICE_URL: http://saleads-sim:8090
+      # Nube: cloud-sim imita Compute, metadata, IAM y Storage (D2, D6).
+      COMPUTE_API_BASE: http://cloud-sim:8070/compute/v1
+      GCP_METADATA_TOKEN_URL: http://cloud-sim:8070/token
+      IAM_CREDENTIALS_API_BASE: http://cloud-sim:8070/v1
+      STORAGE_API_BASE: http://cloud-sim:8070
+      GCP_PROJECT: ale-local
+      GCP_ZONE: local-sim1-a
+      ASSISTANT_INSTANCE_TEMPLATE: projects/ale-local/global/instanceTemplates/sa-assistant-local
+      ASSISTANT_MEMORIES_BUCKET: ale-local-assistant-memories
+      ASSISTANT_SIGNER_EMAIL: sa-assistant-service@ale-local.iam.gserviceaccount.com
+      # Modelos: solo Meta (D4). La llave es la del evaluador (META_API_KEY en .env).
+      MANAGED_META_ENABLED: "true"
+      MANAGED_META_ALL_USERS: "true"
+      MANAGED_META_RELAY_BASE_URL: https://relay.local/meta-inference/v1
+      # Producto: Stock, Jolly y el primer ciclo.
+      FIRST_LOOP_ENABLED: "true"
+      ROBOT_CHANNEL_ENABLED: "true"
+      STOCK_ENABLED: "true"
+      STOCK_USER_IDS: 00000000-0000-4000-a000-000000000001
+      STOCK_BUCKET: ale-local-stock
+      ASSISTANT_BUNDLE_DIR: distribution/saleads-sales-agent/1.5.13
+      ASSISTANT_BUNDLE_VERSION: saleads-sales-agent@1.5.13
+      # Tareas de fondo que dependen de servicios de SaleADS que no se imitan.
+      KNOWLEDGE_SYNC_ENABLED: "false"
+      BRAIN_SNAPSHOT_POLL_ENABLED: "false"
+      # La primera aplicación crea 6 perfiles y reinicia Hermes dos veces: el ack tarda más de 60 s.
+      AI_ACK_TIMEOUT_MS: "85000"
+    volumes:
+      - ./certs/ca.crt:/certs/ca.crt:ro
+    depends_on:
+      postgres:
+        condition: service_healthy
+      migrate:
+        condition: service_completed_successfully
+      caddy:
+        condition: service_started
+      cloud-sim:
+        condition: service_started
+      saleads-sim:
+        condition: service_started
+    networks: [ale]
+
+volumes:
+  postgres-data:
+
+networks:
+  ale:
+    name: ale

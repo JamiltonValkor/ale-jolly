@@ -14,14 +14,14 @@ services:
       # iss de todos los tokens y recurso del MCP (= KEYCLOAK_ISSUER y MCP_URL de ale-runtime).
       SIM_PUBLIC_BASE_URL: https://saleads.local
       # redirect_uri del cliente del asistente (ASSISTANT_OAUTH_REDIRECT_URI de ale-runtime) y del front.
-      SIM_REDIRECT_PREFIXES: http://localhost:3000/
+      SIM_REDIRECT_PREFIXES: http://localhost:${FRONT_PORT:-3000}/
       # Reenvío de Stock: ale-runtime /internal/stock/... con su INTERNAL_API_TOKEN.
       SIM_META_ASSISTANT_URL: http://ale-runtime:8060
       SIM_META_ASSISTANT_INTERNAL_TOKEN: ${INTERNAL_API_TOKEN:-}
       # Enlaces que el navegador del evaluador abre (revisión y landing publicada).
       SIM_LANDING_REVIEW_BASE_URL: ${SALEADS_SIM_BROWSER_URL:-https://saleads.local}
       SIM_LANDING_PUBLIC_BASE_URL: ${SALEADS_SIM_BROWSER_URL:-https://saleads.local}
-      SIM_CORS_ORIGINS: http://localhost:3000
+      SIM_CORS_ORIGINS: http://localhost:${FRONT_PORT:-3000}
     volumes:
       - saleads-sim-data:/data
 

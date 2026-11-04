@@ -1,0 +1,29 @@
+# TLS local (D1). demo.sh genera certs/ca.crt y un certificado con todos estos nombres.
+{
+	auto_https disable_redirects
+	admin off
+}
+
+saleads.local, posthog.local {
+	tls /certs/local.crt /certs/local.key
+	reverse_proxy saleads-sim:8090
+}
+
+relay.local {
+	tls /certs/local.crt /certs/local.key
+	reverse_proxy ale-runtime:8060
+}
+
+# URLs firmadas de Storage (D2): el host queda tal cual para que cloud-sim lo reconozca.
+storage.googleapis.com {
+	tls /certs/local.crt /certs/local.key
+	reverse_proxy cloud-sim:8070 {
+		header_up Host storage.googleapis.com
+	}
+}
+
+# Artifact Registry imitado: la VM baja saleads-brain fijado por digest (D3, fase 2).
+us-central1-docker.pkg.dev {
+	tls /certs/local.crt /certs/local.key
+	reverse_proxy cloud-sim-ar:5000
+}
