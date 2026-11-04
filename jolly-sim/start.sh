@@ -150,7 +150,13 @@ case "$MODO" in
     export ALE_EVENTOS=1
     (cd "$ROBOT/cara" && exec "$PY" main.py --bus) &
     PIDS+=($!)
-    ALE_OJO_PYTHON="$PY" "$ROBOT/ale-robot/bucle_ojo.sh" &
+    # Contra la pila local, las fotos se suben a su Storage imitado (nube-local/sitecustomize.py); en la nube, tal cual.
+    case "$ALE_RUNTIME_URL" in
+      http://localhost*|http://127.0.0.1*)
+        PYTHONPATH="$AQUI_NATIVO/nube-local" ALE_CA_CERT="$AQUI_NATIVO/../local/certs/ca.crt" \
+          ALE_OJO_PYTHON="$PY" "$ROBOT/ale-robot/bucle_ojo.sh" & ;;
+      *) ALE_OJO_PYTHON="$PY" "$ROBOT/ale-robot/bucle_ojo.sh" & ;;
+    esac
     PIDS+=($!)
     if [ "$GRABAR" = 1 ]; then
       mkdir -p "$AQUI/grabaciones"

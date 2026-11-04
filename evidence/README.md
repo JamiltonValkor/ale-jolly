@@ -31,9 +31,7 @@ There are no real camera photos in this set: every shelf the robot counted is a 
 
 ## What was removed or never published
 
-Following decision D8 of the plan:
-
-- Credentials and backups of the Pi (an `.env` with real keys and the `.tgz` backups) are not here. D8 also calls for rotating those keys (Meta, Cartesia and the device credential).
+- Credentials and backups of the Pi (an `.env` with real keys and the `.tgz` backups).
 - Room speech: what people in the room said near the robot is redacted in the traces (`[habla de la sala redactada]`), and the replay leaves out stretches where Jolly answered it.
 - Emails, internal IPs, Telegram ids and fingerprints, paths on the Pi, run, session and request ids, and the owner's name and user id.
 - Internal operations notes (cloud deployment requests, Pi installation, security matrices): they describe private infrastructure.

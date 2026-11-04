@@ -24,7 +24,7 @@ To check that your Meta key works with every model the product uses (Muse Spark,
 
 A window opens with Jolly's face under a red band, **«REPLAY · traza real del 2-nov-2026»**. It plays 93 seconds recorded on the Raspberry Pi during the official end-to-end run: Jolly is asked to count a shelf, SAM counts 22 jars and the numbered photo shows on the face; then Ale's notices («Diferencia de 2, esperábamos 24…») are spoken by your computer's voice. It loops until Ctrl+C.
 
-**Live, with the local backend running** (`./local/demo.sh up`, see the repo README):
+**Live, with the local backend running** (`./local/demo.sh up`, see [`../docs/E2E-GUIDE.md`](../docs/E2E-GUIDE.md)):
 
 ```bash
 export META_API_KEY=...            # your key from dev.meta.ai; or put it in local/.env
@@ -32,7 +32,7 @@ export META_API_KEY=...            # your key from dev.meta.ai; or put it in loc
 ```
 
 1. The window shows a pairing code such as `K7QM-3XPA`.
-2. Open http://localhost:3000, go to **Vincular mi compañero** (pair my companion) and type the code.
+2. Open http://localhost:3000, on **Hoy** go to «Compañero físico» → «Sincronizar» and type the code.
 3. In a few seconds Jolly says it is paired. The credential stays in `robot/voz-hermes/.env`, so the next start skips this step.
    Against the local backend, `sembrar.py` then seeds Masquebella's Stock inventory once through the robot's channel (`bench_seed`) and prints `✓ Stock listo`.
 4. Talk to it starting with its name: **«Jolly, …»**, in Spanish or English. After each answer you have 20 seconds to keep going without the name.
@@ -74,7 +74,7 @@ Keys and settings are read from the environment, then from `local/.env` or `.env
 
 | Variable | Use |
 |---|---|
-| `META_API_KEY` | Required live. Muse Voice Transcribe and SAM 3.1 |
+| `META_API_KEY` | Required live. Muse Voice Transcribe, SAM 3.1 and Muse Image |
 | `CARTESIA_API_KEY` | Optional. Cartesia voice; without it, the local voice |
 | `ALE_RUNTIME_URL` | Backend URL, default `http://localhost:8060` |
 | `ALE_ROBOT_NAME` | Name shown when pairing, default `Jolly` |
@@ -88,7 +88,7 @@ By default the eye reads `fotos-ejemplo/`: three shelves **generated with Muse I
 
 ## The replay
 
-`replay/traza-2026-11-02-p2.jsonl` is cut from the 119 MB bus recording of the official run on 2 Nov 2026 (step P2), with `replay/recortar.py`:
+`replay/traza-2026-11-02-p2.jsonl` is cut from the 119 MB bus recording of the end-to-end run on 2 Nov 2026 (step P2), with `replay/recortar.py`:
 
 - It keeps what the face listens to (`cuerpo/*`, `voz/*`, `ojo/*`) and Ale's events, and cuts quiet stretches.
 - It drops the face's own output (`cara/*`) and the hearing events (`oido/*`), which carry room speech.
@@ -101,6 +101,8 @@ More recordings and how they were made: [`../evidence/`](../evidence/).
 ## What changed from the robot's code
 
 `robot/` is a copy of the robot folder of the Ale runtime (voice, face, eye and the eye's restart loop), with the SAM fixtures its tests use. One change, additive: the fallback voices in `robot/voz-hermes/voz_salida.py` for when there is no Cartesia key. `LocutorEspeak` speaks with espeak-ng, espeak or spd-say on Linux, and `LocutorWindows` with the built-in Windows voice through one long-lived PowerShell; `locutor_del_sistema()` picks one per OS. On macOS nothing changes.
+
+Outside `robot/`, `nube-local/sitecustomize.py` is loaded only by the eye's process when `ALE_RUNTIME_URL` is local: ale-runtime signs photo uploads for `storage.googleapis.com`, as in production, and on your computer that name is sent to the local Caddy (`127.0.0.1:8443`, trusting `local/certs/ca.crt`), which hands it to `cloud-sim`'s Storage. SAM and Muse calls are not touched.
 
 Packaging differs from the Pi: one Python environment for the three processes instead of one each, a window instead of full screen, no arms and no touch panel.
 

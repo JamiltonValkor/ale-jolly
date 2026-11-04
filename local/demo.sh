@@ -2,8 +2,10 @@
 # Ale + Jolly en local.
 #   ./demo.sh doctor   revisa lo necesario
 #   ./demo.sh up       genera certs/ y .env la primera vez, y levanta todo
+#   ./demo.sh meta-check  una llamada real a cada modelo de Meta con tu llave
+#   ./demo.sh logs [s] sigue los logs de un servicio
 #   ./demo.sh down     apaga (los datos quedan)
-#   ./demo.sh reset    apaga y borra datos, certs y .env
+#   ./demo.sh reset    apaga y borra datos, la VM del asistente, certs y .env
 set -euo pipefail
 cd "$(dirname "$0")"
 
@@ -102,6 +104,9 @@ case "${1:-up}" in
   meta-check) exec ../jolly-sim/start.sh meta-check ;;
   down) "${COMPOSE[@]}" down ;;
   reset)
+    # La VM de cada asistente la crea cloud-sim fuera de compose: se borra con sus discos antes de soltar la red.
+    vms=$(docker ps -aq --filter label=ale-jolly.cloud-sim=vm); [ -z "$vms" ] || docker rm -f $vms >/dev/null
+    discos=$(docker volume ls -q --filter label=ale-jolly.cloud-sim=disk); [ -z "$discos" ] || docker volume rm $discos >/dev/null
     "${COMPOSE[@]}" down -v
     rm -rf certs .env
     echo "Borrado. ./demo.sh up empieza de cero."

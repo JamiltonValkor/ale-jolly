@@ -203,3 +203,17 @@ def test_sembrar_vincula_en_la_terminal_y_guarda_solo_la_credencial(tmp_path, mo
     srv.shutdown()
     assert "K7QM-3XPA" in capsys.readouterr().out
     assert env.read_text().splitlines() == ["ALE_RUNTIME_URL=x", "ALE_ROBOT_NAME=Jolly", "ALE_DEVICE_TOKEN=ale_dev_nuevo", "ALE_DEVICE_ID=d1"]
+
+
+def test_sembrar_borra_la_corrida_de_otro_robot_tras_un_reset(tmp_path, monkeypatch):
+    sys.path.insert(0, str(AQUI))
+    import sembrar
+    corrida = tmp_path / ".banco"
+    monkeypatch.setattr(sembrar, "CORRIDA", corrida)
+    sembrar.corrida_de_otro_robot("robot-1")
+    (corrida / "estado.json").write_text('{"semilla_lista": true}')
+    sembrar.corrida_de_otro_robot("robot-1")
+    assert (corrida / "estado.json").exists()            # mismo Jolly: la semilla se conserva
+    sembrar.corrida_de_otro_robot("robot-2")
+    assert not (corrida / "estado.json").exists()        # otra vinculación (base nueva): se siembra otra vez
+    assert (corrida / "dispositivo").read_text() == "robot-2"

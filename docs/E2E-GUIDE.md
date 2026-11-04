@@ -1,4 +1,4 @@
-# End-to-end guide: try Ale + Jolly in about 20 minutes
+# End-to-end guide: try Ale + Jolly in about 20 minutes (plus the first build)
 
 This guide walks through the whole product on your own computer, in the same order as the demo video. It works for a person or for an AI coding agent: every step says what to do, what you should see, and how to check it from a terminal.
 
@@ -9,7 +9,7 @@ What is real and what is simulated is explained in [`SLIM-VERSION.md`](SLIM-VERS
 - Docker Desktop (or Docker Engine with Compose v2) running, and `openssl`.
 - A **Meta API key**. It is the only credential needed.
 - Optional, for Jolly live: Python 3.12 or `uv`, and a microphone, on macOS, Linux or Windows. A Cartesia key is optional too; without it Jolly speaks with your computer's own voice (`say` on macOS, the built-in Windows voice, espeak on Linux).
-- Free ports: 3000 (or set `FRONT_PORT`), 8060 and 8443.
+- Free ports: 3000 (or set `FRONT_PORT`), 8060, 8443 and 5055.
 - **Windows:** run the commands in **Git Bash** (comes with Git for Windows) with Docker Desktop. Clone with `-c core.longpaths=true` as shown below. Jolly (`jolly-sim/`) runs in Git Bash too, with Python 3.12 from python.org (`py -3.12`) or `uv`. Stock's inventory does not need Jolly live: see step 8.
 
 The web app is in Spanish, as for the real users. Button names below are quoted as they appear on screen.
@@ -51,6 +51,8 @@ Open `http://localhost:3000`.
 Click **«Activar mi asistente»**.
 
 **You should see:** a progress screen that ends in the assistant's home. In production this step creates a cloud VM with Hermes for this user; here `cloud-sim` creates a local container that behaves like that VM.
+
+The first activation pulls Hermes inside the VM container: about 7 minutes. Later activations take seconds. If you see `managed_watcher_upgrade_required` in the logs meanwhile, wait: it retries on its own.
 
 **Check:**
 
@@ -102,13 +104,13 @@ Open **Stock**.
 
 **You should see:** «Aún no hay productos». That is expected: the shop's inventory arrives with Jolly. As soon as you pair it (step 10), `jolly-sim` seeds Masquebella's inventory through the robot's device channel, with the same `bench_seed` the bench uses on the real robot: catalog, suppliers, costs, the initial count and eight weeks of simulated sales, all through Stock's real rules. Stock is the agent that watches inventory: it notices differences and stuck products and brings them to the owner for approval.
 
-You come back to this tab in step 10. **Without Jolly live** (Windows, or no microphone), fill it now from a second terminal at the repo root:
+You come back to this tab in step 10. **Without Jolly live** (no microphone), fill it now from a second terminal at the repo root:
 
 ```bash
 ./jolly-sim/start.sh --sembrar
 ```
 
-It prints a pairing code; on **Hoy**, go to **«Compañero físico»** → **«Vincular»** and type it. The terminal prints `✓ Jolly vinculado` and then `✓ Stock listo`; reload **Stock** and continue with what step 10 describes after pairing.
+It prints a pairing code; on **Hoy**, go to **«Compañero físico»** → **«Sincronizar»** → «Escribir el código» and type it. The terminal prints `✓ Jolly vinculado` and then `✓ Stock listo`; reload **Stock** and continue with what step 10 describes after pairing.
 
 ## Part 4. Jolly, the robot
 
@@ -129,9 +131,9 @@ On macOS, allow the terminal to use the microphone (System Settings → Privacy 
 
 ### 10. Pair Jolly
 
-In the web app, on **Hoy**, go to **«Compañero físico»** → **«Vincular»** and type the code from Jolly's face.
+In the web app, on **Hoy**, go to **«Compañero físico»** → **«Sincronizar»** → «Escribir el código» and type the code from Jolly's face.
 
-**You should see:** Jolly says it is paired, and the web shows «Compañero físico · Activo». The robot now has its own device credential and talks to Ale only through ale-runtime's robot channel, sending text.
+**You should see:** Jolly says it is paired, and «Compañero físico» on **Hoy** shows «Sincronizado». The robot now has its own device credential and talks to Ale only through ale-runtime's robot channel, sending text.
 
 A few seconds later the `jolly-sim` terminal prints `✓ Stock listo`. Open **Stock** again: the catalog shows Bio Mascarilla Capilar 500 g, Tónico Capilar 120 ml, Sérum Capilar 30 ml and Kit Emergencia y Reparación, with their expected stock (Shampoo and Aceite are in the SaleADS catalog but have no inventory). In **Conversar**, ask «¿Cómo está mi inventario?»: Ale answers with the Stock tools.
 
@@ -162,14 +164,14 @@ To use your webcam instead: `./jolly-sim/start.sh --camara avfoundation:0` (macO
 ./jolly-sim/start.sh --replay
 ```
 
-**You should see:** Jolly's face under a red band «REPLAY · traza real del 2-nov-2026», playing 93 seconds recorded on the Raspberry Pi during the official run: SAM counts 22 jars, the numbered photo shows on the face, and Ale's notices are spoken. No backend or key needed.
+**You should see:** Jolly's face under a red band «REPLAY · traza real del 2-nov-2026», playing 93 seconds recorded on the Raspberry Pi during the end-to-end run of 2 Nov 2026: SAM counts 22 jars, the numbered photo shows on the face, and Ale's notices are spoken. No backend or key needed.
 
 ## Part 5. Close
 
 ```bash
 ./jolly-sim/start.sh --desvincular   # optional: forget the pairing
 cd local && ./demo.sh down           # stop, keeping the data
-./demo.sh reset                      # or: delete everything and start from zero
+./demo.sh reset                      # or: delete everything, the assistant VM included, and start from zero
 ```
 
 ## Where each part comes from
@@ -191,6 +193,7 @@ More evidence from the real robot and the real cloud deployment: [`../evidence/`
 | Activation stays in «configure_ai» | The Meta key is missing or wrong: fix `META_API_KEY` in `local/.env` and run `./demo.sh up` |
 | Stock says «Aún no hay productos» after pairing | Run `./jolly-sim/start.sh --sembrar` and read its message |
 | Stock tab or Stock answers missing | The team setup is still running: wait for `orqa synced` in `./demo.sh logs ale-runtime` |
+| Jolly's eye: «subida original falló (HTTP 403)» | The eye was started by hand without `start.sh`: start Jolly with `./jolly-sim/start.sh`, which sends photo uploads to the local Storage |
 | Jolly never hears you | `./jolly-sim/start.sh doctor`; give the terminal microphone permission and restart it |
 | Jolly: «ale-runtime no responde» | The stack is not up: `cd local && ./demo.sh up`, or use `--replay` |
 | The pairing code expired | Jolly shows a new one after a few minutes; type the one on screen |

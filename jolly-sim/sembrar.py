@@ -16,6 +16,7 @@ import argparse
 import json
 import os
 import re
+import shutil
 import sys
 import time
 import urllib.error
@@ -104,6 +105,17 @@ def ofertas(patrones: dict[str, str]) -> dict[str, dict[str, str]]:
     return salida
 
 
+def corrida_de_otro_robot(dispositivo: str) -> None:
+    """La corrida local vale para un solo Jolly vinculado. Tras `./demo.sh reset` la base es nueva y la vinculación
+    da otro dispositivo: la corrida vieja se borra para que el inventario se siembre otra vez."""
+    marca = CORRIDA / "dispositivo"
+    anterior = marca.read_text().strip() if marca.exists() else ""
+    if CORRIDA.exists() and anterior != dispositivo:
+        shutil.rmtree(CORRIDA)
+    CORRIDA.mkdir(exist_ok=True)
+    marca.write_text(dispositivo)
+
+
 def main() -> None:
     ap = argparse.ArgumentParser(description=__doc__.splitlines()[0])
     ap.add_argument("--esperar", type=int, default=0)
@@ -129,6 +141,7 @@ def main() -> None:
     sys.path.insert(0, str(RAIZ / "ale-runtime" / "robot" / "banco"))
     import banco
 
+    corrida_de_otro_robot(env.get("ALE_DEVICE_ID", ""))
     c = banco.Corrida(str(CORRIDA))
     if c.estado.get("semilla_lista"):
         print(f"✓ Inventario ya sembrado (corrida {c.run_id})")
