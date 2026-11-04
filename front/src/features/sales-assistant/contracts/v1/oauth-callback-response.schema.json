@@ -1,0 +1,28 @@
+{
+  "$id": "https://saleads.ai/contracts/one-click/v1/oauth-callback-response.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "anyOf": [
+    {
+      "type": "object",
+      "properties": {
+        "ok": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "required": ["ok"],
+      "additionalProperties": false
+    },
+    {
+      "type": "object",
+      "properties": {
+        "login_required": {
+          "type": "boolean",
+          "const": true
+        }
+      },
+      "required": ["login_required"],
+      "additionalProperties": false
+    }
+  ]
+}

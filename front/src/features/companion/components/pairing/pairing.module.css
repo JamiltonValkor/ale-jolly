@@ -1,0 +1,799 @@
+/* Sincronización del compañero en Saleads: modal 560 (radio 30, velo
+   rgba(6,6,8,.62) + blur 10) y hoja inferior bajo 600 px. Lo de Tailwind del
+   DialogContent vive en capas; estas reglas sin capa ganan. */
+
+.veil {
+  background: rgba(6, 6, 8, 0.62);
+  -webkit-backdrop-filter: blur(10px);
+  backdrop-filter: blur(10px);
+  animation: veil-in 0.3s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.veil[data-state='closed'] {
+  animation: veil-out 0.2s ease both;
+}
+
+.sheet[data-meta-ui] {
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  width: min(560px, calc(100vw - 32px));
+  max-width: none;
+  max-height: min(90dvh, 880px);
+  padding: 0;
+  overflow: hidden;
+  border: 1px solid rgba(var(--mu-ink), 0.085);
+  border-radius: var(--mu-r-modal);
+  background: var(--mu-card);
+  box-shadow: var(--mu-shadow-modal);
+  color: var(--mu-text);
+  animation: sheet-in 0.7s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.sheet[data-meta-ui][data-state='closed'] {
+  animation: sheet-out 0.22s ease both;
+}
+
+/* En el laboratorio, la misma hoja sin portal ni animación. */
+.frame[data-meta-ui] {
+  position: relative;
+  width: 560px;
+  max-height: none;
+  animation: none;
+}
+
+/* ---------- Cabeza ---------- */
+
+.head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 16px 16px 4px 26px;
+}
+
+.eyebrow {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  min-width: 0;
+}
+
+.progress {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--mu-text-ap);
+  font-size: 12.5px;
+  font-weight: 500;
+}
+
+.segments {
+  display: inline-flex;
+  gap: 4px;
+}
+
+.segment {
+  width: 16px;
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(var(--mu-ink), 0.12);
+  transition: background-color 0.3s ease;
+}
+
+.segment[data-on='true'] {
+  background: rgba(var(--mu-ink), 0.78);
+}
+
+.close {
+  display: inline-grid;
+  place-items: center;
+  width: 34px;
+  height: 34px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--mu-text-2);
+  cursor: pointer;
+  transition:
+    background-color 0.16s ease,
+    color 0.16s ease;
+}
+
+.close:hover {
+  background: rgba(var(--mu-ink), 0.07);
+  color: var(--mu-fg);
+}
+
+.close:focus-visible {
+  outline: 2px solid rgba(var(--mu-ink), 0.4);
+  outline-offset: 2px;
+}
+
+/* ---------- Cuerpo ---------- */
+
+.body {
+  display: grid;
+  gap: 20px;
+  padding: 14px 26px 24px;
+}
+
+/* Solo se desplaza cuando no cabe: así las luces de la IA no se cortan en seco. */
+@media (max-height: 820px), (max-width: 599px) {
+  .body {
+    overflow-y: auto;
+    overscroll-behavior: contain;
+  }
+}
+
+.step {
+  display: grid;
+  gap: 20px;
+  animation: step-in 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+.visual {
+  position: relative;
+  display: grid;
+  place-items: center;
+  justify-self: start;
+  width: 96px;
+}
+
+.visualCenter {
+  justify-self: center;
+  width: 184px;
+  margin-top: 4px;
+}
+
+.centered .titles {
+  justify-items: center;
+  text-align: center;
+}
+
+.centered .syncSteps {
+  justify-self: center;
+  min-width: min(100%, 340px);
+}
+
+.centered > .note {
+  justify-content: center;
+  text-align: center;
+}
+
+.halo {
+  position: absolute;
+  inset: -22%;
+  border-radius: 50%;
+  background: conic-gradient(
+    #ff86c8,
+    #a98dff,
+    #62c6ff,
+    #5fe3c0,
+    #ffcf8f,
+    #ff86c8
+  );
+  filter: blur(26px);
+  opacity: 0.28;
+  animation: spin 9s linear infinite;
+}
+
+.visual > :last-child {
+  position: relative;
+  width: 100%;
+}
+
+.titles {
+  display: grid;
+  gap: 8px;
+}
+
+.title {
+  margin: 0;
+  font-size: 21px;
+  font-weight: 600;
+  letter-spacing: -0.025em;
+  line-height: 1.15;
+  color: var(--mu-text);
+  text-wrap: balance;
+  outline: none;
+}
+
+.subtitle {
+  margin: 0;
+  font-size: 15.5px;
+  line-height: 1.5;
+  color: var(--mu-muted);
+  text-wrap: pretty;
+}
+
+.section {
+  display: grid;
+  gap: 4px;
+}
+
+.section > .label {
+  margin-bottom: 6px;
+}
+
+.label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mu-muted);
+}
+
+.row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 7px 0;
+  font-size: 14.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  line-height: 1.4;
+}
+
+.tile {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--mu-r-tile);
+  background: var(--mu-fill-3);
+  color: var(--mu-text);
+}
+
+.note {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--mu-text-ap);
+}
+
+.panel {
+  display: grid;
+  gap: 2px;
+  padding: 6px 16px;
+  border-radius: var(--mu-r-nested);
+  background: var(--mu-fill-2);
+}
+
+.panel .row + .row {
+  border-top: 1px solid var(--mu-line);
+}
+
+.rowLabel {
+  flex: 1;
+  color: var(--mu-text-ap);
+  font-weight: 500;
+}
+
+.rowValue {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: var(--mu-text);
+  text-align: right;
+}
+
+/* ---------- Pie ---------- */
+
+.foot {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 14px 20px 16px 26px;
+  border-top: 1px solid var(--mu-line);
+  background: var(--mu-fill-1);
+}
+
+.footStart {
+  margin-right: auto;
+}
+
+.btnLabel {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.spinner {
+  width: 14px;
+  height: 14px;
+  border-radius: 999px;
+  border: 2px solid currentColor;
+  border-right-color: transparent;
+  animation: spin 0.8s linear infinite;
+}
+
+.danger {
+  border-color: transparent;
+  background: color-mix(in oklab, var(--mu-mal) 16%, transparent);
+  color: var(--mu-peligro);
+}
+
+.danger:hover {
+  background: color-mix(in oklab, var(--mu-mal) 24%, transparent);
+  border-color: transparent;
+}
+
+/* ---------- Código ---------- */
+
+.codeField {
+  position: relative;
+  width: 100%;
+  max-width: 420px;
+}
+
+.codeInput {
+  position: absolute;
+  inset: 0;
+  z-index: 1;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: transparent;
+  color: transparent;
+  caret-color: transparent;
+  font-size: 16px;
+  letter-spacing: 3em;
+  outline: none;
+  cursor: text;
+}
+
+.codeInput::selection {
+  background: transparent;
+}
+
+.codeBoxes {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.codeBox {
+  position: relative;
+  display: grid;
+  place-items: center;
+  flex: 1;
+  height: 60px;
+  border-radius: 14px;
+  background: var(--mu-fill-3);
+  box-shadow: inset 0 0 0 1px rgba(var(--mu-ink), 0.06);
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 26px;
+  font-weight: 500;
+  color: var(--mu-text);
+  transition:
+    box-shadow 0.16s ease,
+    background-color 0.16s ease;
+}
+
+.codeBox[data-filled='true'] {
+  background: rgba(var(--mu-ink), 0.08);
+}
+
+.codeField:focus-within .codeBox[data-active='true'] {
+  box-shadow: inset 0 0 0 1.5px rgba(var(--mu-ink), 0.55);
+}
+
+.codeField:focus-within
+  .codeBox[data-active='true'][data-filled='false']::after {
+  content: '';
+  width: 2px;
+  height: 26px;
+  border-radius: 2px;
+  background: var(--mu-fg);
+  animation: caret 1.05s steps(1) infinite;
+}
+
+.codeField[data-invalid='true'] .codeBox {
+  background: color-mix(in oklab, var(--mu-mal) 12%, transparent);
+  color: var(--mu-peligro);
+}
+
+.codeDot {
+  flex: none;
+  width: 6px;
+  height: 6px;
+  border-radius: 999px;
+  background: rgba(var(--mu-ink), 0.3);
+}
+
+.fieldMessage {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  min-height: 20px;
+  margin: 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--mu-text-ap);
+}
+
+.fieldMessage[data-tone='error'] {
+  color: var(--mu-peligro);
+}
+
+.fieldMessage[data-tone='ok'] {
+  color: var(--mu-ok);
+}
+
+.fieldMessage svg {
+  flex: none;
+  margin-top: 1px;
+}
+
+/* Miniatura de la pantalla del robot: dónde buscar el código. */
+.preview {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: max-content;
+  padding: 10px 14px 10px 10px;
+  border-radius: 16px;
+  background: #000;
+  box-shadow: inset 0 0 0 1px rgba(var(--mu-ink), 0.09);
+}
+
+.previewFace {
+  width: 40px;
+}
+
+.previewText {
+  display: grid;
+  gap: 4px;
+}
+
+.previewTitle {
+  font-size: 10.5px;
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  color: var(--mu-text-2);
+}
+
+.previewCode {
+  justify-self: start;
+  padding: 2px 7px;
+  border-radius: 6px;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: 13px;
+  font-weight: 500;
+  letter-spacing: 0.04em;
+  color: var(--mu-fg);
+  box-shadow: 0 0 0 1.5px rgba(var(--mu-ink), 0.55);
+}
+
+/* ---------- Negocios ---------- */
+
+.choices {
+  display: grid;
+  gap: 8px;
+  margin: 0;
+  padding: 0;
+  border: 0;
+}
+
+.choice {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-radius: var(--mu-r-nested);
+  background: var(--mu-fill-2);
+  cursor: pointer;
+  transition: background-color 0.16s ease;
+}
+
+.choice:hover {
+  background: var(--mu-fill-hover);
+}
+
+.choice:has(input:checked) {
+  background: rgba(var(--mu-ink), 0.09);
+}
+
+.choice:has(input:focus-visible) {
+  outline: 2px solid rgba(var(--mu-ink), 0.4);
+  outline-offset: 2px;
+}
+
+.choice input {
+  position: absolute;
+  opacity: 0;
+  pointer-events: none;
+}
+
+.radio {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 20px;
+  height: 20px;
+  border-radius: 999px;
+  box-shadow: inset 0 0 0 1.5px rgba(var(--mu-ink), 0.3);
+}
+
+.choice:has(input:checked) .radio {
+  background: var(--mu-fg);
+  box-shadow: none;
+  color: var(--mu-bg);
+}
+
+/* ---------- Pasos de la sincronización ---------- */
+
+.syncSteps {
+  display: grid;
+  gap: 2px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.syncStep {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 8px 0;
+  font-size: 14.5px;
+  font-weight: 500;
+  color: var(--mu-text);
+  transition: color 0.3s ease;
+}
+
+.syncStep[data-state='pending'] {
+  color: var(--mu-text-te);
+}
+
+.mark {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 24px;
+  height: 24px;
+  border-radius: 999px;
+}
+
+.syncStep[data-state='done'] .mark {
+  color: var(--mu-ok);
+  background: color-mix(in oklab, var(--mu-ok) 14%, transparent);
+}
+
+.syncStep[data-state='pending'] .mark {
+  box-shadow: inset 0 0 0 1.5px rgba(var(--mu-ink), 0.16);
+}
+
+.markActive {
+  position: relative;
+  width: 10px;
+  height: 10px;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.markActive::before {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  background: conic-gradient(
+    #ff86c8,
+    #a98dff,
+    #62c6ff,
+    #5fe3c0,
+    #ffcf8f,
+    #ff86c8
+  );
+  animation: spin 2.4s linear infinite;
+}
+
+.notice {
+  display: flex;
+  align-items: flex-start;
+  gap: 10px;
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: color-mix(in oklab, var(--mu-aviso) 12%, transparent);
+  color: var(--mu-aviso);
+  font-size: 13.5px;
+  line-height: 1.45;
+}
+
+.tip {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--mu-fill-3);
+  font-size: 14.5px;
+  line-height: 1.45;
+  color: var(--mu-text);
+}
+
+.okDot {
+  color: var(--mu-ok);
+}
+
+.offDot {
+  color: var(--mu-text-te);
+}
+
+.bloom {
+  position: absolute;
+  inset: -8%;
+  border-radius: 50%;
+  background: conic-gradient(
+    #ff86c8,
+    #a98dff,
+    #62c6ff,
+    #5fe3c0,
+    #ffcf8f,
+    #ff86c8
+  );
+  filter: blur(30px);
+  animation:
+    spin 6s linear infinite,
+    bloom 2.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ---------- Hoja inferior en pantallas angostas ---------- */
+
+@media (max-width: 599px) {
+  .sheet[data-meta-ui] {
+    top: auto;
+    bottom: 0;
+    left: 0;
+    translate: none;
+    width: 100%;
+    max-height: 92dvh;
+    border-radius: var(--mu-r-drawer) var(--mu-r-drawer) 0 0;
+    border-bottom: 0;
+    animation-name: sheet-up;
+  }
+
+  .sheet[data-meta-ui][data-state='closed'] {
+    animation-name: sheet-down;
+  }
+
+  .frame[data-meta-ui] {
+    width: 100%;
+  }
+
+  .head {
+    padding-left: 20px;
+  }
+
+  .body {
+    padding: 10px 20px 20px;
+  }
+
+  .foot {
+    padding: 12px 16px calc(14px + env(safe-area-inset-bottom)) 20px;
+  }
+
+  .foot > :global(.mu-btn) {
+    flex: 1;
+  }
+
+  .footStart {
+    margin-right: 0;
+  }
+
+  .codeBox {
+    height: 54px;
+    font-size: 23px;
+  }
+
+  .title {
+    font-size: 23px;
+  }
+}
+
+@keyframes sheet-in {
+  from {
+    opacity: 0;
+    transform: translateY(28px) scale(0.975);
+    filter: blur(10px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes sheet-out {
+  to {
+    opacity: 0;
+    transform: translateY(12px) scale(0.985);
+  }
+}
+
+@keyframes sheet-up {
+  from {
+    transform: translateY(100%);
+  }
+  to {
+    transform: none;
+  }
+}
+
+@keyframes sheet-down {
+  to {
+    transform: translateY(100%);
+  }
+}
+
+@keyframes veil-in {
+  from {
+    opacity: 0;
+  }
+}
+
+@keyframes veil-out {
+  to {
+    opacity: 0;
+  }
+}
+
+@keyframes step-in {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+    filter: blur(6px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes caret {
+  50% {
+    opacity: 0;
+  }
+}
+
+@keyframes bloom {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  40% {
+    opacity: 0.5;
+  }
+  100% {
+    opacity: 0.2;
+    transform: scale(1);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sheet[data-meta-ui],
+  .veil,
+  .step,
+  .halo,
+  .bloom,
+  .markActive::before,
+  .spinner {
+    animation: none;
+  }
+}

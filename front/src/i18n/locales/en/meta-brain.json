@@ -1,0 +1,267 @@
+{
+  "photos": {
+    "label": "Saved snapshots",
+    "option": "{date} · {count, plural, one {# idea} other {# ideas}}"
+  },
+  "stopped": "Your assistant is paused. You are seeing the last snapshot it saved, from {date}. Whatever you confirm or correct reaches it when you turn it back on.",
+  "tiles": {
+    "label": "Brain summary",
+    "hint": "Pick one to focus it in the graph and the sections.",
+    "ideas": {
+      "title": "Ideas it knows",
+      "hint": "{count, plural, =0 {Nothing new this week} one {+# this week} other {+# this week}}"
+    },
+    "bets": {
+      "title": "Active bets",
+      "hint": "{testing} testing · {launched} launched · {planned} planned",
+      "none": "None running"
+    },
+    "learned": {
+      "title": "What we learned",
+      "hint": "{worked} worked · {didNotWork} did not",
+      "none": "Shows up after reading results"
+    },
+    "toConfirm": {
+      "title": "To confirm",
+      "hint": "Your OK makes them solid",
+      "none": "Nothing pending"
+    },
+    "focused": "Focused on “{name}”",
+    "clear": "Show all ideas"
+  },
+  "modes": {
+    "label": "How to view the brain",
+    "graph": "Graph",
+    "sections": "By section",
+    "changes": "What changed"
+  },
+  "graph": {
+    "region": "Graph of what your assistant knows",
+    "roledescription": "graph",
+    "instructions": "Use the arrow keys to move between ideas, Enter to open the detail and Escape to close it. Plus and minus zoom; zero shows everything.",
+    "announce": "{label}. {family}. {count, plural, =0 {No relations} one {# relation} other {# relations}}. Enter opens the detail.",
+    "hint": "Hover an idea and click it to see what it knows.",
+    "zoomIn": "Zoom in",
+    "zoomOut": "Zoom out",
+    "reset": "Show everything",
+    "controls": "Graph zoom",
+    "list": "View as list",
+    "canvas": "View as graph",
+    "visible": "{count, plural, =0 {No ideas visible} one {# idea visible} other {# ideas visible}}",
+    "nothingVisible": "No ideas are visible with these filters.",
+    "showAll": "Show everything",
+    "tooltipOpen": "Click to see the detail"
+  },
+  "search": {
+    "label": "Search for an idea",
+    "placeholder": "Search the brain",
+    "results": "{count, plural, =0 {No results} one {# result} other {# results}}",
+    "empty": "I could not find “{query}”. Try another word.",
+    "clear": "Clear search"
+  },
+  "legend": {
+    "label": "Families",
+    "hint": "Tap a family to hide or show it.",
+    "hidden": "Hidden",
+    "showAll": "Show all"
+  },
+  "guide": {
+    "open": "How to read it",
+    "title": "How to read the graph",
+    "close": "Close guide",
+    "color": "Color is the idea's family: offer, market, channels…",
+    "size": "Size shows how often it has seen it and how much evidence it has.",
+    "bet": "The iridescent ring marks a bet your assistant is testing.",
+    "verdict": "A green ring is a bet that worked; coral, one that did not; amber is still open.",
+    "lines": "Lines are relations; they light up when you hover an idea.",
+    "pulses": "Pulses travel along what it learned in the last few days.",
+    "timeline": "Below, the timeline shows how it grew day by day."
+  },
+  "family": {
+    "identity": "Identity",
+    "offer": "Offer",
+    "market": "Market",
+    "competition": "Competition",
+    "channels": "Channels",
+    "strategy": "Strategy",
+    "bet": "Bets",
+    "verdict": "Verdicts",
+    "learned": "Lessons",
+    "learning": "Observations",
+    "operations": "Operations",
+    "meta": "Context",
+    "other": "Other"
+  },
+  "timeline": {
+    "label": "How the brain grew",
+    "play": "Play growth",
+    "pause": "Pause growth",
+    "slider": "Brain day",
+    "dayOf": "Day {day} of {total}",
+    "valueText": "Day {day} of {total}: {ideas, plural, one {# idea} other {# ideas}}",
+    "first": "Day 1",
+    "today": "Today",
+    "newThatDay": "{count, plural, =0 {no new ideas} one {# new idea} other {# new ideas}}",
+    "caption": "Day {day} · {text}",
+    "milestones": {
+      "start": "started getting to know {business}",
+      "firstBet": "first bet",
+      "firstWin": "first winning bet",
+      "firstLesson": "first lesson",
+      "firstCorrection": "your first correction",
+      "peak": "{count} new ideas in one day"
+    }
+  },
+  "detail": {
+    "label": "Idea detail",
+    "close": "Close detail",
+    "stage": "Stage",
+    "confidence": "Confidence",
+    "mentions": "Mentions",
+    "evidence": "Evidence",
+    "learned": "Learned",
+    "learnedValue": "{date} · day {day}",
+    "scope": "Applies to",
+    "replacedBy": "Replaced by",
+    "noSummary": "Your assistant has not written a summary of this idea yet.",
+    "relations": "How it connects",
+    "relationsCount": "{count, plural, one {# relation} other {# relations}}",
+    "more": "Show {count} more",
+    "less": "Show less",
+    "noRelations": "It is not connected to other ideas yet.",
+    "showPath": "See how it got here",
+    "hidePath": "Hide path",
+    "pathLabel": "How it reached this idea",
+    "noPath": "This idea is not connected to the betting loop yet.",
+    "goTo": "Go to “{label}”",
+    "selfStart": "This idea",
+    "selfEnd": "this idea"
+  },
+  "certainty": {
+    "verifiedData": "Verified with data",
+    "youConfirmed": "You confirmed it",
+    "youSaid": "You said it",
+    "observed": "It observed it",
+    "deduced": "It deduces it",
+    "proposed": "Proposal",
+    "contradicted": "Contradicted"
+  },
+  "confidence": {
+    "baja": "low",
+    "media": "medium",
+    "alta": "high"
+  },
+  "stages": {
+    "en_plan": "Planned",
+    "en_prueba": "Testing",
+    "lanzada": "Launched",
+    "ganadora": "Won this test",
+    "perdedora": "Lost this test",
+    "concluido": "Concluded",
+    "vigente": "Current",
+    "reemplazado": "Replaced"
+  },
+  "relations": {
+    "TARGETS": "speaks to",
+    "USES": "uses",
+    "SPEAKS_WITH": "speaks to",
+    "TESTED_IN": "is tested in",
+    "GIVES": "gave",
+    "DERIVED_FROM": "comes from",
+    "ABOUT": "is about",
+    "TEACHES": "teaches",
+    "SUPERSEDES": "replaces",
+    "INSPIRES": "inspires",
+    "SUGGESTS": "suggests"
+  },
+  "feedback": {
+    "question": "Is this right?",
+    "confirm": "Confirm",
+    "correct": "Correct",
+    "noLongerApplies": "No longer applies",
+    "send": "Send correction",
+    "cancel": "Cancel",
+    "placeholder": "Tell your assistant what is right.",
+    "fieldLabel": "Your correction",
+    "pending": "Your assistant is receiving your answer.",
+    "sent": "Done, your assistant has it.",
+    "queued": "It will reach your assistant when it is on.",
+    "error": "We could not send it. Check your connection and try again.",
+    "unavailable": "Your assistant does not take answers from here yet."
+  },
+  "sections": {
+    "scope": "View",
+    "current": "Current",
+    "history": "History",
+    "certaintyFilter": "Certainty",
+    "all": "All",
+    "more": "Show all {count}",
+    "less": "Show less",
+    "titles": {
+      "my_business": "My business",
+      "active_bets": "Active bets",
+      "learned": "What we learned",
+      "did_not_work": "What did not work",
+      "your_corrections": "Your corrections and preferences",
+      "to_confirm": "Waiting for your OK",
+      "history": "History"
+    },
+    "empty": {
+      "my_business": "There is no data about your business yet.",
+      "active_bets": "No bets are running.",
+      "learned": "No lessons yet: they show up after reading results.",
+      "did_not_work": "Nothing has lost yet.",
+      "your_corrections": "You have not corrected anything yet.",
+      "to_confirm": "Nothing pending.",
+      "history": "Nothing replaced yet."
+    },
+    "noMatches": "No idea matches this certainty.",
+    "evidence": "{count, plural, one {# piece of evidence} other {# pieces of evidence}}"
+  },
+  "changes": {
+    "from": "From",
+    "to": "To",
+    "summary": "From {from} to {to}, your assistant added {added, plural, =0 {no ideas} one {# idea} other {# ideas}}, updated {modified, plural, =0 {none} one {#} other {#}} and retired {removed, plural, =0 {none} one {#} other {#}}.",
+    "added": "New",
+    "modified": "Changed",
+    "removed": "Retired",
+    "dayOf": "Day {day}",
+    "stage": "Went from “{from}” to “{to}”.",
+    "stageNew": "It is now “{to}”.",
+    "stageGone": "It no longer has a stage.",
+    "confidenceUp": "Its confidence rose from {from} to {to}.",
+    "confidenceDown": "Its confidence dropped from {from} to {to}.",
+    "renamed": "It is now called “{to}”.",
+    "replaced": "Another idea replaced it.",
+    "needTwo": "You need two snapshots to compare. Your assistant saves one every day.",
+    "same": "Pick two different snapshots to compare.",
+    "notYet": "Comparison is not available for this business yet.",
+    "error": "We could not compare the snapshots. Check your connection and try again.",
+    "retry": "Try again",
+    "loading": "Your assistant is comparing both snapshots.",
+    "nothing": "Nothing changed between these two snapshots."
+  },
+  "states": {
+    "loading": "Your assistant is organizing what it knows about {business}.",
+    "empty": {
+      "title": "Your assistant is getting to know {business}",
+      "body": "After its first conversations, you will see here what it learns every day and how it grows.",
+      "willAppear": "What you will see here",
+      "business": "Your business and your offer",
+      "market": "Who you sell to and what worries them",
+      "bets": "The bets it tests with your ads",
+      "learned": "What it learns from every result"
+    },
+    "error": {
+      "title": "We could not open your assistant's brain",
+      "body": "It may be the connection. Your assistant keeps learning; try again in a moment.",
+      "retry": "Try again"
+    },
+    "noBusiness": "Pick a business to see its assistant's brain."
+  },
+  "list": {
+    "label": "What your assistant knows, by family",
+    "count": "{count, plural, one {# idea} other {# ideas}}",
+    "open": "Open detail of “{label}”"
+  }
+}

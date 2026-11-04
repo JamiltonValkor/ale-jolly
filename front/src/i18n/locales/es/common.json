@@ -1,0 +1,148 @@
+{
+  "buttons": {
+    "save": "Guardar",
+    "cancel": "Cancelar",
+    "next": "Siguiente",
+    "previous": "Anterior",
+    "submit": "Enviar",
+    "continue": "Continuar",
+    "back": "Volver",
+    "close": "Cerrar",
+    "confirm": "Confirmar",
+    "delete": "Eliminar",
+    "edit": "Editar",
+    "add": "Agregar",
+    "remove": "Quitar",
+    "search": "Buscar",
+    "filter": "Filtrar",
+    "clear": "Limpiar",
+    "apply": "Aplicar",
+    "reset": "Restablecer",
+    "loading": "Cargando...",
+    "loadMore": "Cargar más"
+  },
+  "labels": {
+    "email": "Email",
+    "password": "Contraseña",
+    "name": "Nombre",
+    "phone": "Teléfono",
+    "address": "Dirección",
+    "city": "Ciudad",
+    "state": "Estado",
+    "country": "País",
+    "zipCode": "Código Postal",
+    "description": "Descripción",
+    "website": "Sitio Web",
+    "optional": "Opcional",
+    "required": "Requerido"
+  },
+  "messages": {
+    "success": "Operación exitosa",
+    "error": "Ha ocurrido un error",
+    "warning": "Advertencia",
+    "info": "Información",
+    "loading": "Cargando...",
+    "noData": "No hay datos disponibles",
+    "noResults": "No se encontraron resultados",
+    "confirm": "¿Estás seguro?",
+    "unsavedChanges": "Tienes cambios sin guardar"
+  },
+  "time": {
+    "today": "Hoy",
+    "yesterday": "Ayer",
+    "tomorrow": "Mañana",
+    "thisWeek": "Esta semana",
+    "lastWeek": "Semana pasada",
+    "thisMonth": "Este mes",
+    "lastMonth": "Mes pasado"
+  },
+  "dashboard": {
+    "searchPlaceholder": "Buscar...",
+    "user": "Usuario",
+    "admin": "Admin"
+  },
+  "errors": {
+    "retry": "Reintentar",
+    "supportMessage": "¿Sigue sin funcionar? Escríbenos a {email} y te ayudamos.",
+    "supportEmail": "support@saleads.ai",
+    "network": {
+      "title": "Ups, algo falló",
+      "message": "No te preocupes, solo necesitamos que revises tu internet e intentes de nuevo."
+    },
+    "authentication": {
+      "title": "Tu sesión necesita renovarse",
+      "message": "Por seguridad, necesitamos que inicies sesión nuevamente. Solo tomará un momento."
+    },
+    "authorization": {
+      "title": "Acción no disponible",
+      "message": "Esta acción no está habilitada para tu cuenta. Si crees que es un error, escríbenos."
+    },
+    "not_found": {
+      "title": "No encontramos eso",
+      "message": "Parece que lo que buscas ya no está disponible o fue movido."
+    },
+    "validation": {
+      "title": "Revisa los datos",
+      "message": "Algunos datos necesitan ajustes. Revisa los campos marcados e intenta de nuevo."
+    },
+    "conflict": {
+      "title": "Cambio en progreso",
+      "message": "Alguien más puede estar editando esto. Refresca la página e intenta de nuevo."
+    },
+    "rate_limit": {
+      "title": "Un momento",
+      "message": "Estás yendo muy rápido. Espera unos segundos e intenta de nuevo."
+    },
+    "server": {
+      "title": "Estamos en ello",
+      "message": "Algo no salió como esperábamos, pero ya estamos trabajando en ello. Intenta en unos minutos."
+    },
+    "timeout": {
+      "title": "Tomó más de lo esperado",
+      "message": "La operación tardó demasiado. Intenta de nuevo, suele funcionar al segundo intento."
+    },
+    "unknown": {
+      "title": "Algo salió mal",
+      "message": "No te preocupes, estas cosas pasan. Intenta de nuevo y si persiste, escríbenos."
+    },
+    "global": {
+      "title": "¡Ups! Algo salió mal",
+      "message": "Ha ocurrido un error inesperado. Nuestro equipo ha sido notificado y estamos trabajando en resolverlo.",
+      "retry": "Intentar de nuevo",
+      "goHome": "Volver al inicio"
+    },
+    "dashboard": {
+      "title": "Error en el Dashboard",
+      "message": "Ha ocurrido un error al cargar esta sección. Intenta recargar o contacta a soporte si el problema persiste.",
+      "goToDashboard": "Ir al Dashboard"
+    }
+  },
+  "accessibility": {
+    "mainMenu": "Menú principal",
+    "toggleNavigation": "Alternar navegación",
+    "changeLanguage": "Cambiar idioma",
+    "changeTheme": "Cambiar tema",
+    "toggleSidebar": "Expandir barra lateral",
+    "close": "Cerrar",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú",
+    "loading": "Cargando",
+    "socialMedia": {
+      "twitter": "Síguenos en Twitter",
+      "github": "Ver nuestro GitHub",
+      "linkedin": "Síguenos en LinkedIn",
+      "instagram": "Síguenos en Instagram",
+      "facebook": "Síguenos en Facebook"
+    },
+    "aleMascot": "Asistente mascota ALE"
+  },
+  "phoneField": {
+    "countryLabel": "Código del país",
+    "countrySearch": "Buscar país o prefijo…",
+    "countryEmpty": "No encontramos ese país.",
+    "required": "Escribe el número de teléfono.",
+    "tooShort": "Faltan dígitos: este país requiere al menos {min}.",
+    "tooLong": "Sobran dígitos: este país permite máximo {max}.",
+    "invalid": "Revisa el número: no parece válido para {country}."
+  }
+}

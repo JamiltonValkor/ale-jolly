@@ -1,0 +1,581 @@
+/* Meta Assistant — composición de pantallas. Tokens: src/shared/meta-ui/meta-ui.css */
+
+.page {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  width: 100%;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 28px 28px 72px;
+}
+
+/* Con dock: él queda a 24 px del borde inferior y lo que se fija abajo (el
+   compositor de «Conversar») se apoya encima: `--meta-dock-space` es la
+   distancia al borde que deja libre (24 + 46 de dock + 12 de aire). */
+.page[data-dock] {
+  --meta-dock-space: 82px;
+  padding-bottom: 24px;
+}
+
+@media (max-width: 599px) {
+  .page {
+    padding: 18px 16px 56px;
+  }
+
+  .page[data-dock] {
+    --meta-dock-space: 68px;
+    padding-bottom: 12px;
+  }
+}
+
+/* ---------- Encabezado ---------- */
+
+/* Siempre a la vista: se queda pegado arriba (bajo la barra del dashboard,
+   `--meta-sticky-top`) y el contenido pasa por debajo, desvaneciéndose. Toma
+   12 px del padding de la página para que el negro cubra al pegarse. */
+.header {
+  position: sticky;
+  top: var(--meta-sticky-top, 0px);
+  z-index: 15;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  width: calc(100% + 56px);
+  max-width: none;
+  margin: -12px -28px 0;
+  padding: 12px 28px 16px;
+  background: linear-gradient(
+    to bottom,
+    var(--mu-bg) 0%,
+    var(--mu-bg) 72%,
+    rgba(0, 0, 0, 0) 100%
+  );
+}
+
+@media (max-width: 599px) {
+  .header {
+    width: calc(100% + 32px);
+    margin: -12px -16px 0;
+    padding: 12px 16px 14px;
+  }
+}
+
+.headerTop {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 12px;
+  min-height: 34px;
+}
+
+/* Las dos marcas juntas: Meta a color y el isotipo de Saleads en blanco. */
+.brand {
+  display: inline-flex;
+  align-items: center;
+  gap: 14px;
+}
+
+.metaLogo {
+  display: block;
+  width: 30px;
+  height: auto;
+}
+
+.brandDivider {
+  width: 1px;
+  height: 18px;
+  background: rgba(var(--mu-ink), 0.2);
+}
+
+.isotype {
+  display: inline-block;
+  width: 14px;
+  height: 22px;
+  background: #fff;
+  -webkit-mask: url('/agent-chat/v2/saleads-isotipo.svg') center / contain
+    no-repeat;
+  mask: url('/agent-chat/v2/saleads-isotipo.svg') center / contain no-repeat;
+}
+
+.title {
+  margin: 4px 0 0;
+  font-size: clamp(30px, 3.6vw, 44px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.04;
+  color: var(--mu-fg);
+}
+
+.subtitle {
+  margin: 0;
+  max-width: 640px;
+  font-size: 16.5px;
+  line-height: 1.5;
+  color: var(--mu-muted);
+}
+
+.headerActions {
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+}
+
+.statusChip[data-tone='ok'] {
+  color: var(--mu-ok);
+  background: color-mix(in oklab, var(--mu-ok) 14%, transparent);
+}
+
+.statusChip[data-tone='aviso'] {
+  color: var(--mu-aviso);
+  background: color-mix(in oklab, var(--mu-aviso) 14%, transparent);
+}
+
+.statusChip[data-tone='mal'] {
+  color: var(--mu-peligro);
+  background: color-mix(in oklab, var(--mu-mal) 14%, transparent);
+}
+
+/* ---------- Dock de pestañas ----------
+   El mismo lenguaje del dock del chat (agent-chat/shell/account-dock-v2):
+   vidrio, aura, filo que sigue al puntero y una luz que se desliza. */
+
+.dockBar {
+  position: sticky;
+  bottom: 24px;
+  z-index: 20;
+  order: 99;
+  display: flex;
+  justify-content: center;
+  margin-top: auto;
+  padding-top: 32px;
+  pointer-events: none;
+}
+
+/* En «Conversar» el compositor va justo encima: menos aire antes del dock. */
+.page:has([data-meta-chat]) .dockBar {
+  padding-top: 12px;
+}
+
+.tabs {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  padding: 3px;
+  border: 1px solid rgba(var(--mu-ink), 0.16);
+  border-radius: 999px;
+  /* Sobre el negro puro el vidrio del chat se pierde: un gris un poco más
+     claro, borde y brillo de arriba más marcados. */
+  background:
+    linear-gradient(
+      180deg,
+      rgba(var(--mu-ink), 0.1),
+      rgba(var(--mu-ink), 0.05)
+    ),
+    rgba(24, 24, 28, 0.86);
+  box-shadow:
+    0 0 0 1px rgba(0, 0, 0, 0.6),
+    0 18px 48px -14px rgba(0, 0, 0, 0.95),
+    0 0 36px -8px rgba(255, 255, 255, 0.07),
+    inset 0 1px 0 rgba(255, 255, 255, 0.12);
+  -webkit-backdrop-filter: blur(22px) saturate(1.3);
+  backdrop-filter: blur(22px) saturate(1.3);
+  pointer-events: auto;
+  animation: dock-arrive 0.7s cubic-bezier(0.22, 1, 0.36, 1) 0.2s both;
+}
+
+.dockAura {
+  position: absolute;
+  inset: -26px -14px -22px;
+  z-index: -1;
+  background: url('/agent-chat/v2/dock-aura.png') center / 180% no-repeat;
+  opacity: 0.5;
+  filter: blur(30px);
+  -webkit-mask-image: radial-gradient(
+    closest-side,
+    #000 0%,
+    rgba(0, 0, 0, 0.55) 55%,
+    transparent 100%
+  );
+  mask-image: radial-gradient(
+    closest-side,
+    #000 0%,
+    rgba(0, 0, 0, 0.55) 55%,
+    transparent 100%
+  );
+  pointer-events: none;
+}
+
+.dockFilo {
+  position: absolute;
+  inset: -1px;
+  padding: 1px;
+  border-radius: inherit;
+  background: radial-gradient(
+    56px circle at var(--mx, 50%) var(--my, 50%),
+    rgba(var(--mu-ink), 0.36),
+    rgba(var(--mu-ink), 0) 100%
+  );
+  -webkit-mask:
+    linear-gradient(#000 0 0) content-box,
+    linear-gradient(#000 0 0);
+  -webkit-mask-composite: xor;
+  mask:
+    linear-gradient(#000 0 0) content-box exclude,
+    linear-gradient(#000 0 0);
+  opacity: 0;
+  transition: opacity 0.4s ease;
+  pointer-events: none;
+}
+
+.tabs:hover .dockFilo {
+  opacity: 1;
+}
+
+.tab {
+  position: relative;
+  display: inline-flex;
+  flex: none;
+  align-items: center;
+  gap: 8px;
+  height: 38px;
+  padding: 0 15px 0 13px;
+  border: 0;
+  border-radius: 999px;
+  background: transparent;
+  color: rgba(var(--mu-ink), 0.7);
+  font-size: 13.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+  transition:
+    color 0.25s ease,
+    transform 0.14s ease;
+  animation: dock-entra 0.6s cubic-bezier(0.22, 1, 0.36, 1) 0.5s backwards;
+}
+
+.tab:nth-of-type(2) {
+  animation-delay: 0.57s;
+}
+
+.tab:nth-of-type(3) {
+  animation-delay: 0.64s;
+}
+
+.tab:nth-of-type(4) {
+  animation-delay: 0.71s;
+}
+
+.tab:nth-of-type(5) {
+  animation-delay: 0.78s;
+}
+
+.tab:hover,
+.tab[aria-selected='true'] {
+  color: var(--mu-fg);
+}
+
+.tab:active {
+  transform: scale(0.97);
+}
+
+.tab:focus-visible {
+  outline: 2px solid rgba(var(--mu-ink), 0.4);
+  outline-offset: 1px;
+}
+
+/* La luz del dock: se desliza a lo que tocas y vuelve a la pestaña activa. */
+.tabLight {
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  background: radial-gradient(
+    120% 110% at 50% 0%,
+    rgba(var(--mu-ink), 0.22),
+    rgba(var(--mu-ink), 0.1) 72%
+  );
+  box-shadow:
+    inset 0 1px 0 rgba(255, 255, 255, 0.14),
+    0 4px 14px -6px rgba(0, 0, 0, 0.8);
+  pointer-events: none;
+}
+
+.tabIcon,
+.tabLabel {
+  position: relative;
+  flex: none;
+}
+
+/* Pendientes por aprobar: el aviso ámbar de los contadores del chat. */
+.tabBadge {
+  position: relative;
+  display: grid;
+  place-items: center;
+  min-width: 16px;
+  height: 16px;
+  padding: 0 4px;
+  border-radius: 999px;
+  background: var(--mu-aviso);
+  color: #0d0d0d;
+  font-size: 10px;
+  font-weight: 700;
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+
+@keyframes dock-arrive {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+}
+
+@keyframes dock-entra {
+  from {
+    opacity: 0;
+    transform: translateY(5px);
+    filter: blur(4px);
+  }
+}
+
+/* En el teléfono solo la activa dice su nombre; las demás, el ícono. */
+@media (max-width: 599px) {
+  .dockBar {
+    bottom: max(12px, env(safe-area-inset-bottom));
+    padding-top: 24px;
+  }
+
+  .tab:not([aria-selected='true']) {
+    justify-content: center;
+    width: 40px;
+    padding: 0;
+  }
+
+  .tab:not([aria-selected='true']) .tabLabel {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+  }
+
+  .tab:not([aria-selected='true']) .tabBadge {
+    position: absolute;
+    top: 2px;
+    right: 1px;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tabs,
+  .tab {
+    animation: none;
+  }
+}
+
+/* ---------- Ayuda de la pestaña («?») ---------- */
+
+.help {
+  width: min(360px, calc(100vw - 32px));
+  padding: 18px;
+  border: 1px solid rgba(var(--mu-ink), 0.1);
+  border-radius: 24px;
+  background: var(--mu-panel);
+  box-shadow: var(--mu-shadow-dock);
+  color: var(--mu-fg);
+}
+
+.helpHead {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.helpFace {
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+}
+
+.helpTitle {
+  margin: 0;
+  font-size: 17px;
+  font-weight: 600;
+  letter-spacing: -0.015em;
+}
+
+.helpBody {
+  margin: 12px 0 0;
+  font-size: 14px;
+  line-height: 1.55;
+  color: var(--mu-text);
+}
+
+.helpPoints {
+  display: grid;
+  gap: 8px;
+  margin: 12px 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.helpPoints > li {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  font-size: 13.5px;
+  line-height: 1.45;
+  color: var(--mu-text-2);
+}
+
+.helpPoints svg {
+  flex: none;
+  color: var(--mu-ok);
+  transform: translateY(2px);
+}
+
+.helpGuide {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 16px;
+  padding: 0;
+  border: 0;
+  background: none;
+  color: var(--mu-text-2);
+  font-size: 13px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: color 0.16s var(--mu-ease);
+}
+
+.helpGuide:hover {
+  color: var(--mu-fg);
+}
+
+.helpGuide:focus-visible {
+  border-radius: 6px;
+  outline: 2px solid rgba(var(--mu-ink), 0.4);
+  outline-offset: 3px;
+}
+
+.panel {
+  display: flex;
+  flex: 1 0 auto;
+  flex-direction: column;
+  margin-top: 22px;
+}
+
+/* El encabezado pegado ya deja su aire abajo. */
+.page[data-dock] .panel {
+  margin-top: 8px;
+}
+
+.panel:focus-visible {
+  outline: none;
+}
+
+/* ---------- Escenario del compañero ---------- */
+
+.stage {
+  position: relative;
+  display: grid;
+  place-items: center;
+  isolation: isolate;
+}
+
+/* Charco de luz: desenfocado, sin bordes, lento. */
+.stage::before {
+  content: '';
+  position: absolute;
+  inset: 12% 8% 0;
+  z-index: -1;
+  border-radius: 50%;
+  background: radial-gradient(
+    closest-side,
+    rgba(var(--mu-ink), 0.09),
+    rgba(var(--mu-ink), 0.03) 55%,
+    transparent 100%
+  );
+  filter: blur(18px);
+  animation: stage-breathe 5.6s var(--mu-ease) infinite;
+}
+
+.stage[data-ai='true']::after {
+  content: '';
+  position: absolute;
+  inset: 26% 22% 14%;
+  z-index: -1;
+  border-radius: 50%;
+  background: var(--mu-iri);
+  opacity: 0.16;
+  filter: blur(46px) saturate(0.8);
+  animation: mu-giro 14s linear infinite;
+}
+
+.stageHero {
+  width: min(100%, 420px);
+  aspect-ratio: 1 / 1.08;
+}
+
+.stageCard {
+  width: min(100%, 260px);
+  aspect-ratio: 1 / 1.08;
+}
+
+.stageMini {
+  width: 100px;
+  aspect-ratio: 1 / 1.08;
+}
+
+.stageMini::before {
+  inset: 18% 4% 0;
+  filter: blur(8px);
+}
+
+.placeholder {
+  width: 46%;
+  aspect-ratio: 1;
+  border-radius: 50%;
+  background:
+    radial-gradient(
+      circle at 34% 30%,
+      rgba(255, 255, 255, 0.95),
+      rgba(255, 255, 255, 0) 42%
+    ),
+    radial-gradient(circle at 50% 60%, #f3ede6, #d9d2ca 70%);
+  box-shadow: 0 30px 60px -30px rgba(0, 0, 0, 0.9);
+  animation: stage-breathe 5.6s var(--mu-ease) infinite;
+}
+
+@keyframes stage-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.04);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .stage::before,
+  .stage::after,
+  .placeholder {
+    animation: none;
+  }
+}
+
+/* Las animaciones globales de meta-ui.css se renombran dentro de un CSS module:
+   se declaran aquí para que el nombre local coincida. */
+@keyframes mu-giro {
+  to {
+    --mu-giro: 360deg;
+  }
+}

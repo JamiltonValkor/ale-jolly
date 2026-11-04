@@ -1,0 +1,502 @@
+/* Modo agente — tokens `--sa-*` del handoff (Saleads Chat).
+   Alcance: solo dentro de `[data-agent-shell]`. Dark es el tema principal;
+   light se activa con `data-theme="light"` en la misma raíz.
+   Los grises se derivan de `rgba(var(--sa-ink), α)`. */
+
+[data-agent-shell] {
+  --sa-bg: #050507;
+  --sa-panel: #0b0b0f;
+  --sa-menu: #08080b;
+  --sa-chip: #15151b;
+  --sa-chip2: #1b1b24;
+  --sa-ink: 255, 255, 255;
+  --sa-fg: #ffffff;
+  --sa-brand: #8b5cf6;
+  --sa-purple: #a78bfa;
+  --sa-purple-soft: #c4b5fd;
+  --sa-ok: #3ddc84;
+  --sa-warn: #f0c05a;
+  --sa-danger: #ff6b6b;
+  --sa-danger-fg: #ff8a8a;
+  --sa-shadow-panel: 0 20px 50px -20px rgba(0, 0, 0, 0.8);
+  --sa-shadow-orb: 0 30px 70px -30px rgba(139, 92, 246, 0.9);
+  /* Texto secundario legible (≥ 4.5:1 sobre --sa-bg en ambos temas). */
+  --sa-muted: rgba(var(--sa-ink), 0.5);
+  --sa-muted-2: rgba(var(--sa-ink), 0.6);
+  --sa-font-sans: var(--font-dm-sans), 'DM Sans', system-ui, sans-serif;
+  --sa-font-mono:
+    var(--font-jetbrains-mono), 'JetBrains Mono', ui-monospace, monospace;
+
+  background: var(--sa-bg);
+  color: var(--sa-fg);
+  font-family: var(--sa-font-sans);
+  text-wrap: pretty;
+  -webkit-font-smoothing: antialiased;
+  transition:
+    background-color 0.4s ease,
+    color 0.4s ease;
+}
+
+[data-agent-shell][data-theme='light'] {
+  --sa-bg: #fafafa;
+  --sa-panel: #ffffff;
+  --sa-menu: #fbfbfb;
+  --sa-chip: #ebebeb;
+  --sa-chip2: #e4e4e4;
+  --sa-ink: 23, 23, 23;
+  --sa-fg: #171717;
+  --sa-purple: #6d28d9;
+  --sa-purple-soft: #6d28d9;
+  --sa-ok: #0f7a46;
+  --sa-warn: #8a6100;
+  --sa-shadow-panel: 0 12px 30px -16px rgba(0, 0, 0, 0.25);
+  --sa-muted: rgba(var(--sa-ink), 0.62);
+  --sa-muted-2: rgba(var(--sa-ink), 0.7);
+  --sa-logo-filter: invert(1);
+}
+
+[data-agent-shell] a {
+  color: var(--sa-brand);
+  text-decoration: none;
+}
+[data-agent-shell] a:hover {
+  color: #f3a382;
+}
+[data-agent-shell] button,
+[data-agent-shell] input,
+[data-agent-shell] textarea {
+  font-family: inherit;
+}
+[data-agent-shell] ::-webkit-scrollbar {
+  width: 11px;
+  height: 11px;
+}
+[data-agent-shell] ::-webkit-scrollbar-thumb {
+  background: rgba(128, 128, 140, 0.35);
+  border-radius: 6px;
+  border: 3px solid transparent;
+  background-clip: padding-box;
+}
+[data-agent-shell] [data-hscroll]::-webkit-scrollbar {
+  height: 0;
+  width: 0;
+  display: none;
+}
+[data-agent-shell] [data-hscroll] {
+  scrollbar-width: none;
+}
+
+/* Etiquetas técnicas en mayúsculas (JetBrains Mono). */
+[data-agent-shell] .sa-mono {
+  font-family: var(--sa-font-mono);
+  font-size: 8px;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--sa-muted);
+}
+
+/* Botón primary: gradiente de marca en el borde, relleno radial oscuro. */
+[data-agent-shell] .sa-primary {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  white-space: nowrap;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  padding: 11px 17px;
+  font: 600 12.5px var(--sa-font-sans);
+  color: #ffffff;
+  cursor: pointer;
+  background:
+    radial-gradient(130% 190% at 22% 10%, #1b1226 0%, #0b0810 58%, #150a0d 100%)
+      padding-box,
+    linear-gradient(
+        140deg,
+        rgba(var(--sa-ink), 0.8) 0%,
+        #8b5cf6 32%,
+        #7c3aed 50%,
+        #f97316 84%,
+        rgba(var(--sa-ink), 0.1) 100%
+      )
+      border-box;
+  box-shadow: 0 10px 30px -16px rgba(139, 92, 246, 0.85);
+  transition:
+    opacity 0.15s ease,
+    transform 0.15s ease;
+}
+[data-agent-shell] .sa-primary:hover {
+  transform: translateY(-1px);
+}
+[data-agent-shell] .sa-primary:disabled {
+  opacity: 0.45;
+  cursor: default;
+  transform: none;
+}
+[data-agent-shell] .sa-secondary {
+  border: 1px solid rgba(var(--sa-ink), 0.16);
+  background: transparent;
+  color: var(--sa-fg);
+  border-radius: 999px;
+  padding: 11px 17px;
+  font: 600 12.5px var(--sa-font-sans);
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+[data-agent-shell] .sa-secondary:hover:not(:disabled) {
+  border-color: rgba(var(--sa-ink), 0.45);
+}
+[data-agent-shell] .sa-secondary:disabled {
+  opacity: 0.45;
+  cursor: default;
+}
+[data-agent-shell] .sa-chip {
+  border: 1px dashed rgba(var(--sa-ink), 0.3);
+  background: transparent;
+  color: var(--sa-fg);
+  border-radius: 999px;
+  padding: 7px 13px;
+  font: 500 11.5px var(--sa-font-sans);
+  cursor: pointer;
+  transition: border-color 0.15s ease;
+}
+[data-agent-shell] .sa-chip:hover {
+  border-color: rgba(var(--sa-ink), 0.6);
+}
+[data-agent-shell] .sa-card {
+  border: 1px solid rgba(var(--sa-ink), 0.09);
+  border-radius: 18px;
+  padding: 18px 20px;
+  background: transparent;
+  animation: sa-in 0.28s ease;
+}
+[data-agent-shell] .sa-row-hover:hover {
+  background: rgba(var(--sa-ink), 0.055);
+}
+[data-agent-shell] :focus-visible {
+  outline: 2px solid var(--sa-brand);
+  outline-offset: 2px;
+}
+
+/* Área de toque ≥ 44px: el visual puede ser menor (`.sa-hit` envuelve un
+   círculo de 28–34px), pero el botón ocupa 44×44. */
+[data-agent-shell] .sa-hit {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-width: 44px;
+  min-height: 44px;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  color: inherit;
+  cursor: pointer;
+  border-radius: 999px;
+}
+[data-agent-shell] .sa-hit:disabled {
+  cursor: default;
+}
+@media (pointer: coarse), (max-width: 767px) {
+  [data-agent-shell] .sa-chip,
+  [data-agent-shell] .sa-primary,
+  [data-agent-shell] .sa-secondary,
+  [data-agent-shell] .sa-row-hover,
+  [data-agent-shell] [role='radio'],
+  [data-agent-shell] [role='checkbox'],
+  [data-agent-shell] [role='option'],
+  [data-agent-shell] [role='menuitem'],
+  [data-agent-shell] [role='menuitemradio'],
+  [data-agent-shell] [role='tab'] {
+    min-height: 44px;
+  }
+  /* Controles con visual compacto en escritorio que crecen solo al tacto. */
+  [data-agent-shell] .sa-touch {
+    min-height: 44px !important;
+    min-width: 44px;
+  }
+  /* Keep the segmented control at 36px visually, with separate 44px touch targets. */
+  [data-agent-shell] .sa-mode-switch > button {
+    position: relative;
+    z-index: 1;
+    min-height: 30px;
+    min-width: 44px;
+    justify-content: center;
+  }
+  [data-agent-shell] .sa-mode-switch > button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 100%;
+    height: 44px;
+    transform: translateY(-50%);
+  }
+  [data-agent-shell] [role='switch'] {
+    /* el interruptor mide 38×22; el área de toque se extiende con outline transparente */
+    box-shadow: 0 0 0 11px transparent;
+  }
+}
+
+/* Panel lateral en móvil: hoja a pantalla completa que sube desde abajo. */
+@media (max-width: 767px) {
+  [data-agent-shell] [data-agent-panel='sheet'] {
+    position: fixed;
+    inset: 0;
+    z-index: 40;
+    width: 100% !important;
+    margin: 0;
+    border-radius: 0;
+    border: 0;
+    padding-top: env(safe-area-inset-top);
+    padding-bottom: env(safe-area-inset-bottom);
+    animation: sa-sheet 0.36s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+  [data-agent-shell] [data-agent-panel='sheet'][data-closing='true'] {
+    animation: sa-sheetout 0.3s ease-in both;
+  }
+}
+
+/* E10-08 tableta: una capa de tamaño panel (Biblioteca) aparta el panel lateral
+   para que el hilo respire; al cerrarla vuelve como estaba. `translate` no choca
+   con la animación de entrada (`transform`). Solo con NEXT_PUBLIC_AGENT_CHAT_MOBILE_LAYERS. */
+@media (min-width: 768px) and (max-width: 1024px) {
+  [data-agent-mobile-layers] [data-agent-panel='side'] {
+    transition:
+      translate 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear 0s;
+  }
+  body:has([data-agent-portal-host] [data-size='panel'])
+    [data-agent-mobile-layers]
+    [data-agent-panel='side'] {
+    translate: calc(100% + 24px) 0;
+    visibility: hidden;
+    transition:
+      translate 0.32s cubic-bezier(0.22, 1, 0.36, 1),
+      visibility 0s linear 0.32s;
+  }
+}
+
+/* Keyframes del handoff. */
+@keyframes sa-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sa-sheet {
+  from {
+    opacity: 0;
+    transform: translateY(46px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sa-sheetout {
+  from {
+    opacity: 1;
+    transform: none;
+  }
+  to {
+    opacity: 0;
+    transform: translateY(46px);
+  }
+}
+@keyframes sa-hero {
+  from {
+    opacity: 0;
+    transform: translateY(22px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+/*
+ * El halo del hueco de Ale, que se enciende cuando ella aterriza.
+ *
+ * Existe porque con la entrada coreografiada el resplandor del hueco se apaga
+ * a proposito —para no tener un halo alrededor de la nada mientras Ale todavia
+ * esta en el centro— y hasta ahora nunca se volvia a encender. El final
+ * quedaba mas pobre que la version sin animacion.
+ */
+@keyframes sa-hero-halo {
+  from {
+    box-shadow: 0 30px 70px -30px rgba(139, 92, 246, 0);
+  }
+  to {
+    box-shadow: 0 30px 70px -30px rgba(139, 92, 246, 0.9);
+  }
+}
+@keyframes sa-pulse {
+  0%,
+  100% {
+    opacity: 0.35;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+@keyframes sa-shimmer {
+  0% {
+    background-position: 200% 0;
+  }
+  100% {
+    background-position: -200% 0;
+  }
+}
+.sa-thinking-label {
+  color: var(--color-sa-text-secondary);
+}
+@supports (background-clip: text) {
+  .sa-thinking-label {
+    background: linear-gradient(
+      110deg,
+      var(--color-sa-text-muted) 35%,
+      var(--sa-fg) 50%,
+      var(--color-sa-text-muted) 75%
+    );
+    background-size: 200% 100%;
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: transparent;
+    animation: sa-shimmer 1.2s linear infinite;
+  }
+}
+@media (prefers-reduced-motion: reduce), (forced-colors: active) {
+  .sa-thinking-label {
+    animation: none;
+    background: none;
+    -webkit-text-fill-color: currentColor;
+    color: var(--color-sa-text-secondary);
+  }
+}
+@keyframes sa-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes sa-wave {
+  0%,
+  100% {
+    transform: scaleY(0.35);
+  }
+  50% {
+    transform: scaleY(1);
+  }
+}
+@keyframes sa-push {
+  from {
+    width: 0;
+    opacity: 0;
+  }
+  to {
+    width: min(416px, calc(40vw + 16px));
+    opacity: 1;
+  }
+}
+@keyframes sa-pushout {
+  from {
+    width: min(416px, calc(40vw + 16px));
+    opacity: 1;
+  }
+  to {
+    width: 0;
+    opacity: 0;
+  }
+}
+@keyframes sa-panelin {
+  from {
+    opacity: 0;
+    transform: translateX(26px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+@keyframes sa-orb-lens {
+  0% {
+    transform: translate(-24%, 14%) rotate(-30deg) scale(1.25, 0.75);
+  }
+  30% {
+    transform: translate(18%, -22%) rotate(22deg) scale(0.82, 1.2);
+  }
+  62% {
+    transform: translate(26%, 18%) rotate(64deg) scale(1.15, 0.7);
+  }
+  100% {
+    transform: translate(-14%, -18%) rotate(110deg) scale(0.75, 1.3);
+  }
+}
+@keyframes sa-orb-lens2 {
+  0% {
+    transform: translate(14%, -8%) rotate(30deg) scale(0.9, 1.25);
+  }
+  40% {
+    transform: translate(-16%, 10%) rotate(-24deg) scale(1.2, 0.85);
+  }
+  70% {
+    transform: translate(-6%, -18%) rotate(-70deg) scale(0.95, 1.1);
+  }
+  100% {
+    transform: translate(12%, 14%) rotate(-110deg) scale(1.15, 0.8);
+  }
+}
+@keyframes sa-orb-rim {
+  to {
+    transform: rotate(360deg);
+  }
+}
+@keyframes sa-orb-glint {
+  0%,
+  100% {
+    transform: translate(0, 0) scale(1);
+    opacity: 0.55;
+  }
+  50% {
+    transform: translate(22%, 14%) scale(0.7, 1.35);
+    opacity: 0.95;
+  }
+}
+@keyframes sa-orb-breathe {
+  0%,
+  100% {
+    transform: scale(1) rotate(0);
+  }
+  50% {
+    transform: scale(1.05) rotate(6deg);
+  }
+}
+
+/* Movimiento reducido: los orbes, el shimmer, los pulsos y las entradas
+   saltan a su estado final; el chat sigue funcionando igual. Solo el
+   indicador de progreso conserva un giro lento (es información, no adorno). */
+@media (prefers-reduced-motion: reduce) {
+  [data-agent-shell] *,
+  [data-agent-shell] *::before,
+  [data-agent-shell] *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
+  [data-agent-shell] [data-spinner] {
+    animation-duration: 1.8s !important;
+    animation-iteration-count: infinite !important;
+  }
+  [data-agent-shell] [data-agent-orb] {
+    /* sin lentes a la deriva: el orbe queda como esfera estática */
+    animation: none !important;
+  }
+  [data-agent-shell] [data-agent-orb] > * {
+    animation: none !important;
+  }
+}

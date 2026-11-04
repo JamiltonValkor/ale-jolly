@@ -1,0 +1,16 @@
+{
+  "$id": "https://saleads.ai/contracts/one-click/v1/publish-response.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "catalog_item_id": {
+      "type": "string",
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+    },
+    "version": {
+      "type": "string"
+    }
+  },
+  "required": ["catalog_item_id", "version"],
+  "additionalProperties": false
+}

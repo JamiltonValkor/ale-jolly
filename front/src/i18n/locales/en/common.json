@@ -1,0 +1,148 @@
+{
+  "buttons": {
+    "save": "Save",
+    "cancel": "Cancel",
+    "next": "Next",
+    "previous": "Previous",
+    "submit": "Submit",
+    "continue": "Continue",
+    "back": "Back",
+    "close": "Close",
+    "confirm": "Confirm",
+    "delete": "Delete",
+    "edit": "Edit",
+    "add": "Add",
+    "remove": "Remove",
+    "search": "Search",
+    "filter": "Filter",
+    "clear": "Clear",
+    "apply": "Apply",
+    "reset": "Reset",
+    "loading": "Loading...",
+    "loadMore": "Load more"
+  },
+  "labels": {
+    "email": "Email",
+    "password": "Password",
+    "name": "Name",
+    "phone": "Phone",
+    "address": "Address",
+    "city": "City",
+    "state": "State",
+    "country": "Country",
+    "zipCode": "Zip Code",
+    "description": "Description",
+    "website": "Website",
+    "optional": "Optional",
+    "required": "Required"
+  },
+  "messages": {
+    "success": "Operation successful",
+    "error": "An error occurred",
+    "warning": "Warning",
+    "info": "Information",
+    "loading": "Loading...",
+    "noData": "No data available",
+    "noResults": "No results found",
+    "confirm": "Are you sure?",
+    "unsavedChanges": "You have unsaved changes"
+  },
+  "time": {
+    "today": "Today",
+    "yesterday": "Yesterday",
+    "tomorrow": "Tomorrow",
+    "thisWeek": "This week",
+    "lastWeek": "Last week",
+    "thisMonth": "This month",
+    "lastMonth": "Last month"
+  },
+  "dashboard": {
+    "searchPlaceholder": "Search...",
+    "user": "User",
+    "admin": "Admin"
+  },
+  "errors": {
+    "retry": "Retry",
+    "supportMessage": "Still not working? Contact us at {email} and we'll help you.",
+    "supportEmail": "support@saleads.ai",
+    "network": {
+      "title": "Oops, something failed",
+      "message": "Don't worry, just check your internet connection and try again."
+    },
+    "authentication": {
+      "title": "Your session needs to be renewed",
+      "message": "For security reasons, we need you to log in again. It will only take a moment."
+    },
+    "authorization": {
+      "title": "Action not available",
+      "message": "This action is not enabled for your account. If you think this is an error, contact us."
+    },
+    "not_found": {
+      "title": "We couldn't find that",
+      "message": "It looks like what you're looking for is no longer available or has been moved."
+    },
+    "validation": {
+      "title": "Please review the data",
+      "message": "Some data needs adjustments. Check the marked fields and try again."
+    },
+    "conflict": {
+      "title": "Change in progress",
+      "message": "Someone else may be editing this. Refresh the page and try again."
+    },
+    "rate_limit": {
+      "title": "Just a moment",
+      "message": "You're going too fast. Wait a few seconds and try again."
+    },
+    "server": {
+      "title": "We're on it",
+      "message": "Something didn't go as expected, but we're already working on it. Try again in a few minutes."
+    },
+    "timeout": {
+      "title": "It took longer than expected",
+      "message": "The operation took too long. Try again, it usually works the second time."
+    },
+    "unknown": {
+      "title": "Something went wrong",
+      "message": "Don't worry, these things happen. Try again and if it persists, contact us."
+    },
+    "global": {
+      "title": "Oops! Something went wrong",
+      "message": "An unexpected error occurred. Our team has been notified and we're working on fixing it.",
+      "retry": "Try again",
+      "goHome": "Go to home"
+    },
+    "dashboard": {
+      "title": "Dashboard Error",
+      "message": "An error occurred while loading this section. Try reloading or contact support if the problem persists.",
+      "goToDashboard": "Go to Dashboard"
+    }
+  },
+  "accessibility": {
+    "mainMenu": "Main menu",
+    "toggleNavigation": "Toggle navigation",
+    "changeLanguage": "Change language",
+    "changeTheme": "Change theme",
+    "toggleSidebar": "Expand sidebar",
+    "close": "Close",
+    "openMenu": "Open menu",
+    "closeMenu": "Close menu",
+    "loading": "Loading",
+    "socialMedia": {
+      "twitter": "Follow us on Twitter",
+      "github": "View our GitHub",
+      "linkedin": "Follow us on LinkedIn",
+      "instagram": "Follow us on Instagram",
+      "facebook": "Follow us on Facebook"
+    },
+    "aleMascot": "ALE mascot assistant"
+  },
+  "phoneField": {
+    "countryLabel": "Country calling code",
+    "countrySearch": "Search country or calling code…",
+    "countryEmpty": "We couldn't find that country.",
+    "required": "Enter the phone number.",
+    "tooShort": "More digits are needed: this country requires at least {min}.",
+    "tooLong": "Too many digits: this country allows up to {max}.",
+    "invalid": "Check the number: it doesn't look valid for {country}."
+  }
+}

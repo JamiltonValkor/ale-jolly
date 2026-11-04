@@ -1,0 +1,267 @@
+{
+  "photos": {
+    "label": "Fotos guardadas",
+    "option": "{date} · {count, plural, one {# idea} other {# ideas}}"
+  },
+  "stopped": "Tu asistente está en pausa. Ves la última foto que guardó, del {date}. Lo que confirmes o corrijas le llega cuando lo enciendas.",
+  "tiles": {
+    "label": "Resumen del cerebro",
+    "hint": "Elige uno para enfocarlo en el grafo y en las secciones.",
+    "ideas": {
+      "title": "Ideas que conoce",
+      "hint": "{count, plural, =0 {Nada nuevo esta semana} one {+# esta semana} other {+# esta semana}}"
+    },
+    "bets": {
+      "title": "Apuestas activas",
+      "hint": "{testing} en prueba · {launched} lanzadas · {planned} en plan",
+      "none": "Ninguna en curso"
+    },
+    "learned": {
+      "title": "Lo que aprendimos",
+      "hint": "{worked} funcionaron · {didNotWork} no",
+      "none": "Aparece al leer resultados"
+    },
+    "toConfirm": {
+      "title": "Por confirmar",
+      "hint": "Tu visto bueno las vuelve firmes",
+      "none": "Nada pendiente"
+    },
+    "focused": "Enfocado en «{name}»",
+    "clear": "Ver todas las ideas"
+  },
+  "modes": {
+    "label": "Cómo ver el cerebro",
+    "graph": "Grafo",
+    "sections": "Por secciones",
+    "changes": "Qué cambió"
+  },
+  "graph": {
+    "region": "Grafo de lo que sabe tu asistente",
+    "roledescription": "grafo",
+    "instructions": "Usa las flechas para recorrer las ideas, Enter para abrir su detalle y Escape para cerrarlo. Más y menos acercan; cero vuelve a ver todo.",
+    "announce": "{label}. {family}. {count, plural, =0 {Sin relaciones} one {# relación} other {# relaciones}}. Enter abre el detalle.",
+    "hint": "Pasa el cursor por una idea y haz clic para ver qué sabe.",
+    "zoomIn": "Acercar",
+    "zoomOut": "Alejar",
+    "reset": "Ver todo",
+    "controls": "Zoom del grafo",
+    "list": "Ver como lista",
+    "canvas": "Ver como grafo",
+    "visible": "{count, plural, =0 {Ninguna idea visible} one {# idea visible} other {# ideas visibles}}",
+    "nothingVisible": "No hay ideas visibles con estos filtros.",
+    "showAll": "Mostrar todo",
+    "tooltipOpen": "Clic para ver el detalle"
+  },
+  "search": {
+    "label": "Buscar una idea",
+    "placeholder": "Buscar en el cerebro",
+    "results": "{count, plural, =0 {Sin resultados} one {# resultado} other {# resultados}}",
+    "empty": "No encontré «{query}». Prueba con otra palabra.",
+    "clear": "Borrar búsqueda"
+  },
+  "legend": {
+    "label": "Familias",
+    "hint": "Toca una familia para ocultarla o mostrarla.",
+    "hidden": "Oculta",
+    "showAll": "Mostrar todas"
+  },
+  "guide": {
+    "open": "Cómo leerlo",
+    "title": "Cómo leer el grafo",
+    "close": "Cerrar guía",
+    "color": "El color es la familia de la idea: oferta, mercado, canales…",
+    "size": "El tamaño dice cuántas veces la ha visto y cuánta evidencia tiene.",
+    "bet": "El anillo iridiscente marca una apuesta que tu asistente está probando.",
+    "verdict": "El anillo verde es una apuesta que funcionó; el coral, una que no; el ámbar sigue abierta.",
+    "lines": "Las líneas son relaciones; se encienden al pasar por una idea.",
+    "pulses": "Los pulsos viajan por lo que aprendió en los últimos días.",
+    "timeline": "Abajo, la línea de tiempo muestra cómo creció día a día."
+  },
+  "family": {
+    "identity": "Identidad",
+    "offer": "Oferta",
+    "market": "Mercado",
+    "competition": "Competencia",
+    "channels": "Canales",
+    "strategy": "Estrategia",
+    "bet": "Apuestas",
+    "verdict": "Veredictos",
+    "learned": "Aprendizajes",
+    "learning": "Observaciones",
+    "operations": "Operación",
+    "meta": "Contexto",
+    "other": "Otros"
+  },
+  "timeline": {
+    "label": "Cómo creció el cerebro",
+    "play": "Reproducir crecimiento",
+    "pause": "Pausar crecimiento",
+    "slider": "Día del cerebro",
+    "dayOf": "Día {day} de {total}",
+    "valueText": "Día {day} de {total}: {ideas, plural, one {# idea} other {# ideas}}",
+    "first": "Día 1",
+    "today": "Hoy",
+    "newThatDay": "{count, plural, =0 {sin ideas nuevas} one {# idea nueva} other {# ideas nuevas}}",
+    "caption": "Día {day} · {text}",
+    "milestones": {
+      "start": "empezó a conocer {business}",
+      "firstBet": "primera apuesta",
+      "firstWin": "primera apuesta ganadora",
+      "firstLesson": "primer aprendizaje",
+      "firstCorrection": "tu primera corrección",
+      "peak": "{count} ideas nuevas en un día"
+    }
+  },
+  "detail": {
+    "label": "Detalle de la idea",
+    "close": "Cerrar detalle",
+    "stage": "Etapa",
+    "confidence": "Confianza",
+    "mentions": "Menciones",
+    "evidence": "Evidencias",
+    "learned": "Lo supo",
+    "learnedValue": "{date} · día {day}",
+    "scope": "Aplica a",
+    "replacedBy": "La reemplazó",
+    "noSummary": "Tu asistente todavía no escribió un resumen de esta idea.",
+    "relations": "Cómo se conecta",
+    "relationsCount": "{count, plural, one {# relación} other {# relaciones}}",
+    "more": "Ver {count} más",
+    "less": "Ver menos",
+    "noRelations": "Todavía no se conecta con otras ideas.",
+    "showPath": "Ver cómo llegó aquí",
+    "hidePath": "Ocultar ruta",
+    "pathLabel": "Cómo llegó a esta idea",
+    "noPath": "Esta idea todavía no está conectada al loop de apuestas.",
+    "goTo": "Ir a «{label}»",
+    "selfStart": "Esta idea",
+    "selfEnd": "esta idea"
+  },
+  "certainty": {
+    "verifiedData": "Verificado con datos",
+    "youConfirmed": "Lo confirmaste tú",
+    "youSaid": "Lo dijiste tú",
+    "observed": "Lo observó",
+    "deduced": "Lo deduce",
+    "proposed": "Propuesta",
+    "contradicted": "Contradicho"
+  },
+  "confidence": {
+    "baja": "baja",
+    "media": "media",
+    "alta": "alta"
+  },
+  "stages": {
+    "en_plan": "En el plan",
+    "en_prueba": "En prueba",
+    "lanzada": "Lanzada",
+    "ganadora": "Ganó en esta prueba",
+    "perdedora": "Perdió en esta prueba",
+    "concluido": "Concluida",
+    "vigente": "Vigente",
+    "reemplazado": "Reemplazada"
+  },
+  "relations": {
+    "TARGETS": "le habla a",
+    "USES": "usa",
+    "SPEAKS_WITH": "le habla a",
+    "TESTED_IN": "se prueba en",
+    "GIVES": "dio",
+    "DERIVED_FROM": "sale de",
+    "ABOUT": "es sobre",
+    "TEACHES": "enseña",
+    "SUPERSEDES": "reemplaza a",
+    "INSPIRES": "inspira",
+    "SUGGESTS": "sugiere"
+  },
+  "feedback": {
+    "question": "¿Es correcto?",
+    "confirm": "Confirmar",
+    "correct": "Corregir",
+    "noLongerApplies": "Ya no aplica",
+    "send": "Enviar corrección",
+    "cancel": "Cancelar",
+    "placeholder": "Cuéntale a tu asistente qué es lo correcto.",
+    "fieldLabel": "Tu corrección",
+    "pending": "Tu asistente está recibiendo tu respuesta.",
+    "sent": "Listo, tu asistente ya lo tiene.",
+    "queued": "Se enviará a tu asistente cuando esté encendido.",
+    "error": "No pudimos enviarlo. Revisa tu conexión y vuelve a intentarlo.",
+    "unavailable": "Tu asistente todavía no recibe respuestas desde aquí."
+  },
+  "sections": {
+    "scope": "Ver",
+    "current": "Vigente",
+    "history": "Historial",
+    "certaintyFilter": "Certeza",
+    "all": "Todas",
+    "more": "Ver las {count}",
+    "less": "Ver menos",
+    "titles": {
+      "my_business": "Mi negocio",
+      "active_bets": "Apuestas activas",
+      "learned": "Lo que aprendimos",
+      "did_not_work": "Lo que no funcionó",
+      "your_corrections": "Tus correcciones y preferencias",
+      "to_confirm": "Pendiente de confirmar",
+      "history": "Historial"
+    },
+    "empty": {
+      "my_business": "Todavía no hay datos de tu negocio.",
+      "active_bets": "No hay apuestas en curso.",
+      "learned": "Todavía no hay aprendizajes: aparecen después de leer los resultados.",
+      "did_not_work": "Nada ha perdido todavía.",
+      "your_corrections": "No has corregido nada todavía.",
+      "to_confirm": "Nada pendiente.",
+      "history": "Nada reemplazado todavía."
+    },
+    "noMatches": "Ninguna idea coincide con esta certeza.",
+    "evidence": "{count, plural, one {# evidencia} other {# evidencias}}"
+  },
+  "changes": {
+    "from": "Desde",
+    "to": "Hasta",
+    "summary": "Del {from} al {to}, tu asistente sumó {added, plural, =0 {ninguna idea} one {# idea} other {# ideas}}, actualizó {modified, plural, =0 {ninguna} one {#} other {#}} y retiró {removed, plural, =0 {ninguna} one {#} other {#}}.",
+    "added": "Nuevas",
+    "modified": "Cambiaron",
+    "removed": "Retiradas",
+    "dayOf": "Día {day}",
+    "stage": "Pasó de «{from}» a «{to}».",
+    "stageNew": "Ahora está «{to}».",
+    "stageGone": "Ya no tiene etapa.",
+    "confidenceUp": "Su confianza subió de {from} a {to}.",
+    "confidenceDown": "Su confianza bajó de {from} a {to}.",
+    "renamed": "Ahora se llama «{to}».",
+    "replaced": "La reemplazó otra idea.",
+    "needTwo": "Hacen falta dos fotos para comparar. Tu asistente guarda una cada día.",
+    "same": "Elige dos fotos distintas para comparar.",
+    "notYet": "La comparación todavía no está disponible para este negocio.",
+    "error": "No pudimos comparar las fotos. Revisa tu conexión y vuelve a intentarlo.",
+    "retry": "Volver a intentar",
+    "loading": "Tu asistente está comparando las dos fotos.",
+    "nothing": "No hubo cambios entre estas dos fotos."
+  },
+  "states": {
+    "loading": "Tu asistente está ordenando lo que sabe de {business}.",
+    "empty": {
+      "title": "Tu asistente está conociendo {business}",
+      "body": "Después de sus primeras conversaciones, aquí verás lo que aprende cada día y cómo crece.",
+      "willAppear": "Lo que vas a ver aquí",
+      "business": "Tu negocio y tu oferta",
+      "market": "A quién le vendes y qué le preocupa",
+      "bets": "Las apuestas que prueba con tus anuncios",
+      "learned": "Lo que aprende de cada resultado"
+    },
+    "error": {
+      "title": "No pudimos abrir el cerebro de tu asistente",
+      "body": "Puede ser la conexión. Tu asistente sigue aprendiendo; vuelve a intentarlo en un momento.",
+      "retry": "Volver a intentar"
+    },
+    "noBusiness": "Elige un negocio para ver el cerebro de su asistente."
+  },
+  "list": {
+    "label": "Lo que sabe tu asistente, por familia",
+    "count": "{count, plural, one {# idea} other {# ideas}}",
+    "open": "Abrir detalle de «{label}»"
+  }
+}

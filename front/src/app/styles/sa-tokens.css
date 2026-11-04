@@ -1,0 +1,377 @@
+/* 02 - Semantic Tokens: Purpose-driven design tokens
+   USE THESE in components, not primitives. */
+
+@theme {
+  /* -- Container Sizes -- */
+  --container-sa-modal-lg: 45.5rem;
+
+  /* -- Surfaces -- */
+  --color-sa-surface-base: #0c0c0e;
+  --color-sa-surface-brand-card: #111112;
+  --color-sa-surface-card: #131318;
+  --color-sa-surface-card-hover: #17171e;
+  --color-sa-surface-elevated: #1a1a20;
+  --color-sa-surface-elevated-active: #1e1e26;
+  --color-sa-surface-popover: #1d1d1d;
+
+  /* -- Campaign Entry (Figma flow surfaces) -- */
+  --color-sa-campaign-entry-surface: #101213;
+  --color-sa-campaign-entry-panel: rgba(255, 255, 255, 0.04);
+  --color-sa-campaign-entry-chip: rgba(255, 255, 255, 0.06);
+  --color-sa-campaign-entry-primary: #ffffff;
+  --color-sa-campaign-entry-secondary: rgba(255, 255, 255, 0.72);
+  --color-sa-campaign-entry-muted: rgba(255, 255, 255, 0.64);
+  --color-sa-campaign-entry-info: rgba(255, 255, 255, 0.5);
+  --color-sa-campaign-entry-border: #393939;
+
+  /* -- Wizard Header -- */
+  --color-sa-wizard-header-shell: #222222;
+  --color-sa-wizard-header-control: #161617;
+  --color-sa-wizard-header-control-hover: #1f1f22;
+  --color-sa-wizard-header-step-complete-bg: #0c240d;
+
+  /* -- Text -- */
+  --color-sa-text-primary: rgba(255, 255, 255, 0.9);
+  --color-sa-text-secondary: rgba(255, 255, 255, 0.7);
+  --color-sa-text-tertiary: rgba(255, 255, 255, 0.4);
+  --color-sa-text-muted: rgba(255, 255, 255, 0.3);
+  --color-sa-text-disabled: rgba(255, 255, 255, 0.2);
+  --color-sa-text-link: #a78bfa;
+
+  /* -- Borders -- */
+  --color-sa-border-default: #1e1e24;
+  --color-sa-border-hover: #2a2a32;
+  --color-sa-border-subtle: rgba(255, 255, 255, 0.06);
+  --color-sa-border-focus: #7c3aed;
+  --color-sa-border-glass: #515151;
+
+  /* -- Interactive -- */
+  --color-sa-interactive-primary: #7c3aed;
+  --color-sa-interactive-primary-hover: #6429cd;
+  --color-sa-interactive-accent: #ff6b35;
+  --color-sa-interactive-disabled: rgba(255, 255, 255, 0.1);
+
+  /* -- States -- */
+  --color-sa-state-success: #34d399;
+  --color-sa-state-success-bg: rgba(52, 211, 153, 0.08);
+  --color-sa-state-success-border: rgba(52, 211, 153, 0.2);
+  --color-sa-state-connected: #09ff00;
+  --color-sa-state-connected-bg: rgba(9, 255, 0, 0.1);
+  --color-sa-state-warning: #fbbf24;
+  --color-sa-state-warning-bg: rgba(251, 191, 36, 0.05);
+  --color-sa-state-warning-chip-bg: rgba(251, 191, 36, 0.08);
+  --color-sa-state-warning-border: rgba(245, 158, 11, 0.15);
+  --color-sa-state-error: #ef4444;
+  --color-sa-state-error-bg: rgba(239, 68, 68, 0.08);
+  --color-sa-state-error-border: rgba(239, 68, 68, 0.15);
+  --color-sa-state-info: #60a5fa;
+  --color-sa-state-info-bg: rgba(96, 165, 250, 0.08);
+  --color-sa-state-info-border: rgba(96, 165, 250, 0.15);
+  /* Equipo autónomo (Ale, ola saleads-api-agencial-v1): único punto de cambio
+     del sello; siempre va con ícono + texto (nunca solo color). */
+  --color-sa-agent: #7dd3e0;
+  --color-sa-agent-bg: rgba(125, 211, 224, 0.08);
+  --color-sa-agent-border: rgba(125, 211, 224, 0.22);
+
+  /* Phantom-scan modal — neon palette scoped to the redesigned scan view.
+     Success reuses --color-sa-state-connected (#09ff00). Do NOT use these
+     outside src/features/phantom-launch/. */
+  --color-sa-phantom-error: #ff0004;
+  --color-sa-phantom-warning: #ffcc00;
+
+  /* -- Shadows & Glows -- */
+  --shadow-sa-hover-glow: 0 0 40px -12px rgba(124, 58, 237, 0.12);
+  --shadow-sa-fluid-glow:
+    0 0 25px rgba(254, 107, 53, 0.5), 0 0 50px rgba(100, 41, 205, 0.4);
+  --shadow-sa-success-glow:
+    0 0 40px rgba(52, 211, 153, 0.12), 0 0 80px rgba(124, 58, 237, 0.06);
+  --shadow-sa-step-complete: 0 0 8px rgba(124, 58, 237, 0.3);
+  --shadow-sa-glass-inset:
+    inset 2px 2px 8px rgba(0, 0, 0, 0.38),
+    inset -2px -2px 6px rgba(255, 255, 255, 0.05);
+
+  /* -- Black Friday v2 (spec 137) — ONLY for the special-date plan --
+     Scoped to src/features/strategic-plan/{temporal-strategi,seasonal}/**
+     (enforced by sa-v2-scope.test.ts). Exact alphas of propuesta.html
+     (design-spec §1.1); do not round them to the global tokens. */
+  --color-sa-v2-ink: rgba(255, 255, 255, 0.92);
+  --color-sa-v2-dim: rgba(255, 255, 255, 0.52);
+  --color-sa-v2-line: rgba(255, 255, 255, 0.09);
+  --color-sa-v2-line-strong: rgba(255, 255, 255, 0.18);
+  --color-sa-v2-seg-exp: rgba(255, 255, 255, 0.5);
+  --color-sa-v2-day-idle: rgba(255, 255, 255, 0.22);
+  --color-sa-v2-play: rgba(255, 255, 255, 0.12);
+  --ease-sa-v2: cubic-bezier(0.32, 0.72, 0, 1);
+  --animate-sa-v2-in: sa-v2-in 0.3s ease-out;
+  --animate-sa-v2-spin: sa-v2-spin 3s linear infinite;
+  --animate-sa-v2-pulse: sa-v2-pulse 2.4s ease-in-out infinite;
+  --animate-sa-v2-sweep: sa-v2-sweep 1.3s linear infinite;
+  --animate-sa-v2-pop: sa-v2-pop 0.4s cubic-bezier(0.32, 0.72, 0, 1);
+  --animate-sa-v2-rot: sa-v2-rot 0.9s linear infinite;
+  --animate-sa-v2-deal: sa-v2-deal 0.6s cubic-bezier(0.32, 0.72, 0, 1) forwards;
+
+  @keyframes sa-v2-in {
+    from {
+      opacity: 0;
+    }
+  }
+  @keyframes sa-v2-spin {
+    to {
+      --sa-v2-angle: 360deg;
+    }
+  }
+  @keyframes sa-v2-pulse {
+    50% {
+      opacity: 0.35;
+    }
+  }
+  @keyframes sa-v2-sweep {
+    from {
+      background-position: 150% 0;
+    }
+    to {
+      background-position: -50% 0;
+    }
+  }
+  @keyframes sa-v2-pop {
+    from {
+      opacity: 0;
+      transform: translateY(14px) scale(0.98);
+    }
+  }
+  @keyframes sa-v2-rot {
+    to {
+      transform: rotate(360deg);
+    }
+  }
+  @keyframes sa-v2-deal {
+    to {
+      opacity: 1;
+      transform: none;
+    }
+  }
+}
+
+/* Spec 137: inside v2 roots text inherits its weight, as in the prototype
+   (globals.css forces p/span/li/label to 400). Utilities still win (layer). */
+@layer base {
+  [data-v2-root] :where(p, span, li, label, td, th) {
+    font-weight: inherit;
+  }
+}
+
+/* Spec 137: animatable angle of the v2 primary button's conic border. */
+@property --sa-v2-angle {
+  syntax: '<angle>';
+  inherits: false;
+  initial-value: 0deg;
+}
+
+/* -- Surface Overlay (needs :root, not @theme, because rgba) -- */
+:root {
+  --sa-surface-overlay: rgba(0, 0, 0, 0.5);
+
+  /* -- Gradients -- */
+  --sa-gradient-brand: linear-gradient(135deg, #e646ff 0%, #6429cd 100%);
+  --sa-gradient-fluid-border: linear-gradient(
+    73deg,
+    #d0b5ff 0%,
+    #6429cd 9%,
+    #1b0029 24%,
+    #1b0029 79%,
+    #803300 91%,
+    #ff6b35 96%,
+    #fff2e9 100%
+  );
+  --sa-gradient-celebration: linear-gradient(
+    135deg,
+    #ffffff 0%,
+    #34d399 50%,
+    #a78bfa 100%
+  );
+  --sa-gradient-coaching: linear-gradient(
+    145deg,
+    #0d0118 0%,
+    #130525 30%,
+    #0a0316 60%,
+    #060110 100%
+  );
+  --sa-phantom-gradient: linear-gradient(90deg, #7c3aed 0%, #3b82f6 100%);
+  /* -- Component Tokens: Cards -- */
+  --sa-card-radius: 16px;
+  --sa-card-selected-bg: #1a1528;
+  --sa-card-selected-border: rgba(124, 58, 237, 0.25);
+
+  /* -- Component Tokens: FluidButton -- */
+  --sa-fluid-border-width: 2px;
+  --sa-fluid-inner-radius: 24px;
+  --sa-fluid-glow-primary: #6429cd;
+  --sa-fluid-glow-accent: #ff6b35;
+
+  /* -- Component Tokens: Badges -- */
+  --sa-badge-recommended-bg: rgba(124, 58, 237, 0.15);
+  --sa-badge-recommended-text: #a78bfa;
+  --sa-badge-recommended-border: rgba(124, 58, 237, 0.2);
+  --sa-badge-success-bg: rgba(52, 211, 153, 0.12);
+  --sa-badge-success-text: #34d399;
+  --sa-badge-success-border: rgba(52, 211, 153, 0.2);
+  --sa-badge-warning-bg: rgba(245, 158, 11, 0.08);
+  --sa-badge-warning-text: #fbbf24;
+  --sa-badge-warning-border: rgba(245, 158, 11, 0.15);
+  --sa-badge-coming-soon-bg: rgba(255, 255, 255, 0.05);
+  --sa-badge-coming-soon-text: rgba(255, 255, 255, 0.25);
+  --sa-badge-coming-soon-border: rgba(255, 255, 255, 0.06);
+}
+
+/* -- Gradient Utilities -- */
+@layer utilities {
+  .sa-gradient-brand {
+    background: var(--sa-gradient-brand);
+  }
+  .sa-gradient-fluid-border {
+    background: var(--sa-gradient-fluid-border);
+  }
+  .sa-gradient-celebration {
+    background: var(--sa-gradient-celebration);
+  }
+  .sa-gradient-coaching {
+    background: var(--sa-gradient-coaching);
+  }
+  .sa-phantom-gradient {
+    background: var(--sa-phantom-gradient);
+  }
+}
+
+/* Phantom-scan row reveal — stagger by inline animation-delay (set per row). */
+@keyframes sa-phantom-row-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* -- Moving Border Button -- */
+.sa-moving-border-container {
+  isolation: isolate;
+}
+
+.sa-moving-border-gradient {
+  animation: sa-moving-border-spin 3s linear infinite;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sa-moving-border-gradient {
+    animation: none;
+  }
+}
+
+@keyframes sa-moving-border-spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+/* -- «Clásica con colores de Nico» (owner decision 2026-10-05) --
+   The special plan wraps the CLASSIC campaign screens (image composer,
+   copy approval) in [data-sa-skin='v2']: same structure and interaction,
+   only the semantic tokens are remapped to the v2 palette. Outside that
+   attribute nothing changes (the normal individual-campaign flow keeps
+   today's look). Set only by V2ClassicSkin (temporal-strategi). */
+[data-sa-skin='v2'] {
+  --color-sa-surface-brand-card: rgba(255, 255, 255, 0.03);
+  --color-sa-surface-card: rgba(255, 255, 255, 0.03);
+  --color-sa-surface-card-hover: rgba(255, 255, 255, 0.05);
+  --color-sa-surface-elevated: #141416;
+  --color-sa-surface-elevated-active: #1a1a1c;
+  --color-sa-surface-popover: #141416;
+  --color-sa-wizard-header-shell: rgba(255, 255, 255, 0.04);
+  --color-sa-wizard-header-control: rgba(255, 255, 255, 0.04);
+  --color-sa-wizard-header-control-hover: rgba(255, 255, 255, 0.08);
+  --color-sa-text-primary: rgba(255, 255, 255, 0.92);
+  --color-sa-text-secondary: rgba(255, 255, 255, 0.72);
+  --color-sa-text-tertiary: rgba(255, 255, 255, 0.52);
+  --color-sa-text-muted: rgba(255, 255, 255, 0.4);
+  --color-sa-text-link: rgba(255, 255, 255, 0.92);
+  --color-sa-border-default: rgba(255, 255, 255, 0.09);
+  --color-sa-border-hover: rgba(255, 255, 255, 0.18);
+  --color-sa-border-subtle: rgba(255, 255, 255, 0.09);
+  --color-sa-border-glass: rgba(255, 255, 255, 0.18);
+  --color-sa-interactive-primary: rgba(255, 255, 255, 0.92);
+  --color-sa-interactive-primary-hover: #ffffff;
+  --sa-card-selected-bg: rgba(255, 255, 255, 0.06);
+  --sa-card-selected-border: rgba(255, 255, 255, 0.35);
+  --sa-badge-recommended-bg: rgba(255, 255, 255, 0.06);
+  --sa-badge-recommended-text: rgba(255, 255, 255, 0.92);
+  --sa-badge-recommended-border: rgba(255, 255, 255, 0.18);
+  --sa-gradient-coaching: linear-gradient(145deg, #111113 0%, #0c0c0e 100%);
+}
+/* v2 typography and controls on the classic markup (no shared file edited). */
+[data-sa-skin='v2'] h1,
+[data-sa-skin='v2'] h2,
+[data-sa-skin='v2'] h3 {
+  font-family: var(--font-heading);
+  letter-spacing: -0.03em;
+}
+[data-sa-skin='v2'] [data-slot='sa-button'] {
+  font-family: var(--font-heading);
+  font-weight: 500;
+}
+/* `.btn-line`: the classic secondary (Tu biblioteca, Cargar imágenes…). */
+[data-sa-skin='v2'] [data-slot='sa-button'].bg-sa-surface-elevated {
+  background: transparent;
+  border-color: rgba(255, 255, 255, 0.18);
+  min-height: 44px;
+  padding-inline: 22px;
+}
+[data-sa-skin='v2'] [data-slot='sa-button'].bg-sa-surface-elevated:hover {
+  border-color: rgba(255, 255, 255, 0.92);
+}
+/* Empty state: the gradient brand tile reads neutral (v2 has no purple). */
+[data-sa-skin='v2'] img[src*='logo-bg-gradient'] {
+  filter: grayscale(1) contrast(0.85) brightness(0.9);
+  opacity: 0.7;
+}
+/* «Estrategia aplicada»: ink label instead of the green state colour. */
+[data-sa-skin='v2'] p[role='status'] .text-sa-state-success {
+  color: rgba(255, 255, 255, 0.92);
+}
+/* Copy card: v2 hairline rows (no filled box, hairline dividers). */
+[data-sa-skin='v2'] .border-\[\#19191E\] {
+  border-color: rgba(255, 255, 255, 0.09);
+  border-radius: 14px;
+  background: transparent;
+}
+[data-sa-skin='v2'] .bg-\[\#19191E\] {
+  background-color: rgba(255, 255, 255, 0.09);
+}
+/* Status chips («Pendiente» / «Aprobado») as v2 chips: hairline, ink. */
+[data-sa-skin='v2'] .bg-white\/10.rounded-full,
+[data-sa-skin='v2'] .bg-\[\#00D492\]\/10 {
+  background: transparent;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  color: rgba(255, 255, 255, 0.92);
+}
+[data-sa-skin='v2'] .bg-\[\#00D492\]\/10 > span {
+  background: #34d399;
+}
+/* Classic step chips (CampaignFlowHeader) as v2 chips, if shown. */
+[data-sa-skin='v2'] .bg-\[\#161617\],
+[data-sa-skin='v2'] .bg-\[\#222222\] {
+  background: transparent;
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.09);
+}
+/* Rhythm: body copy at 15/1.6, dim secondary text. */
+[data-sa-skin='v2'] .font-manrope {
+  line-height: 1.6;
+}
+[data-sa-skin='v2'] .text-white\/64,
+[data-sa-skin='v2'] .text-white\/60 {
+  color: rgba(255, 255, 255, 0.52);
+}

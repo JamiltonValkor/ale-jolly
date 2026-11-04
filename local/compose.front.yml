@@ -1,0 +1,32 @@
+# Servicio `front` (P3): Meta Assistant en http://localhost:3000 sin login de
+# SaleADS. Se suma al compose principal con
+#   docker compose -f docker-compose.yml -f compose.front.yml up
+# La CA local (D1) la genera demo.sh en ./certs/ca.crt.
+services:
+  front:
+    build:
+      context: ../front
+      args:
+        GATEWAY_URL: https://saleads.local
+    image: ghcr.io/jamiltonvalkor/ale-jolly-front:local
+    restart: unless-stopped
+    ports:
+      - '3000:3000'
+    environment:
+      # Backend real de Meta Assistant (cambio 2 del plan: http interno).
+      META_ASSISTANT_SERVICE_URL: http://ale-runtime:8060
+      META_ASSISTANT_ALL_USERS: 'true'
+      # Gateway clásico y Keycloak simulados por saleads-sim detrás de Caddy.
+      GATEWAY_URL: https://saleads.local
+      KEYCLOAK_ISSUER: https://saleads.local/realms/sale-ads
+      KEYCLOAK_TOKEN_URL: https://saleads.local/realms/sale-ads/protocol/openid-connect/token
+      # Origen que el BFF exige a las peticiones del navegador (mismo origen).
+      ASSISTANT_BFF_PUBLIC_ORIGIN: http://localhost:3000
+      NODE_EXTRA_CA_CERTS: /certs/ca.crt
+    volumes:
+      - ./certs/ca.crt:/certs/ca.crt:ro
+    depends_on:
+      - ale-runtime
+      - saleads-sim
+    networks:
+      - ale

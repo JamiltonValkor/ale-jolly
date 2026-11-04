@@ -1,0 +1,96 @@
+/* 0b3f6c0 Hero/Composer, pseudo.scp11, live.css data-parar,
+   responsive.css --sa-boton. No new unavailable-state decoration. */
+.ring {
+  display: inline-flex;
+  flex: none;
+  transition: transform 0.15s ease;
+}
+.ring:hover {
+  transform: scale(1.05);
+}
+.button {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  border: none;
+  padding: 1px 6px;
+  font-family: inherit;
+  font-size: 13.3333px;
+  line-height: normal;
+  background: rgba(var(--agent-v2-ink), 0.035);
+  color: var(--agent-v2-fg);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+}
+.button[data-variant='hero'] {
+  background: rgba(var(--agent-v2-ink), 0.03);
+  color: rgba(var(--agent-v2-ink), 0.4);
+  transition:
+    background 0.4s cubic-bezier(0.22, 1, 0.36, 1),
+    color 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.button[data-variant='hero'][data-has-text] {
+  background: rgba(var(--agent-v2-ink), 0.07);
+  color: var(--agent-v2-fg);
+  animation: wake 0.55s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+.button[data-stopping] {
+  background: rgba(var(--agent-v2-ink), 0.09);
+  transition: background 0.2s ease;
+}
+.button[data-stopping]:hover {
+  background: rgba(var(--agent-v2-ink), 0.14);
+}
+.icon {
+  position: relative;
+  width: 18px;
+  height: 18px;
+  display: block;
+}
+.glyph {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  place-items: center;
+}
+@keyframes wake {
+  0% {
+    transform: scale(0.94);
+  }
+  55% {
+    transform: scale(1.06);
+  }
+  100% {
+    transform: scale(1);
+  }
+}
+@media (max-width: 599px) {
+  .button {
+    width: 36px;
+    height: 36px;
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .button[data-variant='hero'][data-has-text] {
+    animation: none;
+  }
+}
+
+/* E10-07: en táctil el visual compacto se conserva; el área de toque mide 44px. */
+@media (pointer: coarse), (max-width: 767px) {
+  .button {
+    position: relative;
+  }
+  .button::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+    transform: translate(-50%, -50%);
+  }
+}

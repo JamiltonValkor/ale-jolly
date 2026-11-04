@@ -1,0 +1,185 @@
+{
+  "badge": {
+    "label": "Ale",
+    "aria": "Done by your autonomous team (Ale). View trace",
+    "ariaStatic": "Done by your autonomous team (Ale)"
+  },
+  "trace": {
+    "title": "What your team did",
+    "description": "Every step Ale took on this campaign, exactly as it was recorded.",
+    "loading": "Loading the trace…",
+    "empty": "There are no recorded steps for this campaign yet.",
+    "unavailable": "The trace is not available yet.",
+    "error": "We couldn't load the trace. Open it again in a few minutes.",
+    "others": "Other actions on this campaign",
+    "showDetail": "View details",
+    "hideDetail": "Hide details",
+    "fields": {
+      "requested": "What was requested",
+      "bet": "Bet",
+      "skill": "Skill",
+      "approval": "Approval",
+      "objects": "Objects in Meta",
+      "result": "Result",
+      "spend": "Spend since it was turned on",
+      "warnings": "Reviewer warnings",
+      "metaError": "Meta error"
+    },
+    "noValue": "No data",
+    "skillVersion": "{skill} · version {version}",
+    "approval": {
+      "approved": "Approved by you",
+      "rejected": "Rejected by you",
+      "pending": "Waiting for your approval",
+      "notRequired": "Didn't need approval",
+      "none": "No approval recorded"
+    },
+    "objectType": {
+      "campaign": "Campaign",
+      "adset": "Ad set",
+      "ad_set": "Ad set",
+      "ad": "Ad",
+      "creative": "Creative",
+      "other": "Object"
+    },
+    "objectLine": "{type} · {id}",
+    "spendValue": "{amount} since {date}",
+    "openApproval": "Review and approve"
+  },
+  "kind": {
+    "bet_created": "Ale proposed the bet “{bet}”",
+    "bet_createdUnnamed": "Ale proposed a bet",
+    "structure_published": "Ale published {campaign} paused",
+    "structure_publishedUnnamed": "Ale published a campaign paused",
+    "creative_rendered": "Ale generated a creative ({credits} credits)",
+    "creative_renderedUnnamed": "Ale generated a creative",
+    "media_uploaded": "Ale uploaded a file",
+    "launch": "{campaign} was turned on",
+    "launchUnnamed": "A campaign was turned on",
+    "activation_requested": "Ale asked to turn on {campaign}",
+    "activation_requestedUnnamed": "Ale asked to turn on a campaign",
+    "activation": "{campaign} was turned on",
+    "activationUnnamed": "A campaign was turned on",
+    "budget_change": "Ale moved {amount} to the ad set {box}",
+    "budget_changeNoBox": "Ale moved {amount} to an ad set",
+    "budget_changeUnnamed": "Ale changed an ad set's budget",
+    "pause": "Ale paused {type, select, ad_set {the ad set} ad {the ad} campaign {the campaign} other {the object}} {name}",
+    "pauseUnnamed": "Ale paused {type, select, ad_set {an ad set} ad {an ad} campaign {a campaign} other {an object}}",
+    "resume": "Ale resumed {type, select, ad_set {the ad set} ad {the ad} campaign {the campaign} other {the object}} {name}",
+    "resumeUnnamed": "Ale resumed {type, select, ad_set {an ad set} ad {an ad} campaign {a campaign} other {an object}}",
+    "duplicate_box": "Ale duplicated an ad set",
+    "add_ads": "Ale added ads",
+    "delete": "Ale asked to delete an object",
+    "lead_quality": "Ale recorded a lead's quality",
+    "sale": "Ale recorded a sale",
+    "other": "Ale made a change"
+  },
+  "state": {
+    "requested": "Requested",
+    "awaiting_approval": "Waiting for your approval",
+    "approved": "Approved",
+    "rejected": "Rejected by you",
+    "executing": "In progress",
+    "succeeded": "Done",
+    "partial": "Partly done",
+    "failed": "Failed",
+    "unknown": "No status"
+  },
+  "limits": {
+    "title": "Your team's limits",
+    "description": "Within these limits your autonomous team works without asking for permission.",
+    "comingSoon": "Coming soon",
+    "error": "We couldn't load this data. Try again in a few minutes.",
+    "saveError": "We couldn't save the change. Try again in a few minutes.",
+    "saved": "Saved",
+    "cancel": "Cancel",
+    "budget": {
+      "title": "Approved monthly budget",
+      "help": "The most your team can spread across ads this month without asking for approval.",
+      "empty": "You haven't set a budget yet: your team will ask for approval for everything it spends.",
+      "current": "{amount} per month",
+      "period": "Period: {start} – {end}",
+      "updated": "Last updated: {date} (revision {revision})",
+      "label": "Monthly amount",
+      "currency": "Your ad account currency: {currency}",
+      "connectMeta": "Connect your Meta account to set the budget.",
+      "connectMetaCta": "Connect Meta",
+      "save": "Save budget",
+      "confirmTitle": "Save the monthly budget?",
+      "confirmDescription": "Your team will be able to spread up to {amount} per month without asking for permission.",
+      "confirm": "Yes, save",
+      "invalid": "Enter an amount greater than zero.",
+      "conflict": "The budget changed while you were editing; check the new value."
+    },
+    "credits": {
+      "title": "Monthly credit cap",
+      "help": "How many credits your team can use per month to generate images and creatives.",
+      "empty": "You haven't set a cap yet: your team can't generate images or creatives until you set it.",
+      "zero": "Cap at 0: your team doesn't use credits.",
+      "cap": "Cap",
+      "used": "Used this month",
+      "remaining": "Remaining",
+      "resets": "Resets on {date}",
+      "label": "Credits per month",
+      "save": "Save cap",
+      "confirmTitle": "Save the credit cap?",
+      "confirmDescription": "Your team will be able to use up to {cap} credits per month without asking for permission.",
+      "confirm": "Yes, save",
+      "invalid": "Enter a whole number from 0 up.",
+      "balanceNote": "Your overall credit balance is still in Settings → Credits."
+    },
+    "compact": {
+      "save": "Save",
+      "budget": {
+        "title": "Ad spend per month",
+        "unset": "Not set",
+        "unsetNote": "Until you set it, it asks before every spend.",
+        "setNote": "Up to this amount it spreads ad spend without asking.",
+        "connect": "Connect your Meta account to set it.",
+        "connectCta": "Connect Meta",
+        "label": "Monthly ad spend in {currency}"
+      },
+      "credits": {
+        "title": "Credits per month",
+        "unset": "No cap",
+        "unsetNote": "Without a cap it can't create images or creatives.",
+        "zeroNote": "At 0 it uses no credits.",
+        "used": "{used} used · resets on {date}",
+        "meter": "Credits used this month",
+        "label": "Credits per month"
+      }
+    }
+  },
+  "activity": {
+    "title": "What your team did",
+    "description": "Every change Ale made in this business, from newest to oldest.",
+    "loading": "Loading activity…",
+    "empty": "Your team hasn't done anything in this business yet.",
+    "comingSoon": "Coming soon",
+    "error": "We couldn't load the activity. Try again in a few minutes.",
+    "loadMore": "Load more",
+    "loadingMore": "Loading…",
+    "viewCampaign": "View campaign",
+    "viewApproval": "Review and approve",
+    "viewTrace": "View trace",
+    "filters": {
+      "label": "Filter activity",
+      "all": "All",
+      "approval": "Needs your approval",
+      "failed": "With errors"
+    },
+    "filteredEmpty": "There are no actions with this filter.",
+    "retry": "Retry",
+    "comingSoonBody": "Soon you will see here every change your team makes on Meta: what it launched, what it adjusted and why.",
+    "days": {
+      "today": "Today",
+      "yesterday": "Yesterday"
+    }
+  },
+  "pending": {
+    "title": "Needs your approval",
+    "subtitle": "Your team is waiting for your approval to continue.",
+    "review": "Review and approve",
+    "more": "and {count, plural, one {# more} other {# more}} in «Activity»"
+  }
+}

@@ -1,0 +1,168 @@
+{
+  "sidebar": {
+    "label": "Meta Assistant",
+    "readyIndicator": "Meta Assistant is ready",
+    "subtitle": "Your marketing partner",
+    "readySubtitle": "Ready to start"
+  },
+  "panel": {
+    "title": "Meta Assistant",
+    "description": "Your sales and marketing operations assistant, powered by Meta."
+  },
+  "status": {
+    "configureAi": {
+      "title": "We are preparing Meta Assistant",
+      "description": "We are connecting your assistant’s intelligence. You can chat here when it is ready."
+    },
+    "configureAiStep": "Preparing your assistant’s intelligence"
+  },
+  "firstLoop": {
+    "welcome": {
+      "title": "Turn your goal into a marketing proposal",
+      "description": "Ale starts with {business}'s SaleADS data to research the market and coordinate your specialist team.",
+      "question": "What would you like to achieve for your business? Tell Ale in your own words; it will use what it already knows and only ask for missing information.",
+      "approval": "You will review the goal before starting. This work prepares a proposal; it does not publish campaigns or spend your budget."
+    },
+    "composer": {
+      "label": "Discuss your goal with Ale",
+      "hint": "Clarify your goal or answer Ale's questions.",
+      "send": "Send message",
+      "sending": "Sending…",
+      "feedbackLabel": "What would you like to improve in this proposal?",
+      "feedbackHint": "Your feedback will be linked to this revision.",
+      "feedbackSend": "Send feedback"
+    },
+    "businessLabel": "Working for {business}",
+    "selectBusiness": "Select a business in SaleADS to prepare its marketing goal.",
+    "loading": "Recovering your conversation and work…",
+    "processing": "Your message is in progress. You can close this view and check again later.",
+    "conversation": "Conversation about your goal",
+    "you": "You",
+    "ale": "Ale",
+    "briefTitle": "Review the goal before starting",
+    "goalLabel": "Goal",
+    "offeringLabel": "Offer",
+    "marketLabel": "Market",
+    "constraintsLabel": "Constraints",
+    "teamTitle": "Your specialist team",
+    "artifactsTitle": "Results and revisions",
+    "sourcesTitle": "Research sources",
+    "revision": "Revision {value}",
+    "observedAt": "Last information received: {value}",
+    "feedbackReceived": "{count, plural, one {Your feedback was recorded.} other {Your # feedback messages were recorded.}}",
+    "workingHint": "The team keeps working when you close this view. Come back to recover its progress.",
+    "actions": {
+      "confirm": "Confirm and start research",
+      "confirming": "Starting…",
+      "refresh": "Check status",
+      "refreshing": "Checking…",
+      "showHistory": "Open general conversation",
+      "hideHistory": "Close general conversation"
+    },
+    "errors": {
+      "unavailable": "We couldn't send this message. Your draft is here so you can try again.",
+      "uncertain": "We are checking whether your message was received. Your draft stays here until it is confirmed.",
+      "stale": "The context changed. We're updating the conversation; review your message before sending it again.",
+      "turnFailed": "Ale couldn't complete this message. You can try again.",
+      "turnUnknown": "We are checking whether your message completed."
+    },
+    "profiles": {
+      "investigador": "Researcher",
+      "estratega": "Strategist",
+      "estructurador": "Proposal designer",
+      "analista": "Analyst",
+      "optimizador": "Optimizer"
+    },
+    "stages": {
+      "research": "Research",
+      "strategy": "Strategy",
+      "structure": "Proposal structure",
+      "analysis": "Evidence review",
+      "optimization": "Proposal improvement",
+      "summary": "Summary"
+    },
+    "workStatus": {
+      "waiting_for_tasks": "Preparing the team’s tasks.",
+      "running": "The team is working on your proposal.",
+      "awaiting_feedback": "The proposal is ready for your feedback.",
+      "reviewing": "The team is reviewing your feedback.",
+      "completed": "The team completed this revision.",
+      "blocked": "The work needs attention. Review the messages and latest available result.",
+      "unknown": "We cannot confirm the work status yet."
+    },
+    "taskStatus": {
+      "queued": "Queued",
+      "running": "In progress",
+      "awaiting_review": "In review",
+      "completed": "Completed",
+      "blocked": "Needs attention",
+      "failed": "Could not complete",
+      "cancelled": "Cancelled",
+      "unknown": "Status unconfirmed",
+      "unassigned": "Not assigned yet",
+      "unverified": "Execution not confirmed yet"
+    },
+    "projection": {
+      "missing": "Waiting for the team’s first status update.",
+      "stale": "The status is not up to date. We kept the last received results.",
+      "invalid": "We could not verify the latest update. We kept the last received results.",
+      "unavailable": "We could not receive the latest update. We kept the last received results."
+    }
+  },
+  "chat": {
+    "failure": {
+      "auth": "Your assistant’s service is unavailable right now. Try again in a few minutes.",
+      "quota": "Your assistant’s service could not respond right now. Try again in a few minutes.",
+      "rate_limit": "The service is receiving many requests. Wait a moment and try again.",
+      "generic": "Your assistant could not respond this time. You can send your message again.",
+      "not_ready": "Your assistant is still getting ready. Try again when it is ready.",
+      "restarting": "Your assistant is restarting. Send your message again in a few seconds."
+    }
+  },
+  "landingFeedback": {
+    "context": "Changes for “{name}” · version {n}",
+    "wrongBusiness": "Select this proposal’s business before sending changes.",
+    "clear": "Continue without this reference"
+  },
+  "robotCompanion": {
+    "trigger": "Link my companion",
+    "linkedCount": "{count, plural, one {# companion linked} other {# companions linked}}",
+    "dialog": {
+      "title": "Link your companion",
+      "description": "Type the code shown on Ale's face. If you scanned the QR code, it's already filled in."
+    },
+    "form": {
+      "label": "Robot code",
+      "hint": "It's 8 letters and numbers, like K7QM-3XPA. The code lasts 10 minutes.",
+      "submit": "Link",
+      "submitting": "Linking…"
+    },
+    "success": {
+      "title": "{name} is now your companion!",
+      "description": "It can talk with you and remember your conversations, just like the chat.",
+      "done": "Done"
+    },
+    "unavailable": "Linking a companion isn't available for your account yet.",
+    "errors": {
+      "invalidCode": "That code is wrong or has expired. Check your robot's face and try again.",
+      "tooManyAttempts": "Too many attempts. Wait about 10 minutes and try again.",
+      "sessionExpired": "Your session expired. Reload the page and sign in again.",
+      "generic": "We couldn't link your companion. Please try again in a moment."
+    },
+    "devices": {
+      "title": "Your companions",
+      "lastSeen": "Last seen {value}",
+      "neverSeen": "Hasn't connected yet",
+      "revoke": "Unlink",
+      "revokeLabel": "Unlink {name}"
+    },
+    "revoke": {
+      "title": "Unlink {name}?",
+      "description": "The robot will stop talking with your assistant right away. To use it again you'll need to link it with a new code.",
+      "confirm": "Unlink",
+      "cancel": "Keep linked",
+      "success": "{name} was unlinked.",
+      "error": "We couldn't unlink it. Please try again."
+    }
+  }
+}

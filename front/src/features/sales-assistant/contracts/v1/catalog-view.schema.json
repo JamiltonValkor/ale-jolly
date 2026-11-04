@@ -1,0 +1,197 @@
+{
+  "$id": "https://saleads.ai/contracts/one-click/v1/catalog-view.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "industry_slug": {
+      "anyOf": [
+        {
+          "type": "string",
+          "pattern": "^[a-z][a-z0-9_]{1,63}$"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "available": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+          },
+          "version": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["skill", "mcp"]
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "saleads_capability",
+              "industry_playbook",
+              "validated_lesson"
+            ]
+          },
+          "industry_slug": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]{1,63}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "summary": {
+            "type": ["string", "null"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "superseded", "retired"]
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "kind",
+          "source",
+          "industry_slug",
+          "name",
+          "summary",
+          "status"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "installed": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+          },
+          "version": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["skill", "mcp"]
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "saleads_capability",
+              "industry_playbook",
+              "validated_lesson"
+            ]
+          },
+          "industry_slug": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]{1,63}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "summary": {
+            "type": ["string", "null"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "superseded", "retired"]
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "kind",
+          "source",
+          "industry_slug",
+          "name",
+          "summary",
+          "status"
+        ],
+        "additionalProperties": false
+      }
+    },
+    "retired_installed": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "pattern": "^[A-Za-z0-9][A-Za-z0-9_.:-]{0,127}$"
+          },
+          "version": {
+            "type": "string"
+          },
+          "kind": {
+            "type": "string",
+            "enum": ["skill", "mcp"]
+          },
+          "source": {
+            "type": "string",
+            "enum": [
+              "saleads_capability",
+              "industry_playbook",
+              "validated_lesson"
+            ]
+          },
+          "industry_slug": {
+            "anyOf": [
+              {
+                "type": "string",
+                "pattern": "^[a-z][a-z0-9_]{1,63}$"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "name": {
+            "type": "string"
+          },
+          "summary": {
+            "type": ["string", "null"]
+          },
+          "status": {
+            "type": "string",
+            "enum": ["active", "superseded", "retired"]
+          }
+        },
+        "required": [
+          "id",
+          "version",
+          "kind",
+          "source",
+          "industry_slug",
+          "name",
+          "summary",
+          "status"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": ["industry_slug", "available", "installed", "retired_installed"],
+  "additionalProperties": false
+}

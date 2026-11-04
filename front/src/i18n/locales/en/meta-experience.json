@@ -1,0 +1,753 @@
+{
+  "header": {
+    "eyebrow": "Meta Assistant · Saleads",
+    "title": "Meta Assistant",
+    "subtitle": "Your marketing partner: it knows your business, works in cycles and learns every day.",
+    "status": {
+      "ready": "Active",
+      "preparing": "Waking up",
+      "stopped": "Paused",
+      "failed": "Needs help",
+      "none": "Not active",
+      "deleting": "Deleting"
+    },
+    "manage": "Manage",
+    "manageLabel": "Manage your assistant"
+  },
+  "companion": {
+    "label": "Your Meta Assistant",
+    "sleeping": "Your assistant, asleep while you activate it",
+    "waking": "Your assistant waking up",
+    "thinking": "Your assistant thinking",
+    "speaking": "Your assistant speaking"
+  },
+  "loadError": {
+    "title": "We couldn't load your assistant",
+    "retry": "Try again"
+  },
+  "start": {
+    "title": "A marketing partner that learns from {business} every day",
+    "titleNoBusiness": "A marketing partner that learns from your business every day",
+    "lead": "Activate it in one click. It researches your market, builds campaigns, measures what works and starts again, always within the limits you set.",
+    "points": {
+      "knows": {
+        "title": "Knows your business",
+        "body": "It starts from what Saleads already knows about {business} and grows it with every conversation."
+      },
+      "loop": {
+        "title": "Works in cycles",
+        "body": "It researches, proposes a bet, launches it, measures and learns. Every round knows more."
+      },
+      "limits": {
+        "title": "Within your limits",
+        "body": "You set how much it can spend on ads and creatives. Anything else, it asks you."
+      }
+    },
+    "yourBusiness": "your business",
+    "typeQuestion": "What does {business} sell?",
+    "typePrefilled": "We took it from what Saleads already knows. You can change it.",
+    "chooseTypeFirst": "Choose what your business sells to activate it.",
+    "cta": "Activate my assistant",
+    "ctaBusy": "Activating your assistant…",
+    "time": "It takes a few minutes and you can keep using Saleads meanwhile.",
+    "terms": "When you activate it, your assistant shares abstract lessons with Saleads from what you say or decide (never your data, figures or names) to create skills for businesses like yours."
+  },
+  "preparing": {
+    "title": "Your assistant is waking up",
+    "lead": "We're installing it in its own space, with access to {business}. It usually takes 3 to 5 minutes.",
+    "leave": "You can leave this page: the dot next to «Meta Assistant» in the menu lights up when it's ready.",
+    "progressLabel": "Setup progress",
+    "progressValue": "Step {current} of {total}",
+    "elapsed": "{minutes, plural, =0 {Less than a minute so far} one {1 minute so far} other {# minutes so far}}",
+    "steps": {
+      "preparing_access": {
+        "title": "Connecting your account",
+        "body": "It confirms it's you and that it can read your businesses in Saleads."
+      },
+      "preparing_environment": {
+        "title": "Preparing its space",
+        "body": "We create a server of its own, just for your business."
+      },
+      "installing_agent": {
+        "title": "Installing its team",
+        "body": "The specialists who research, propose, measure and improve arrive."
+      },
+      "configure_ai": {
+        "title": "Turning on its intelligence",
+        "body": "We connect it to Saleads AI so it can talk with you."
+      }
+    },
+    "stepState": {
+      "done": "Done",
+      "current": "In progress",
+      "pending": "Pending"
+    },
+    "slow": {
+      "title": "It's taking longer than usual",
+      "body": "It's still working. If it doesn't move in a few minutes, I'll show you how to retry."
+    },
+    "stuck": {
+      "title": "It got stuck waiting for your account",
+      "body": "The connection didn't come back. Retry: you won't lose anything that's already done.",
+      "retry": "Retry connection",
+      "retrying": "Retrying…"
+    },
+    "failed": {
+      "title": "We couldn't finish setting it up",
+      "body": "Something failed while installing your assistant. Check again in a moment; if nothing changes, write to us through the support chat and we'll review it with you.",
+      "retry": "Check again"
+    }
+  },
+  "tabs": {
+    "label": "Meta Assistant sections",
+    "today": "Today",
+    "chat": "Talk",
+    "brain": "Brain",
+    "limits": "Limits",
+    "activity": "Activity",
+    "stock": "Stock"
+  },
+  "today": {
+    "greeting": {
+      "morning": "Good morning, {name}.",
+      "afternoon": "Good afternoon, {name}.",
+      "evening": "Good evening, {name}.",
+      "noName": "Hi."
+    },
+    "together": "{days, plural, =0 {Today I start learning about {business}.} one {I've been learning about {business} for 1 day.} other {I've been learning about {business} for # days.}}",
+    "now": "Now",
+    "idleNow": "Ready for your next goal",
+    "talk": "Talk",
+    "pair": "Sync companion",
+    "stats": {
+      "label": "What it has so far",
+      "days": "Days together",
+      "ideas": "Ideas about your business",
+      "bets": "Active bets",
+      "learned": "Lessons learned",
+      "seeBrain": "See its brain",
+      "empty": "—"
+    },
+    "approvals": {
+      "title": "Needs your approval"
+    }
+  },
+  "loop": {
+    "title": "Your assistant's cycle",
+    "round": "Round {round}",
+    "current": "Now: {station}",
+    "empty": "The cycle starts when you tell it your marketing goal.",
+    "emptyCta": "Tell it my goal",
+    "latest": "Latest result",
+    "stations": {
+      "research": {
+        "verb": "Researches",
+        "agent": "Researcher",
+        "body": "Your market and your competitors"
+      },
+      "strategy": {
+        "verb": "Proposes",
+        "agent": "Strategist",
+        "body": "The next bet"
+      },
+      "structure": {
+        "verb": "Builds",
+        "agent": "Builder",
+        "body": "The campaign and its pieces"
+      },
+      "analysis": {
+        "verb": "Measures",
+        "agent": "Analyst",
+        "body": "What worked and what didn't"
+      },
+      "optimization": {
+        "verb": "Improves",
+        "agent": "Optimizer",
+        "body": "Tunes the next round"
+      }
+    },
+    "status": {
+      "done": "Done",
+      "running": "Working",
+      "queued": "Queued",
+      "blocked": "Needs something from you",
+      "idle": "Waiting"
+    }
+  },
+  "channels": {
+    "title": "Where your assistant lives",
+    "active": "Active",
+    "saleads": {
+      "name": "Saleads",
+      "body": "Right here, with your whole business at hand"
+    },
+    "whatsapp": {
+      "name": "WhatsApp",
+      "body": "Message it from your phone",
+      "action": "Link",
+      "prompt": "I want to talk to you on WhatsApp. How do I link it?"
+    },
+    "instagram": {
+      "name": "Instagram",
+      "body": "Let it answer your account's messages",
+      "action": "Link",
+      "prompt": "I want you to answer my Instagram messages. How do I link it?"
+    },
+    "companion": {
+      "name": "Physical companion",
+      "body": "Your assistant, right by your desk",
+      "action": "Sync",
+      "paired": "Synced · {device}"
+    }
+  },
+  "chat": {
+    "title": "Talk with your assistant",
+    "empty": "Tell it your marketing goal or ask about your sales, your campaigns or what to do this week.",
+    "suggestionsLabel": "Ideas to start",
+    "suggestions": {
+      "sales": "How are my sales this week?",
+      "goal": "I want to sell more in December",
+      "brain": "What have you learned about my business?"
+    },
+    "you": "You",
+    "assistant": "Your assistant",
+    "thinking": "Your assistant is thinking…",
+    "placeholder": "Write to your assistant…",
+    "inputLabel": "Message for your assistant",
+    "send": "Send message",
+    "hint": "Enter to send · Shift + Enter for a new line",
+    "tooLong": "Your message is too long. Shorten it a bit to send it.",
+    "disclaimer": "Your assistant can make mistakes. Check what matters before publishing.",
+    "historyError": "We couldn't load the previous conversation.",
+    "retry": "Try again",
+    "turnFailed": "I couldn't finish your last message. Please try again.",
+    "selectBusiness": "Choose a business in Saleads to talk about it.",
+    "voiceOn": "Read replies aloud",
+    "voiceOff": "Stop reading aloud"
+  },
+  "stopped": {
+    "title": "Your assistant is paused",
+    "body": "It keeps what it learned and your conversations. Reactivate it whenever you want.",
+    "cta": "Reactivate assistant"
+  },
+  "deleting": {
+    "title": "We're deleting your assistant",
+    "body": "It takes a few minutes. When it's done you can activate a new one."
+  },
+  "unavailable": {
+    "title": "Meta Assistant isn't available for your account yet",
+    "body": "We're turning it on in stages. When it's ready for you, it shows up here and in the menu."
+  },
+  "help": {
+    "button": "How it works",
+    "title": "How Meta Assistant works",
+    "lead": "Your assistant works on its own, in rounds, always within the limits you set.",
+    "items": {
+      "activate": {
+        "title": "You activate it once",
+        "body": "We prepare its own space with access to your business. It takes a few minutes."
+      },
+      "loop": {
+        "title": "It works in cycles",
+        "body": "It researches your market, proposes a bet, builds the campaign, measures and improves. Every round stays in its brain."
+      },
+      "limits": {
+        "title": "You set the limits",
+        "body": "Set how much it can spend on ads and creatives. Anything beyond that, it asks in «Needs your approval»."
+      },
+      "everywhere": {
+        "title": "It goes where you go",
+        "body": "It's the same assistant here, on WhatsApp, on Instagram and in your physical companion."
+      }
+    },
+    "shortcutsTitle": "Shortcuts",
+    "shortcuts": {
+      "chat": "Write to your assistant",
+      "tabs": "Switch section"
+    },
+    "tabsKeys": "1 to {count}",
+    "close": "Got it"
+  },
+  "team": {
+    "activityEmpty": {
+      "title": "No changes yet",
+      "body": "When I launch, adjust or pause something on Meta, it shows up here with the reason and whether it needed your approval."
+    }
+  },
+  "tabHelp": {
+    "button": "More about {tab}",
+    "guide": "How Meta Assistant works",
+    "today": {
+      "title": "Today",
+      "body": "Here you see where I'm at with {business}. I work in rounds: I research, propose, build, measure and improve, and what I learn stays in my brain. I'm the same here, on WhatsApp, on Instagram and in your physical companion: what I learn in one place I know in all of them."
+    },
+    "chat": {
+      "title": "Talk",
+      "body": "Ask me for whatever {business} needs: an idea, a campaign, how sales are going or a change. What you tell me, I learn too. Check anything important before publishing it, because I can make mistakes."
+    },
+    "brain": {
+      "title": "My brain",
+      "body": "This is what I know about {business}. Every day I add what I learn from your sales, your ads and what you tell me."
+    },
+    "limits": {
+      "title": "Your limits",
+      "body": "Inside these limits I work on my own at {business}. For anything else, I ask you first.",
+      "points": {
+        "spend": "I spread ad spend only up to the budget you approve",
+        "credits": "I generate images and creatives only up to your credit cap",
+        "asks": "Anything beyond that, I ask you first"
+      }
+    },
+    "activity": {
+      "title": "What I've done",
+      "body": "Every change I made at {business}, from newest to oldest. Tap one to see why I made it."
+    },
+    "stock": {
+      "title": "Stock",
+      "body": "Here's what {business} has, what I counted and what's waiting for your confirmation. Nothing changes in your inventory until you approve it."
+    }
+  },
+  "stock": {
+    "title": "Stock",
+    "subtitle": "What you have, what Jolly saw and what's waiting for your confirmation. Nothing changes in your inventory until you approve it.",
+    "views": {
+      "label": "Stock views",
+      "actual": "Current stock",
+      "porAprobar": "To approve",
+      "pedidos": "Orders"
+    },
+    "summary": {
+      "expected": "Expected units",
+      "differences": "Differences to resolve",
+      "pending": "To approve",
+      "orders": "Orders in progress",
+      "lastCount": "Last count: {date}",
+      "noCount": "No counts yet",
+      "simulated": "Simulated",
+      "label": "Your stock summary",
+      "open": {
+        "expected": "See stock",
+        "differences": "See differences",
+        "pending": "Review",
+        "orders": "See orders"
+      }
+    },
+    "current": {
+      "caption": "Stock by product and variant",
+      "columns": {
+        "product": "Product",
+        "expected": "Expected",
+        "counted": "Counted",
+        "difference": "Difference",
+        "state": "Status"
+      },
+      "states": {
+        "cuadra": "Matches",
+        "causa_preguntada": "Jolly asked the cause",
+        "conteo_por_aprobar": "Count to approve",
+        "sin_conteo_reciente": "No recent count"
+      },
+      "offer": "Linked to offer “{name}”",
+      "noOffer": "No offer",
+      "formula": "Last count: {last} + {entries} received − {sales} sold",
+      "noCount": "no count",
+      "simulated": "Simulated",
+      "note": "Expected = last count + received − reported sales."
+    },
+    "kits": {
+      "label": "Kits",
+      "head": "Kits: they have no units of their own, they come from their components",
+      "component": "{count} {name}",
+      "reach": "{count, plural, =1 {Enough for 1 kit} other {Enough for # kits}}",
+      "active": "Active",
+      "simulated": "Simulated"
+    },
+    "tagReal": "Real",
+    "tagSimulated": "Simulated",
+    "reject": "Reject",
+    "approved": "Approved by you just now",
+    "rejected": "Rejected: nothing was created",
+    "unknownProposal": "We couldn't find that proposal. It may already be resolved or expired.",
+    "kinds": {
+      "conteo": "Count",
+      "entrada": "Invoice",
+      "venta": "Sale",
+      "catalogo": "Catalog",
+      "union_catalogo": "Catalog merge",
+      "pedido": "Supplier order",
+      "apuesta": "Ad bet",
+      "autonomia": "Permission",
+      "no_soportada": "New proposal"
+    },
+    "confirm": {
+      "conteo": "Confirm count",
+      "entrada": "Confirm invoice",
+      "venta": "Confirm sale",
+      "catalogo": "Add to catalog",
+      "union_catalogo": "Merge products",
+      "pedido": "Approve and negotiate",
+      "kit": "Approve kit",
+      "apuesta": "Approve bet",
+      "autonomia": "Grant permission",
+      "complemento": "Approve add-on",
+      "venta_adicional": "Approve upsell",
+      "no_soportada": "Approve"
+    },
+    "blocks": {
+      "effects": "We can't show you what approving would do, so it can't be approved for now.",
+      "photoLost": "You can't confirm this count because the photo was lost. Ask Jolly to count again.",
+      "photoRefreshing": "Wait for the photo to load before confirming.",
+      "unsupported": "This screen can't show this proposal yet, so it can't be approved here. Reload the page or ask Jolly."
+    },
+    "causes": {
+      "venta": "Sale",
+      "fiado": "On credit",
+      "movimiento": "Moved",
+      "otra": "Other"
+    },
+    "areas": {
+      "inventario": "Inventory",
+      "reposicion": "Restocking",
+      "negociacion": "Negotiation",
+      "ofertas": "Offers"
+    },
+    "levels": {
+      "1": "Learns",
+      "2": "Proposes",
+      "3": "Operates within limits",
+      "4": "Runs the business"
+    },
+    "count": {
+      "product": "Product",
+      "expected": "Expected",
+      "counted": "Jolly counted",
+      "difference": "Difference",
+      "doubt": "Jolly asks:",
+      "photoAlt": "Count photo with {total} numbered items",
+      "photoRefreshing": "We're updating the photo.",
+      "photoLost": "The photo is no longer available.",
+      "noPhotoVoice": "No photo, you said it by voice",
+      "noPhotoChannel": "No photo, it came through your channel",
+      "photoAltNoTotal": "Count photo with numbered objects",
+      "photoBy": "Photo by Jolly",
+      "photoWhen": "Photo by Jolly, {when}",
+      "photoTotal": "{total} numbered objects"
+    },
+    "order": {
+      "caption": "Supplier comparison",
+      "supplier": "Supplier",
+      "price": "Unit",
+      "freight": "Freight",
+      "minimum": "Minimum",
+      "delivery": "Delivery",
+      "payment": "Payment terms",
+      "warranty": "Warranty",
+      "total": "Total cost",
+      "chosen": "Chosen",
+      "equivalence": {
+        "equivalente": "Equivalent",
+        "alternativa": "Alternative"
+      },
+      "days": "{count, plural, =1 {1 day} other {# days}}",
+      "product": "Product",
+      "quantity": "Quantity",
+      "stock": "Expected stock",
+      "rhythm": "Pace",
+      "perWeek": "{count} per week",
+      "mandate": "Mandate",
+      "target": "Target price",
+      "ceiling": "Ceiling per unit",
+      "noData": "No data"
+    },
+    "kit": {
+      "component": "{count} {name}",
+      "cost": "Total cost",
+      "kind": "Type",
+      "subtypes": {
+        "kit": "Kit",
+        "complemento": "Add-on",
+        "venta_adicional": "Upsell"
+      },
+      "price": "Proposed price",
+      "margin": "Margin",
+      "reach": "Enough for",
+      "kits": "{count, plural, =1 {1 kit} other {# kits}}",
+      "pending": "Pending",
+      "incompleteCost": "A component cost is missing: the margin isn't reliable yet.",
+      "pendingPrice": "The price is still to be defined.",
+      "hypothesis": "Hypothesis:",
+      "units": "{count, plural, =1 {1 unit} other {# units}}",
+      "basis": "What this is based on",
+      "diagnosis": "Diagnosis:",
+      "priceSource": "Price based on:",
+      "sourcesInChat": "Sources and assumptions don't reach this screen yet. Ask Jolly for them before deciding.",
+      "noSources": "No sources: treat this as an assumption by Jolly."
+    },
+    "receipt": {
+      "caption": "Invoice products",
+      "supplier": "Supplier: {name}",
+      "noSupplier": "Supplier not identified",
+      "product": "Product",
+      "quantity": "Quantity",
+      "unitCost": "Unit cost",
+      "confirm": "To confirm: {fields}",
+      "fixHint": "Is something wrong? Reject it with the reason and Jolly will redo the proposal.",
+      "destination": "Goes to",
+      "noDestination": "No data",
+      "notInStock": "Won't enter inventory",
+      "fields": {
+        "quantity": "quantity",
+        "unitCost": "unit cost",
+        "description": "description",
+        "total": "invoice total",
+        "currency": "currency",
+        "supplierName": "supplier",
+        "date": "date",
+        "general": "the invoice overall",
+        "other": "another detail"
+      }
+    },
+    "permission": {
+      "area": "Area",
+      "current": "Current level",
+      "requested": "Requested level",
+      "ceiling": "Up to an amount of",
+      "evidence": "Evidence",
+      "simulatedFact": "{fact} (simulated)",
+      "effective": "Even if you approve, at this stage Jolly stays at the “{level}” level."
+    },
+    "generic": {
+      "product": "Product",
+      "quantity": "Quantity",
+      "kind": "Type",
+      "kitSale": "Kit sale",
+      "variants": "Variants",
+      "offer": "Offer",
+      "noOffer": "No offer",
+      "similarity": "Similarity",
+      "daily": "Daily budget",
+      "ceiling": "Ceiling",
+      "duration": "Duration",
+      "days": "{count, plural, =1 {1 day} other {# days}}",
+      "forecast": "Forecast",
+      "noForecast": "No forecast",
+      "forecastValue": {
+        "dato": "{units} per week, based on data",
+        "supuesto": "{units} per week, an assumption"
+      },
+      "balance": "Balance",
+      "expected": "Expected stock"
+    },
+    "autonomy": {
+      "title": "Jolly permissions",
+      "body": "What Jolly can do on its own in each area. You can lower a level anytime and, if an area is at “Learns”, bring it back to “Proposes”.",
+      "lower": "Lower level",
+      "lowerTitle": "Lower the level?",
+      "lowerBody": "{area} will move to “{level}”. Approved permissions for this area are revoked.",
+      "raise": "Back to Proposes",
+      "raiseTitle": "Go back up a level?",
+      "raiseBody": "{area} returns to “{level}”. Earlier permissions don't come back: Jolly would have to ask again."
+    },
+    "dialog": {
+      "approveTitle": "Confirm this decision?",
+      "rejectTitle": "Reject this proposal?",
+      "back": "Back",
+      "retry": "Try again",
+      "review": "Review changes",
+      "changed": "This proposal changed while you were reviewing it. Review the changes before deciding.",
+      "causeLegend": "What was the cause?",
+      "reason": "Reason for Jolly (optional)",
+      "rejectEffect": "No movement, order or kit is created.",
+      "yes": "Happens:",
+      "no": "Doesn't happen:",
+      "notes": {
+        "pedido": "Approving authorizes negotiating within the ceiling. It doesn't pay anything.",
+        "kit": "Approving doesn't create any offer or launch ads.",
+        "apuesta": "Approving doesn't launch the campaign or spend. Launching stays on the web."
+      },
+      "hints": {
+        "cause": "Choose the cause to confirm.",
+        "share": "Split the {total} units across the variants to confirm."
+      }
+    },
+    "errors": {
+      "gone": "This proposal was already resolved or expired. We updated the list.",
+      "stockNegative": "There isn't enough stock for this. Count the product and try again.",
+      "sessionExpired": "Your session expired. Sign in again to decide.",
+      "decision": "We couldn't confirm your decision. Try again.",
+      "invalid": "This proposal can't be processed as it stands. Reject it and ask Jolly to redo it.",
+      "invalidKit": "This proposal can't be processed, for example if its products are in different currencies. Reject it and ask Jolly to redo it.",
+      "levelChanged": "This level changed while you were reviewing it. We refreshed the list: please check it again.",
+      "levelInvalid": "That level change is no longer allowed. Refresh the list and check it again.",
+      "cancelGone": "This order can't be cancelled anymore: it's no longer being negotiated. We refreshed the list.",
+      "cancel": "We couldn't confirm the cancellation. Please retry."
+    },
+    "orders": {
+      "title": "{count} {product}",
+      "simulated": "Simulated",
+      "progress": "Step {step} of {total}: {state}",
+      "noCost": "Cost to be defined",
+      "cost": {
+        "esperado": "{amount} expected",
+        "acordado": "{amount} agreed"
+      },
+      "states": {
+        "aprobado": "Approved",
+        "negociando": "Negotiating",
+        "acordado": "Agreed",
+        "en_camino": "On the way",
+        "recibido": "Received",
+        "cancelado": "Canceled"
+      },
+      "supplierReplied": "The supplier replied.",
+      "receivedFull": "{received} of {ordered} arrived.",
+      "receivedShort": "{received} of {ordered} arrived: there is a difference.",
+      "saving": "Confirmed savings: {amount}.",
+      "noPayment": "No payment has been made yet.",
+      "note": "Savings only count once the goods arrive and are confirmed.",
+      "cancel": "Cancel order",
+      "cancelTitle": "Cancel this order?",
+      "cancelBody": "{count} {product} with {supplier}. Jolly stops negotiating and the order is cancelled.",
+      "cancelNotice": "We don't notify the supplier: if you've already talked to them, let them know yourself."
+    },
+    "states": {
+      "loading": "Loading Stock",
+      "retry": "Try again",
+      "items": {
+        "title": "There are no products in your inventory yet",
+        "body": "Show your products to Jolly or send an invoice on WhatsApp. Each product shows up here once you confirm it."
+      },
+      "proposals": {
+        "title": "You have nothing to approve",
+        "body": "When Jolly counts something or proposes an order or a kit, you'll see it here before it happens."
+      },
+      "orders": {
+        "title": "No orders yet",
+        "body": "Orders show up here when you approve a restock."
+      },
+      "readError": {
+        "title": "We couldn't read your inventory",
+        "body": "Your stock didn't change. Try again in a moment; Jolly doesn't approve anything in the meantime."
+      },
+      "partial": {
+        "summary": "We couldn't read the summary. Your stock didn't change.",
+        "items": "We couldn't update your stock. What you see may be out of date, and your stock didn't change.",
+        "proposals": "We couldn't update what you have to approve. Your stock didn't change.",
+        "orders": "We couldn't update your orders. Your stock didn't change.",
+        "autonomy": "We couldn't read Jolly's permissions. Your stock didn't change."
+      }
+    },
+    "hero": {
+      "title": "{business} stock",
+      "companion": "Jolly, your inventory companion",
+      "loading": "Jolly is reading your inventory.",
+      "pending": "{count, plural, =1 {Jolly has 1 item waiting for your confirmation.} other {Jolly has # items waiting for your confirmation.}}",
+      "differences": "{count, plural, =1 {There is 1 difference to resolve.} other {There are # differences to resolve.}}",
+      "calm": "Everything matches what Jolly saw.",
+      "rule": "Nothing changes in your inventory until you approve it."
+    },
+    "share": {
+      "legend": "Jolly counted {total} and cannot tell the variant apart. How many of each?",
+      "sum": "{sum} of {total} so far.",
+      "fits": "They add up to {total}.",
+      "noOptions": "We could not read this product’s variants. Reload the page or ask Jolly to count again."
+    }
+  },
+  "office": {
+    "title": "Your team",
+    "door": {
+      "open": "Open your team's office",
+      "close": "Close the office",
+      "loading": "Opening the office…",
+      "hint": "Tap the door to see your team at work",
+      "working": "{count, plural, =1 {1 working} other {# working}}",
+      "waiting": "{count, plural, =1 {1 waiting for you} other {# waiting for you}}",
+      "blocked": "{count, plural, =1 {1 blocked} other {# blocked}}",
+      "resting": "{count, plural, =1 {1 resting} other {# resting}}",
+      "allResting": "Your team is resting"
+    },
+    "office": {
+      "label": "Your team's office",
+      "fresh": "Updated {time}",
+      "stale": "Not updated: they may have moved on",
+      "error": "We couldn't read your team's activity. Your business didn't change.",
+      "waiting": "{count, plural, =1 {1 waiting for you} other {# waiting for you}}",
+      "empty": "Your team starts when you tell Ale your goal.",
+      "emptyCta": "Tell my goal",
+      "soon": "Full activity for the whole team is coming soon."
+    },
+    "roles": {
+      "ale": {
+        "name": "Ale",
+        "role": "Coordinator",
+        "about": "Organizes the team and is the one who talks to you."
+      },
+      "investigador": {
+        "name": "Researcher",
+        "role": "Researches",
+        "about": "Studies your market and competitors, with dated sources."
+      },
+      "estratega": {
+        "name": "Strategist",
+        "role": "Proposes",
+        "about": "Turns research into bets: who, which angle and which format."
+      },
+      "estructurador": {
+        "name": "Builder",
+        "role": "Builds",
+        "about": "Builds the campaign structure and its budget."
+      },
+      "analista": {
+        "name": "Analyst",
+        "role": "Measures",
+        "about": "Separates what the data backs from what still needs proof."
+      },
+      "optimizador": {
+        "name": "Optimizer",
+        "role": "Improves",
+        "about": "Proposes the next improvement, its risks and how to measure it."
+      },
+      "landings": {
+        "name": "Landings",
+        "role": "Designs",
+        "about": "Designs the page for each bet."
+      },
+      "bodega": {
+        "name": "Warehouse",
+        "role": "Inventory",
+        "about": "Counts your stock, reads invoices and proposes orders. Nothing changes without your OK."
+      }
+    },
+    "states": {
+      "working": "Working",
+      "waiting": "Waiting for you",
+      "blocked": "Blocked",
+      "done": "Done",
+      "resting": "Resting"
+    },
+    "notes": {
+      "queued": "Queued",
+      "soon": "Activity coming soon",
+      "coordinating": "Coordinating the team",
+      "orders": "{count, plural, =1 {1 order in progress} other {# orders in progress}}",
+      "pending": "{count, plural, =1 {1 item to approve} other {# items to approve}}"
+    },
+    "desk": "{name}, {role}: {state}",
+    "sheet": {
+      "now": "Now",
+      "since": "since {time}",
+      "lastDone": "Last finished",
+      "nothing": "Nothing in progress",
+      "ask": "Ask something",
+      "askPrompt": "Ask the team ({role}, {name}): ",
+      "answerAle": "Reply to Ale",
+      "openStock": "See pending approvals",
+      "nameLabel": "Name",
+      "namePlaceholder": "Give it a name",
+      "save": "Save name",
+      "reset": "Back to default",
+      "nameNote": "The name is saved in this browser.",
+      "close": "Close"
+    }
+  }
+}

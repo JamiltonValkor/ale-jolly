@@ -1,0 +1,168 @@
+{
+  "sidebar": {
+    "label": "Meta Assistant",
+    "readyIndicator": "Meta Assistant está listo",
+    "subtitle": "Tu socio de marketing",
+    "readySubtitle": "Listo para empezar"
+  },
+  "panel": {
+    "title": "Meta Assistant",
+    "description": "Tu asistente operativo de ventas y marketing, con la inteligencia de Meta."
+  },
+  "status": {
+    "configureAi": {
+      "title": "Estamos preparando Meta Assistant",
+      "description": "Estamos conectando la inteligencia de tu asistente. Podrás conversar aquí cuando esté listo."
+    },
+    "configureAiStep": "Preparando la inteligencia de tu asistente"
+  },
+  "firstLoop": {
+    "welcome": {
+      "title": "Convierte tu objetivo en una propuesta de marketing",
+      "description": "Ale parte de los datos de {business} en SaleADS para investigar el mercado y coordinar a tu equipo de especialistas.",
+      "question": "¿Qué quieres lograr para tu negocio? Cuéntaselo con tus palabras; Ale usará lo que ya conoce y preguntará sólo lo que falte.",
+      "approval": "Revisarás el objetivo antes de iniciar. Este trabajo prepara una propuesta; no publica campañas ni gasta tu presupuesto."
+    },
+    "composer": {
+      "label": "Conversa con Ale sobre tu objetivo",
+      "hint": "Puedes aclarar tu objetivo o responder las preguntas de Ale.",
+      "send": "Enviar mensaje",
+      "sending": "Enviando…",
+      "feedbackLabel": "¿Qué quieres mejorar de esta propuesta?",
+      "feedbackHint": "Tus comentarios quedarán vinculados a esta revisión.",
+      "feedbackSend": "Enviar comentarios"
+    },
+    "businessLabel": "Trabajando para {business}",
+    "selectBusiness": "Selecciona un negocio en SaleADS para preparar su objetivo de marketing.",
+    "loading": "Estamos recuperando tu conversación y trabajo…",
+    "processing": "Tu mensaje está en proceso. Puedes cerrar esta vista y volver a consultar.",
+    "conversation": "Conversación sobre tu objetivo",
+    "you": "Tú",
+    "ale": "Ale",
+    "briefTitle": "Revisa el objetivo antes de iniciar",
+    "goalLabel": "Objetivo",
+    "offeringLabel": "Oferta",
+    "marketLabel": "Mercado",
+    "constraintsLabel": "Condiciones",
+    "teamTitle": "Tu equipo de especialistas",
+    "artifactsTitle": "Resultados y revisiones",
+    "sourcesTitle": "Fuentes consultadas",
+    "revision": "Revisión {value}",
+    "observedAt": "Última información recibida: {value}",
+    "feedbackReceived": "{count, plural, one {Tu comentario quedó registrado.} other {Tus # comentarios quedaron registrados.}}",
+    "workingHint": "El equipo continúa trabajando aunque cierres esta vista. Al volver recuperarás su avance.",
+    "actions": {
+      "confirm": "Confirmar e iniciar investigación",
+      "confirming": "Iniciando…",
+      "refresh": "Consultar estado",
+      "refreshing": "Consultando…",
+      "showHistory": "Abrir conversación general",
+      "hideHistory": "Cerrar conversación general"
+    },
+    "errors": {
+      "unavailable": "No pudimos enviar este mensaje. Conservamos el texto para que puedas intentarlo de nuevo.",
+      "uncertain": "Estamos verificando si se recibió tu mensaje. Conservamos el texto mientras se confirma.",
+      "stale": "El contexto cambió. Estamos actualizando la conversación; revisa el mensaje antes de volver a enviarlo.",
+      "turnFailed": "Ale no pudo completar este mensaje. Puedes volver a intentarlo.",
+      "turnUnknown": "Estamos verificando si se completó tu mensaje."
+    },
+    "profiles": {
+      "investigador": "Investigador",
+      "estratega": "Estratega",
+      "estructurador": "Estructurador",
+      "analista": "Analista",
+      "optimizador": "Optimizador"
+    },
+    "stages": {
+      "research": "Investigación",
+      "strategy": "Estrategia",
+      "structure": "Estructura de la propuesta",
+      "analysis": "Revisión de evidencia",
+      "optimization": "Mejora de la propuesta",
+      "summary": "Síntesis"
+    },
+    "workStatus": {
+      "waiting_for_tasks": "Preparando las tareas del equipo.",
+      "running": "El equipo está trabajando en tu propuesta.",
+      "awaiting_feedback": "La propuesta está lista para tus comentarios.",
+      "reviewing": "El equipo está revisando tus comentarios.",
+      "completed": "El equipo completó esta revisión.",
+      "blocked": "El trabajo necesita atención. Revisa los mensajes y el último resultado disponible.",
+      "unknown": "Aún no podemos confirmar el estado del trabajo."
+    },
+    "taskStatus": {
+      "queued": "En espera",
+      "running": "En curso",
+      "awaiting_review": "En revisión",
+      "completed": "Completado",
+      "blocked": "Necesita atención",
+      "failed": "No se pudo completar",
+      "cancelled": "Cancelado",
+      "unknown": "Estado por confirmar",
+      "unassigned": "Pendiente de asignar",
+      "unverified": "Ejecución aún no confirmada"
+    },
+    "projection": {
+      "missing": "Aún esperamos el primer estado del equipo.",
+      "stale": "El estado no está actualizado. Conservamos los últimos resultados recibidos.",
+      "invalid": "No pudimos verificar la última actualización. Conservamos los últimos resultados recibidos.",
+      "unavailable": "No pudimos recibir la última actualización. Conservamos los últimos resultados recibidos."
+    }
+  },
+  "chat": {
+    "failure": {
+      "auth": "El servicio de tu asistente no está disponible en este momento. Vuelve a intentarlo en unos minutos.",
+      "quota": "El servicio de tu asistente no pudo responder en este momento. Vuelve a intentarlo en unos minutos.",
+      "rate_limit": "El servicio está recibiendo muchas solicitudes. Espera un momento y vuelve a intentarlo.",
+      "generic": "Tu asistente no pudo responder esta vez. Puedes volver a enviar tu mensaje.",
+      "not_ready": "Tu asistente todavía se está preparando. Vuelve a intentarlo cuando esté listo.",
+      "restarting": "Tu asistente se está reiniciando. Vuelve a enviar tu mensaje en unos segundos."
+    }
+  },
+  "landingFeedback": {
+    "context": "Cambios para «{name}» · versión {n}",
+    "wrongBusiness": "Selecciona el negocio de esta propuesta para enviar tus cambios.",
+    "clear": "Continuar sin esta referencia"
+  },
+  "robotCompanion": {
+    "trigger": "Vincular mi compañero",
+    "linkedCount": "{count, plural, one {# compañero vinculado} other {# compañeros vinculados}}",
+    "dialog": {
+      "title": "Vincula a tu compañero",
+      "description": "Escribe el código que aparece en la cara de Ale. Si escaneaste el QR, ya está puesto."
+    },
+    "form": {
+      "label": "Código del robot",
+      "hint": "Son 8 letras y números, como K7QM-3XPA. El código dura 10 minutos.",
+      "submit": "Vincular",
+      "submitting": "Vinculando…"
+    },
+    "success": {
+      "title": "¡{name} ya es tu compañero!",
+      "description": "Ya puede conversar contigo y recordar lo que hablen, igual que en el chat.",
+      "done": "Listo"
+    },
+    "unavailable": "Vincular un compañero aún no está disponible en tu cuenta.",
+    "errors": {
+      "invalidCode": "Ese código no es correcto o ya venció. Revisa la cara de tu robot y vuelve a intentarlo.",
+      "tooManyAttempts": "Hiciste demasiados intentos. Espera unos 10 minutos y vuelve a probar.",
+      "sessionExpired": "Tu sesión venció. Recarga la página e inicia sesión de nuevo.",
+      "generic": "No pudimos vincular a tu compañero. Intenta de nuevo en un momento."
+    },
+    "devices": {
+      "title": "Tus compañeros",
+      "lastSeen": "Última conexión {value}",
+      "neverSeen": "Aún no se ha conectado",
+      "revoke": "Desvincular",
+      "revokeLabel": "Desvincular a {name}"
+    },
+    "revoke": {
+      "title": "¿Desvincular a {name}?",
+      "description": "El robot dejará de hablar con tu asistente de inmediato. Para volver a usarlo tendrás que vincularlo otra vez con un código nuevo.",
+      "confirm": "Desvincular",
+      "cancel": "Mantener vinculado",
+      "success": "{name} quedó desvinculado.",
+      "error": "No pudimos desvincularlo. Intenta de nuevo."
+    }
+  }
+}

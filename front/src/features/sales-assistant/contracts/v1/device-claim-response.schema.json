@@ -1,0 +1,12 @@
+{
+  "$id": "https://saleads.ai/contracts/one-click/v1/device-claim-response.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "device_name": {
+      "type": "string"
+    }
+  },
+  "required": ["device_name"],
+  "additionalProperties": false
+}

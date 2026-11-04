@@ -1,0 +1,174 @@
+/* 0b3f6c0: parts/Shell.tsx composer carcasa/disclaimer, responsive.css columns. */
+.chat {
+  position: relative;
+  --composer-column: 824px;
+  --composer-inner-column: 760px;
+  width: 100%;
+  max-width: calc(var(--composer-column) + 32px);
+  margin: 0 auto;
+  /* E10-06: above the phone keyboard (useKeyboardInset; 0 when closed or off). */
+  margin-bottom: var(--agent-keyboard-inset, 0px);
+  padding: 0 16px 16px;
+}
+/* Float both strips together so their outer space reveals the thread. */
+.context {
+  position: absolute;
+  bottom: 100%;
+  left: 16px;
+  right: 16px;
+  z-index: 2;
+  background: transparent;
+  pointer-events: none;
+}
+.context > :global([data-turn-work]),
+.context > :global([data-agent-ui='v2']) > * {
+  pointer-events: auto;
+}
+.frame {
+  padding: 12px;
+  border-radius: 46px;
+  background: var(--agent-v2-carcasa);
+  box-shadow: 0 18px 50px -20px rgba(0, 0, 0, 0.9);
+}
+.frame {
+  position: relative;
+  z-index: 2;
+}
+/* The open menu covers thread recovery controls and the assistant canvas. */
+.frame:has([role='menu']) {
+  z-index: 40;
+}
+:global([data-agent-shell][data-theme='light']) .frame {
+  box-shadow: 0 14px 40px -18px rgba(25, 20, 45, 0.22);
+}
+.disclaimer {
+  max-width: var(--composer-inner-column);
+  margin: 10px auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  text-align: center;
+  font-family: var(--font-agent-v2-sans), system-ui, sans-serif;
+  font-size: 12.5px;
+  line-height: normal;
+  color: var(--agent-v2-muted);
+  pointer-events: none;
+}
+.disclaimer svg {
+  flex: none;
+}
+@media (max-width: 899px) {
+  .chat {
+    --composer-column: 100%;
+    --composer-inner-column: 100%;
+    max-width: 100%;
+  }
+}
+@media (min-width: 900px) and (max-width: 1139px) {
+  .chat {
+    --composer-column: 720px;
+    --composer-inner-column: 680px;
+  }
+}
+@media (min-width: 1140px) and (max-width: 1439px) {
+  .chat {
+    --composer-column: 780px;
+    --composer-inner-column: 720px;
+  }
+}
+@media (min-width: 1920px) {
+  .chat {
+    --composer-column: 880px;
+    --composer-inner-column: 800px;
+  }
+}
+
+/* 0b3f6c0 parts/Hero.tsx, connVals (voice idle), responsive.css. */
+.attachment,
+.voice {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 40px;
+  border: 1px solid rgba(var(--agent-v2-ink), 0.08);
+  background: transparent;
+  color: var(--agent-v2-fg);
+  font-family: inherit;
+}
+.voice[data-variant='chat'] {
+  font-size: 14.5px;
+}
+.attachment {
+  width: 40px;
+  padding: 0;
+  border-radius: 50%;
+  cursor: pointer;
+  background: rgba(var(--agent-v2-ink), 0.025);
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease,
+    transform 0.2s ease;
+}
+.attachment:hover,
+.attachment[aria-expanded='true'] {
+  background: rgba(var(--agent-v2-ink), 0.08);
+  border-color: rgba(var(--agent-v2-ink), 0.2);
+}
+.attachment:active {
+  background: rgba(var(--agent-v2-ink), 0.12);
+}
+.attachment:focus-visible {
+  outline: 2px solid rgba(var(--agent-v2-ink), 0.4);
+  outline-offset: 2px;
+}
+.voice {
+  gap: 9px;
+  padding: 0 18px 0 14px;
+  border-radius: 999px;
+  font-size: 15px;
+  font-weight: 500;
+  transition:
+    background 0.15s ease,
+    border-color 0.15s ease;
+}
+@media (max-width: 599px) {
+  .frame {
+    padding: 0;
+  }
+  .attachment,
+  .voice {
+    height: 36px;
+  }
+  .attachment {
+    width: 36px;
+  }
+  /* 0b3f6c0 live/live.css: mobile voice keeps its icon and accessible label. */
+  .voice {
+    width: 36px;
+    padding: 0;
+    gap: 0;
+  }
+  .voiceLabel {
+    display: none;
+  }
+}
+
+/* E10-07: en táctil el visual compacto se conserva; el área de toque mide 44px. */
+@media (pointer: coarse), (max-width: 767px) {
+  .attachment,
+  .voice {
+    position: relative;
+  }
+  .attachment::after,
+  .voice::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: max(100%, 44px);
+    height: max(100%, 44px);
+    transform: translate(-50%, -50%);
+  }
+}

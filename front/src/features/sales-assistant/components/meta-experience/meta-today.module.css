@@ -1,0 +1,234 @@
+/* Meta Assistant — pestaña «Hoy». Tokens: src/shared/meta-ui/meta-ui.css */
+
+.today {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+}
+
+/* ---------- Saludo ---------- */
+
+.greet {
+  display: grid;
+  grid-template-columns: 240px minmax(0, 1fr);
+  align-items: center;
+  gap: clamp(16px, 3vw, 40px);
+  padding: 8px 0 4px;
+}
+
+@media (max-width: 699px) {
+  .greet {
+    grid-template-columns: 1fr;
+    justify-items: center;
+    text-align: center;
+  }
+}
+
+.greetCopy {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  min-width: 0;
+}
+
+.greetTitle {
+  margin: 0;
+  font-size: clamp(26px, 2.6vw, 32px);
+  font-weight: 600;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  color: var(--mu-fg);
+}
+
+.greetBody {
+  margin: 0;
+  max-width: 60ch;
+  font-size: 17px;
+  line-height: 1.55;
+  color: var(--mu-text);
+}
+
+.nowChip {
+  align-self: flex-start;
+  height: 30px;
+  padding: 0 12px 0 10px;
+  font-size: 13px;
+}
+
+@media (max-width: 699px) {
+  .nowChip {
+    align-self: center;
+  }
+}
+
+.nowDot {
+  color: var(--mu-ok);
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 4px;
+}
+
+@media (max-width: 699px) {
+  .actions {
+    justify-content: center;
+  }
+}
+
+/* ---------- Cifras ---------- */
+
+.stats {
+  display: grid;
+  grid-template-columns: repeat(4, minmax(0, 1fr));
+  gap: 12px;
+}
+
+@media (max-width: 899px) {
+  .stats {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+.stat {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 8px;
+  padding: 16px 18px 15px;
+  text-align: left;
+  color: inherit;
+  font: inherit;
+}
+
+button.stat {
+  cursor: pointer;
+  transition:
+    background-color 0.16s var(--mu-ease),
+    border-color 0.16s var(--mu-ease);
+}
+
+button.stat:hover {
+  border-color: rgba(var(--mu-ink), 0.16);
+  background: var(--mu-chip2);
+}
+
+button.stat:focus-visible {
+  outline: 2px solid rgba(var(--mu-ink), 0.4);
+  outline-offset: 2px;
+}
+
+.figure {
+  font-size: 27px;
+  font-weight: 450;
+  letter-spacing: -0.03em;
+  line-height: 1.1;
+  font-variant-numeric: tabular-nums;
+  color: var(--mu-fg);
+}
+
+.statLink {
+  font-size: 12.5px;
+  color: var(--mu-text-te);
+}
+
+/* ---------- Rejilla inferior ---------- */
+
+.grid {
+  display: grid;
+  grid-template-columns: minmax(0, 7fr) minmax(0, 5fr);
+  align-items: stretch;
+  gap: 18px;
+}
+
+/* El ciclo y «Dónde vive» comparten la altura de la fila. */
+.grid > .loopCard {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Abierta, la oficina del equipo usa todo el ancho de la fila. */
+.grid > .officeOpen {
+  grid-column: 1 / -1;
+}
+
+.column > :last-child {
+  flex: 1;
+}
+
+@media (max-width: 999px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.column {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  min-width: 0;
+}
+
+.headTitle {
+  margin: 0;
+  font-size: 15.5px;
+  font-weight: 600;
+  letter-spacing: -0.012em;
+  line-height: 1.3;
+  color: var(--mu-fg);
+}
+
+.rowTitle {
+  margin: 0;
+  font-size: 14.5px;
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  line-height: 1.35;
+  color: var(--mu-fg);
+}
+
+.rowBody {
+  margin: 2px 0 0;
+  font-size: 13px;
+  line-height: 1.45;
+  color: var(--mu-text-ap);
+}
+
+.rowEnd {
+  margin-left: auto;
+  flex: none;
+}
+
+/* ---------- Ciclo ---------- */
+
+/* Animación global de meta-ui.css redeclarada: en un CSS module el nombre se renombra. */
+
+/* Estado vacío con tu asistente al centro (como el del cerebro). */
+.empty {
+  display: flex;
+  flex: 1;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 32px 20px 48px;
+  text-align: center;
+}
+
+.emptyTitle {
+  margin: 8px 0 0;
+  font-size: 22px;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--mu-fg);
+}
+
+.emptyBody {
+  max-width: 420px;
+  margin: 0;
+  font-size: 14.5px;
+  line-height: 1.55;
+  color: var(--mu-text-ap);
+}

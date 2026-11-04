@@ -1,0 +1,560 @@
+{
+  "sidebar": {
+    "label": "My assistant",
+    "readyIndicator": "Your assistant is ready"
+  },
+  "panel": {
+    "title": "My assistant",
+    "description": "Your sales assistant talks with you about your businesses using their real data."
+  },
+  "errors": {
+    "notAvailable": "Your assistant isn't available for your account yet.",
+    "sessionExpired": "Your session expired. Sign in again to continue with your assistant.",
+    "generic": "Your assistant isn't responding right now. We're already looking into it."
+  },
+  "activation": {
+    "title": "Activate your sales assistant",
+    "description": "With one click we set up your assistant with access to your businesses. You don't need to do anything else.",
+    "cta": "Activate my assistant",
+    "ctaBusy": "Activating your assistant…",
+    "terms": "By activating it, your assistant shares abstract lessons from what you say or decide with SaleADS (never your data, numbers or names) to build skills for businesses like yours."
+  },
+  "status": {
+    "loading": "Loading your assistant",
+    "preparing": {
+      "title": "We're setting up your assistant",
+      "description": "This takes a few minutes. You can leave this page: we'll let you know in “My assistant” when it's ready."
+    },
+    "slow": "This is taking a bit longer than usual. We'll let you know when it's ready.",
+    "failed": "We're finishing setting up your assistant. We'll let you know when it's ready.",
+    "progressLabel": "Setup progress",
+    "steps": {
+      "preparing_access": "Preparing your access",
+      "preparing_environment": "Preparing your environment",
+      "installing_agent": "Installing your sales agent",
+      "configure_ai": "Set up your AI"
+    },
+    "stepState": {
+      "done": "Done",
+      "current": "In progress",
+      "pending": "Pending"
+    },
+    "configureAi": {
+      "title": "Your assistant is installed",
+      "description": "Just one step left: set up your AI to start chatting."
+    },
+    "ready": {
+      "title": "Your assistant is ready",
+      "description": "You can now chat with it about your businesses."
+    },
+    "stopped": {
+      "title": "Your assistant is turned off",
+      "description": "Your conversations and what it learned are still saved. Turn it back on whenever you want."
+    },
+    "deleting": {
+      "title": "We're deleting your assistant",
+      "description": "This takes a few minutes. When it's done you'll be able to activate a new assistant."
+    }
+  },
+  "lifecycle": {
+    "title": "Manage your assistant",
+    "deactivate": "Turn off assistant",
+    "reactivate": "Turn assistant back on",
+    "delete": "Delete assistant",
+    "deactivateDialog": {
+      "title": "Turn off your assistant?",
+      "description": "Your assistant will shut down and stop replying, including on any channels you connected. Your conversations and what it learned are kept, and you can turn it back on whenever you want.",
+      "confirm": "Turn off",
+      "cancel": "Keep it on"
+    },
+    "deleteDialog": {
+      "title": "Delete your assistant?",
+      "description": "We'll remove your assistant and you won't be able to chat with it or recover it. Its memories are archived in SaleADS. Afterwards you can activate a brand-new assistant.",
+      "confirm": "Yes, delete assistant",
+      "cancel": "Cancel"
+    }
+  },
+  "ai": {
+    "title": "Set up your AI",
+    "description": "Your assistant uses the AI you choose. Pick your provider, type the model, and paste the API key from your account.",
+    "fields": {
+      "provider": "AI provider",
+      "model": "Model",
+      "modelHint": "Type the model name exactly as it appears in your provider account.",
+      "key": "API key",
+      "keyHint": "We test it when you save and never show it again."
+    },
+    "validation": {
+      "modelRequired": "Type the model you want to use.",
+      "keyRequired": "Paste your API key to continue."
+    },
+    "actions": {
+      "save": "Test and save",
+      "testing": "Testing your AI…",
+      "replaceKey": "Replace key",
+      "cancel": "Cancel",
+      "retry": "Try again"
+    },
+    "testingHint": "We're testing the connection with your provider. It can take up to a minute.",
+    "summary": {
+      "title": "Your AI is connected",
+      "detail": "{provider} · {model}",
+      "keyHidden": "Your key is saved and will never be shown again."
+    },
+    "results": {
+      "ok": "Done! Your AI is connected and you can start talking with your assistant.",
+      "invalidKey": "That key doesn't work with the provider you chose. Check that the key belongs to that provider.",
+      "incompatibleModel": "This model isn't compatible with your assistant. Try another model from your provider.",
+      "providerRejected": "Your provider rejected the connection or didn't respond. Check your provider account and try again.",
+      "unreachable": "We couldn't test your AI right now. Try again in a few minutes."
+    },
+    "providers": {
+      "loading": "Loading providers…",
+      "error": "We couldn't load the provider list. Try again.",
+      "empty": "There are no providers available for your assistant yet."
+    }
+  },
+  "chat": {
+    "title": "Chat with your assistant",
+    "transcript": "Conversation with your assistant",
+    "you": "You",
+    "assistant": "Your assistant",
+    "empty": "Ask anything about your businesses: how your sales and campaigns are doing, or what to do this week.",
+    "historyLoading": "Loading your conversation",
+    "historyError": "We couldn’t load your previous conversation. You can keep writing.",
+    "composer": {
+      "label": "Write your message",
+      "hint": "Press Enter to send and Shift + Enter for a new line.",
+      "send": "Send",
+      "sending": "Replying…",
+      "tooLong": "Your message is too long. Shorten it a bit to send it."
+    },
+    "activity": {
+      "thinking": "Your assistant is thinking…",
+      "saleads": "Checking your SaleADS data…",
+      "other": "Preparing your answer…"
+    },
+    "mcpPaused": "I’m reconnecting to your business data. You can keep writing: I’ll try again with your next message.",
+    "failure": {
+      "generic": "Your assistant couldn’t reply this time.",
+      "auth": "Your AI rejected the API key. Check your key in your AI provider account.",
+      "quota": "Your AI provider has no balance available. Top up your account with the provider and try again.",
+      "rate_limit": "Your AI provider is receiving too many requests. Wait a moment and try again.",
+      "not_ready": "Your assistant is still getting ready. Wait a few minutes and try again.",
+      "restarting": "Your assistant is restarting. Send your message again in a few seconds."
+    },
+    "retry": "Send again",
+    "whatsappQrAlt": "QR code to link WhatsApp",
+    "whatsappQrHint": "Scan it from WhatsApp → Linked devices → Link a device. If it expires, ask for a new one."
+  },
+  "approvals": {
+    "loading": "Loading the approval…",
+    "kind": {
+      "install_skill": "Install a skill on your assistant",
+      "uninstall_skill": "Remove a skill from your assistant",
+      "install_mcp": "Connect a tool to your assistant",
+      "launch_plan": "Launch a plan (starts spending)",
+      "pause_campaign": "Pause a campaign",
+      "change_budget": "Change a plan's budget",
+      "resume_campaign": "Resume a campaign (spends again)",
+      "activate_agent_publication": "Turn on a campaign from your team (starts spending)"
+    },
+    "version": "Version {version}",
+    "expires": "You can decide until {date}",
+    "status": {
+      "pending": "Pending",
+      "executing": "Installing",
+      "executed": "Done",
+      "failed": "Failed",
+      "rejected": "Rejected",
+      "expired": "Expired",
+      "stale": "Out of date"
+    },
+    "approve": "Approve",
+    "reject": "Reject",
+    "cancel": "Cancel",
+    "confirmApprove": {
+      "title": "Approve this change?",
+      "description": "Your assistant will apply “{name}” in a few seconds."
+    },
+    "confirmReject": {
+      "title": "Reject this change?",
+      "description": "“{name}” won't be applied. Your assistant may suggest it again later."
+    },
+    "outcome": {
+      "pending": "This approval is still pending.",
+      "executing": "We're applying the change to your assistant.",
+      "executed": "Done. Your assistant now has this change.",
+      "failed": "We couldn't apply the change. Your assistant will try again and let you know.",
+      "rejected": "You rejected this change. Nothing was applied.",
+      "expired": "This approval expired. Ask your assistant to suggest it again.",
+      "stale": "The skill changed version. Ask your assistant to suggest it again."
+    },
+    "errors": {
+      "expired": "This approval expired. Ask your assistant to suggest it again.",
+      "stale": "The skill changed version while you were deciding. Ask your assistant to suggest it again.",
+      "alreadyDecided": "This approval was already decided.",
+      "notFound": "This approval isn't available.",
+      "sessionExpired": "Your session expired. Sign in again to continue.",
+      "generic": "We couldn't complete the action. Please try again in a few minutes.",
+      "codeInvalid": "The code doesn't match. Check it and try again.",
+      "codeExpired": "The code expired. Request a new one.",
+      "codeAttempts": "No tries left. Request another code or ask your assistant to propose the action again."
+    },
+    "breadcrumb": "Approval",
+    "details": {
+      "monthlyBudget": "Monthly budget",
+      "campaigns": "Campaigns",
+      "campaignCount": "{count, plural, one {# campaign} other {# campaigns}}",
+      "reason": "Reason",
+      "effect": {
+        "launch_plan": "Once approved, SaleADS launches the plan on Meta and starts spending.",
+        "pause_campaign": "Once approved, the campaign stops spending.",
+        "change_budget": "Once approved, the plan keeps this monthly budget.",
+        "resume_campaign": "Once approved, the campaign spends again.",
+        "activate_agent_publication": "When you approve, SaleADS turns on the campaign in Meta and it starts spending."
+      }
+    },
+    "confirmSpend": {
+      "title": "Approve this action?",
+      "description": "«{name}» runs in SaleADS as soon as you confirm with the code."
+    },
+    "code": {
+      "title": "Confirm with your one-time code",
+      "label": "6-digit code",
+      "simulated": "Your code (in this version we show it here):",
+      "another": "Get another code ({left})",
+      "rules": "The code expires in 5 minutes and you have 3 tries. You can request up to 3 codes."
+    },
+    "agentActivation": {
+      "title": "Your team wants to turn on this campaign",
+      "sections": {
+        "what": "What turns on",
+        "who": "Who it reaches",
+        "howMuch": "How much",
+        "bet": "Bet and skill",
+        "pieces": "Creatives"
+      },
+      "objective": "Objective: {objective}",
+      "adSetsCount": "{count, plural, one {# ad set} other {# ad sets}}",
+      "adsCount": "{count, plural, one {# ad} other {# ads}}",
+      "audienceFallback": "Audience defined by your team",
+      "perDay": "{amount} per day",
+      "noDaily": "No daily budget",
+      "campaignDaily": "Campaign daily budget",
+      "campaignLifetime": "Campaign total budget",
+      "spentToDate": "Spent this month",
+      "projected": "Projected month with this activation",
+      "monthly": "Your monthly budget",
+      "noMonthly": "No budget set",
+      "skill": "Skill: {skill}",
+      "skillVersion": "Skill: {skill} · version {version}",
+      "noBets": "Your team didn't record a bet for this campaign.",
+      "noPieces": "Your team didn't attach creative thumbnails.",
+      "piecesMore": "and {count} more",
+      "pieceAlt": "Campaign creative {number}",
+      "pieceVideo": "Video",
+      "exceedsWarning": "This activation goes over your monthly budget.",
+      "noBudgetWarning": "You haven't set a monthly budget yet: approving will set it.",
+      "approve": "Turn on campaign",
+      "approveRaise": "Turn on and raise my budget to {amount}",
+      "approveSet": "Turn on and set my monthly budget to {amount}",
+      "confirmApprove": {
+        "title": "Turn on the campaign?",
+        "description": "It starts spending on Meta.",
+        "raise": "It starts spending on Meta and your monthly budget becomes {amount}."
+      },
+      "confirmReject": {
+        "title": "Reject turning it on?",
+        "description": "The campaign stays paused."
+      },
+      "status": {
+        "pending": "Pending",
+        "executing": "Turning on",
+        "executed": "On",
+        "failed": "Couldn't",
+        "rejected": "Rejected",
+        "expired": "Expired",
+        "stale": "Outdated"
+      },
+      "outcome": {
+        "pending": "This approval is still pending.",
+        "executing": "We're turning on your campaign in Meta.",
+        "executed": "Done. Your campaign is on in Meta.",
+        "rejected": "You rejected turning it on. The campaign stays paused.",
+        "expired": "This approval expired. Your campaign is still paused; your team can ask again.",
+        "stale": "The campaign changed since your team asked to turn it on. It's still paused; your team can ask again.",
+        "failed": "It couldn't be turned on. Your campaign is still paused."
+      },
+      "failure": {
+        "BUDGET_EXCEEDED": "It wasn't turned on: this month's spend no longer fits the budget you approved. Your campaign is still paused.",
+        "CURRENCY_MISMATCH": "It wasn't turned on: your budget currency doesn't match your ad account. Your campaign is still paused.",
+        "BUDGET_REVISION_CONFLICT": "It wasn't turned on: your monthly budget changed while you were deciding. Your campaign is still paused.",
+        "ACTIVATION_OUTCOME_UNKNOWN": "Meta didn't confirm the activation in time. Your team is checking; look at the campaign status in “My strategies” in a few minutes."
+      },
+      "budgetRaised": "Your monthly budget is now {amount}."
+    }
+  },
+  "skills": {
+    "title": "Skills",
+    "subtitle": "What your assistant can do for {industry}.",
+    "industryUnknown": "your business",
+    "installedTitle": "Installed",
+    "availableTitle": "Available",
+    "retiredTitle": "SaleADS retired these skills",
+    "empty": "There are no new skills for your business right now.",
+    "install": "Install",
+    "uninstall": "Remove",
+    "installed": "Installed",
+    "version": "Version {version}",
+    "source": {
+      "saleads_capability": "From SaleADS",
+      "industry_playbook": "For your industry",
+      "validated_lesson": "Learned with the community"
+    },
+    "loading": "Loading skills…",
+    "error": "We couldn't load the skills. Please try again in a few minutes.",
+    "noBusiness": "Select a business to see its skills."
+  },
+  "brain": {
+    "tabs": {
+      "chat": "Chat",
+      "brain": "My brain",
+      "skills": "Skills",
+      "limits": "Limits",
+      "activity": "Activity"
+    },
+    "title": "My brain",
+    "subtitle": "What your assistant knows about {business}, and how it grows.",
+    "empty": "Your assistant hasn't saved a snapshot of its brain yet. It shows up after its first conversations.",
+    "noBusiness": "Select a business to see its brain.",
+    "loading": "Loading the brain…",
+    "error": "We couldn't load the brain. Please try again in a few minutes.",
+    "stoppedNote": "Your assistant is turned off. You're seeing the last snapshot it saved.",
+    "timeline": "Saved snapshots",
+    "snapshotOption": "{date} · {nodes} ideas",
+    "stats": "{nodes} ideas · {edges} connections",
+    "listTitle": "What it knows",
+    "listHint": "Your browser can't draw the graph; here's the same information as a list.",
+    "family": {
+      "identity": "Identity",
+      "offer": "Offer",
+      "market": "Market",
+      "competition": "Competition",
+      "channels": "Channels",
+      "strategy": "Strategy",
+      "operations": "Operations",
+      "learning": "Learnings",
+      "meta": "Context",
+      "learned": "Learned",
+      "other": "Other"
+    },
+    "state": {
+      "observed": "Observed",
+      "proposed": "Proposed",
+      "validated": "Validated",
+      "superseded": "Replaced"
+    },
+    "detail": {
+      "close": "Close",
+      "state": "Status",
+      "family": "Type",
+      "mentions": "Mentions: {count}",
+      "relations": "Connections",
+      "since": "Since {date}",
+      "noSummary": "No description."
+    },
+    "canvas": {
+      "zoomIn": "Zoom in",
+      "zoomOut": "Zoom out",
+      "reset": "Fit to view",
+      "label": "Your assistant's brain graph"
+    },
+    "modes": {
+      "label": "How to view the brain",
+      "sections": "By section",
+      "changes": "What changed",
+      "graph": "Graph"
+    },
+    "card": {
+      "certainty": {
+        "verifiedData": "Verified with data",
+        "youConfirmed": "You confirmed it",
+        "youSaid": "You said it",
+        "observed": "I observed it",
+        "deduced": "I infer it",
+        "proposed": "Proposal",
+        "contradicted": "Contradicted"
+      },
+      "confidence": {
+        "baja": "Low confidence",
+        "media": "Medium confidence",
+        "alta": "High confidence"
+      },
+      "stage": "Stage: {stage}",
+      "stages": {
+        "en_plan": "In the plan",
+        "en_prueba": "Being tested",
+        "lanzada": "Launched",
+        "ganadora": "Won this test",
+        "perdedora": "Lost this test",
+        "concluido": "Concluded",
+        "vigente": "Current",
+        "reemplazado": "Replaced"
+      },
+      "evidence": "{count, plural, one {# piece of evidence} other {# pieces of evidence}}",
+      "since": "Applies since {date}",
+      "scope": "Applies to: {scope}",
+      "replacedBy": "Replaced by: {label}",
+      "showPath": "See how it got here",
+      "hidePath": "Hide path",
+      "pathLabel": "How this memory was reached",
+      "noPath": "This memory isn't connected to others yet.",
+      "relations": {
+        "TARGETS": "speaks to",
+        "USES": "uses",
+        "SPEAKS_WITH": "speaks to",
+        "TESTED_IN": "is tested in",
+        "GIVES": "gave",
+        "DERIVED_FROM": "comes from",
+        "ABOUT": "is about",
+        "TEACHES": "teaches",
+        "SUPERSEDES": "replaces",
+        "INSPIRES": "inspires",
+        "SUGGESTS": "suggests"
+      },
+      "actions": {
+        "confirm": "Confirm",
+        "correct": "Correct",
+        "noLongerApplies": "No longer applies",
+        "send": "Send correction"
+      },
+      "correctPlaceholder": "Tell your assistant what is right.",
+      "sent": "Done, your assistant has it.",
+      "sentLater": "It will reach your assistant when it's on.",
+      "error": "We couldn't send it. Try again."
+    },
+    "sections": {
+      "filters": {
+        "scope": "Show",
+        "current": "Current",
+        "history": "History",
+        "certainty": "Certainty",
+        "stage": "Stage",
+        "all": "All"
+      },
+      "certainty": {
+        "verifiedData": "Verified with data",
+        "youConfirmed": "You confirmed it",
+        "youSaid": "You said it",
+        "observed": "I observed it",
+        "deduced": "I infer it",
+        "proposed": "Proposal",
+        "contradicted": "Contradicted"
+      },
+      "titles": {
+        "my_business": "My business",
+        "active_bets": "Active bets",
+        "learned": "What we learned",
+        "did_not_work": "What didn't work",
+        "your_corrections": "Your corrections and preferences",
+        "to_confirm": "Pending confirmation",
+        "history": "History"
+      },
+      "empty": {
+        "my_business": "No data about your business yet.",
+        "active_bets": "No bets in progress.",
+        "learned": "No learnings yet: they appear after reading results.",
+        "did_not_work": "Nothing has lost yet.",
+        "your_corrections": "You haven't corrected anything yet.",
+        "to_confirm": "Nothing pending.",
+        "history": "Nothing replaced yet."
+      }
+    },
+    "diff": {
+      "needTwo": "You need at least two snapshots to compare.",
+      "from": "From",
+      "to": "To",
+      "notYet": "Not available yet.",
+      "error": "We couldn't compare the snapshots.",
+      "counts": "{added} new · {removed} removed · {modified} changed",
+      "added": "New",
+      "removed": "Removed",
+      "modified": "Changed"
+    }
+  },
+  "brainHub": {
+    "title": "SaleADS Brain inbox",
+    "subtitle": "Validate community lessons and publish them as skills.",
+    "unavailable": "This page isn't available.",
+    "filters": {
+      "status": "Status",
+      "industry": "Industry",
+      "all": "All"
+    },
+    "lessonsEmpty": "No lessons match these filters.",
+    "provenance": {
+      "owner_said": "Said by the owner",
+      "owner_decided": "Decided by the owner"
+    },
+    "validate": "Validate",
+    "reject": "Reject",
+    "publish": "Publish",
+    "publishForm": {
+      "title": "Publish as a skill",
+      "itemId": "Skill id",
+      "name": "Name",
+      "summary": "Summary",
+      "submit": "Publish",
+      "cancel": "Cancel",
+      "invalid": "Check the id (letters, numbers, dots or dashes) and the name."
+    },
+    "published": "Published as version {version}.",
+    "catalogTitle": "Published catalog",
+    "catalogEmpty": "No published skills.",
+    "retire": "Retire",
+    "retired": "Skill retired.",
+    "error": "We couldn't complete the action. Please try again.",
+    "loading": "Loading…"
+  },
+  "businessType": {
+    "label": "Business type",
+    "title": "Business type",
+    "question": "What does {business} sell?",
+    "prefilled": "We took it from what SaleADS already knows. You can change it.",
+    "current": "Your team uses the strategy for: {type}.",
+    "choose": "Choose what this business sells so your team uses the right strategy.",
+    "change": "Change",
+    "unavailable": "We couldn't read the business type right now.",
+    "retry": "Retry",
+    "error": "We couldn't save the change. Try again.",
+    "confirm": {
+      "title": "Change the business type?",
+      "description": "Your team will switch to the «{type}» strategy and its skills will change.",
+      "cta": "Change",
+      "cancel": "Cancel"
+    },
+    "options": {
+      "physical_product": {
+        "title": "Physical products",
+        "description": "You sell things that are shipped or delivered: clothing, cosmetics, accessories."
+      },
+      "service": {
+        "title": "Services",
+        "description": "You sell your time or work: appointments, consulting, repairs, in-person classes."
+      },
+      "infoproduct": {
+        "title": "Info products",
+        "description": "You sell digital knowledge: courses, mentoring, online classes, memberships."
+      }
+    }
+  },
+  "sharing": {
+    "lessonStatus": {
+      "received": "Received",
+      "validated": "Validated",
+      "rejected": "Not used",
+      "published": "Now a skill"
+    }
+  }
+}
