@@ -118,14 +118,20 @@ services:
       ROBOT_CHANNEL_ENABLED: "true"
       STOCK_ENABLED: "true"
       STOCK_USER_IDS: 00000000-0000-4000-a000-000000000001
+      # Negocio demo con Stock encendido: negocio:usuario:moneda.
+      STOCK_BUSINESS_SEEDS: a6b8e93d-386f-4141-96ff-4b49e137728a:00000000-0000-4000-a000-000000000001:COP
       STOCK_BUCKET: ale-local-stock
       ASSISTANT_BUNDLE_DIR: distribution/saleads-sales-agent/1.5.13
       ASSISTANT_BUNDLE_VERSION: saleads-sales-agent@1.5.13
-      # Tareas de fondo que dependen de servicios de SaleADS que no se imitan.
+      # Sincroniza conocimiento con un servicio de SaleADS que no se imita.
       KNOWLEDGE_SYNC_ENABLED: "false"
-      BRAIN_SNAPSHOT_POLL_ENABLED: "false"
       # La primera aplicación crea 6 perfiles y reinicia Hermes dos veces: el ack tarda más de 60 s.
       AI_ACK_TIMEOUT_MS: "85000"
+      # En el equipo del evaluador (docker-in-docker) Hermes tarda más en reiniciar que en una VM: plazos al máximo.
+      AI_CONFIGURE_DEADLINE_MS: "89000"
+      READINESS_HEALTH_TIMEOUT_MS: "10000"
+      # Si aun así el primer sync falla, se reintenta a los 30 s y no a los 10 min de producción.
+      ORQA_SYNC_RETRY_AFTER_MS: "30000"
     volumes:
       - ./certs/ca.crt:/certs/ca.crt:ro
     depends_on:

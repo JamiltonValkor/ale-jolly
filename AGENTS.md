@@ -37,7 +37,7 @@ Anything simulated is labeled «simulated» or «recorded from the real robot» 
 | `doctor`: port busy | Another app uses the port | `FRONT_PORT=<free port> ./demo.sh up` |
 | `ale-runtime` restarts with `CONFIGURATION_INVALID: …` | Missing value in `local/.env` | `./demo.sh reset`, then `./demo.sh up` |
 | Activation stays in «configure_ai» | Meta key missing or invalid | Fix `META_API_KEY` in `local/.env`, then `./demo.sh up` |
-| First sync takes a few minutes | The first apply creates six agent profiles and restarts Hermes twice | Wait; it retries on its own |
+| First sync takes a few minutes | The first apply creates six agent profiles and restarts Hermes twice | Wait; it retries on its own every 30 s |
 | Slow on Apple Silicon | Old image built for amd64 | `./demo.sh reset && ./demo.sh up` (it builds natively) |
 | Jolly: no microphone or camera | OS permissions | Allow the terminal to use them in system settings |
 

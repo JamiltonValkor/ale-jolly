@@ -40,16 +40,20 @@ certs() {
     local san missing=0 n
     san=$(openssl x509 -in certs/local.crt -noout -ext subjectAltName 2>/dev/null || true)
     for n in $CERT_NAMES; do case "$san" in *"DNS:$n"*) ;; *) missing=1 ;; esac; done
+    # Python 3.13+ (Hermes) exige keyUsage en la CA: una CA vieja sin esa extensión se rehace.
+    openssl x509 -in certs/ca.crt -noout -ext keyUsage 2>/dev/null | grep -q "Certificate Sign" || { missing=1; rm -f certs/ca.crt certs/ca.key; }
     [ "$missing" = 0 ] && return
   fi
   mkdir -p certs
   if [ ! -f certs/ca.crt ] || [ ! -f certs/ca.key ]; then
     openssl req -x509 -newkey rsa:2048 -nodes -days 825 -subj "/CN=Ale Jolly local CA" \
+      -addext "basicConstraints=critical,CA:TRUE" -addext "keyUsage=critical,keyCertSign,cRLSign" \
+      -addext "subjectKeyIdentifier=hash" \
       -keyout certs/ca.key -out certs/ca.crt 2>/dev/null
   fi
   openssl req -newkey rsa:2048 -nodes -subj "/CN=saleads.local" \
     -keyout certs/local.key -out certs/local.csr 2>/dev/null
-  printf 'subjectAltName=%s\nextendedKeyUsage=serverAuth\n' "$(printf 'DNS:%s,' $CERT_NAMES | sed 's/,$//')" > certs/ext.cnf
+  printf 'subjectAltName=%s\nbasicConstraints=critical,CA:FALSE\nkeyUsage=critical,digitalSignature,keyEncipherment\nextendedKeyUsage=serverAuth\nsubjectKeyIdentifier=hash\nauthorityKeyIdentifier=keyid,issuer\n' "$(printf 'DNS:%s,' $CERT_NAMES | sed 's/,$//')" > certs/ext.cnf
   openssl x509 -req -in certs/local.csr -CA certs/ca.crt -CAkey certs/ca.key -CAcreateserial \
     -days 825 -extfile certs/ext.cnf -out certs/local.crt 2>/dev/null
   rm -f certs/local.csr certs/ext.cnf
