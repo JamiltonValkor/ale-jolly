@@ -36,6 +36,8 @@ services:
       CLOUD_SIM_URL: http://cloud-sim:8070
       CLOUD_SIM_VM_IMAGE: ale-jolly/cloud-sim-vm:local
       CLOUD_SIM_REGISTRY_MIRROR: cloud-sim-registry:5000
+      # El curador del Cerebro corre cada 5 min en local (en producción, cada 3 h): lo aprendido se ve enseguida.
+      SALEADS_MEMORY_RECONCILE_EVERY: 5m
     volumes:
       - /var/run/docker.sock:/var/run/docker.sock
       - cloud-sim-data:/data

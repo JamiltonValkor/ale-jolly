@@ -2,12 +2,13 @@
 # Jolly en este computador (macOS, Linux o Windows con Git Bash): cara (ventana), voz por el canal robot y ojo (fotos + SAM). Sin brazos.
 #   ./start.sh                       Jolly en vivo contra ale-runtime (ALE_RUNTIME_URL, por defecto http://localhost:8060)
 #   ./start.sh --replay              repetición de una traza real del robot, sin backend, sin llave y sin micrófono
+#   ./start.sh meta-check            una llamada a cada modelo de Meta con tu llave (Spark, búsqueda, Transcribe, Image, SAM)
 #   ./start.sh doctor                revisa Python, PortAudio, micrófono, ffmpeg, cámara, llave, voz y backend
 #   ./start.sh --camara avfoundation:0 | v4l2:/dev/video0 | carpeta:/ruta/manifiesto.json
 #   ./start.sh --desvincular         borra la credencial del robot: vuelve a mostrar un código
 #   ./start.sh --sembrar             vincula a Jolly en la terminal si hace falta y siembra el inventario demo de Stock
 #   ./start.sh --grabar              además graba el bus en jolly-sim/grabaciones/
-# Llaves: META_API_KEY (obligatoria en vivo) y CARTESIA_API_KEY (opcional; sin ella, say en macOS o espeak en Linux).
+# Llaves: META_API_KEY (obligatoria en vivo) y CARTESIA_API_KEY (opcional; sin ella, la voz del sistema: say en macOS, la de Windows o espeak en Linux).
 # Se leen del entorno, o de local/.env o .env en la raíz del repo. Ctrl+C cierra todo.
 set -u
 AQUI="$(cd "$(dirname "$0")" && pwd)"
@@ -23,12 +24,13 @@ MODO=vivo; CAMARA="${ALE_CAMARA:-carpeta:$AQUI_NATIVO/fotos-ejemplo/manifiesto.j
 while [ $# -gt 0 ]; do
   case "$1" in
     doctor) MODO=doctor ;;
+    meta-check) MODO=meta ;;
     --replay) MODO=replay ;;
     --camara) CAMARA="$2"; shift ;;
     --grabar) GRABAR=1 ;;
     --desvincular) DESVINCULAR=1 ;;
     --sembrar) MODO=sembrar ;;
-    -h|--help) sed -n '2,11p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    -h|--help) sed -n '2,12p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
     *) echo "❌ Opción desconocida: $1 (./start.sh --help)"; exit 2 ;;
   esac
   shift
@@ -119,6 +121,9 @@ case "$MODO" in
   doctor)
     exec "$PY" "$AQUI/doctor.py" ;;
 
+  meta)
+    exec "$PY" "$AQUI/meta_check.py" ;;
+
   sembrar)
     exec "$PY" "$AQUI/sembrar.py" --vincular ;;
 
@@ -153,6 +158,6 @@ case "$MODO" in
       PIDS+=($!)
     fi
     TTS=()
-    [ -z "$CARTESIA_API_KEY" ] && TTS=(--tts say)       # sin Cartesia: say en macOS, espeak en Linux
+    [ -z "$CARTESIA_API_KEY" ] && TTS=(--tts say)       # sin Cartesia: la voz del sistema (macOS, Windows o espeak en Linux)
     cd "$ROBOT/voz-hermes" && "$PY" voz_hermes.py --robot --cuerpo ${TTS[@]+"${TTS[@]}"} ;;
 esac

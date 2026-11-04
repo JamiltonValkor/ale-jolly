@@ -569,7 +569,7 @@ def main():
     ap.add_argument("--ventana", type=float, default=20, help="segundos de conversación abierta tras cada respuesta")
     ap.add_argument("--sin-voz", action="store_true", help="no hablar las respuestas")
     ap.add_argument("--tts", choices=("cartesia", "say"), default="cartesia",
-                    help="motor de voz: cartesia (nube, tiempo real) o say (macOS, sin internet)")
+                    help="motor de voz: cartesia (nube, tiempo real) o say (la voz del sistema: macOS, Windows o espeak en Linux)")
     ap.add_argument("--voz", help="voz: cathy (por defecto), connie, katie, ella, adriana, dayana, catalina o un id de Cartesia; con --tts say, una voz de macOS")
     ap.add_argument("--cronometro", action="store_true", help="mostrar los milisegundos de cada tramo")
     ap.add_argument("--cuerpo", action="store_true",
@@ -603,9 +603,9 @@ def main():
             args.locutor = LocutorCartesia(args.voz or "cathy")
         else:
             if args.tts == "cartesia":
-                print("⚠️ Falta CARTESIA_API_KEY en .env: uso la voz del Mac", flush=True)
-            from voz_salida import Locutor, LocutorEspeak
-            args.locutor = LocutorEspeak(args.voz) if sys.platform.startswith("linux") else Locutor(args.voz or "Paulina")
+                print("⚠️ Falta CARTESIA_API_KEY en .env: uso la voz del sistema", flush=True)
+            from voz_salida import locutor_del_sistema
+            args.locutor = locutor_del_sistema(args.voz)
         args.locutor.cron = cron
     if avisos_activos and args.locutor:
         args.candado, args.conv = CandadoTurno(), Conversacion()

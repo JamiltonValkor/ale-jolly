@@ -184,3 +184,19 @@ def test_loop_types_carry_spanish_labels_and_loop_attributes() -> None:
     for name in ("Avatar", "Angle", "Format", "Bet", "AdSet", "Ad", "Result", "Verdict", "Learning"):
         fields = {f.name for f in onto.entities[name].fields}
         assert {"confidence", "evidence_count", "valid_from", "learned_at", "stage"} <= fields, name
+
+
+def test_curator_tool_lists_exactly_the_writable_ontology_types():
+    """The curator's commit tool enumerates entity_type; it must match what knowledge.candidate() admits."""
+    import ast
+    from pathlib import Path
+
+    schemas = Path(__file__).resolve().parents[2] / "vm/extensions/saleads-memory/schemas.py"
+    tree = ast.parse(schemas.read_text())
+    listed = next(
+        ast.literal_eval(node.value) for node in tree.body
+        if isinstance(node, ast.Assign) and getattr(node.targets[0], "id", "") == "CURATED_ENTITY_TYPES"
+    )
+    dedicated = {"Bet", "AdSet", "Ad", "Result", "Verdict", "SpecialistExperience"}
+    writable = [name for name, spec in base().entities.items() if not spec.deprecated and name not in dedicated]
+    assert list(listed) == writable

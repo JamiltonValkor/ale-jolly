@@ -77,7 +77,7 @@
     },
     {
       "path": "profiles/curador/SOUL.md",
-      "sha256": "38fb91c88b0212883258ef7b9a4f166f6f1d847ada00085af241356449337d36",
+      "sha256": "4f8617c316ea4a9c780c3bfd392fd5332f857a3cce8f0fe21da82bc7db428603",
       "base_sha256": "38fb91c88b0212883258ef7b9a4f166f6f1d847ada00085af241356449337d36",
       "instruction_language": "en",
       "origin": "saleads"

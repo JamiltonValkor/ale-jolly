@@ -16,6 +16,28 @@ def record_schema(name):
     }
 
 
+# Types the curator may write: Brain's ontology (brain/saleads_brain/ontology/base.yaml) minus deprecated types and
+# the ones with a dedicated writer. Brain rejects anything else with unknown_ontology_type; a drift test keeps this in sync.
+CURATED_ENTITY_TYPES = (
+    'Business', 'Location', 'Person', 'ProductOrService', 'Offer', 'Proof', 'Segment', 'CustomerNeed', 'Customer', 'Lead',
+    'Deal', 'Feedback', 'Competitor', 'Channel', 'Campaign', 'MarketMoment', 'Goal', 'Supplier', 'OperationalConstraint',
+    'Decision', 'OwnerNote', 'Learning', 'Avatar', 'Angle', 'Format', 'Research', 'Reference', 'Landing', 'Evidence',
+)
+ENTITY_TYPE_GUIDE = (
+    'Exact ontology type; no other value is accepted. Map findings to it: a business fact goes on the entity it describes '
+    '(Business, ProductOrService, Offer, Segment, Supplier...) with attributes.field and attributes.subject_ref; a limitation '
+    'or rule is OperationalConstraint; market or web research and its findings are Research; an owner statement is OwnerNote; '
+    'a decision is Decision; a lesson or an unconfirmed hypothesis is Learning (epistemic inferred, validation_state proposed); '
+    'a source document is Evidence.'
+)
+
+
+def candidate_schema():
+    schema = record_schema('knowledge-candidate')
+    schema['properties']['entity_type'] = {'type': 'string', 'enum': list(CURATED_ENTITY_TYPES), 'description': ENTITY_TYPE_GUIDE}
+    return schema
+
+
 def tools():
     goal = json.loads((ROOT / 'goal-state.schema.json').read_text())
     goal_fields = {'origin', 'mandate', 'native_task_ids', 'state', 'blockers', 'next_condition', 'next_review_at', 'result_summary'}
@@ -36,7 +58,7 @@ def tools():
             'parameters': {
                 'type': 'object', 'additionalProperties': False,
                 'properties': {
-                    'candidates': {'type': 'array', 'maxItems': 20, 'items': record_schema('knowledge-candidate')},
+                    'candidates': {'type': 'array', 'maxItems': 20, 'items': candidate_schema()},
                     'experiences': {'type': 'array', 'maxItems': 20, 'items': record_schema('specialist-experience')},
                     'discarded_reason': {'type': ['string', 'null'], 'maxLength': 500},
                 },

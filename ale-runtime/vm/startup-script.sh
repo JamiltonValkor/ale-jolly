@@ -1401,7 +1401,9 @@ apply_managed_memory_config() {
 }
 
 ensure_memory_dispatcher_job() {
-  local stage=$1 dir="$DATA_DIR/scripts/saleads" listed
+  local stage=$1 dir="$DATA_DIR/scripts/saleads" listed every=3h
+  # Cadence override for local stand-ins only (cloud-sim exports it); GCE never sets it.
+  [[ "${SALEADS_MEMORY_RECONCILE_EVERY:-}" =~ ^[1-9][0-9]{0,2}[mh]$ ]] && every=$SALEADS_MEMORY_RECONCILE_EVERY
   [ -f "$stage/hermes-continuous-contexts" ] && [ -f "$DATA_DIR/saleads/runtime/curation-dispatcher.py" ] || return 0
   running "$CONTAINER" && running "$BRAIN_CONTAINER" || return 0
   mkdir_owned "$DATA_DIR" scripts/saleads
@@ -1410,7 +1412,7 @@ ensure_memory_dispatcher_job() {
   [ "$(state_get memory-dispatcher-job)" != v1 ] || return 0
   listed=$("$DOCKER" exec "$CONTAINER" hermes cron list 2>/dev/null) || return 1
   if ! printf '%s\n' "$listed" | grep -q 'saleads:memory-reconcile$'; then
-    "$DOCKER" exec "$CONTAINER" hermes cron create 'every 3h' --name saleads:memory-reconcile --script saleads/curation-dispatcher.py --no-agent --deliver local >/dev/null || return 1
+    "$DOCKER" exec "$CONTAINER" hermes cron create "every $every" --name saleads:memory-reconcile --script saleads/curation-dispatcher.py --no-agent --deliver local >/dev/null || return 1
   fi
   state_set memory-dispatcher-job v1
 }

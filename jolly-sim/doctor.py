@@ -144,12 +144,14 @@ def voz(obligatoria: bool = True):
         ok("voz: Cartesia (CARTESIA_API_KEY)")
     elif sys.platform == "darwin" and shutil.which("say"):
         ok("voz: say de macOS (sin CARTESIA_API_KEY)")
+    elif sys.platform == "win32" and (shutil.which("powershell") or shutil.which("pwsh")):
+        ok("voz: la de Windows (sin CARTESIA_API_KEY)")
     elif any(shutil.which(m) for m in ("espeak-ng", "espeak", "spd-say")):
         ok("voz: espeak/spd-say (sin CARTESIA_API_KEY)")
     elif not obligatoria:
         aviso("sin voz local: la repetición se ve completa pero sin leer las frases en voz alta")
     else:
-        mal("sin voz de salida: ni CARTESIA_API_KEY ni espeak", instalar("espeak-ng", "espeak-ng"))
+        aviso("sin voz de salida: Jolly arranca y responde en la cara, sin sonido. " + instalar("espeak-ng", "espeak-ng"))
 
 
 def puertos():

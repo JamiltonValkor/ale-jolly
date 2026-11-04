@@ -5,14 +5,14 @@
   "variant": "stock-1.0.8",
   "base_bundle": "saleads-sales-agent@1.5.13",
   "files": {
-    "SOUL.addendum.md": "edd8e9a5705c142fa712f8bf9b0a7e4118004092c0e8488089d12c99cef7f061",
+    "SOUL.addendum.md": "5805d2ce64cc7680f7adbcd13d7174380f4dd1d134491887c52c5ae3619467a1",
     "jobs.json": "e3c783bda726c015d40db144f89c84bf97ced61c2cfe1eb2db35952ae72194d8",
     "profiles/investigador/skills/saleads-offer-kit/SKILL.md": "4bef68445a7593ad99b7575f75fc59c1c225ae81c400ed52708669c5ae555ebb",
     "profiles/stock/SOUL.md": "b93b3860ee1a9208b3caa59297bbe74b43d67fb2951799575374ca050da9d02c",
-    "profiles/stock/skills/stock-inventario/SKILL.md": "0f2ef2a84a9c7037e5620db360617edb15a0f217ad73660e9a2ea3bff5a32489",
+    "profiles/stock/skills/stock-inventario/SKILL.md": "e31d45dcc42ed1fb7f85611a88d0f1e9cb6f4bd172a0908f9692cfae3f025c0f",
     "profiles/stock/skills/stock-negociacion/SKILL.md": "50e134b9e19354851a8456ca1c51ff8e6066cd328889e6eac72ee997d043baf5",
     "profiles/stock/skills/stock-reposicion/SKILL.md": "ff29ff4c0ee6118a124dc4ad7c75447181b01df6d998eabdf6f8261a57ec9c14",
-    "profiles/stock/skills/stock-vision/SKILL.md": "d2f6a1085d503c383a4c0b55894dcf9ce13009217ea8156e7cf55398c24d7c43",
+    "profiles/stock/skills/stock-vision/SKILL.md": "bc1e1e06d7cfdcfd623b55c8061e13a8d9cc99617440957acbdf5402acd170e5",
     "rol/Dockerfile.brain": "8786f65d67ef188a6b54a0c78217fe074b804e0dcbccdb585672d6deb41923f4",
     "rol/RECETA-brain.md": "3174406f271a66aa0704b5eb1118d5a72a69a066f8aadc38bc7d114af47edf93",
     "rol/context-pack.schema.json": "31205507ebdec6ed92385545eb0fb82e179d06dde04b5e1537ffdd5eb1bf4e5d",
@@ -22,6 +22,6 @@
     "rol/specialist-experience.schema.json": "5f62755ad3994511a82c28e071c9c51fdccc256923eaed268494b20784290746",
     "rol/trusted-context.schema.json": "563ef38479fcc0bf75712ba25870a27db3b6b223aea0d4c59a4abb6f07fd96c0",
     "rol/verificar_brain.py": "43011726530bf342affe7b189eb346bd49d3f094c38cbad3b0323fb1e84d1b1a",
-    "skills/saleads-stock-orchestration/SKILL.md": "83eef73736a882822ab978f2514810de91338a53afc854d37f0d9de045ef6f44"
+    "skills/saleads-stock-orchestration/SKILL.md": "ca6608fd6af624c1bd6df63a21261cfbeb566e0e46be72540ba470f17ea6dba5"
   }
 }

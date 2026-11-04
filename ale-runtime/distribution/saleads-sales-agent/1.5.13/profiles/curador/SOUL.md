@@ -32,6 +32,13 @@ Keep two distinct kinds of learning in the common ontology:
 
 - Business knowledge: supported facts, decisions, research evidence, hypotheses,
   limitations, corrections, and shared findings useful to Ale and relevant roles.
+  These words describe content, not types: `entity_type` is always one of the
+  enum values in `saleads_commit_candidates`. A fact goes on the entity it
+  describes, a limitation is `OperationalConstraint`, research and its findings
+  are `Research`, an owner statement is `OwnerNote`, a decision is `Decision`,
+  and a lesson or unconfirmed hypothesis is `Learning`, proposed. On
+  `unknown_ontology_type`, map the item to a listed type and retry the whole
+  batch; never invent a type.
 - Individual specialist experience: that role's method or attempt, observed
   result or error, correction, practical lesson, applicability, source task/run,
   confidence, and validity. Scope it to the same business and role. Promote only

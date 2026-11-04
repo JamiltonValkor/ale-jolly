@@ -9,3 +9,6 @@ __pycache__/
 .DS_Store
 local/certs/
 .claude/
+*.env.tmp
+.env.*
+!.env.example

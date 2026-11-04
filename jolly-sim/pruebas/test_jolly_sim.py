@@ -111,7 +111,57 @@ def test_doctor_no_exige_voz_en_replay(monkeypatch, capsys):
     doctor.voz(obligatoria=False)
     assert doctor.fallos == [] and "sin voz local" in capsys.readouterr().out
     doctor.voz()
-    assert doctor.fallos
+    assert doctor.fallos == [] and "Jolly arranca" in capsys.readouterr().out   # sin voz, Jolly arranca igual
+
+
+class PowerShellFalso:
+    """Imita el PowerShell vivo de LocutorWindows: anuncia la voz y contesta «fin» por cada frase."""
+
+    def __init__(self, orden, **_):
+        self.orden, self.frases = orden, []
+        self.stdin, self.stdout = self, self
+        self._salida = ["listo Microsoft Sabina Desktop es-MX\n"]
+
+    def write(self, texto):
+        self.frases.append(texto)
+        self._salida.append("fin\n")
+
+    def flush(self):
+        pass
+
+    def readline(self):
+        return self._salida.pop(0) if self._salida else ""
+
+    def poll(self):
+        return None
+
+
+def test_windows_habla_con_la_voz_del_sistema_en_un_solo_powershell(monkeypatch, capsys):
+    import base64, shutil
+    procesos = []
+    monkeypatch.setattr(sys, "platform", "win32")
+    monkeypatch.setattr(shutil, "which", lambda m: "C:/Windows/powershell.exe" if m == "powershell" else None)
+    monkeypatch.setattr(voz_salida.subprocess, "Popen", lambda orden, **kw: procesos.append(PowerShellFalso(orden)) or procesos[-1])
+    loc = voz_salida.locutor_del_sistema()
+    assert isinstance(loc, voz_salida.LocutorWindows) and "Sabina" in capsys.readouterr().out
+    loc.decir("**Hola**, soy Jolly.")
+    loc.decir("Conté 22 frascos.")
+    loc.esperar()
+    assert len(procesos) == 1 and procesos[0].frases == ["Hola, soy Jolly.\n", "Conté 22 frascos.\n"]
+    script = base64.b64decode(procesos[0].orden[-1]).decode("utf-16-le")
+    assert "System.Speech" in script and "es-MX" in script
+    assert not loc.ocupado(cola_s=0)
+
+
+def test_windows_sin_powershell_sigue_mudo(monkeypatch):
+    import shutil
+    monkeypatch.setattr(sys, "platform", "win32")
+    monkeypatch.setattr(shutil, "which", lambda m: None)
+    loc = voz_salida.locutor_del_sistema()
+    loc.decir("Hola.")
+    loc.esperar()
+    assert loc.motor is None and not loc.ocupado(cola_s=0)
+    assert reproducir.locutor_local() is None
 
 
 def test_doctor_no_se_cae_con_la_consola_cp1252():

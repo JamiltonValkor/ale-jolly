@@ -31,7 +31,7 @@ def main():
         driver = FakeDriver()
     else:
         vm_env = {}
-        for key in ("CLOUD_SIM_REGISTRY_MIRROR", "HERMES_WAIT_TIMEOUT_SEC"):
+        for key in ("CLOUD_SIM_REGISTRY_MIRROR", "HERMES_WAIT_TIMEOUT_SEC", "SALEADS_MEMORY_RECONCILE_EVERY"):
             if os.environ.get(key):
                 vm_env[key] = os.environ[key]
         driver = DockerDriver(

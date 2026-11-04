@@ -7,7 +7,7 @@
   probar en el Mac; en la Raspberry se cambia por Piper (mismo contrato: decir(texto)).
 - Limpia lo que no se debe leer en voz alta: markdown, enlaces, emojis.
 """
-import queue, re, subprocess, threading, time
+import queue, re, subprocess, sys, threading, time
 
 FIN_FRASE = re.compile(r"([.!?…:;]\s|\n)")
 
@@ -119,3 +119,74 @@ class LocutorEspeak(Locutor):
             if self.cola.empty():
                 self.ultimo_fin = time.monotonic()
                 self.hablando.clear()
+
+
+# Un solo PowerShell vivo: lee una frase por línea, la habla con la voz de Windows (System.Speech) y responde «fin».
+# Prefiere una voz en español (es-MX primero, como Sabina); sin ninguna, usa la que traiga Windows.
+_PS_VOZ = r"""
+$ErrorActionPreference = 'SilentlyContinue'
+[Console]::InputEncoding = [Text.Encoding]::UTF8
+[Console]::OutputEncoding = [Text.Encoding]::UTF8
+Add-Type -AssemblyName System.Speech
+$s = New-Object System.Speech.Synthesis.SpeechSynthesizer
+$voces = $s.GetInstalledVoices() | Where-Object Enabled | ForEach-Object VoiceInfo
+$v = $voces | Where-Object { $_.Name -like '*__VOZ__*' } | Select-Object -First 1
+if (-not $v) { $v = $voces | Where-Object { $_.Culture.Name -like 'es-*' } | Sort-Object { if ($_.Culture.Name -eq 'es-MX') { 0 } else { 1 } } | Select-Object -First 1 }
+if ($v) { $s.SelectVoice($v.Name) }
+$s.Rate = __VELOCIDAD__
+[Console]::Out.WriteLine('listo ' + $s.Voice.Name + ' ' + $s.Voice.Culture.Name); [Console]::Out.Flush()
+while ($null -ne ($l = [Console]::In.ReadLine())) { if ($l) { $s.Speak($l) }; [Console]::Out.WriteLine('fin'); [Console]::Out.Flush() }
+"""
+
+
+class LocutorWindows(Locutor):
+    """Respaldo para Windows sin Cartesia: el mismo contrato que Locutor, hablado con la voz del sistema."""
+
+    def __init__(self, voz: str | None = None, velocidad: int = 1):
+        import base64, shutil
+        self.proc, self.motor = None, shutil.which("powershell") or shutil.which("pwsh")
+        if self.motor:
+            script = _PS_VOZ.replace("__VOZ__", re.sub(r"[^\w -]", "", voz or "Sabina")).replace("__VELOCIDAD__", str(int(velocidad)))
+            try:
+                self.proc = subprocess.Popen(
+                    [self.motor, "-NoProfile", "-NonInteractive", "-EncodedCommand", base64.b64encode(script.encode("utf-16-le")).decode()],
+                    stdin=subprocess.PIPE, stdout=subprocess.PIPE, stderr=subprocess.DEVNULL, text=True, encoding="utf-8")
+                listo = self.proc.stdout.readline().strip()
+                if not listo.startswith("listo"):
+                    raise OSError(listo or "sin respuesta")
+                print(f"🔊 voz de Windows: {listo[6:] or 'la del sistema'}", flush=True)
+            except OSError as error:
+                print(f"⚠️ La voz de Windows no arrancó ({error}): Jolly no hablará en voz alta", flush=True)
+                self.proc = self.motor = None
+        else:
+            print("⚠️ No encuentro PowerShell: Jolly no hablará en voz alta", flush=True)
+        super().__init__(voz or "Sabina", velocidad)
+
+    def _bucle(self):
+        while True:
+            texto = self.cola.get()
+            if self.t_primer_audio is None:
+                self.t_primer_audio = time.monotonic()
+            if self.cron:
+                self.cron(f"🔊 empieza a sonar: {texto[:50]!r}")
+            if self.proc and self.proc.poll() is None:
+                try:
+                    self.proc.stdin.write(texto.replace("\n", " ") + "\n")
+                    self.proc.stdin.flush()
+                    self.proc.stdout.readline()                          # «fin»: terminó de sonar, como say
+                except OSError:
+                    self.proc = None
+            if self.cron:
+                self.cron("🔇 terminó esa frase")
+            if self.cola.empty():
+                self.ultimo_fin = time.monotonic()
+                self.hablando.clear()
+
+
+def locutor_del_sistema(voz: str | None = None) -> Locutor:
+    """Sin Cartesia: say en macOS, la voz de Windows o espeak en Linux. Sin motor, Jolly sigue (mudo) con subtítulos."""
+    if sys.platform == "darwin":
+        return Locutor(voz or "Paulina")
+    if sys.platform == "win32":
+        return LocutorWindows(voz)
+    return LocutorEspeak(voz)

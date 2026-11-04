@@ -99,6 +99,7 @@ case "${1:-up}" in
     echo "Listo: abre http://localhost:${FRONT_PORT:-3000} (usuario demo, sin contraseña)."
     echo "Jolly en este computador: ../jolly-sim/start.sh"
     ;;
+  meta-check) exec ../jolly-sim/start.sh meta-check ;;
   down) "${COMPOSE[@]}" down ;;
   reset)
     "${COMPOSE[@]}" down -v
@@ -106,5 +107,5 @@ case "${1:-up}" in
     echo "Borrado. ./demo.sh up empieza de cero."
     ;;
   logs) shift; "${COMPOSE[@]}" logs -f "$@" ;;
-  *) echo "uso: $0 doctor|up|down|reset|logs [servicio]"; exit 2 ;;
+  *) echo "uso: $0 doctor|up|meta-check|down|reset|logs [servicio]"; exit 2 ;;
 esac
