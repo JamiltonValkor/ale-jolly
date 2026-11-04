@@ -1,0 +1,72 @@
+# Servicios de cloud-sim (pieza P1). El coordinador los integra en
+# local/docker-compose.yml (`include:` o copia). Ver cloud-sim/README.md.
+#
+# Requisitos del compose general:
+# - La red se llama literalmente `ale` (`name: ale`): cloud-sim conecta ahí
+#   cada «VM» por nombre.
+# - Caddy tiene el alias `storage.googleapis.com` en la red `ale` y lo manda a
+#   cloud-sim:8070 conservando el Host (D2).
+# - ALE_RUNTIME_SRC apunta al checkout fijado de ale-runtime (D0): de ahí sale
+#   el `startup-script` de la plantilla, byte a byte.
+# - ALE_CA_CERT es la raíz de la CA local (D1); cloud-sim la sirve a cada VM.
+#
+# Variables de ale-runtime que apuntan aquí:
+#   COMPUTE_API_BASE=http://cloud-sim:8070/compute/v1
+#   GCP_METADATA_TOKEN_URL=http://cloud-sim:8070/token
+#   IAM_CREDENTIALS_API_BASE=http://cloud-sim:8070/v1
+#   STORAGE_API_BASE=http://cloud-sim:8070
+#   GCP_PROJECT=ale-local
+#   GCP_ZONE=local-sim1-a
+#   ASSISTANT_INSTANCE_TEMPLATE=projects/ale-local/global/instanceTemplates/sa-assistant-local
+#   ASSISTANT_MEMORIES_BUCKET=ale-local-assistant-memories
+#   ASSISTANT_SIGNER_EMAIL=sa-assistant-service@ale-local.iam.gserviceaccount.com
+#   BRAIN_IMAGE=   (vacío en fase 1, D3)
+
+services:
+  cloud-sim:
+    build: ../cloud-sim
+    image: ale-jolly/cloud-sim:local
+    restart: unless-stopped
+    environment:
+      GCP_PROJECT: ale-local
+      GCP_ZONE: local-sim1-a
+      CLOUD_SIM_NETWORK: ale
+      CLOUD_SIM_URL: http://cloud-sim:8070
+      CLOUD_SIM_VM_IMAGE: ale-jolly/cloud-sim-vm:local
+      CLOUD_SIM_REGISTRY_MIRROR: cloud-sim-registry:5000
+    volumes:
+      - /var/run/docker.sock:/var/run/docker.sock
+      - cloud-sim-data:/data
+      - ${ALE_RUNTIME_SRC:?ALE_RUNTIME_SRC}/vm/startup-script.sh:/template/startup-script.sh:ro
+      - ${ALE_CA_CERT:?ALE_CA_CERT}:/ca/ca.crt:ro
+    networks: [ale]
+    depends_on:
+      cloud-sim-vm:
+        condition: service_completed_successfully
+      cloud-sim-registry:
+        condition: service_started
+
+  # Solo construye la imagen de las «VMs»; cloud-sim crea un contenedor por instancia.
+  cloud-sim-vm:
+    build: ../cloud-sim/vm
+    image: ale-jolly/cloud-sim-vm:local
+    entrypoint: ["true"]
+    restart: "no"
+
+  # Espejo de Docker Hub para que cada VM nueva no baje Hermes desde internet.
+  cloud-sim-registry:
+    image: registry:2.8.3
+    restart: unless-stopped
+    environment:
+      REGISTRY_PROXY_REMOTEURL: https://registry-1.docker.io
+    volumes:
+      - cloud-sim-registry:/var/lib/registry
+    networks: [ale]
+
+volumes:
+  cloud-sim-data:
+  cloud-sim-registry:
+
+networks:
+  ale:
+    name: ale
