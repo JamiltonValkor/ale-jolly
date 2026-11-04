@@ -26,7 +26,7 @@ from websockets.sync.client import connect
 from cuerpo import bus
 from voz_salida import limpiar_para_voz
 
-URL = "wss://api.cartesia.ai/tts/websocket?cartesia_version=2026-11-02"
+URL = "wss://api.cartesia.ai/tts/websocket?cartesia_version=2026-08-14"
 TASA = 24000
 VOCES = {"cathy": "e8e5fffb-252c-436d-b842-8879b84445b6", "katie": "f786b574-daa5-4673-aa0c-cbe3e8534c02",
          "connie": "8d8ce8c9-44a4-46c4-b10f-9a927b99a853", "ella": "2a12b36c-7f9b-4c3a-9f7a-72731b15323a",
@@ -197,7 +197,7 @@ class LocutorCartesia:
         cuerpo = {"model_id": self.modelo, "transcript": texto, "voice": {"mode": "id", "id": self.voz}, "language": lang,
                   "output_format": {"container": "raw", "encoding": "pcm_s16le", "sample_rate": TASA}}
         req = urllib.request.Request("https://api.cartesia.ai/tts/bytes", data=json.dumps(cuerpo).encode(), method="POST",
-                                     headers={"X-API-Key": self.clave, "Cartesia-Version": "2026-10-29",
+                                     headers={"X-API-Key": self.clave, "Cartesia-Version": "2026-08-14",
                                               "Content-Type": "application/json", "User-Agent": "voz-hermes/1.0"})
         with urllib.request.urlopen(req, timeout=20) as r:
             return r.read()

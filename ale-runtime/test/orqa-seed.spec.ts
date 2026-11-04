@@ -11,7 +11,7 @@ const B1 = 'aaaaaaaa-aaaa-4aaa-8aaa-aaaaaaaaaaaa';
 const B2 = 'bbbbbbbb-bbbb-4bbb-8bbb-bbbbbbbbbbbb';
 const FOREIGN = 'cccccccc-cccc-4ccc-8ccc-cccccccccccc';
 const TOKEN = 'eyJaccess-token-SECRET';
-const NOW = new Date('2026-10-29T08:48:31.000Z');
+const NOW = new Date('2027-08-11T12:00:00.000Z');
 
 class CaptureLogger implements LoggerService {
   readonly lines: string[] = [];
@@ -164,7 +164,7 @@ describe('signed URL V4 de lectura de la semilla (OSB-007)', () => {
 describe('cliente MCP del servicio (OSB-007)', () => {
   const sse = (frames: string) => new Response(frames, {status: 200, headers: {'content-type': 'text/event-stream'}});
 
-  it('tools/call sin sesión en la era 2026-10-31, Bearer del dueño y resultado estructurado por SSE', async () => {
+  it('tools/call sin sesión en la era 2025-11-25, Bearer del dueño y resultado estructurado por SSE', async () => {
     const calls: Array<{url: string; init: RequestInit}> = [];
     const client = new HttpMcpToolClient('https://mcp.test/mcp', async (url, init = {}) => {
       calls.push({url: String(url), init});
@@ -173,7 +173,7 @@ describe('cliente MCP del servicio (OSB-007)', () => {
     await expect(client.call(TOKEN, 'saleads_get_business_bootstrap', {business_id: 'x'}, 1000)).resolves.toEqual({ok: true, data: {business_id: 'x'}});
     const headers = calls[0]!.init.headers as Record<string, string>;
     expect(headers.authorization).toBe(`Bearer ${TOKEN}`);
-    expect(headers['mcp-protocol-version']).toBe('2026-11-02');
+    expect(headers['mcp-protocol-version']).toBe('2025-11-25');
     expect(JSON.parse(String(calls[0]!.init.body))).toMatchObject({method: 'tools/call', params: {name: 'saleads_get_business_bootstrap'}});
   });
 

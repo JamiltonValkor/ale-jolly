@@ -7,7 +7,7 @@ import {startTestDatabase, type TestDatabase} from './support/pglite-db';
 
 const OPTIONS: OrqaSweepOptions = {enabled: true, delayMs: 120_000, intervalMs: 6 * 3_600_000, pauseMs: 20_000, includeLab: false};
 const vm = (n: number) => `sa-assistant-${String(n).repeat(32).slice(0, 32)}`;
-const ready = (userId: string, instance: string) => ({user_id: userId, instance_name: instance, ready_since: new Date('2026-10-27T00:00:00Z')});
+const ready = (userId: string, instance: string) => ({user_id: userId, instance_name: instance, ready_since: new Date('2027-08-15T00:00:00Z')});
 
 /** OrqaSync falso: registra cada llamada (y el orden contra las pausas) y responde lo que se le pida por usuario. */
 function fakes(rows: Array<ReturnType<typeof ready>>, results: Record<string, OrqaSyncResult | Error> = {}) {
@@ -137,12 +137,12 @@ describe('listReady (MCB-020) en Postgres', () => {
     const insert = (userId: string, status: string, instance: string | null, deleted = false) => db.database.pool.query(
       `INSERT INTO assistant.assistants (user_id, status, step, instance_name, zone, activation_started_at, ready_since, deleted_at)
        VALUES ($1, $2, NULL, $3, 'us-central1-a', now(), $4, $5)`,
-      [userId, status, instance, status === 'ready' ? new Date('2026-10-31T00:00:00Z') : null, deleted ? new Date() : null]);
+      [userId, status, instance, status === 'ready' ? new Date('2027-08-15T00:00:00Z') : null, deleted ? new Date() : null]);
     await insert('a-ready', 'ready', vm(1));
     await insert('b-stopped', 'stopped', vm(2));
     await insert('c-deleted', 'ready', vm(3), true);
     await insert('d-activating', 'activating', vm(4));
     expect(await new AssistantRepository(db.database).listReady())
-      .toEqual([{user_id: 'a-ready', instance_name: vm(1), ready_since: new Date('2026-11-01T00:00:00Z')}]);
+      .toEqual([{user_id: 'a-ready', instance_name: vm(1), ready_since: new Date('2027-08-15T00:00:00Z')}]);
   });
 });

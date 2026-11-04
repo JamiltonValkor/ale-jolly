@@ -35,15 +35,15 @@ describe('evaluación del presupuesto mensual del agente (AAB-012, D13, D23)', (
     expect(toMinor(500_000, 'COP')).toBe(500_000);
     expect(toMinor(150.25, 'USD')).toBe(15_025);
     expect(toMajor(15_025, 'USD')).toBe(150.25);
-    expect(budgetPeriod(new Date('2026-10-28T03:00:00Z'))).toEqual({start: '2026-10-27', end: '2026-11-01'});
-    expect(budgetPeriod(new Date('2026-11-02T12:00:00Z'))).toEqual({start: '2026-10-28', end: '2026-11-03'});
+    expect(budgetPeriod(new Date('2027-08-27T03:00:00Z'))).toEqual({start: '2027-07-27', end: '2027-08-26'});
+    expect(budgetPeriod(new Date('2026-12-06T12:00:00Z'))).toEqual({start: '2026-11-27', end: '2026-12-24'});
   });
 });
 
 describe('presupuesto mensual del agente: revisiones (AAB-012, C-13)', () => {
   let db: TestDatabase;
   let service: AgentBudgetService;
-  const now = new Date('2026-10-28T12:00:00Z');
+  const now = new Date('2027-08-16T12:00:00Z');
   const cop = (amount: number) => ({amount: {amount, currency: 'COP'}});
 
   beforeAll(async () => {db = await startTestDatabase();});
@@ -56,7 +56,7 @@ describe('presupuesto mensual del agente: revisiones (AAB-012, C-13)', () => {
 
   it('sin presupuesto: amount null y revision null; If-Match * crea la 1; "1" crea la 2 y cierra la 1', async () => {
     expect(AgentMonthlyBudgetV1.parse(await service.get(USER_ID, BUSINESS)))
-      .toEqual({business_id: BUSINESS, amount: null, period: 'monthly', period_start: '2026-10-31', period_end: '2026-10-27', revision: null, updated_at: null});
+      .toEqual({business_id: BUSINESS, amount: null, period: 'monthly', period_start: '2027-07-27', period_end: '2027-08-26', revision: null, updated_at: null});
     expect(await service.put(USER_ID, BUSINESS, '*', cop(500_000))).toMatchObject({revision: 1, amount: {amount: 500_000, currency: 'COP'}});
     expect(await service.put(USER_ID, BUSINESS, '"1"', cop(800_000))).toMatchObject({revision: 2, amount: {amount: 800_000}});
     const {rows} = await db.database.pool.query(

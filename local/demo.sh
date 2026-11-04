@@ -25,9 +25,13 @@ doctor() {
   docker compose version >/dev/null 2>&1 && ok "docker compose v2" || mal "falta docker compose v2"
   command -v openssl >/dev/null && ok "openssl" || mal "falta openssl"
   [ -d "$ALE_RUNTIME_SRC" ] && ok "código de ale-runtime en $ALE_RUNTIME_SRC" || mal "no está ale-runtime en $ALE_RUNTIME_SRC (ALE_RUNTIME_SRC)"
-  for p in "${FRONT_PORT:-3000}" 8060 8443; do
-    if lsof -nP -iTCP:$p -sTCP:LISTEN >/dev/null 2>&1; then mal "el puerto $p está ocupado"; else ok "puerto $p libre"; fi
-  done
+  if [ -n "$("${COMPOSE[@]}" ps -q 2>/dev/null)" ]; then
+    ok "Ale + Jolly ya está corriendo: sus puertos son suyos"
+  else
+    for p in "${FRONT_PORT:-3000}" 8060 8443; do
+      if lsof -nP -iTCP:$p -sTCP:LISTEN >/dev/null 2>&1; then mal "el puerto $p está ocupado"; else ok "puerto $p libre"; fi
+    done
+  fi
   if [ -f .env ] && grep -q '^META_API_KEY=.\+' .env; then ok "llave de Meta en .env"; else mal "falta META_API_KEY en local/.env"; fi
   [ "$FALLO" = 0 ] && echo "Todo listo." || { echo "Corrige lo marcado con ✗ y vuelve a correr ./demo.sh doctor"; return 1; }
 }
@@ -46,12 +50,13 @@ certs() {
   fi
   mkdir -p certs
   if [ ! -f certs/ca.crt ] || [ ! -f certs/ca.key ]; then
-    openssl req -x509 -newkey rsa:2048 -nodes -days 825 -subj "/CN=Ale Jolly local CA" \
+    # MSYS_NO_PATHCONV: Git Bash en Windows convertiría "/CN=…" en una ruta de Windows y openssl fallaría.
+    MSYS_NO_PATHCONV=1 openssl req -x509 -newkey rsa:2048 -nodes -days 825 -subj "/CN=Ale Jolly local CA" \
       -addext "basicConstraints=critical,CA:TRUE" -addext "keyUsage=critical,keyCertSign,cRLSign" \
       -addext "subjectKeyIdentifier=hash" \
       -keyout certs/ca.key -out certs/ca.crt 2>/dev/null
   fi
-  openssl req -newkey rsa:2048 -nodes -subj "/CN=saleads.local" \
+  MSYS_NO_PATHCONV=1 openssl req -newkey rsa:2048 -nodes -subj "/CN=saleads.local" \
     -keyout certs/local.key -out certs/local.csr 2>/dev/null
   printf 'subjectAltName=%s\nbasicConstraints=critical,CA:FALSE\nkeyUsage=critical,digitalSignature,keyEncipherment\nextendedKeyUsage=serverAuth\nsubjectKeyIdentifier=hash\nauthorityKeyIdentifier=keyid,issuer\n' "$(printf 'DNS:%s,' $CERT_NAMES | sed 's/,$//')" > certs/ext.cnf
   openssl x509 -req -in certs/local.csr -CA certs/ca.crt -CAkey certs/ca.key -CAcreateserial \
@@ -71,11 +76,14 @@ envfile() {
   grep -q '^INTERNAL_API_TOKEN=.\+' .env || echo "INTERNAL_API_TOKEN=$(openssl rand -hex 32)" >> .env
   if ! grep -q '^META_API_KEY=.\+' .env; then
     read -rsp "Pega tu llave de la API de Meta (META_API_KEY): " k; echo
+    k=$(printf %s "$k" | tr -d '\r\n ')
     sed -i.bak '/^META_API_KEY=/d' .env && rm -f .env.bak
     echo "META_API_KEY=$k" >> .env
   fi
   # El backend lee la llave de Meta con el nombre del modo administrado.
-  k=$(grep '^META_API_KEY=' .env | head -1 | cut -d= -f2-)
+  # Sin \r: un .env editado en Windows deja la llave con fin de línea CRLF.
+  tr -d '\r' < .env > .env.tmp && cat .env.tmp > .env && rm -f .env.tmp
+  k=$(grep '^META_API_KEY=.' .env | tail -1 | cut -d= -f2- | tr -d '\r')
   sed -i.bak '/^MANAGED_META_API_KEY=/d' .env && rm -f .env.bak
   echo "MANAGED_META_API_KEY=$k" >> .env
 }

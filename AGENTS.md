@@ -21,6 +21,7 @@ Anything simulated is labeled «simulated» or «recorded from the real robot» 
 
 | # | Do | Verify |
 |---|---|---|
+| 0 | Clone with long paths enabled: `git clone -c core.longpaths=true <repo>`. On Windows, run every command in **Git Bash** | The clone has no `Filename too long` errors |
 | 1 | Check that Docker Desktop (or Docker Engine with Compose v2) is installed and running | `docker info` and `docker compose version` succeed |
 | 2 | `cd local && ./demo.sh doctor` | Every line shows ✓. Fix each ✗ as the message says. If port 3000 is busy, use `FRONT_PORT=3100` (or any free port) in the next steps |
 | 3 | `./demo.sh up`. It creates local TLS certificates (`local/certs/`, never committed) and `local/.env`, asks for the Meta key once, publishes the brain image and starts everything. The first run builds images and takes several minutes | `docker compose -p ale-jolly ps` shows every service `running`/`healthy` (`cloud-sim-vm` exits 0 by design) |

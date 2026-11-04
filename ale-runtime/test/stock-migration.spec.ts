@@ -164,7 +164,7 @@ describe('V19: esquema de Stock', () => {
   });
 
   it('el aviso `decir` se deduplica por día; otro tipo no', async () => {
-    const event = (kind: string) => sql(`INSERT INTO assistant.stock_robot_events(business_id,user_id,kind,payload,dedupe_key,dedupe_day) VALUES ($1,$2,$3,'{}','k','2026-10-27')`, [BUSINESS, USER, kind]);
+    const event = (kind: string) => sql(`INSERT INTO assistant.stock_robot_events(business_id,user_id,kind,payload,dedupe_key,dedupe_day) VALUES ($1,$2,$3,'{}','k','2027-08-27')`, [BUSINESS, USER, kind]);
     await event('decir');
     await expect(event('decir')).rejects.toThrow(/stock_robot_events_dedupe_uq/);
     await expect(event('recount')).resolves.toBeDefined();

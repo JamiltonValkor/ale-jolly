@@ -46,7 +46,7 @@ saleads ctx --campo business_id <uuid>
 saleads apuestas registrar --archivo /opt/data/trabajo/apuestas.json
 saleads campana publicar --archivo /opt/data/trabajo/arbol.json --esperar 120
 saleads encendido pedir --campo business_id <uuid> --campo publication_id <id>
-saleads cajas leer --campo business_id <uuid> --campo campaign_id <uuid_de_la_campana_en_saleads> --campo level adset --campo since 2026-10-28 --campo until 2026-10-27
+saleads cajas leer --campo business_id <uuid> --campo campaign_id <uuid_de_la_campana_en_saleads> --campo level adset --campo since 2026-10-27 --campo until 2026-11-02
 saleads espejo --campo business_id <uuid> --campo method POST --campo path /<id_de_caja_en_meta> --campo params '{"status":"PAUSED"}'
 saleads traza --campo business_id <uuid> --campo since 2026-10-27
 saleads op <operation_id>        # el operation_id que devolvió campana publicar (no el publication_id)

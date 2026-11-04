@@ -1,5 +1,5 @@
 # Juan Diego Libreros methodology and rationale
-Source: Juan Diego Libreros with the SaleADS team,2026-10-28, physical-product Meta campaigns. Apply cautiously to services/infoproducts; verified business evidence takes priority. Preserve attribution. Numbers illustrate his operation, not mandatory budgets for this business.
+Source: Juan Diego Libreros with the SaleADS team,2026-10-31, physical-product Meta campaigns. Apply cautiously to services/infoproducts; verified business evidence takes priority. Preserve attribution. Numbers illustrate his operation, not mandatory budgets for this business.
 
 | Structure criterion | Rationale | Applicable signal | Contrary signal |
 |---|---|---|---|

@@ -3,7 +3,7 @@ const work={id:'11111111-1111-4111-8111-111111111111',business_id:'22222222-2222
 describe('native work projection',()=>{
  it('absent projection is unknown/missing, not completed',()=>{const p=projectWork(work as never,null,'missing',new Date());expect(p.status).toBe('unknown');expect(p.projection.status).toBe('missing');});
  it('does not complete a task without a native execution and real artifact',()=>{const p=projectWork(work as never,{observed_at:new Date().toISOString(),generation:'a'.repeat(64),tasks:[{id:'t1',profile:'investigador',stage:'research',revision:1,title:'Research',status:'completed',native_status:'done',parents:[],run_refs:[],execution_verified:false,updated_at:null}],artifacts:[]},'fresh',new Date());expect(p.status).toBe('running');});
- it('outdated data is stale even when content says completed',()=>{const p=projectWork(work as never,{observed_at:'2026-10-30T00:00:00Z',generation:'a'.repeat(64),tasks:[],artifacts:[]},'fresh',new Date());expect(p.projection.status).toBe('stale');expect(p.status).not.toBe('completed');});
+ it('outdated data is stale even when content says completed',()=>{const p=projectWork(work as never,{observed_at:'2020-01-01T00:00:00Z',generation:'a'.repeat(64),tasks:[],artifacts:[]},'fresh',new Date());expect(p.projection.status).toBe('stale');expect(p.status).not.toBe('completed');});
  it('independent completed jobs are not the promised specialist dependency chain',()=>{
   const profiles=['investigador','estratega','estructurador'];const stages=['research','strategy','structure'];
   const tasks=stages.map((stage,i)=>({id:'t'+i,profile:profiles[i],stage,revision:1,title:stage,status:'completed',native_status:'done',parents:[],run_refs:['r'+i],execution_verified:true,updated_at:null}));

@@ -26,7 +26,7 @@ describe('fotos de Stock', () => {
 
   const build = (waitMs = 40) => new StockPhotos({usage: {spend: async () => true}, db, clock: new StockClock(db, () => now.value), store, waitMs, now: () => now.value});
   beforeEach(async () => {
-    now = {value: new Date('2026-10-28T05:11:13.000Z')};
+    now = {value: new Date('2027-08-27T10:00:00.000Z')};
     user = `u-${randomUUID().slice(0, 8)}`;
     business = randomUUID();
     photos = build();
@@ -108,7 +108,7 @@ describe('fotos de Stock', () => {
     await take();
     const root = await lastRequest();
     await complete(root.request_id, 0);
-    const old = new Date('2026-11-02T14:00:14.000Z');
+    const old = new Date('2027-08-15T10:00:00.000Z');
     await db.query('UPDATE assistant.stock_photos SET occurred_at = $2 WHERE id = $1', [root.id, old]);
     await take({photo_id: root.id, concepto: 'bottle'});
     const {rows} = await db.query<{occurred_at: string}>('SELECT occurred_at FROM assistant.stock_photos WHERE parent_photo_id = $1', [root.id]);

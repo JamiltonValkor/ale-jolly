@@ -15,7 +15,7 @@ def test_events_are_idempotent_and_feed_outbox(tmp_path) -> None:
         kind="business_profile",
         provenance=Provenance.SALEADS_SEED,
         source_uri="seed://1",
-        occurred_at="2026-11-01T00:00:00Z",
+        occurred_at="2027-08-11T00:00:00Z",
         payload={"brand_name": "Example Beauty"},
     )
     first = ledger.record_event(**args)
@@ -35,7 +35,7 @@ def test_knowledge_is_bitemporal_and_never_overwritten(tmp_path) -> None:
         provenance=Provenance.OWNER_SAID,
         verification=VerificationState.SELF_REPORTED,
         evidence_refs=["chat:1"],
-        valid_from="2026-10-31T00:00:00Z",
+        valid_from="2026-10-27T00:00:00Z",
     )
     v2 = ledger.record_knowledge(
         business_id="b1",
@@ -43,13 +43,13 @@ def test_knowledge_is_bitemporal_and_never_overwritten(tmp_path) -> None:
         provenance=Provenance.OWNER_DECIDED,
         verification=VerificationState.HUMAN_VALIDATED,
         evidence_refs=["chat:9"],
-        valid_from="2026-10-27T00:00:00Z",
+        valid_from="2027-03-27T00:00:00Z",
         supersedes_revision_id=v1["revision_id"],
     )
     assert v2["canonical_id"] == v1["canonical_id"] and v2["version"] == 2
-    before = ledger.knowledge_at(v1["canonical_id"], valid_at="2026-10-28T00:00:00Z", known_at=v1["recorded_at"])
+    before = ledger.knowledge_at(v1["canonical_id"], valid_at="2026-12-25T00:00:00Z", known_at=v1["recorded_at"])
     assert [k["version"] for k in before] == [1]
-    now = ledger.knowledge_at(v1["canonical_id"], valid_at="2026-10-30T00:00:00Z", known_at="2026-10-29T00:00:00Z")
+    now = ledger.knowledge_at(v1["canonical_id"], valid_at="2027-04-26T00:00:00Z", known_at="2099-01-01T00:00:00Z")
     assert [k["version"] for k in now] == [2]
     assert now[0]["visible_state"] == "validated"
 

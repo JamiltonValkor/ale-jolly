@@ -76,10 +76,36 @@ export function createMcpEndpoint(config: SimConfig, registry: Map<string, Regis
     fetch: async (request: Request, init?: Parameters<typeof handler.fetch>[1]) => {
       const auth = await authenticate(request);
       if (auth instanceof Response) return auth;
-      const response = await handler.fetch(request, {...init, authInfo: auth});
+      const response = await handler.fetch(await asLegacyWhenUnclaimed(request), {...init, authInfo: auth});
       const headers = new Headers(response.headers);
       for (const [name, value] of Object.entries(STREAMING_HEADERS)) headers.set(name, value);
       return new Response(response.body, {status: response.status, statusText: response.statusText, headers});
     },
   }, {maxRequestBodySize: 4 * 1024 * 1024});
+}
+
+/** Revisiones que el SDK conoce; cualquier otra fecha que no traiga el sobre `_meta` se atiende como la era clásica. */
+const KNOWN_REVISIONS = new Set(['2025-03-26', '2025-06-18', '2025-11-25', '2026-07-28']);
+const LEGACY_REVISION = '2025-11-25';
+
+/**
+ * El SDK trata toda revisión >= 2026-07-28 como moderna y exige `params._meta`. ale-runtime manda una cabecera
+ * con su propia fecha y un `tools/call` clásico sin sobre: sin esto el sim respondería 400 a todas sus llamadas.
+ */
+export async function asLegacyWhenUnclaimed(request: Request): Promise<Request> {
+  const version = request.headers.get('mcp-protocol-version');
+  if (request.method !== 'POST' || !version || KNOWN_REVISIONS.has(version)) return request;
+  const body = await request.clone().text();
+  let claimed = false;
+  try {
+    const parsed = JSON.parse(body) as unknown;
+    const messages = Array.isArray(parsed) ? parsed : [parsed];
+    claimed = messages.some((m) => typeof m === 'object' && m !== null && typeof (m as {params?: {_meta?: unknown}}).params?._meta === 'object');
+  } catch {
+    return request;
+  }
+  if (claimed) return request;
+  const headers = new Headers(request.headers);
+  headers.set('mcp-protocol-version', LEGACY_REVISION);
+  return new Request(request.url, {method: request.method, headers, body});
 }

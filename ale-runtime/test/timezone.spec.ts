@@ -25,7 +25,7 @@ const cipher = new FieldCipher(Buffer.alloc(32, 7));
 const MCP = {mcpUrl: 'https://dev.saleads.ai/mcp', clientId: 'mcp-saleads-assistant-dev', scope: 'openid offline_access saleads-mcp'};
 const MODEL = 'openai/gpt-4o-mini';
 const KEY = 'sk-or-v1-SECRET-0123456789'; // gitleaks:allow -- synthetic test credential
-const T0 = Date.parse('2026-10-31T23:07:07.000Z');
+const T0 = Date.parse('2027-08-10T14:00:00.000Z');
 
 class CaptureLogger implements LoggerService {
   readonly lines: string[] = [];

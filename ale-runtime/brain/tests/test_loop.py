@@ -23,7 +23,7 @@ def writer(tmp_path) -> LoopWriter:
 def bet(writer: LoopWriter, statement="Mamás que no tienen tiempo: kit en 5 minutos", adsets=("111",), round=1):
     return writer.record_bet(
         business_id=BUSINESS, statement=statement, avatar="Mamá de 35 sin tiempo", angle="Rutina de 5 minutos",
-        format="Video UGC de transformación", adset_ids=list(adsets), round=round, as_of="2026-11-03T10:00:00Z",
+        format="Video UGC de transformación", adset_ids=list(adsets), round=round, as_of="2026-10-27T10:00:00Z",
     )
 
 
@@ -41,7 +41,7 @@ def test_writes_without_anchor_are_rejected_with_a_clear_reason(writer) -> None:
         writer.record_bet(business_id=BUSINESS, statement="x", avatar="", angle="a", format="f")
     with pytest.raises(LoopError, match="ancla_inexistente:AdSet"):
         writer.record_result(business_id=BUSINESS, adset_id="999", spend=10)
-    writer.store.upsert_node(GROUP, writer._adset(GROUP, "333", "2026-10-27T12:52:19+00:00"))
+    writer.store.upsert_node(GROUP, writer._adset(GROUP, "333", "2026-10-27T00:00:00+00:00"))
     with pytest.raises(LoopError, match="caja_sin_apuesta"):
         writer.record_result(business_id=BUSINESS, adset_id="333", spend=10)
     with pytest.raises(LoopError, match="ancla_inexistente: usa el uuid de un veredicto"):
@@ -52,8 +52,8 @@ def test_writes_without_anchor_are_rejected_with_a_clear_reason(writer) -> None:
 
 def test_result_window_is_the_difference_between_readings(writer) -> None:
     bet(writer)
-    first = writer.record_result(business_id=BUSINESS, adset_id="111", spend=20000, purchases=1, leads=6, as_of="2026-11-03T10:00:00Z")
-    second = writer.record_result(business_id=BUSINESS, adset_id="111", spend=50000, purchases=3, leads=14, as_of="2026-10-29T10:00:00Z")
+    first = writer.record_result(business_id=BUSINESS, adset_id="111", spend=20000, purchases=1, leads=6, as_of="2026-10-29T10:00:00Z")
+    second = writer.record_result(business_id=BUSINESS, adset_id="111", spend=50000, purchases=3, leads=14, as_of="2026-11-01T10:00:00Z")
     assert first["window"] == {"spend": 20000.0, "purchases": 1.0, "leads": 6.0, "cpa": 20000.0}
     assert second["window"] == {"spend": 30000.0, "purchases": 2.0, "leads": 8.0, "cpa": 15000.0}
     with pytest.raises(LoopError, match="lectura_no_posterior"):
@@ -68,9 +68,9 @@ def test_verdict_requires_min_spend_and_says_won_in_this_test(writer) -> None:
         writer.record_verdict(business_id=BUSINESS, bet_uuid=b["bet_uuid"], outcome="gana", reason="r",
                               result_uuids=[r1["result_uuid"]], min_spend=30000)
     early = writer.record_verdict(business_id=BUSINESS, bet_uuid=b["bet_uuid"], outcome="sin_datos", reason="poco gasto",
-                                  result_uuids=[r1["result_uuid"]], min_spend=30000, as_of="2026-10-28T11:00:00Z")
+                                  result_uuids=[r1["result_uuid"]], min_spend=30000, as_of="2026-10-29T11:00:00Z")
     assert early["text"] == "sin datos suficientes"
-    r2 = writer.record_result(business_id=BUSINESS, adset_id="111", spend=60000, purchases=4, as_of="2026-10-29T10:00:00Z")
+    r2 = writer.record_result(business_id=BUSINESS, adset_id="111", spend=60000, purchases=4, as_of="2026-11-02T10:00:00Z")
     won = writer.record_verdict(business_id=BUSINESS, bet_uuid=b["bet_uuid"], outcome="gana", reason="CPA bajo y leads buenos",
                                 result_uuids=[r2["result_uuid"]], min_spend=30000, lead_quality="buena", as_of="2026-11-02T11:00:00Z")
     assert won["text"] == "ganó en esta prueba" and won["window_spend"] == 45000.0
@@ -83,22 +83,22 @@ def test_verdict_requires_min_spend_and_says_won_in_this_test(writer) -> None:
 
 def won_verdict(writer: LoopWriter) -> str:
     b = bet(writer)
-    r = writer.record_result(business_id=BUSINESS, adset_id="111", spend=60000, purchases=4, as_of="2026-11-03T10:00:00Z")
+    r = writer.record_result(business_id=BUSINESS, adset_id="111", spend=60000, purchases=4, as_of="2026-11-02T10:00:00Z")
     return writer.record_verdict(business_id=BUSINESS, bet_uuid=b["bet_uuid"], outcome="gana", reason="r",
-                                 result_uuids=[r["result_uuid"]], min_spend=30000, as_of="2026-10-30T11:00:00Z")["verdict_uuid"]
+                                 result_uuids=[r["result_uuid"]], min_spend=30000, as_of="2026-11-02T11:00:00Z")["verdict_uuid"]
 
 
 def test_repeated_learning_adds_evidence_and_contradicted_is_replaced_not_deleted(writer) -> None:
     verdict = won_verdict(writer)
     first = writer.record_learning(business_id=BUSINESS, statement="El ángulo de rutina corta vende a mamás",
-                                   anchor_uuid=verdict, confidence="media", evidence="caja 111: CPA 15.000", as_of="2026-10-28T12:00:00Z")
+                                   anchor_uuid=verdict, confidence="media", evidence="caja 111: CPA 15.000", as_of="2026-11-02T12:00:00Z")
     again = writer.record_learning(business_id=BUSINESS, statement="El  ángulo de rutina corta vende a MAMÁS",
                                    anchor_uuid=verdict, confidence="media", evidence="caja 222: CPA 14.000")
     assert again["reinforced"] and again["evidence_count"] == 2 and again["learning_uuid"] == first["learning_uuid"]
     assert writer.store.node(GROUP, first["learning_uuid"]).attributes["evidence_count"] == 2
     new = writer.record_learning(business_id=BUSINESS, statement="La rutina corta funciona solo con video, no con imagen",
                                  anchor_uuid=verdict, confidence="alta", evidence="caja 555 imagen perdió",
-                                 replaces_uuid=first["learning_uuid"], as_of="2026-10-30T12:00:00Z")
+                                 replaces_uuid=first["learning_uuid"], as_of="2026-11-09T12:00:00Z")
     old = writer.store.node(GROUP, first["learning_uuid"])
     assert old is not None and old.attributes["stage"] == "reemplazado" and old.verification == "CONTRADICTED"
     assert any(e.name == "SUPERSEDES" and e.target == old.uuid for e in writer.store.edges_of(GROUP, new["learning_uuid"]))
@@ -130,12 +130,12 @@ def test_ledger_v1_migrates_to_v2_without_losing_rows(tmp_path) -> None:
     db = sqlite3.connect(path)
     db.executescript(
         "CREATE TABLE schema_migrations (version INTEGER PRIMARY KEY, applied_at TEXT NOT NULL);"
-        "INSERT INTO schema_migrations VALUES (1, '2026-10-28');"
+        "INSERT INTO schema_migrations VALUES (1, '2026-10-27');"
         "CREATE TABLE knowledge_revisions (revision_id TEXT PRIMARY KEY, business_id TEXT NOT NULL, canonical_id TEXT NOT NULL,"
         " statement TEXT NOT NULL, provenance TEXT NOT NULL, verification TEXT NOT NULL, evidence_refs_json TEXT NOT NULL,"
         " valid_from TEXT, valid_to TEXT, recorded_at TEXT NOT NULL, superseded_at TEXT, version INTEGER NOT NULL,"
         " supersedes_ref TEXT, UNIQUE(canonical_id, version));"
-        "INSERT INTO knowledge_revisions VALUES ('r1','b','k1','viejo','owner_said','OBSERVED','[\"e\"]',NULL,NULL,'2026-11-03',NULL,1,NULL);"
+        "INSERT INTO knowledge_revisions VALUES ('r1','b','k1','viejo','owner_said','OBSERVED','[\"e\"]',NULL,NULL,'2026-10-27',NULL,1,NULL);"
     )
     db.commit()
     db.close()
@@ -205,9 +205,9 @@ def test_learning_anchored_to_a_bet_uses_its_latest_verdict_and_bad_anchor_lists
 def test_a_no_data_verdict_does_not_become_a_learning(writer) -> None:
     """Corrida completa 1 (Laura): un «sin datos» a minutos de encender quedó como aprendizaje falso."""
     b = bet(writer)
-    r = writer.record_result(business_id=BUSINESS, adset_id="111", spend=500, as_of="2026-10-28T10:00:00Z")
+    r = writer.record_result(business_id=BUSINESS, adset_id="111", spend=500, as_of="2026-10-29T10:00:00Z")
     early = writer.record_verdict(business_id=BUSINESS, bet_uuid=b["bet_uuid"], outcome="sin_datos", reason="recién encendida",
-                                  result_uuids=[r["result_uuid"]], min_spend=30000, as_of="2026-11-02T11:00:00Z")
+                                  result_uuids=[r["result_uuid"]], min_spend=30000, as_of="2026-10-29T11:00:00Z")
     with pytest.raises(LoopError, match="aprendizaje_sin_datos"):
         writer.record_learning(business_id=BUSINESS, statement="El método de pago frena la entrega",
                                anchor_uuid=early["verdict_uuid"], confidence="alta", evidence="0 impresiones")
@@ -222,10 +222,10 @@ def test_an_unknown_business_is_rejected_but_known_ones_and_existing_groups_pass
     writer = LoopWriter(InMemoryStore(), Ledger(tmp_path / "l.db"), known_businesses=lambda: {BUSINESS.lower()})
     assert bet(writer)["bet_uuid"]
     with pytest.raises(LoopError, match="negocio_desconocido"):
-        writer.record_bet(business_id=typo, statement="s", avatar="a", angle="b", format="f", as_of="2026-11-02T10:00:00Z")
+        writer.record_bet(business_id=typo, statement="s", avatar="a", angle="b", format="f", as_of="2026-10-27T10:00:00Z")
     # Sin semilla (lista vacía) no se valida: el cerebro sigue funcionando como antes.
     free = LoopWriter(InMemoryStore(), Ledger(tmp_path / "m.db"), known_businesses=lambda: set())
-    assert free.record_bet(business_id=typo, statement="s", avatar="a", angle="b", format="f", as_of="2026-11-01T10:00:00Z")
+    assert free.record_bet(business_id=typo, statement="s", avatar="a", angle="b", format="f", as_of="2026-10-27T10:00:00Z")
 
 
 # ------------------------------------------------- MCB-008: un solo hilo por apuesta entre el cerebro y SaleADS

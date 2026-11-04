@@ -162,7 +162,7 @@ describe('IVB-017: kits con margen del servidor (R20c, R20d, R2)', () => {
 
     it('guarda diagnóstico, fuentes y fuente del precio como dato, para auditar el entregable', async () => {
       const a = await seedVariant(world, 'A', {unitCost: '1000'});
-      const fuentes = [{url: 'https://ejemplo.co/precio', fecha: '2026-11-02'}];
+      const fuentes = [{url: 'https://ejemplo.co/precio', fecha: '2027-08-27'}];
       const proposal = await kit([[a, 1]], {precio_propuesto: '4000', precio_fuente: 'comparable\nlocal', fuentes});
       const {rows: found} = await world.db.query<{payload: Record<string, unknown>}>('SELECT payload FROM assistant.stock_proposals WHERE id = $1', [proposal.id]);
       expect(found[0]!.payload).toMatchObject({precio_fuente: 'comparable local', fuentes, diagnostico: 'valor_percibido'});

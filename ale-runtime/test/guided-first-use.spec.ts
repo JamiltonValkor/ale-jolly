@@ -18,7 +18,7 @@ describe('guided first-use V3 admission',()=>{
  let pg:TestDatabase,repository:FirstLoopRepository,cipher:FieldCipher,languages:LanguagePreferences;
  beforeAll(async()=>{
   pg=await startTestDatabase();cipher=new FieldCipher(randomBytes(32));repository=new FirstLoopRepository(pg.database,cipher);languages=new LanguagePreferences(pg.database);
-  await languages.synchronize(OWNER,{language_code:'es',source_updated_at:'2026-10-29T10:00:00Z'});
+  await languages.synchronize(OWNER,{language_code:'es',source_updated_at:'2027-08-22T10:00:00Z'});
  });
  afterAll(async()=>pg.close());
  function fixture(){

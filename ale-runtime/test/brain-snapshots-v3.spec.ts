@@ -33,10 +33,10 @@ class MemoryStorage implements SnapshotStorage {
 
 
 const fact = (path: string, value: string | string[], provenance = 'owner_said') => ({
-  path, offering_ref: null, value, provenance, revision_id: `r-${path}`, version: 1, observed_at: '2026-10-30T07:07:51+00:00',
-  recorded_at: '2026-10-29T11:53:05+00:00',
+  path, offering_ref: null, value, provenance, revision_id: `r-${path}`, version: 1, observed_at: '2027-08-16T10:00:00+00:00',
+  recorded_at: '2027-08-16T10:00:01+00:00',
 });
-const snap3 = (...businesses: unknown[]) => ({schema: 'saleads-explorer-snapshot/3', generated_at: '2026-10-28T15:14:49+00:00', businesses});
+const snap3 = (...businesses: unknown[]) => ({schema: 'saleads-explorer-snapshot/3', generated_at: '2027-08-16T09:00:00+00:00', businesses});
 
 describe('fotos v3 con hechos tipados (AAB-019)', () => {
   let db: TestDatabase;
@@ -89,7 +89,7 @@ describe('fotos v3 con hechos tipados (AAB-019)', () => {
   });
 
   it('una versión v2 no tiene hechos (factsOf → [])', async () => {
-    upload({schema: 'saleads-explorer-snapshot/2', generated_at: '2026-11-02T14:29:15+00:00', businesses: [graph2([node2('n1')])]});
+    upload({schema: 'saleads-explorer-snapshot/2', generated_at: '2027-08-14T09:00:00+00:00', businesses: [graph2([node2('n1')])]});
     expect(await service.sync(USER_ID)).toBe('stored');
     expect(await service.factsOf(USER_ID, B1)).toEqual({version: 1, facts: []});
   });

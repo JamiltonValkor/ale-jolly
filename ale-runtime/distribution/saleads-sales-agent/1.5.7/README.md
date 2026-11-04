@@ -1,6 +1,6 @@
 # saleads-sales-agent 1.5.7
 
-## Cambio frente a 1.5.6 (corrida corta 3 con usuarios simulados, 2026-10-28)
+## Cambio frente a 1.5.6 (corrida corta 3 con usuarios simulados, 2026-11-04)
 
 Resultado de la corta 3: 3 de 3 publicaron y 2 de 3 encendieron. Funcionaron la moneda (133 MXN/día), el enlace de
 subida y no declarar ganadora antes de tiempo.
@@ -15,7 +15,7 @@ subida y no declarar ganadora antes de tiempo.
 - **Estratega:** en la primera vuelta, apuestas a compradores distintos, no solo ángulos distintos para el mismo.
 - `version:` de todos los `SKILL.md` = 1.5.7.
 
-## Cambio frente a 1.5.5 (corrida corta 2 con usuarios simulados, 2026-10-29)
+## Cambio frente a 1.5.5 (corrida corta 2 con usuarios simulados, 2026-11-04)
 
 - **Moneda:** tabla en `formatos.md` §5. COP, CLP y JPY van tal cual; MXN, USD y EUR ×100. Con Paola (MXN), Ale mandó
   `daily_budget: 45` creyendo que eran pesos y quedó en 0,45 MXN al día.
@@ -27,7 +27,7 @@ subida y no declarar ganadora antes de tiempo.
   equivocado del dueño.
 - `version:` de todos los `SKILL.md` = 1.5.6.
 
-## Cambio frente a 1.5.4 (corrida corta 1 con usuarios simulados, 2026-10-29)
+## Cambio frente a 1.5.4 (corrida corta 1 con usuarios simulados, 2026-11-04)
 
 - **CLI 1.4.0, argumentos según el esquema del comando:**
   - `client_request_id` cuando el comando lo pide, aunque sea de lectura. En dev, cotizar es `readOnlyHint` y lo exige.
@@ -52,7 +52,7 @@ subida y no declarar ganadora antes de tiempo.
   Lo encontró la sesión del laboratorio con usuarios simulados al alinear el simulador con dev.
 - `version:` de todos los `SKILL.md` = 1.5.4.
 
-## Cambio frente a 1.5.2 (AAB-024, plan de correcciones del 2026-11-03)
+## Cambio frente a 1.5.2 (AAB-024, plan de correcciones del 2026-11-04)
 
 - **Archivos de trabajo en `/opt/data/trabajo/`:** Hermes solo deja escribir dentro de `/opt/data`
   (`HERMES_WRITE_SAFE_ROOT`, igual en la VM real). Con `/tmp`, el `write_file` se negaba, el comando leía un archivo
@@ -66,7 +66,7 @@ subida y no declarar ganadora antes de tiempo.
   sigue con el lanzamiento en 4 fases).
 - `version:` de todos los `SKILL.md` = 1.5.3.
 
-## Cambio frente a 1.5.1 (AAB-024, laboratorio con V4 Flash, 2026-11-02)
+## Cambio frente a 1.5.1 (AAB-024, laboratorio con V4 Flash, 2026-11-04)
 
 Con 1.5.1, Ale completó por primera vez las 8 fases del canal, pero con 21-34 errores por cada 100 llamadas. El 92 %
 venía de dos causas:

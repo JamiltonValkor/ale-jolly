@@ -48,6 +48,12 @@ describe('herramientas contra su esquema', () => {
     }
   });
 
+  it('acepta el tools/call clásico de ale-runtime con la revisión que manda en la cabecera (2026-10-27, sin _meta)', async () => {
+    const call = await rpc(h, token, 'tools/call', {name: 'saleads_get_account_overview', arguments: {}}, '2026-10-27');
+    assert.equal(call.status, 200);
+    assert.equal(call.message.result.structuredContent.selected_business_id, DEMO_BUSINESS);
+  });
+
   it('GET y DELETE de /mcp responden 405', async () => {
     for (const method of ['GET', 'DELETE']) {
       const res = await fetch(`${h.base}/mcp`, {method, headers: {authorization: `Bearer ${token}`, accept: 'text/event-stream'}});

@@ -113,7 +113,7 @@ export class FirstLoopService {
   if(this.options.continuousLearning)latest=await this.deps.repository.turn(flow.id,latest.client_message_id)??latest;
   const combined=[...visible,...notices.map(n=>({id:n.message_id,role:n.role,text:n.text,created_at:n.created_at}))]
    .filter((message,index,all)=>all.findIndex(candidate=>candidate.id===message.id)===index)
-   .sort((a,b)=>Date.parse(a.created_at??'2026-11-03T00:00:00Z')-Date.parse(b.created_at??'2026-11-01T00:00:00Z')).slice(-200);
+   .sort((a,b)=>Date.parse(a.created_at??'2026-11-01T00:00:00Z')-Date.parse(b.created_at??'2026-11-01T00:00:00Z')).slice(-200);
   const w=await this.deps.repository.latestWork(user,business);const work=w?projectWork(w,this.deps.repository.projection(w),availability,this.now()):null;
   const brief=this.deps.repository.brief(flow);
   const phase=work?.status==='completed'?'complete':work?.status==='blocked'?'blocked':work?.status==='awaiting_feedback'?'awaiting_feedback':work?.status==='reviewing'?'reviewing':work?'working':brief&&!flow.missing_fields.length?'confirm_brief':'intake';

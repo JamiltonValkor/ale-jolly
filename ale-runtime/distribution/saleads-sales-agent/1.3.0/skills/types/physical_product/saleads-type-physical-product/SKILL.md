@@ -14,7 +14,7 @@ metadata:
 
 # Producto físico: la estrategia de Juan
 
-Fuente: charla de Juan Guilibreros (ecommerce físico en LatAm, 2026-10-30). Las cifras son su punto de partida, no reglas: si la evidencia del negocio dice otra cosa, manda la evidencia, y lo registras como aprendizaje con su fuente.
+Fuente: charla de Juan Guilibreros (ecommerce físico en LatAm, 2026-10-31). Las cifras son su punto de partida, no reglas: si la evidencia del negocio dice otra cosa, manda la evidencia, y lo registras como aprendizaje con su fuente.
 
 ## 1. La idea central
 

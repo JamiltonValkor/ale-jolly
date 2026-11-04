@@ -45,7 +45,7 @@ To deploy the production version yourself you need SaleADS infrastructure; see "
 You need Docker Desktop (or Docker Engine with Compose v2), `openssl` and a **Meta API key**. Nothing else: no SaleADS account, no cloud account, no login.
 
 ```bash
-git clone <this repo> ale-jolly
+git clone -c core.longpaths=true <this repo> ale-jolly
 cd ale-jolly/local
 ./demo.sh doctor
 ./demo.sh up

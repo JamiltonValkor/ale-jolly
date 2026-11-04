@@ -27,7 +27,7 @@ describe('despertar a Ale', () => {
   afterAll(async () => {await db.close();});
   beforeEach(async () => {
     world = await createWorld(db);
-    now = new Date('2026-10-30T05:09:34.000Z');
+    now = new Date('2027-08-27T10:00:00.000Z');
     jobs = [job(world.businessId)];
     listed = null;
     outcome = {kind: 'updated'};
@@ -92,7 +92,7 @@ describe('despertar a Ale', () => {
 
   it('excedido el tope responde tope sin llamar a la VM, y el antirrebote no gasta tope', async () => {
     await world.db.query(`INSERT INTO assistant.stock_usage(business_id, day, metric, value) VALUES ($1, $2, 'despertares_ale', $3)`,
-      [world.businessId, '2026-10-28', STOCK_LIMITS.wakesPerDay - 1]);
+      [world.businessId, '2027-08-27', STOCK_LIMITS.wakesPerDay - 1]);
     const list = jest.fn(async () => ({kind: 'ok', jobs}) as NativeManagedJobsOutcome);
     const wake = new StockWake({db: world.db, now: () => now, usage: new StockUsage({db: world.db, clock: world.stock.clock, now: () => now, benchEnabled: false}), vm: {...vm(), jobs: {list, run}}});
     expect(await wake.wake(world.userId, world.businessId, 'banco')).toBe('solicitado');
@@ -101,7 +101,7 @@ describe('despertar a Ale', () => {
     expect(await wake.wake(world.userId, world.businessId, 'banco')).toBe('tope');
     expect(list).not.toHaveBeenCalled();
     expect(run).toHaveBeenCalledTimes(1);
-    now = new Date('2026-10-30T20:14:08.000Z'); // Medianoche y diez en Bogotá: el día es el del negocio.
+    now = new Date('2027-08-28T05:10:00.000Z'); // Medianoche y diez en Bogotá: el día es el del negocio.
     expect(await wake.wake(world.userId, world.businessId, 'banco')).toBe('solicitado');
   });
 

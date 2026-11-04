@@ -28,13 +28,13 @@ def summary(identifier=PAGE):
 
 def response(*, business=BIZ, status='published', extra=None):
     row = {'id':PAGE,'businessId':business,'origin':'hermes','status':status,'latestN':6,'publishedN':6,
-           'updatedAt':'2026-10-30T11:00:00Z', **(extra or {})}
+           'updatedAt':'2027-08-23T11:00:00Z', **(extra or {})}
     return {'ok':True,'data':{'landings':[row]}}
 
 
 class CurrentStateRed(unittest.TestCase):
     def test_current_published_state_is_present_before_generation_within_unchanged_budget(self):
-        state = {'status':'current','source':'saleads_landing_list','observed_at':'2026-10-31T19:41:02+00:00',
+        state = {'status':'current','source':'saleads_landing_list','observed_at':'2027-08-23T12:00:00+00:00',
                  'landings':[{'id':PAGE,'status':'published','latestN':6,'publishedN':6}],'omitted':0}
         output = context.pack(BOUND, read_state=lambda binding, max_chars: state)['context']
         self.assertIn('SALEADS_CURRENT_LANDING_STATE_V1_DATA', output)

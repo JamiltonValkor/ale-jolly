@@ -60,7 +60,7 @@ describe('activación en un clic (OCB-007)', () => {
 
   beforeEach(async () => {
     await db.database.pool.query('TRUNCATE assistant.assistants, assistant.assistant_credentials, assistant.oauth_flows, assistant.assistant_events', []);
-    nowMs = Date.parse('2026-11-03T11:29:41.000Z');
+    nowMs = Date.parse('2027-08-10T12:00:00.000Z');
     const now = () => new Date(nowMs);
     const sleep = async (ms: number) => {nowMs += ms;};
     repository = new AssistantRepository(db.database);
@@ -250,7 +250,7 @@ describe('activación en un clic (OCB-007)', () => {
       const insert = compute.inserts[0]!;
       expect(insert.name).toBe(instanceNameFor(USER_ID));
       expect(insert.name).toMatch(/^sa-assistant-[a-f0-9]{32}$/);
-      expect(insert.requestId).toBe(insertRequestId(USER_ID, 1, Date.parse('2026-10-27T11:53:44.000Z')));
+      expect(insert.requestId).toBe(insertRequestId(USER_ID, 1, Date.parse('2027-08-10T12:00:00.000Z')));
       const items = new Map(insert.items.map(item => [item.key, item.value]));
       // Todas las claves de la plantilla + las hermes-* (sin hermes-env ni archive hasta OCB-010/012).
       for (const item of TEMPLATE_ITEMS) expect(items.get(item.key)).toBe(item.value);
@@ -263,7 +263,7 @@ describe('activación en un clic (OCB-007)', () => {
       expect(items.get('hermes-config')).toContain('timezone: "America/Bogota"\n');
       expect(JSON.parse(items.get('hermes-mcp-tokens')!)).toEqual({'tokens.json': {
         access_token: set.accessToken, token_type: 'Bearer', refresh_token: set.refreshToken, scope: SCOPE,
-        expires_at: Math.floor(Date.parse('2026-10-30T07:37:46.000Z') / 1000) + 300, hermes_issuer: ISSUER,
+        expires_at: Math.floor(Date.parse('2027-08-10T12:00:00.000Z') / 1000) + 300, hermes_issuer: ISSUER,
       }});
       expect(items.get('hermes-soul')).toBe(bundle.soul);
       expect(Object.keys(JSON.parse(items.get('hermes-skills')!))).toContain('saleads-human-decisions/SKILL.md');
@@ -395,7 +395,7 @@ describe('activación en un clic (OCB-007)', () => {
     it('un fallo reintenta UNA vez con otro requestId y queda creada', async () => {
       compute.script = [{status: 503, reason: 'backendError'}, 'ok'];
       await activateAndCallback();
-      expect(compute.inserts.map(insert => insert.requestId)).toEqual([1, 2].map(attempt => insertRequestId(USER_ID, attempt, Date.parse('2026-10-27T08:29:39.000Z'))));
+      expect(compute.inserts.map(insert => insert.requestId)).toEqual([1, 2].map(attempt => insertRequestId(USER_ID, attempt, Date.parse('2027-08-10T12:00:00.000Z'))));
       expect(compute.inserts[1]!.items).toEqual(compute.inserts[0]!.items);
       const [row] = await rows('SELECT status, attempts FROM assistant.assistants');
       expect(row).toEqual({status: 'activating', attempts: 2});

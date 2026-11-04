@@ -58,8 +58,8 @@ def test_value_report_and_loops(tmp_path) -> None:
     b = brain(tmp_path)
     loop = b.ledger.open_loop(business_id=BUSINESS, title="Anuncio rechazado", kind="account_health")
     assert b.ledger.close_loop(loop, "Releído en Meta: aprobado")
-    b.ledger.set_noise("2026-10-29", 6, 2)
-    report = b.ledger.value_report(BUSINESS, "2026-11-01")
+    b.ledger.set_noise("2026-11-11", 6, 2)
+    report = b.ledger.value_report(BUSINESS, "2026-10-27")
     assert report["loops_closed"] == 1 and report["noise_ratio"] == 3.0
 
 
@@ -205,7 +205,7 @@ def test_openrouter_key_in_the_environment_has_no_effect(tmp_path, monkeypatch) 
     assert settings.llm_enabled is False and settings.api_key is None
     b = Brain(settings, InMemoryStore(), Ledger(tmp_path / "l.db"))
     b.ledger.record_event(business_id=BUSINESS, kind="owner_message", provenance="owner_said", source_uri="hermes://x",
-                          occurred_at="2026-10-29T10:00:00Z", payload={"text": "vendo sérum"})
+                          occurred_at="2026-11-15T10:00:00Z", payload={"text": "vendo sérum"})
     state_db(tmp_path / "opt" / "state.db", [("s1", "user", "Example Beauty vende sérum")])
     from saleads_brain.app import COMMANDS
 
@@ -246,7 +246,7 @@ def test_backfill_turns_old_ingests_into_owner_notes_once_and_never_into_decisio
                                        ("excel contable pro", "owner_said", "dato de otro"),
                                        (TYPO, "owner_said", "dato de un id con un dígito cambiado")):
         b.ledger.record_event(business_id=business, kind="owner_message", provenance=provenance,
-                              source_uri="mcp://brain_ingest", occurred_at="2026-10-31T10:00:00Z", payload={"text": text})
+                              source_uri="mcp://brain_ingest", occurred_at="2026-11-15T10:00:00Z", payload={"text": text})
     groups = b.store.groups()
     first = asyncio.run(b.run("backfill-owner-notes"))["owner_notes"]
     nodes = {n.uuid: (n.provenance, n.summary) for n in b.store.nodes(GROUP, 500) if n.type_name == "OwnerNote"}

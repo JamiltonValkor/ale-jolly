@@ -13,7 +13,7 @@ metadata:
 ---
 
 # Physical products — Juan's approach
-Source: Juan Diego Libreros (also named Juan Guilibreros in the source talk), SaleADS team session, 2026-10-30, LatAm physical ecommerce. Preserve attribution. Figures illustrate his operation, not mandatory budgets; actual business evidence overrides them with a dated lesson.
+Source: Juan Diego Libreros (also named Juan Guilibreros in the source talk), SaleADS team session, 2026-10-31, LatAm physical ecommerce. Preserve attribution. Figures illustrate his operation, not mandatory budgets; actual business evidence overrides them with a dated lesson.
 
 ## Core idea
 Meta/Andromeda finds audiences from distinct creative. An adset/box groups one avatar and angle; visually distinct ads may reach different people even within it. Prefer broad audiences unless evidence justifies interests. Choose a niche (for example postpartum buyers rather than everyone). Deliberately vary person, scene, hook or format; duplicating a video is not diversity. Match age, setting, vocabulary and objections to the actual avatar.

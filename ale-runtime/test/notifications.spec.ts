@@ -6,7 +6,7 @@ import {FieldCipher} from '../src/security/field-cipher';
 import {startTestDatabase, type TestDatabase} from './support/pglite-db';
 
 const binding = {owner_id: 'fixture-owner', business_id: '11111111-1111-4111-8111-111111111111', session_id: 'session-fixture', job_id: 'job-fixture', response_locale: 'pt', locale_revision: 2};
-const result = {job_id: binding.job_id, execution_id: 'execution-fixture', source_version: '1', response_locale: 'pt', locale_revision: 2, text: 'A pesquisa terminou; confira as fontes na proposta.', terminal_state: 'completed' as const, limitations: [], finished_at: '2026-11-03T12:00:00Z'};
+const result = {job_id: binding.job_id, execution_id: 'execution-fixture', source_version: '1', response_locale: 'pt', locale_revision: 2, text: 'A pesquisa terminou; confira as fontes na proposta.', terminal_state: 'completed' as const, limitations: [], finished_at: '2027-08-22T12:00:00Z'};
 describe('native notification ledger and browser projection', () => {
   let pg: TestDatabase, repo: NotificationRepository, collector: NotificationCollector;
   beforeAll(async () => {pg = await startTestDatabase(); repo = new NotificationRepository(pg.database, new FieldCipher(randomBytes(32))); collector = new NotificationCollector(repo); await repo.bindJob(binding);});
@@ -47,7 +47,7 @@ describe('native notification ledger and browser projection', () => {
     expect((await collector.collect(binding.owner_id, {...result, text: 'Changed output with same native identity'})).kind).toBe('pending');
     const notice = await collector.collect(binding.owner_id, {...result, execution_id: 'execution-home'});
     if (notice.kind === 'pending') throw new Error('missing fixture');
-    await repo.recordHomeReceipt(binding.owner_id, notice.notification_id, {attempt_id: 'attempt-home', destination_version: 'telegram-v1', state: 'unknown', evidence_ref: 'native:execution-home', reconcile_by: '2026-11-02T12:02:00Z'});
+    await repo.recordHomeReceipt(binding.owner_id, notice.notification_id, {attempt_id: 'attempt-home', destination_version: 'telegram-v1', state: 'unknown', evidence_ref: 'native:execution-home', reconcile_by: '2027-08-22T12:02:00Z'});
     expect((await repo.receipts(binding.owner_id, notice.notification_id))[0]!.state).toBe('unknown');
     expect(await repo.conversation(binding.owner_id, binding.business_id, binding.session_id)).toHaveLength(1);
     await repo.recordHomeReceipt(binding.owner_id, notice.notification_id, {attempt_id: 'attempt-home', destination_version: 'telegram-v1', state: 'delivered', evidence_ref: 'native:execution-home', reconcile_by: null});
@@ -57,7 +57,7 @@ describe('native notification ledger and browser projection', () => {
     const notice=await collector.collect(binding.owner_id,{...result,execution_id:'execution-lost-object'});
     if(notice.kind==='pending')throw new Error('missing fixture');
     await repo.recordHomeReceipt(binding.owner_id,notice.notification_id,{attempt_id:'attempt-lost',destination_version:'home-v1',
-      state:'unknown',evidence_ref:'native:execution-lost-object',reconcile_by:'2026-11-01T00:00:00Z'});
+      state:'unknown',evidence_ref:'native:execution-lost-object',reconcile_by:'2000-01-01T00:00:00Z'});
     const storage={signedPutUrl:async()=> 'https://storage.googleapis.com/fixture/object',download:async()=>null,upload:async()=>{}};
     const instances={getInstance:async()=>({fingerprint:'f',items:[]}),setMetadata:async()=>{}};
     const row={user_id:binding.owner_id,instance_name:'fixture-vm'};

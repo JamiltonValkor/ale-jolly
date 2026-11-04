@@ -58,7 +58,7 @@ describe('continuous loop versioned contracts', () => {
     const fixture = JSON.parse(readFileSync(join(root, 'fixtures.json'), 'utf8'))['knowledge-candidate'];
     expect(KnowledgeCandidateV1.safeParse({...fixture, epistemic: 'inferred', validation_state: 'confirmed'}).success).toBe(false);
     expect(KnowledgeCandidateV1.safeParse({...fixture, scope: 'specialist', specialist_role: null}).success).toBe(false);
-    expect(KnowledgeCandidateV1.safeParse({...fixture, valid_until: '2026-11-01T00:00:00Z'}).success).toBe(false);
+    expect(KnowledgeCandidateV1.safeParse({...fixture, valid_until: '2026-10-27T00:00:00Z'}).success).toBe(false);
   });
 
   it('supports intake without a goal and rejects cross-business pack entries', () => {

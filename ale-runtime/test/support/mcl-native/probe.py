@@ -131,7 +131,7 @@ def main(args):
                 (cron_home / "cron").mkdir()
                 (cron_home / "cron" / "jobs.json").write_text(json.dumps({"jobs": [{
                     "id": "mcl-synthetic-cron", "name": "Synthetic cron compatibility", "prompt": "Synthetic probe.",
-                    "schedule": {"kind": "interval", "minutes": 240}, "next_run_at": "2026-11-01T16:35:25+00:00",
+                    "schedule": {"kind": "interval", "minutes": 240}, "next_run_at": "2020-01-01T00:00:00+00:00",
                     "enabled": True, "state": "scheduled", "deliver": "local",
                     "repeat": {"times": 1, "completed": 0}}]}))
                 proc = subprocess.run([sys.executable, __file__, "--checkout", str(checkout), "--child", "cron"],

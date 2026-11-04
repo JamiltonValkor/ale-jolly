@@ -101,11 +101,11 @@ describe('OrqaSync: config → ack → /health → jobs (OSB-009)', () => {
   it('una VM recreada con el mismo nombre (borrar y reactivar) se vuelve a sincronizar', async () => {
     const {hermes, make} = setup();
     const sync = make();
-    await sync.onReady(USER, INSTANCE, new Date('2026-11-01T09:00:00Z'));
-    await sync.onReady(USER, INSTANCE, new Date('2026-10-28T09:00:00Z'));
+    await sync.onReady(USER, INSTANCE, new Date('2027-08-15T09:00:00Z'));
+    await sync.onReady(USER, INSTANCE, new Date('2027-08-15T09:00:00Z'));
     expect(hermes.listCalls).toBe(1);
     hermes.jobs.length = 0; // la VM nueva arranca sin trabajos
-    await sync.onReady(USER, INSTANCE, new Date('2026-10-27T16:14:00Z'));
+    await sync.onReady(USER, INSTANCE, new Date('2027-08-15T16:14:00Z'));
     expect(hermes.listCalls).toBe(2);
     expect(hermes.created).toHaveLength(14);
   });
@@ -625,17 +625,17 @@ describe('historia de sincronizaciones de la VM (MCB-003, D24) en Postgres', () 
   it('solo cuenta las orqa.synced de esta VM: desde created_at y después de la última creación de VM', async () => {
     const repository = new AssistantRepository(db.database);
     const other = '22222222-2222-4222-8222-222222222222';
-    await event(USER, 'orqa.synced', 'bundle=saleads-sales-agent@1.2.0 metadata_written=true jobs_created=7', '2026-11-02T00:00:00Z');
-    await event(USER, 'vm.create_requested', 'attempt=1 result=created', '2026-10-28T00:00:00Z');
-    await event(USER, 'orqa.synced', 'bundle=saleads-sales-agent@1.5.8 metadata_written=true jobs_created=8', '2026-11-03T00:00:00Z');
-    await event(USER, 'orqa.synced', 'bundle=saleads-sales-agent@1.5.9 metadata_written=true jobs_created=0 jobs_updated=0 jobs_update_failed=0', '2026-10-29T00:00:00Z');
-    await event(USER, 'orqa.sync_failed', 'reason=ack_timeout', '2026-10-28T00:00:00Z');
-    await event(other, 'orqa.synced', 'bundle=saleads-sales-agent@1.4.0 metadata_written=true jobs_created=8', '2026-10-27T00:00:00Z');
-    expect(await repository.syncedBundleVersions(USER, new Date('2026-10-28T00:00:00Z')))
+    await event(USER, 'orqa.synced', 'bundle=saleads-sales-agent@1.2.0 metadata_written=true jobs_created=7', '2027-06-27T00:00:00Z');
+    await event(USER, 'vm.create_requested', 'attempt=1 result=created', '2027-07-27T00:00:00Z');
+    await event(USER, 'orqa.synced', 'bundle=saleads-sales-agent@1.5.8 metadata_written=true jobs_created=8', '2027-07-28T00:00:00Z');
+    await event(USER, 'orqa.synced', 'bundle=saleads-sales-agent@1.5.9 metadata_written=true jobs_created=0 jobs_updated=0 jobs_update_failed=0', '2027-08-15T00:00:00Z');
+    await event(USER, 'orqa.sync_failed', 'reason=ack_timeout', '2027-08-16T00:00:00Z');
+    await event(other, 'orqa.synced', 'bundle=saleads-sales-agent@1.4.0 metadata_written=true jobs_created=8', '2027-07-31T00:00:00Z');
+    expect(await repository.syncedBundleVersions(USER, new Date('2027-07-11T00:00:00Z')))
       .toEqual(['saleads-sales-agent@1.5.8', 'saleads-sales-agent@1.5.9']);
     // Una fila reactivada (created_at nuevo) no hereda la historia de la VM anterior.
-    expect(await repository.syncedBundleVersions(USER, new Date('2026-10-27T00:00:00Z'))).toEqual([]);
-    await event(USER, 'vm.create_requested', 'attempt=1 result=created', '2026-10-27T00:00:00Z');
-    expect(await repository.syncedBundleVersions(USER, new Date('2026-10-29T00:00:00Z'))).toEqual([]);
+    expect(await repository.syncedBundleVersions(USER, new Date('2027-08-20T00:00:00Z'))).toEqual([]);
+    await event(USER, 'vm.create_requested', 'attempt=1 result=created', '2027-08-17T00:00:00Z');
+    expect(await repository.syncedBundleVersions(USER, new Date('2027-07-11T00:00:00Z'))).toEqual([]);
   });
 });

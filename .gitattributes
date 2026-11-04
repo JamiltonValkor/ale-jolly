@@ -1,0 +1,15 @@
+# LF en todos los sistemas: Windows no debe convertir a CRLF (rompe los sha256 de los bundles y los scripts de shell).
+* text=auto eol=lf
+*.png binary
+*.jpg binary
+*.jpeg binary
+*.webp binary
+*.gif binary
+*.mp4 binary
+*.stl binary
+*.3mf binary
+*.ply binary
+*.glb binary
+*.gz binary
+*.pdf binary
+*.sse -text

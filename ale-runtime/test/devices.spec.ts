@@ -79,7 +79,7 @@ describe('canal robot: emparejamiento y turnos del robot', () => {
   };
 
   beforeEach(async () => {
-    clock = new Date('2026-10-29T12:00:00Z');
+    clock = new Date('2027-08-23T12:00:00Z');
     await db.database.pool.query('TRUNCATE assistant.assistants, assistant.assistant_events, assistant.robot_pairings, assistant.robot_devices', []);
     hermes = new FakeHermesServer(API_SERVER_KEY);
     await hermes.start();

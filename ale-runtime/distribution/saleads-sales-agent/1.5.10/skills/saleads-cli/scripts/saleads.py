@@ -599,7 +599,7 @@ def parse(argv: list[str]) -> tuple[str, list[str], dict[str, Any]]:
 def run_mcp(settings: dict[str, str], token: str, name: str, args: dict[str, Any], read: bool) -> dict[str, Any]:
     body = {"jsonrpc": "2.0", "id": 1, "method": "tools/call",
             "params": {"name": name, "arguments": args, "_meta": {"io.modelcontextprotocol/clientInfo": {"name": "saleads-cli", "version": VERSION}}}}
-    headers = {"Accept": "application/json, text/event-stream", "MCP-Protocol-Version": "2026-11-03",
+    headers = {"Accept": "application/json, text/event-stream", "MCP-Protocol-Version": "2026-07-28",
                "Mcp-Method": "tools/call", "Mcp-Name": name}
     attempts = 2 if read else 1
     status, raw = 0, b""

@@ -58,19 +58,19 @@ def test_sensitive_concepts_stay_proposed_for_the_owner(tmp_path) -> None:
 def test_decay_lowers_confidence_after_60_days_without_deleting(tmp_path) -> None:
     store, ledger = InMemoryStore(), Ledger(tmp_path / "l.db")
     writer = LoopWriter(store, ledger)
-    bet = writer.record_bet(business_id=A, statement="s", avatar="a", angle="b", format="c", adset_ids=["1"], as_of="2026-11-01T00:00:00Z")
-    r = writer.record_result(business_id=A, adset_id="1", spend=100, purchases=1, as_of="2026-11-01T00:00:00Z")
+    bet = writer.record_bet(business_id=A, statement="s", avatar="a", angle="b", format="c", adset_ids=["1"], as_of="2026-10-27T00:00:00Z")
+    r = writer.record_result(business_id=A, adset_id="1", spend=100, purchases=1, as_of="2026-10-31T00:00:00Z")
     v = writer.record_verdict(business_id=A, bet_uuid=bet["bet_uuid"], outcome="gana", reason="r", result_uuids=[r["result_uuid"]],
-                              min_spend=10, as_of="2026-11-02T01:00:00Z")
+                              min_spend=10, as_of="2026-10-31T01:00:00Z")
     learning = writer.record_learning(business_id=A, statement="Video corto vende", anchor_uuid=v["verdict_uuid"], confidence="alta",
-                                      evidence="caja 1", as_of="2026-10-31T00:00:00Z")
+                                      evidence="caja 1", as_of="2026-11-01T00:00:00Z")
     group = group_id(A)
-    assert decay(store, "2026-11-01T00:00:00Z") == {"lowered": 0}
-    assert decay(store, "2026-11-02T00:00:00Z") == {"lowered": 1}
+    assert decay(store, "2026-11-27T00:00:00Z") == {"lowered": 0}
+    assert decay(store, "2027-01-03T00:00:00Z") == {"lowered": 1}
     assert store.node(group, learning["learning_uuid"]).attributes["confidence"] == "media"
-    assert decay(store, "2026-11-02T00:00:00Z") == {"lowered": 0}  # 60 días desde el último decaimiento
-    assert decay(store, "2026-10-29T00:00:00Z") == {"lowered": 1}
-    assert decay(store, "2026-10-27T00:00:00Z") == {"lowered": 0}  # «baja» no baja más
+    assert decay(store, "2027-01-13T00:00:00Z") == {"lowered": 0}  # 60 días desde el último decaimiento
+    assert decay(store, "2027-03-15T00:00:00Z") == {"lowered": 1}
+    assert decay(store, "2027-07-16T00:00:00Z") == {"lowered": 0}  # «baja» no baja más
     node = store.node(group, learning["learning_uuid"])
     assert node is not None and node.attributes["confidence"] == "baja" and node.attributes["stage"] == "vigente"
 

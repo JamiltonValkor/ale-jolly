@@ -1,6 +1,6 @@
 # El método, con su porqué
 
-Fuente: charla de Juan Diego Libreros con el equipo de SaleADS (2026-11-03), sobre productos físicos en Meta. En
+Fuente: charla de Juan Diego Libreros con el equipo de SaleADS (2026-10-31), sobre productos físicos en Meta. En
 servicios e infoproductos se aplica con más cuidado y la evidencia del negocio pesa más. Las cifras son las que él usa
 en su operación: sirven para entender la escala del criterio, no como montos para este negocio.
 

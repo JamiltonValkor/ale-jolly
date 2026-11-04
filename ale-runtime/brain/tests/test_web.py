@@ -97,17 +97,17 @@ def test_leer_reports_state_and_reason(response, estado) -> None:
 
 
 def test_buscar_dedupes_across_sources_and_keeps_provenance() -> None:
-    google = rss(("Kits capilares crecen en Colombia - El Tiempo", "https://example.com/a?utm_source=x", "Mon, 13 Oct 2026 10:00:00 GMT"),
-                 ("Otra nota", "https://example.com/b", "Tue, 14 Oct 2026 10:00:00 GMT"))
-    bing = rss(("Kits capilares crecen en Colombia", "https://example.com/a/", "Mon, 13 Oct 2026 10:00:00 GMT"),
-               ("Nota vieja", "https://example.com/c", "Mon, 01 Jan 2024 10:00:00 GMT"))
+    google = rss(("Kits capilares crecen en Colombia - El Tiempo", "https://example.com/a?utm_source=x", "Sat, 31 Oct 2026 10:00:00 GMT"),
+                 ("Otra nota", "https://example.com/b", "Sun, 01 Nov 2026 10:00:00 GMT"))
+    bing = rss(("Kits capilares crecen en Colombia", "https://example.com/a/", "Sat, 31 Oct 2026 10:00:00 GMT"),
+               ("Nota vieja", "https://example.com/c", "Wed, 28 Oct 2026 10:00:00 GMT"))
     http = FakeHttp({"https://news.google.com/": Response(200, {}, google), "https://www.bing.com/": Response(200, {}, bing)})
     out = asyncio.run(Web(fetch=http, resolve=resolve).buscar("kits capilares", desde="2026-10-30"))
     assert out["estado"] == "ok" and out["fuentes"]["google_news"]["estado"] == "ok"
     titles = [r["titulo"] for r in out["resultados"]]
     assert titles == ["Kits capilares crecen en Colombia - El Tiempo", "Otra nota"]
     first = out["resultados"][0]
-    assert first["publicado"] == "2026-10-27T08:39:47+00:00" and first["consultado"] and first["fuente_rss"] == "google_news"
+    assert first["publicado"] == "2026-10-31T10:00:00+00:00" and first["consultado"] and first["fuente_rss"] == "google_news"
 
 
 def test_buscar_reports_captcha_rate_limit_and_empty() -> None:

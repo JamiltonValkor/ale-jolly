@@ -45,7 +45,7 @@ export async function createWorld(test: TestDatabase, options: {bench?: boolean;
   const businessId = randomUUID();
   const userId = `u-${randomUUID().slice(0, 8)}`;
   const db = pgliteStockDb(test);
-  const now = {value: new Date('2026-10-27T22:13:32.000Z')};
+  const now = {value: new Date('2027-08-27T10:00:00.000Z')};
   const offerings = {find: jest.fn(async (_user: string, _business: string, ref: OfferingRef) => ({...ref, name: 'Oferta'}) as Offering | null)};
   const settings = stockSettings({STOCK_ENABLED: true, STOCK_USER_IDS: [userId], STOCK_BUSINESS_SEEDS: [`${businessId}:${userId}:COP`], STOCK_WEB_BASE_URL: '',
     STOCK_BENCH_ENABLED: options.bench ?? false, STOCK_MAX_AUTONOMY_LEVEL: options.maxAutonomy ?? 2, STOCK_SUPPLIER_SENDER_NAME: options.senderName ?? '',

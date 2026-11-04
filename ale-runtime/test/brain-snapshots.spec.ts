@@ -29,7 +29,7 @@ const graph = (businessId: string, label = 'Example Beauty') => ({
   edges: [{source: 'n1', target: 'n1', type: 'SELLS', fact: 'vende', provenance: 'saleads_seed', valid_at: null, invalid_at: null}],
   stats: {nodes: 1, edges: 1},
 });
-const snapshot = (...businesses: unknown[]) => ({schema: 'saleads-explorer-snapshot/1', generated_at: '2026-10-30T16:23:02+00:00', businesses});
+const snapshot = (...businesses: unknown[]) => ({schema: 'saleads-explorer-snapshot/1', generated_at: '2027-08-11T09:00:00+00:00', businesses});
 
 class MemoryStorage implements SnapshotStorage {
   readonly objects = new Map<string, Buffer>();
@@ -59,7 +59,7 @@ describe('fotos del cerebro (OSB-010)', () => {
 
   beforeEach(async () => {
     await db.database.pool.query('TRUNCATE assistant.brain_snapshots, assistant.brain_snapshot_uploads', []);
-    nowMs = Date.parse('2026-10-30T08:20:06.000Z');
+    nowMs = Date.parse('2027-08-11T12:00:00.000Z');
     events = [];
     instances = new FakeInstances();
     storage = new MemoryStorage();
@@ -106,7 +106,7 @@ describe('fotos del cerebro (OSB-010)', () => {
     expect(events.at(-1)).toMatchObject({kind: 'orqa.snapshot_ingested', detail: 'outcome=stored versions=2 foreign=1'});
 
     await expect(service.sync(USER_ID)).resolves.toBe('unchanged');
-    vmUploads(USER_ID, {...snapshot(graph(B1), graph(B2, 'Example Beauty Spa')), generated_at: '2026-11-01T09:35:23+00:00'});
+    vmUploads(USER_ID, {...snapshot(graph(B1), graph(B2, 'Example Beauty Spa')), generated_at: '2027-08-11T15:00:00+00:00'});
     await service.sync(USER_ID);
     expect((await service.timeline(USER_ID, B1, 10)).items).toHaveLength(1);
     expect((await service.timeline(USER_ID, B2, 10)).items.map(item => item.version)).toEqual([2, 1]);

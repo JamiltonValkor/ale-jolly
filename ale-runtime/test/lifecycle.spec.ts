@@ -29,7 +29,7 @@ const BUCKET = 'saleads-dev-assistant-memories';
 const NAME = instanceNameFor(USER_ID);
 const REFRESH = 'refresh-SECRET-7d1c';
 const URL_SECRET = 'SIGNED-SECRET-91af'; // gitleaks:allow -- synthetic test credential
-const T0 = Date.parse('2026-10-29T04:42:13.000Z');
+const T0 = Date.parse('2027-08-10T12:00:00.000Z');
 
 class CaptureLogger implements LoggerService {
   readonly lines: string[] = [];
@@ -412,7 +412,7 @@ describe('desactivar, reactivar y borrar (OCB-012)', () => {
       await lifecycle.idle();
 
       // 1. signed URL al bucket con <user_id>/<timestamp>.tgz, 15 min.
-      const object = `${USER_ID}/20261015T120000Z.tgz`;
+      const object = `${USER_ID}/20270810T120000Z.tgz`;
       expect(archiver.signed).toEqual([{bucket: BUCKET, object, ttlSeconds: 900}]);
       // 2. setMetadata con fingerprint y TODA la metadata + hermes-archive-url.
       expect(compute.metadataWrites).toHaveLength(1);
@@ -438,11 +438,11 @@ describe('desactivar, reactivar y borrar (OCB-012)', () => {
       }));
       expect(await events()).toEqual([
         {kind: 'delete.requested', phase: 'delete', cause_code: null, detail_safe: 'from=ready'},
-        {kind: 'archive.requested', phase: 'archive', cause_code: null, detail_safe: 'object=20261015T120000Z.tgz'},
-        {kind: 'archive.uploaded', phase: 'archive', cause_code: null, detail_safe: 'object=20261015T120000Z.tgz'},
+        {kind: 'archive.requested', phase: 'archive', cause_code: null, detail_safe: 'object=20270810T120000Z.tgz'},
+        {kind: 'archive.uploaded', phase: 'archive', cause_code: null, detail_safe: 'object=20270810T120000Z.tgz'},
         {kind: 'vm.deleted', phase: 'delete_vm', cause_code: null, detail_safe: null},
         {kind: 'credential.revoked', phase: 'revoke', cause_code: null, detail_safe: null},
-        {kind: 'assistant.deleted', phase: 'delete', cause_code: null, detail_safe: 'object=20261015T120000Z.tgz'},
+        {kind: 'assistant.deleted', phase: 'delete', cause_code: null, detail_safe: 'object=20270810T120000Z.tgz'},
       ]);
       expectNoSecrets([...logger.lines, ...(await events()).map(event => JSON.stringify(event))]);
     });

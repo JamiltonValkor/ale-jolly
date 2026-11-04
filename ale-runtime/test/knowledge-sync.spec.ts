@@ -53,10 +53,10 @@ const graph = (businessId: string, nodes: unknown[], edges: unknown[] = [], fact
   facts,
 });
 const fact = (path: string, value: string, revision: string, provenance = 'owner_said') => ({
-  path, offering_ref: null, value, provenance, revision_id: revision, version: 1, observed_at: '2026-10-27T05:02:44+00:00',
-  recorded_at: '2026-10-29T00:01:13+00:00',
+  path, offering_ref: null, value, provenance, revision_id: revision, version: 1, observed_at: '2027-08-16T10:00:00+00:00',
+  recorded_at: '2027-08-16T10:00:01+00:00',
 });
-const snap = (...businesses: unknown[]) => ({schema: 'saleads-explorer-snapshot/3', generated_at: '2026-10-30T08:43:38+00:00', businesses});
+const snap = (...businesses: unknown[]) => ({schema: 'saleads-explorer-snapshot/3', generated_at: '2027-08-16T09:00:00+00:00', businesses});
 
 class MemoryStorage implements SnapshotStorage {
   readonly objects = new Map<string, Buffer>();

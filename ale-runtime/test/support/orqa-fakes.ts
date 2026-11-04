@@ -76,7 +76,7 @@ export function setup(options: Partial<OrqaSyncOptions> = {}, bundle: AgentBundl
   const row = {
     user_id: USER, status: 'ready', step: null, instance_name: INSTANCE, ai_provider: 'openrouter', ai_model: 'deepseek/deepseek-chat-v3.1',
     timezone: 'America/New_York', api_server_key_enc: cipher.seal('assistants.api_server_key_enc', USER, API_SERVER_KEY),
-    created_at: new Date('2026-10-30T00:00:00Z'),
+    created_at: new Date('2027-07-27T00:00:00Z'),
   } as unknown as AssistantRow;
   const events: AssistantEvent[] = [];
   const instances = new FakeInstances();

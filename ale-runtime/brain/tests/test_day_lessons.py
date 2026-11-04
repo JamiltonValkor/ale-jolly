@@ -15,16 +15,16 @@ def state_db(path, rows):
         "CREATE TABLE sessions (id TEXT PRIMARY KEY, source TEXT NOT NULL, started_at REAL NOT NULL);"
         "CREATE TABLE messages (id INTEGER PRIMARY KEY AUTOINCREMENT, session_id TEXT, role TEXT, content TEXT, timestamp REAL);"
     )
-    db.execute("INSERT INTO sessions VALUES ('s1','api',1760600000), ('cron1','cron',1760600000)")
+    db.execute("INSERT INTO sessions VALUES ('s1','api',1793199600), ('cron1','cron',1793199600)")
     db.executemany("INSERT INTO messages(session_id, role, content, timestamp) VALUES (?,?,?,?)", rows)
     db.commit()
     db.close()
 
 
 ROWS = [
-    ("s1", "user", "Para Example Beauty quiero vender más kits de novia", 1760600000),
-    ("s1", "assistant", "Listo, preparo ideas", 1760600010),
-    ("cron1", "assistant", "Resumen del día", 1760600020),
+    ("s1", "user", "Para Example Beauty quiero vender más kits de novia", 1793199600),
+    ("s1", "assistant", "Listo, preparo ideas", 1793199610),
+    ("cron1", "assistant", "Resumen del día", 1793199620),
 ]
 
 
@@ -129,7 +129,7 @@ def test_routing_knows_the_business_by_its_products(tmp_path) -> None:
 def test_a_long_session_is_split_not_truncated(tmp_path) -> None:
     """Laboratorio H8: el chat del dueño es una sesión larga; un día largo no se corta a 8.000 caracteres."""
     db = tmp_path / "state.db"
-    state_db(db, [("s1", role, ch * 3000, 1760600000 + i)
+    state_db(db, [("s1", role, ch * 3000, 1793199600 + i)
                   for i, (role, ch) in enumerate([("user", "a"), ("assistant", "b"), ("user", "c"), ("assistant", "d")])])
     episodes, _, _ = read_messages(db, 0)
     assert len(episodes) == 2
@@ -147,6 +147,6 @@ async def test_noise_accumulates_and_the_checkpoint_passes_cron_rows(tmp_path) -
 
     await ingest_day(ledger=ledger, state_db=db, seed_path=seed, add_batch=ok)
     await ingest_day(ledger=ledger, state_db=db, seed_path=seed, add_batch=ok)
-    report = ledger.value_report(BUSINESS, "2026-10-30")
+    report = ledger.value_report(BUSINESS, "2026-10-27")
     assert report["assistant_messages"] == 2 and report["owner_messages"] == 1
     assert ledger.checkpoint(CHECKPOINT) == "3"

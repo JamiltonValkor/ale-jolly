@@ -386,7 +386,7 @@ describe('canal robot de Stock', () => {
   });
 
   describe('avisos', () => {
-    const NOON = '2026-10-31T14:52:52.000Z';
+    const NOON = '2027-08-28T15:00:00.000Z';
     const question = {texto: '¿Te llegaron 22 o 24?', pregunta: true, proposal_id: null, producto_id: null, prioridad: 'normal' as const, dedupe_key: 'causa-1'};
     const heard = async (device: string) => {
       const stream = await connect(device);
@@ -703,7 +703,7 @@ describe('canal robot de Stock', () => {
       await opJson(robot.device_token, {op: 'bench_clock', offset_seconds: 30 * 86_400, run_id: first});
       // Un aviso de esta corrida sin decir y otro sin corrida (uso real): solo el primero muere con el cierre.
       const pending = (key: string) => db.database.pool.query<{id: string}>(
-        `INSERT INTO assistant.stock_robot_events(business_id,user_id,kind,payload,dedupe_key,dedupe_day) VALUES ($1,$2,'decir','{}',$3,'2026-11-01') RETURNING id`,
+        `INSERT INTO assistant.stock_robot_events(business_id,user_id,kind,payload,dedupe_key,dedupe_day) VALUES ($1,$2,'decir','{}',$3,'2027-08-27') RETURNING id`,
         [BUSINESS, USER_ID, key]).then(r => r.rows[0]!.id);
       const ofRun = await pending(`alerta:abc@corrida-${first}`);
       const real = await pending('alerta:abc');

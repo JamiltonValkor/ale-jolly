@@ -1,6 +1,6 @@
 # saleads-sales-agent 1.5.3
 
-## Cambio frente a 1.5.2 (AAB-024, plan de correcciones del 2026-11-01)
+## Cambio frente a 1.5.2 (AAB-024, plan de correcciones del 2026-11-04)
 
 - **Archivos de trabajo en `/opt/data/trabajo/`:** Hermes solo deja escribir dentro de `/opt/data`
   (`HERMES_WRITE_SAFE_ROOT`, igual en la VM real). Con `/tmp`, el `write_file` se negaba, el comando leía un archivo
@@ -14,7 +14,7 @@
   sigue con el lanzamiento en 4 fases).
 - `version:` de todos los `SKILL.md` = 1.5.3.
 
-## Cambio frente a 1.5.1 (AAB-024, laboratorio con V4 Flash, 2026-10-29)
+## Cambio frente a 1.5.1 (AAB-024, laboratorio con V4 Flash, 2026-11-04)
 
 Con 1.5.1, Ale completó por primera vez las 8 fases del canal, pero con 21-34 errores por cada 100 llamadas. El 92 %
 venía de dos causas:
@@ -32,7 +32,7 @@ venía de dos causas:
 
 - **Formatos del canal del agente** (`skills/saleads-cli/references/formatos.md`): ejemplos exactos de la apuesta
   (`agent-bet.v1`), la pieza maestra y su variación (`master_ref = {job_id, image_index}`), la subida de una pieza a
-  Meta y el árbol de campaña en objetos de Graph. Son los que pasaron por la Agent API y Meta en dev el 2026-11-01. En
+  Meta y el árbol de campaña en objetos de Graph. Son los que pasaron por la Agent API y Meta en dev el 2026-11-03. En
   la primera tanda del laboratorio Ale inventaba esas formas (`budget`, `audience`, `format`) y fallaba 30-65 de cada
   100 llamadas.
 - Regla 8 del CLI: ante `MCP-E-INVALID-INPUT`, corregir exactamente los campos de `details.fields` y volver a llamar.

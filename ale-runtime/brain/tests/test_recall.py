@@ -221,9 +221,9 @@ def test_nonmatching_personal_experience_is_not_forced_ahead_of_relevant_busines
 
 
 def test_expired_personal_experience_does_not_displace_current_shared_knowledge(tmp_path):
-    writer, personal, general = competing_role_memory(tmp_path, valid_until="2026-10-27T00:00:00Z")
+    writer, personal, general = competing_role_memory(tmp_path, valid_until="2026-11-23T00:00:00Z")
     result = MemoryRecall(writer).retrieve(replace(CTX, actor_role="investigador"), PRIORITY_QUERY,
-                                          at="2026-10-29T12:00:00Z", max_chars=6000)
+                                          at="2026-11-23T12:00:00Z", max_chars=6000)
     assert result["knowledge"] == [general["payload"]] and not result["experiences"]
     assert {"record_id": personal["record_id"], "reason": "outside_validity"} in result["excluded"]
     assert result["versions"] == {general["record_id"]: general["revision"]}
@@ -334,13 +334,13 @@ def test_only_current_confirmed_constraints_are_included_independently_of_query(
     statement = "No actives una campaña sin mi aprobación."
     writer.register_source(CTX, source(text=statement, event_id="limited-boundary"))
     options = {"epistemic": "inferred", "validation_state": "proposed"} if state == "proposed" else {
-        "valid_until": "2026-10-28T00:00:00Z"
+        "valid_until": "2026-11-23T00:00:00Z"
     }
     record = writer.candidate(CTX, candidate("limited-boundary", statement, entity_type=constraint_type,
         attributes={}, source_event_ids=["limited-boundary"], **options))
     personal = writer.get(CTX, "experience-1")
     result = MemoryRecall(writer).retrieve(replace(CTX, actor_role="investigador"), "Compare current prices.",
-        at="2026-11-02T12:00:00Z", max_chars=6000)
+        at="2026-11-23T12:00:00Z", max_chars=6000)
     assert result["experiences"] == [personal["payload"]] and not result["knowledge"]
     assert result["versions"] == {personal["record_id"]: personal["revision"]}
     assert result["refs"] == ["source-1"]
