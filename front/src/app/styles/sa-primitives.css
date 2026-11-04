@@ -1,0 +1,79 @@
+/* 01 - Primitives: Raw color scales
+   Referenced by semantic tokens. Avoid direct use in components.
+   Use sa-surface-*, sa-text-*, sa-border-*, sa-interactive-* instead. */
+
+@theme {
+  /* Purple Scale (Brand Core) */
+  --color-sa-purple-900: #1b0029;
+  --color-sa-purple-800: #33024e;
+  --color-sa-purple-700: #6429cd;
+  --color-sa-purple-600: #7c3aed;
+  --color-sa-purple-500: #8b5cf6;
+  --color-sa-purple-400: #a78bfa;
+  --color-sa-purple-300: #c4b5fd;
+  --color-sa-purple-200: #d0b5ff;
+  --color-sa-purple-100: #e4d4ff;
+  --color-sa-purple-50: #e646ff;
+
+  /* Orange Scale (Accent) */
+  --color-sa-orange-900: #803300;
+  --color-sa-orange-700: #fe6600;
+  --color-sa-orange-500: #ff6b35;
+  --color-sa-orange-300: #fb923c;
+  --color-sa-orange-100: #ffdbc3;
+  --color-sa-orange-50: #fff2e9;
+
+  /* Neutral Scale (Surfaces) */
+  --color-sa-neutral-950: #0a0a0c;
+  --color-sa-neutral-900: #0c0c0e;
+  --color-sa-neutral-850: #131318;
+  --color-sa-neutral-800: #16161c;
+  --color-sa-neutral-750: #17171e;
+  --color-sa-neutral-700: #1a1a20;
+  --color-sa-neutral-650: #1e1e24;
+  --color-sa-neutral-600: #1e1e26;
+  --color-sa-neutral-500: #2a2a32;
+  --color-sa-neutral-400: #2e2e38;
+
+  /* White Opacity Scale */
+  --color-sa-white-95: rgba(255, 255, 255, 0.95);
+  --color-sa-white-90: rgba(255, 255, 255, 0.9);
+  --color-sa-white-70: rgba(255, 255, 255, 0.7);
+  --color-sa-white-65: rgba(255, 255, 255, 0.65);
+  --color-sa-white-45: rgba(255, 255, 255, 0.45);
+  --color-sa-white-40: rgba(255, 255, 255, 0.4);
+  --color-sa-white-35: rgba(255, 255, 255, 0.35);
+  --color-sa-white-30: rgba(255, 255, 255, 0.3);
+  --color-sa-white-25: rgba(255, 255, 255, 0.25);
+  --color-sa-white-20: rgba(255, 255, 255, 0.2);
+  --color-sa-white-15: rgba(255, 255, 255, 0.15);
+  --color-sa-white-10: rgba(255, 255, 255, 0.1);
+  --color-sa-white-7: rgba(255, 255, 255, 0.07);
+  --color-sa-white-6: rgba(255, 255, 255, 0.06);
+  --color-sa-white-4: rgba(255, 255, 255, 0.04);
+  --color-sa-white-2: rgba(255, 255, 255, 0.02);
+
+  /* Semantic Colors (Status) */
+  --color-sa-emerald-400: #34d399;
+  --color-sa-emerald-500: #059669;
+  --color-sa-emerald-600: #10b981;
+  --color-sa-amber-400: #fbbf24;
+  --color-sa-amber-500: #f59e0b;
+  --color-sa-red-400: #ef4444;
+  --color-sa-red-500: #e54b4b;
+  --color-sa-blue-400: #60a5fa;
+  --color-sa-blue-500: #3b82f6;
+
+  /* Platform Brand Colors */
+  --color-sa-meta-logo: #0081fb;
+  --color-sa-meta-ui: #1877f2;
+  --color-sa-instagram-pink: #e1306c;
+  --color-sa-instagram-purple: #833ab4;
+  --color-sa-instagram-red: #fd1d1d;
+  --color-sa-instagram-orange: #f77737;
+  --color-sa-google-blue: #4285f4;
+  --color-sa-google-yellow: #fbbc04;
+  --color-sa-google-green: #34a853;
+  --color-sa-tiktok-cyan: #25f4ee;
+  --color-sa-tiktok-red: #fe2c55;
+}

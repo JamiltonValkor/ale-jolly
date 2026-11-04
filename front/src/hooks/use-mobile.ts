@@ -1,0 +1,16 @@
+import * as React from 'react'
+
+const MOBILE_BREAKPOINT = 768
+
+function subscribe(callback: () => void): () => void {
+  const mql = window.matchMedia(`(max-width: ${MOBILE_BREAKPOINT - 1}px)`)
+  mql.addEventListener('change', callback)
+  return () => mql.removeEventListener('change', callback)
+}
+
+const getSnapshot = () => window.innerWidth < MOBILE_BREAKPOINT
+const getServerSnapshot = () => false
+
+export function useIsMobile() {
+  return React.useSyncExternalStore(subscribe, getSnapshot, getServerSnapshot)
+}

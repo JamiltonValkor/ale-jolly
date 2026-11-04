@@ -1,0 +1,669 @@
+/* Pantalla del robot: negro puro, sin cromo. Todo se mide con unidades de
+   contenedor (cqh/cqw/cqmin) para verse igual en 800×480, 1024×600, 720×720
+   o un teléfono. Horizontal: cara | contenido | QR. Vertical: apilado. */
+
+.screen {
+  position: fixed;
+  inset: 0;
+  container: screen / size;
+  overflow: hidden;
+  background: #000;
+  color: rgba(255, 255, 255, 0.93);
+  --rx: 22%;
+  --ry: 52%;
+  --pad-x: clamp(20px, 6.5cqw, 72px);
+  --pad-y: clamp(18px, 7.5cqh, 64px);
+  --face: min(54cqh, 27cqw);
+  --title: clamp(20px, min(7cqh, 4.6cqw), 52px);
+  --body: clamp(13px, min(3.5cqh, 2.2cqw), 20px);
+  --small: clamp(11px, min(2.7cqh, 1.7cqw), 15px);
+}
+
+.contained {
+  position: absolute;
+}
+
+.kiosk,
+.kiosk * {
+  cursor: none !important;
+}
+
+.panel {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  padding: var(--pad-y) var(--pad-x);
+}
+
+/* ---------- Cromo: marca arriba a la izquierda, estado a la derecha ---------- */
+
+.topbar {
+  position: absolute;
+  top: calc(var(--pad-y) * 0.62);
+  left: var(--pad-x);
+  right: var(--pad-x);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  z-index: 2;
+}
+
+.lockup {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55em;
+  font-size: var(--small);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+  white-space: nowrap;
+}
+
+.lockupIso {
+  height: 1.35em;
+}
+
+.lockupBy {
+  color: rgba(255, 255, 255, 0.46);
+  font-weight: 500;
+}
+
+.status {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  padding: 0.42em 0.95em;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.06);
+  color: rgba(255, 255, 255, 0.72);
+  font-size: var(--small);
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+.dot {
+  width: 0.5em;
+  height: 0.5em;
+  border-radius: 999px;
+  background: currentColor;
+  flex: none;
+}
+
+.dotLive {
+  color: #3ddc84;
+  animation: pulse 2.1s cubic-bezier(0.22, 1, 0.36, 1) infinite;
+}
+
+.dotWarn {
+  color: #f0c05a;
+}
+
+/* ---------- Isotipo iridiscente (máscara + cónico que gira) ---------- */
+
+.iso {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  aspect-ratio: 61.91 / 100;
+  -webkit-mask: url('/agent-chat/v2/saleads-isotipo.svg') center / contain
+    no-repeat;
+  mask: url('/agent-chat/v2/saleads-isotipo.svg') center / contain no-repeat;
+  overflow: hidden;
+}
+
+.isoSpin {
+  position: absolute;
+  inset: -60%;
+  background: conic-gradient(
+    #ff86c8,
+    #a98dff,
+    #62c6ff,
+    #5fe3c0,
+    #ffcf8f,
+    #ff86c8
+  );
+  animation: spin 9s linear infinite;
+}
+
+.isoGlow {
+  position: absolute;
+  inset: -30%;
+  filter: blur(28px);
+  opacity: 0.5;
+}
+
+.isoGlow .iso {
+  width: 100%;
+  height: 100%;
+}
+
+/* ---------- Arranque ---------- */
+
+.boot {
+  place-items: center;
+  align-content: center;
+  text-align: center;
+  gap: clamp(14px, 4cqh, 32px);
+}
+
+.bootMark {
+  position: relative;
+  height: clamp(64px, 26cqmin, 190px);
+  aspect-ratio: 61.91 / 100;
+}
+
+.bootMark > .iso {
+  width: 100%;
+  height: 100%;
+}
+
+.bootName {
+  margin: 0;
+  font-size: clamp(26px, min(9cqh, 6cqw), 64px);
+  font-weight: 600;
+  letter-spacing: -0.035em;
+  line-height: 1.02;
+}
+
+.bootBy {
+  display: block;
+  margin-top: 0.5em;
+  font-size: var(--body);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: rgba(255, 255, 255, 0.46);
+}
+
+.bootStatus {
+  position: absolute;
+  bottom: var(--pad-y);
+  left: 0;
+  right: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 0.6em;
+  font-size: var(--small);
+  color: rgba(255, 255, 255, 0.5);
+}
+
+/* ---------- Cara en placa ---------- */
+
+.faceWrap {
+  position: relative;
+  width: var(--face);
+  justify-self: center;
+  align-self: center;
+}
+
+.faceHalo {
+  position: absolute;
+  inset: -16%;
+  border-radius: 50%;
+  background: conic-gradient(
+    #ff86c8,
+    #a98dff,
+    #62c6ff,
+    #5fe3c0,
+    #ffcf8f,
+    #ff86c8
+  );
+  filter: blur(48px);
+  opacity: 0.2;
+  animation: spin 9s linear infinite;
+}
+
+.faceWrap > :last-child {
+  position: relative;
+}
+
+/* ---------- Disposición horizontal: cara | contenido | QR ---------- */
+
+.split {
+  grid-template-columns: auto minmax(0, 1fr) auto;
+  align-items: center;
+  column-gap: clamp(18px, 5cqw, 64px);
+  padding-top: calc(var(--pad-y) * 1.55);
+}
+
+.split.two {
+  grid-template-columns: auto minmax(0, 1fr);
+}
+
+.copy {
+  display: grid;
+  gap: clamp(8px, 2.6cqh, 22px);
+  min-width: 0;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--title);
+  font-weight: 600;
+  letter-spacing: -0.032em;
+  line-height: 1.04;
+  text-wrap: balance;
+}
+
+.lead {
+  margin: 0;
+  font-size: var(--body);
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.58);
+  max-width: 34ch;
+  text-wrap: pretty;
+}
+
+.label {
+  font-size: var(--small);
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.46);
+}
+
+/* ---------- Código ---------- */
+
+.codeBlock {
+  display: grid;
+  gap: 0.4em;
+}
+
+.code {
+  display: inline-flex;
+  align-items: baseline;
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  font-size: clamp(28px, min(11cqh, 5.8cqw), 84px);
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  line-height: 1;
+  white-space: nowrap;
+  font-variant-numeric: tabular-nums;
+}
+
+.codeChar {
+  display: inline-block;
+}
+
+.codeSep {
+  display: inline-block;
+  margin: 0 -0.14em;
+  color: rgba(255, 255, 255, 0.28);
+}
+
+.codeOld {
+  color: rgba(255, 255, 255, 0.3);
+  text-decoration: line-through;
+  text-decoration-thickness: 0.06em;
+  text-decoration-color: rgba(255, 255, 255, 0.4);
+}
+
+.expiry {
+  display: grid;
+  gap: 0.55em;
+  max-width: 22em;
+  font-size: var(--small);
+  color: rgba(255, 255, 255, 0.46);
+}
+
+.expiryTrack {
+  height: 3px;
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.09);
+  overflow: hidden;
+}
+
+.expiryFill {
+  height: 100%;
+  border-radius: inherit;
+  background: rgba(255, 255, 255, 0.55);
+  transform-origin: left center;
+  transition: transform 1s linear;
+}
+
+/* ---------- QR ---------- */
+
+.qrColumn {
+  display: grid;
+  justify-items: center;
+  gap: 0.8em;
+  font-size: var(--small);
+  color: rgba(255, 255, 255, 0.58);
+  text-align: center;
+}
+
+.qrTile {
+  width: min(38cqh, 21cqw);
+  aspect-ratio: 1;
+  padding: 7%;
+  border-radius: 14%;
+  background: #f2e1bf;
+  box-shadow: 0 24px 60px -30px rgba(243, 230, 203, 0.35);
+  transition:
+    opacity 0.5s cubic-bezier(0.22, 1, 0.36, 1),
+    filter 0.5s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.qrTile svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
+
+.qrStale {
+  opacity: 0.18;
+  filter: blur(5px);
+}
+
+/* ---------- Pasos de la sincronización ---------- */
+
+.ringWrap {
+  width: calc(var(--face) * 1.28);
+  justify-self: center;
+}
+
+.steps {
+  display: grid;
+  gap: clamp(8px, 2.8cqh, 20px);
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.step {
+  display: flex;
+  align-items: center;
+  gap: 0.8em;
+  font-size: var(--body);
+  font-weight: 500;
+  letter-spacing: -0.005em;
+  color: rgba(255, 255, 255, 0.93);
+  transition: color 0.4s ease;
+}
+
+.step[data-state='pending'] {
+  color: rgba(255, 255, 255, 0.32);
+}
+
+.stepMark {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 1.5em;
+  height: 1.5em;
+  border-radius: 999px;
+}
+
+.step[data-state='done'] .stepMark {
+  color: #3ddc84;
+  background: color-mix(in oklab, #3ddc84 14%, transparent);
+}
+
+.step[data-state='pending'] .stepMark {
+  box-shadow: inset 0 0 0 1.5px rgba(255, 255, 255, 0.2);
+}
+
+.stepActive {
+  position: relative;
+  width: 0.62em;
+  height: 0.62em;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.stepActive::before {
+  content: '';
+  position: absolute;
+  inset: -40%;
+  background: conic-gradient(
+    #ff86c8,
+    #a98dff,
+    #62c6ff,
+    #5fe3c0,
+    #ffcf8f,
+    #ff86c8
+  );
+  animation: spin 2.4s linear infinite;
+}
+
+/* ---------- Sincronizado ---------- */
+
+.paired {
+  grid-template-columns: auto minmax(0, 1fr);
+  align-items: center;
+  column-gap: clamp(18px, 5.5cqw, 72px);
+  padding-top: calc(var(--pad-y) * 1.4);
+}
+
+.greeting {
+  margin: 0;
+  font-size: clamp(30px, min(12cqh, 7.6cqw), 96px);
+  font-weight: 600;
+  letter-spacing: -0.04em;
+  line-height: 1;
+}
+
+.bloom {
+  position: absolute;
+  inset: -30%;
+  border-radius: 50%;
+  background: conic-gradient(
+    #ff86c8,
+    #a98dff,
+    #62c6ff,
+    #5fe3c0,
+    #ffcf8f,
+    #ff86c8
+  );
+  filter: blur(54px);
+  animation:
+    spin 6s linear infinite,
+    bloom 2.6s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ---------- En vivo: la cara llena la pantalla ---------- */
+
+.live {
+  padding: 0;
+  animation: reveal 1.15s cubic-bezier(0.22, 1, 0.36, 1) both;
+}
+
+/* ---------- Sin conexión ---------- */
+
+.checks {
+  display: grid;
+  gap: 0.6em;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+  font-size: var(--body);
+  color: rgba(255, 255, 255, 0.8);
+}
+
+.checks li {
+  display: flex;
+  align-items: center;
+  gap: 0.7em;
+}
+
+.checks svg {
+  flex: none;
+  color: rgba(255, 255, 255, 0.5);
+}
+
+.retryRow {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.8em 1.2em;
+  font-size: var(--small);
+  color: rgba(255, 255, 255, 0.46);
+}
+
+.retryButton {
+  height: clamp(34px, 8.5cqh, 48px);
+  padding: 0 1.3em;
+  border: 0;
+  border-radius: 999px;
+  background: #fff;
+  color: #000;
+  font: inherit;
+  font-size: var(--small);
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.retryButton:focus-visible {
+  outline: 2px solid rgba(255, 255, 255, 0.4);
+  outline-offset: 2px;
+}
+
+/* ---------- Vertical o cuadrada: todo apilado y centrado ---------- */
+
+@container screen (aspect-ratio < 1.25) {
+  .screen,
+  .panel {
+    --face: min(34cqh, 46cqw);
+    --title: clamp(22px, 6.4cqw, 44px);
+    --body: clamp(14px, 3.6cqw, 20px);
+    --small: clamp(11px, 2.9cqw, 15px);
+    --rx: 50%;
+    --ry: 30%;
+  }
+
+  .split,
+  .split.two,
+  .paired {
+    grid-template-columns: minmax(0, 1fr);
+    align-content: center;
+    justify-items: center;
+    row-gap: clamp(14px, 3.6cqh, 30px);
+    text-align: center;
+  }
+
+  .copy {
+    justify-items: center;
+  }
+
+  .lead,
+  .expiry {
+    margin-inline: auto;
+  }
+
+  .code {
+    font-size: clamp(34px, 11cqw, 80px);
+  }
+
+  .qrColumn {
+    grid-auto-flow: column;
+    align-items: center;
+    text-align: left;
+  }
+
+  .qrTile {
+    width: min(26cqh, 34cqw);
+  }
+
+  .steps {
+    justify-items: start;
+  }
+
+  .ringWrap {
+    width: calc(var(--face) * 1.22);
+  }
+}
+
+/* Cuadrada (720×720): el código manda a la derecha; cara y QR a la izquierda. */
+@container screen (0.8 < aspect-ratio < 1.25) {
+  .pairing {
+    --face: min(30cqw, 32cqh);
+    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-areas:
+      'face copy'
+      'qr copy';
+    align-content: center;
+    justify-items: stretch;
+    column-gap: clamp(20px, 6cqw, 56px);
+    row-gap: clamp(16px, 5cqh, 40px);
+    text-align: left;
+  }
+
+  .pairing .faceWrap {
+    grid-area: face;
+  }
+
+  .pairing .copy {
+    grid-area: copy;
+    justify-items: start;
+    align-self: center;
+  }
+
+  .pairing .lead,
+  .pairing .expiry {
+    margin-inline: 0;
+  }
+
+  .pairing .code {
+    font-size: clamp(30px, 8.6cqw, 72px);
+  }
+
+  .pairing .qrColumn {
+    grid-area: qr;
+    grid-auto-flow: row;
+    justify-items: center;
+    text-align: center;
+  }
+
+  .pairing .qrTile {
+    width: var(--face);
+  }
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(1turn);
+  }
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 color-mix(in oklab, currentColor 45%, transparent);
+  }
+  100% {
+    box-shadow: 0 0 0 0.6em transparent;
+  }
+}
+
+@keyframes bloom {
+  0% {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  35% {
+    opacity: 0.55;
+  }
+  100% {
+    opacity: 0.18;
+    transform: scale(1);
+  }
+}
+
+@keyframes reveal {
+  from {
+    clip-path: circle(12% at var(--rx) var(--ry));
+  }
+  to {
+    clip-path: circle(150% at var(--rx) var(--ry));
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .isoSpin,
+  .faceHalo,
+  .stepActive::before,
+  .bloom,
+  .dotLive,
+  .live {
+    animation: none;
+  }
+}

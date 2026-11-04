@@ -1,0 +1,185 @@
+{
+  "badge": {
+    "label": "Ale",
+    "aria": "Hecho por tu equipo autónomo (Ale). Ver traza",
+    "ariaStatic": "Hecho por tu equipo autónomo (Ale)"
+  },
+  "trace": {
+    "title": "Lo que hizo tu equipo",
+    "description": "Cada paso que dio Ale en esta campaña, tal como quedó registrado.",
+    "loading": "Cargando la traza…",
+    "empty": "Todavía no hay pasos registrados para esta campaña.",
+    "unavailable": "La traza todavía no está disponible.",
+    "error": "No pudimos cargar la traza. Vuelve a abrirla en unos minutos.",
+    "others": "Otras acciones en esta campaña",
+    "showDetail": "Ver detalle",
+    "hideDetail": "Ocultar detalle",
+    "fields": {
+      "requested": "Qué se pidió",
+      "bet": "Apuesta",
+      "skill": "Habilidad",
+      "approval": "Aprobación",
+      "objects": "Objetos en Meta",
+      "result": "Resultado",
+      "spend": "Gasto desde que se encendió",
+      "warnings": "Advertencias del jurado",
+      "metaError": "Error de Meta"
+    },
+    "noValue": "Sin dato",
+    "skillVersion": "{skill} · versión {version}",
+    "approval": {
+      "approved": "Aprobada por ti",
+      "rejected": "Rechazada por ti",
+      "pending": "Pendiente de tu aprobación",
+      "notRequired": "No necesitó aprobación",
+      "none": "Sin aprobación registrada"
+    },
+    "objectType": {
+      "campaign": "Campaña",
+      "adset": "Caja",
+      "ad_set": "Caja",
+      "ad": "Anuncio",
+      "creative": "Pieza",
+      "other": "Objeto"
+    },
+    "objectLine": "{type} · {id}",
+    "spendValue": "{amount} desde el {date}",
+    "openApproval": "Revisar y aprobar"
+  },
+  "kind": {
+    "bet_created": "Ale propuso la apuesta «{bet}»",
+    "bet_createdUnnamed": "Ale propuso una apuesta",
+    "structure_published": "Ale publicó {campaign} en pausa",
+    "structure_publishedUnnamed": "Ale publicó una campaña en pausa",
+    "creative_rendered": "Ale generó una pieza ({credits} créditos)",
+    "creative_renderedUnnamed": "Ale generó una pieza",
+    "media_uploaded": "Ale subió un archivo",
+    "launch": "Se encendió {campaign}",
+    "launchUnnamed": "Se encendió una campaña",
+    "activation_requested": "Ale pidió encender {campaign}",
+    "activation_requestedUnnamed": "Ale pidió encender una campaña",
+    "activation": "Se encendió {campaign}",
+    "activationUnnamed": "Se encendió una campaña",
+    "budget_change": "Ale movió {amount} a la caja {box}",
+    "budget_changeNoBox": "Ale movió {amount} a una caja",
+    "budget_changeUnnamed": "Ale cambió el presupuesto de una caja",
+    "pause": "Ale pausó {type, select, ad_set {la caja} ad {el anuncio} campaign {la campaña} other {el objeto}} {name}",
+    "pauseUnnamed": "Ale pausó {type, select, ad_set {una caja} ad {un anuncio} campaign {una campaña} other {un objeto}}",
+    "resume": "Ale reanudó {type, select, ad_set {la caja} ad {el anuncio} campaign {la campaña} other {el objeto}} {name}",
+    "resumeUnnamed": "Ale reanudó {type, select, ad_set {una caja} ad {un anuncio} campaign {una campaña} other {un objeto}}",
+    "duplicate_box": "Ale duplicó una caja",
+    "add_ads": "Ale agregó anuncios",
+    "delete": "Ale pidió borrar un objeto",
+    "lead_quality": "Ale registró la calidad de un contacto",
+    "sale": "Ale registró una venta",
+    "other": "Ale hizo un cambio"
+  },
+  "state": {
+    "requested": "Pedido",
+    "awaiting_approval": "Esperando tu aprobación",
+    "approved": "Aprobado",
+    "rejected": "Rechazado por ti",
+    "executing": "En curso",
+    "succeeded": "Hecho",
+    "partial": "Hecho en parte",
+    "failed": "Falló",
+    "unknown": "Sin estado"
+  },
+  "limits": {
+    "title": "Límites de tu equipo",
+    "description": "Dentro de estos límites tu equipo autónomo trabaja sin pedirte permiso.",
+    "comingSoon": "Disponible pronto",
+    "error": "No pudimos cargar este dato. Vuelve a intentarlo en unos minutos.",
+    "saveError": "No pudimos guardar el cambio. Vuelve a intentarlo en unos minutos.",
+    "saved": "Guardado",
+    "cancel": "Cancelar",
+    "budget": {
+      "title": "Presupuesto mensual aprobado",
+      "help": "Lo máximo que tu equipo puede repartir en pauta este mes sin pedirte aprobación.",
+      "empty": "Aún no has fijado un presupuesto: tu equipo te pedirá aprobación para todo lo que gaste.",
+      "current": "{amount} al mes",
+      "period": "Periodo: {start} – {end}",
+      "updated": "Última actualización: {date} (revisión {revision})",
+      "label": "Monto mensual",
+      "currency": "Moneda de tu cuenta publicitaria: {currency}",
+      "connectMeta": "Conecta tu cuenta de Meta para fijar el presupuesto.",
+      "connectMetaCta": "Conectar Meta",
+      "save": "Guardar presupuesto",
+      "confirmTitle": "¿Guardar el presupuesto mensual?",
+      "confirmDescription": "Tu equipo podrá repartir hasta {amount} al mes sin pedirte permiso.",
+      "confirm": "Sí, guardar",
+      "invalid": "Escribe un monto mayor que cero.",
+      "conflict": "El presupuesto cambió mientras editabas; revisa el valor nuevo."
+    },
+    "credits": {
+      "title": "Tope mensual de créditos",
+      "help": "Cuántos créditos puede usar tu equipo al mes para generar imágenes y piezas.",
+      "empty": "Aún no has fijado un tope: tu equipo no puede generar imágenes ni piezas hasta que lo fijes.",
+      "zero": "Tope en 0: tu equipo no usa créditos.",
+      "cap": "Tope",
+      "used": "Usados este mes",
+      "remaining": "Restantes",
+      "resets": "Se reinicia el {date}",
+      "label": "Créditos al mes",
+      "save": "Guardar tope",
+      "confirmTitle": "¿Guardar el tope de créditos?",
+      "confirmDescription": "Tu equipo podrá usar hasta {cap} créditos al mes sin pedirte permiso.",
+      "confirm": "Sí, guardar",
+      "invalid": "Escribe un número entero de 0 en adelante.",
+      "balanceNote": "Tu saldo general de créditos sigue en Ajustes → Créditos."
+    },
+    "compact": {
+      "save": "Guardar",
+      "budget": {
+        "title": "Pauta al mes",
+        "unset": "Sin fijar",
+        "unsetNote": "Hasta que la fijes, te pide permiso para cada gasto.",
+        "setNote": "Hasta este monto reparte la pauta sin preguntarte.",
+        "connect": "Conecta tu cuenta de Meta para fijarla.",
+        "connectCta": "Conectar Meta",
+        "label": "Pauta al mes en {currency}"
+      },
+      "credits": {
+        "title": "Créditos al mes",
+        "unset": "Sin tope",
+        "unsetNote": "Sin tope no genera imágenes ni piezas.",
+        "zeroNote": "En 0 no usa créditos.",
+        "used": "{used} usados · se reinicia el {date}",
+        "meter": "Créditos usados este mes",
+        "label": "Créditos al mes"
+      }
+    }
+  },
+  "activity": {
+    "title": "Lo que hizo tu equipo",
+    "description": "Cada cambio que hizo Ale en este negocio, del más reciente al más antiguo.",
+    "loading": "Cargando la actividad…",
+    "empty": "Tu equipo aún no ha hecho nada en este negocio.",
+    "comingSoon": "Disponible pronto",
+    "error": "No pudimos cargar la actividad. Vuelve a intentarlo en unos minutos.",
+    "loadMore": "Ver más",
+    "loadingMore": "Cargando…",
+    "viewCampaign": "Ver campaña",
+    "viewApproval": "Revisar y aprobar",
+    "viewTrace": "Ver traza",
+    "filters": {
+      "label": "Filtrar actividad",
+      "all": "Todo",
+      "approval": "Requiere tu aprobación",
+      "failed": "Con error"
+    },
+    "filteredEmpty": "No hay acciones con este filtro.",
+    "retry": "Reintentar",
+    "comingSoonBody": "Pronto verás aquí cada cambio que tu equipo haga en Meta: qué lanzó, qué ajustó y por qué.",
+    "days": {
+      "today": "Hoy",
+      "yesterday": "Ayer"
+    }
+  },
+  "pending": {
+    "title": "Necesita tu visto bueno",
+    "subtitle": "Tu equipo espera tu aprobación para seguir con esto.",
+    "review": "Revisar y aprobar",
+    "more": "y {count, plural, one {# más} other {# más}} en «Actividad»"
+  }
+}

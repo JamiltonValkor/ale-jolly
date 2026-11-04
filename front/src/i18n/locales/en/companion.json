@@ -1,0 +1,210 @@
+{
+  "face": {
+    "label": {
+      "sleeping": "Your companion is asleep",
+      "waking": "Your companion is waking up",
+      "idle": "Your companion is ready",
+      "listening": "Your companion is listening to you",
+      "thinking": "Your companion is thinking",
+      "speaking": "Your companion is speaking",
+      "happy": "Your companion is happy",
+      "syncing": "Your companion is syncing",
+      "error": "Your companion needs your help"
+    }
+  },
+  "brand": {
+    "product": "Meta Assistant",
+    "company": "Saleads",
+    "by": "by Saleads"
+  },
+  "sync": {
+    "progressLabel": "Sync progress",
+    "stepState": {
+      "done": "Done",
+      "active": "In progress",
+      "pending": "Pending"
+    }
+  },
+  "robot": {
+    "screenLabel": "Your Meta Assistant companion screen",
+    "boot": {
+      "status": "Waking up"
+    },
+    "pairing": {
+      "title": "Sync me with Saleads",
+      "codeLabel": "My code",
+      "qrLabel": "Or scan me with your phone",
+      "qrAlt": "QR code to sync this companion with Saleads",
+      "instruction": "In Saleads, open «Meta Assistant», tap «Physical companion» and type this code.",
+      "waiting": "Waiting for your code",
+      "expiresIn": "Changes in {minutes} min",
+      "expiresSoon": "Changes in less than a minute"
+    },
+    "expired": {
+      "status": "New code on its way",
+      "title": "That code expired",
+      "body": "I'm bringing you a new one. You don't need to do anything."
+    },
+    "syncing": {
+      "status": "Syncing with Saleads",
+      "title": "Getting to know {business}",
+      "titleNoBusiness": "Getting to know your business",
+      "steps": {
+        "knowledge": "Receiving what Saleads knows about your business",
+        "voice": "Turning on my voice",
+        "ready": "Getting ready to talk with you"
+      }
+    },
+    "paired": {
+      "status": "Synced",
+      "greeting": "Hi, {name}!",
+      "greetingNoName": "Hi!",
+      "knows": "I already know {business}.",
+      "knowsNoBusiness": "I already know your business."
+    },
+    "offline": {
+      "status": "Offline",
+      "title": "I have no internet",
+      "body": "I need wifi to talk with Saleads. Please check:",
+      "checks": {
+        "router": "That the router is on",
+        "near": "That I'm close to the router",
+        "network": "That the wifi is the usual one"
+      },
+      "retryIn": "Trying again in {seconds} s",
+      "retrying": "Trying to connect",
+      "retryNow": "Retry now"
+    },
+    "live": {
+      "greeting": "Hi, {name}! How can I help you today?",
+      "greetingNoName": "Hi! How can I help you today?",
+      "sample": "Yesterday you made 12 sales on Instagram. Want me to show you which ad brought them?"
+    }
+  },
+  "flow": {
+    "eyebrow": "Physical companion",
+    "close": "Close",
+    "back": "Back",
+    "stepOf": "Step {current} of {total}",
+    "intro": {
+      "title": "Your assistant, now by your side",
+      "subtitle": "Sync your physical companion and talk with your Meta Assistant without opening Saleads.",
+      "changesLabel": "What changes",
+      "changes": {
+        "knows": "It knows {business}: your sales, your campaigns and your bets.",
+        "talks": "It listens and talks to you. It's the same assistant from Saleads and WhatsApp.",
+        "control": "Unpair it whenever you want, right here."
+      },
+      "needsLabel": "What you need",
+      "needs": "Your companion turned on, with wifi and showing a code on its screen.",
+      "later": "Not now",
+      "start": "Type the code"
+    },
+    "connect": {
+      "title": "Type your companion's code",
+      "subtitle": "You'll see it on its screen, under «Sync me with Saleads».",
+      "subtitleFromQr": "We brought it from the QR you scanned. Check it matches its screen.",
+      "fromQr": "Code from the QR",
+      "inputLabel": "8-character code",
+      "hint": "Lowercase is fine, and you can paste it with the dot.",
+      "remaining": "{count, plural, one {# character left} other {# characters left}}",
+      "complete": "Code complete",
+      "previewLabel": "Look for it on its screen",
+      "previewTitle": "Sync me with Saleads",
+      "businessNote": "It will get to know {business}.",
+      "replaceNote": "It replaces {device}, which will stop talking with you.",
+      "chooseBusiness": "Choose business",
+      "submit": "Sync companion",
+      "submitting": "Looking for your companion",
+      "errors": {
+        "invalidChar": "Codes don't use 0, O, 1, I or L. Check your companion's screen.",
+        "INVALID_CODE": "That code doesn't match any companion. Check its screen and type it again.",
+        "EXPIRED": "That code expired. Your companion already shows a new one: type it here.",
+        "RATE_LIMITED": "You made several attempts in a row. Wait a minute and try again."
+      }
+    },
+    "business": {
+      "title": "Which business should it know?",
+      "subtitle": "Your companion learns from that business. If you want another one later, sync it again.",
+      "listLabel": "Your businesses",
+      "current": "The one you have open",
+      "submit": "Sync companion"
+    },
+    "syncing": {
+      "title": "Your companion is learning about {business}",
+      "subtitle": "It takes a few seconds. Watch its screen: it moves along with you.",
+      "steps": {
+        "knowledge": "Passing it what I know about {business}",
+        "voice": "Turning on its voice",
+        "ready": "Getting it ready to talk with you"
+      },
+      "background": "You can close this window: syncing keeps going on its own.",
+      "keepInBackground": "Keep going in background",
+      "slow": "This is taking longer than usual. Check that your companion is still on and has wifi."
+    },
+    "success": {
+      "title": "Your companion now knows {business}",
+      "subtitle": "Talk to it whenever you want: it's the same Meta Assistant from Saleads and WhatsApp.",
+      "deviceNow": "Synced just now",
+      "tryHello": "Try it: say hello",
+      "tryHelloTip": "Get close and say «Hello». It will answer with your name.",
+      "done": "Back to Meta Assistant",
+      "companionSays": "Hi, {name}! I already know {business}.",
+      "companionSaysNoName": "Hi! I already know {business}.",
+      "helloSays": "Hi! I'm ready to help you with {business}."
+    },
+    "errors": {
+      "DEVICE_OFFLINE": {
+        "title": "Your companion has no internet",
+        "body": "Check that it's on and has wifi. The code works until it expires.",
+        "action": "Try again"
+      },
+      "ALREADY_PAIRED": {
+        "title": "This companion is synced with another account",
+        "body": "Ask that person to unpair it from their Meta Assistant. Then your companion will show you a new code.",
+        "action": "Use another code"
+      },
+      "NETWORK": {
+        "title": "We couldn't reach Saleads",
+        "body": "Check your internet connection. Your code is still saved.",
+        "action": "Try again"
+      }
+    },
+    "device": {
+      "title": "Your companion is synced",
+      "subtitle": "It knows {business} and talks to you whenever you want.",
+      "name": "Name",
+      "since": "Synced since",
+      "lastSeen": "Last seen",
+      "online": "Online",
+      "offline": "Offline",
+      "unpair": "Unpair",
+      "done": "Back to Meta Assistant",
+      "confirmTitle": "Unpair {device}?",
+      "confirmBody": "It stops talking with you and forgets what it knows about your business. To use it again, sync it with a new code.",
+      "cancel": "Cancel",
+      "confirm": "Unpair companion",
+      "unpairing": "Unpairing",
+      "unpairError": "We couldn't unpair it. Check your connection and try again.",
+      "unpairedTitle": "You unpaired your companion",
+      "unpairedBody": "It no longer speaks for your business. Whenever you want, sync it again with the code on its screen.",
+      "pairAgain": "Sync again"
+    },
+    "yourBusiness": "your business",
+    "demoDeviceName": "{name}'s companion",
+    "demoDeviceNameNoName": "Your companion"
+  },
+  "lab": {
+    "title": "Companion lab",
+    "subtitle": "Every state of the face, the robot screen and the sync flow in Saleads.",
+    "faces": "Face",
+    "sizes": "Sizes",
+    "robot": "Robot screen",
+    "flow": "Sync in Saleads",
+    "demo": "Live demo",
+    "demoBody": "Open the robot screen in another tab and type here the code it shows.",
+    "openRobot": "Open robot screen",
+    "openFlow": "Sync companion",
+    "tryVoice": "Try voice"
+  }
+}

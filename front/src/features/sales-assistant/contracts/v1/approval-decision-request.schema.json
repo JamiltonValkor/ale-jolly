@@ -1,0 +1,12 @@
+{
+  "$id": "https://saleads.ai/contracts/one-click/v1/approval-decision-request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "pattern": "^\\d{6}$"
+    }
+  },
+  "additionalProperties": false
+}

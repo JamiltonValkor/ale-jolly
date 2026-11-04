@@ -1,0 +1,210 @@
+{
+  "face": {
+    "label": {
+      "sleeping": "Tu compañero está dormido",
+      "waking": "Tu compañero se está despertando",
+      "idle": "Tu compañero está atento",
+      "listening": "Tu compañero te está escuchando",
+      "thinking": "Tu compañero está pensando",
+      "speaking": "Tu compañero está hablando",
+      "happy": "Tu compañero está feliz",
+      "syncing": "Tu compañero se está sincronizando",
+      "error": "Tu compañero necesita tu ayuda"
+    }
+  },
+  "brand": {
+    "product": "Meta Assistant",
+    "company": "Saleads",
+    "by": "de Saleads"
+  },
+  "sync": {
+    "progressLabel": "Progreso de la sincronización",
+    "stepState": {
+      "done": "Listo",
+      "active": "En curso",
+      "pending": "Pendiente"
+    }
+  },
+  "robot": {
+    "screenLabel": "Pantalla de tu compañero de Meta Assistant",
+    "boot": {
+      "status": "Me estoy despertando"
+    },
+    "pairing": {
+      "title": "Sincronízame con Saleads",
+      "codeLabel": "Mi código",
+      "qrLabel": "O escanéame con tu celular",
+      "qrAlt": "Código QR para sincronizar este compañero con Saleads",
+      "instruction": "En Saleads, abre «Meta Assistant», toca «Compañero físico» y escribe este código.",
+      "waiting": "Esperando tu código",
+      "expiresIn": "Cambia en {minutes} min",
+      "expiresSoon": "Cambia en menos de un minuto"
+    },
+    "expired": {
+      "status": "Código nuevo en camino",
+      "title": "Ese código venció",
+      "body": "Te traigo uno nuevo. No tienes que hacer nada."
+    },
+    "syncing": {
+      "status": "Sincronizando con Saleads",
+      "title": "Estoy conociendo {business}",
+      "titleNoBusiness": "Estoy conociendo tu negocio",
+      "steps": {
+        "knowledge": "Recibo lo que Saleads sabe de tu negocio",
+        "voice": "Activo mi voz",
+        "ready": "Me preparo para hablar contigo"
+      }
+    },
+    "paired": {
+      "status": "Sincronizado",
+      "greeting": "¡Hola, {name}!",
+      "greetingNoName": "¡Hola!",
+      "knows": "Ya conozco {business}.",
+      "knowsNoBusiness": "Ya conozco tu negocio."
+    },
+    "offline": {
+      "status": "Sin conexión",
+      "title": "No tengo internet",
+      "body": "Necesito wifi para hablar con Saleads. Revisa esto:",
+      "checks": {
+        "router": "Que el router esté encendido",
+        "near": "Que yo esté cerca del router",
+        "network": "Que el wifi sea el mismo de siempre"
+      },
+      "retryIn": "Lo intento otra vez en {seconds} s",
+      "retrying": "Intentando conectarme",
+      "retryNow": "Reintentar ahora"
+    },
+    "live": {
+      "greeting": "¡Hola, {name}! ¿En qué te ayudo hoy?",
+      "greetingNoName": "¡Hola! ¿En qué te ayudo hoy?",
+      "sample": "Ayer vendiste 12 veces por Instagram. ¿Quieres que te muestre qué anuncio las trajo?"
+    }
+  },
+  "flow": {
+    "eyebrow": "Compañero físico",
+    "close": "Cerrar",
+    "back": "Atrás",
+    "stepOf": "Paso {current} de {total}",
+    "intro": {
+      "title": "Tu asistente, ahora a tu lado",
+      "subtitle": "Sincroniza tu compañero físico y habla con tu Meta Assistant sin abrir Saleads.",
+      "changesLabel": "Qué cambia",
+      "changes": {
+        "knows": "Conoce {business}: tus ventas, tus campañas y tus apuestas.",
+        "talks": "Te escucha y te habla. Es el mismo asistente de Saleads y WhatsApp.",
+        "control": "Lo desvinculas cuando quieras, desde aquí."
+      },
+      "needsLabel": "Qué necesitas",
+      "needs": "Tu compañero encendido, con wifi y mostrando un código en su pantalla.",
+      "later": "Ahora no",
+      "start": "Escribir el código"
+    },
+    "connect": {
+      "title": "Escribe el código de tu compañero",
+      "subtitle": "Lo ves en su pantalla, debajo de «Sincronízame con Saleads».",
+      "subtitleFromQr": "Lo trajimos del QR que escaneaste. Confirma que es el mismo de su pantalla.",
+      "fromQr": "Código del QR",
+      "inputLabel": "Código de 8 caracteres",
+      "hint": "No importa si lo escribes en minúscula o lo pegas con el punto.",
+      "remaining": "{count, plural, one {Falta # carácter} other {Faltan # caracteres}}",
+      "complete": "Código completo",
+      "previewLabel": "Búscalo así en su pantalla",
+      "previewTitle": "Sincronízame con Saleads",
+      "businessNote": "Va a conocer {business}.",
+      "replaceNote": "Reemplaza a {device}, que dejará de hablar contigo.",
+      "chooseBusiness": "Elegir negocio",
+      "submit": "Sincronizar compañero",
+      "submitting": "Buscando tu compañero",
+      "errors": {
+        "invalidChar": "Los códigos no usan 0, O, 1, I ni L. Revisa la pantalla de tu compañero.",
+        "INVALID_CODE": "Ese código no coincide con ningún compañero. Revisa su pantalla y escríbelo otra vez.",
+        "EXPIRED": "Ese código ya venció. Tu compañero ya muestra uno nuevo: escríbelo aquí.",
+        "RATE_LIMITED": "Hiciste varios intentos seguidos. Espera un minuto y vuelve a intentarlo."
+      }
+    },
+    "business": {
+      "title": "¿Qué negocio va a conocer?",
+      "subtitle": "Tu compañero aprende de ese negocio. Si luego quieres otro, lo vuelves a sincronizar.",
+      "listLabel": "Tus negocios",
+      "current": "El que tienes abierto",
+      "submit": "Sincronizar compañero"
+    },
+    "syncing": {
+      "title": "Tu compañero está aprendiendo de {business}",
+      "subtitle": "Tarda unos segundos. Mira su pantalla: va a la par contigo.",
+      "steps": {
+        "knowledge": "Le paso lo que sé de {business}",
+        "voice": "Activo su voz",
+        "ready": "Lo dejo listo para hablar contigo"
+      },
+      "background": "Puedes cerrar esta ventana: la sincronización sigue sola.",
+      "keepInBackground": "Seguir en segundo plano",
+      "slow": "Está tardando más de lo normal. Revisa que tu compañero siga encendido y con wifi."
+    },
+    "success": {
+      "title": "Tu compañero ya conoce {business}",
+      "subtitle": "Háblale cuando quieras: es el mismo Meta Assistant de Saleads y WhatsApp.",
+      "deviceNow": "Sincronizado ahora",
+      "tryHello": "Probar: dile hola",
+      "tryHelloTip": "Acércate y dile «Hola». Te va a responder con tu nombre.",
+      "done": "Volver a Meta Assistant",
+      "companionSays": "¡Hola, {name}! Ya conozco {business}.",
+      "companionSaysNoName": "¡Hola! Ya conozco {business}.",
+      "helloSays": "¡Hola! Ya estoy listo para ayudarte con {business}."
+    },
+    "errors": {
+      "DEVICE_OFFLINE": {
+        "title": "Tu compañero no tiene internet",
+        "body": "Revisa que esté encendido y con wifi. El código sirve mientras no venza.",
+        "action": "Intentar de nuevo"
+      },
+      "ALREADY_PAIRED": {
+        "title": "Este compañero está sincronizado con otra cuenta",
+        "body": "Pide a esa persona que lo desvincule desde su Meta Assistant. Después, tu compañero te muestra un código nuevo.",
+        "action": "Usar otro código"
+      },
+      "NETWORK": {
+        "title": "No pudimos conectar con Saleads",
+        "body": "Revisa tu conexión a internet. Tu código sigue guardado.",
+        "action": "Intentar de nuevo"
+      }
+    },
+    "device": {
+      "title": "Tu compañero está sincronizado",
+      "subtitle": "Conoce {business} y te habla cuando quieras.",
+      "name": "Nombre",
+      "since": "Sincronizado desde",
+      "lastSeen": "Visto por última vez",
+      "online": "En línea",
+      "offline": "Sin conexión",
+      "unpair": "Desvincular",
+      "done": "Volver a Meta Assistant",
+      "confirmTitle": "¿Desvincular a {device}?",
+      "confirmBody": "Deja de hablar contigo y olvida lo que sabe de tu negocio. Para volver a usarlo, lo sincronizas otra vez con un código.",
+      "cancel": "Cancelar",
+      "confirm": "Desvincular compañero",
+      "unpairing": "Desvinculando",
+      "unpairError": "No pudimos desvincularlo. Revisa tu conexión y vuelve a intentarlo.",
+      "unpairedTitle": "Desvinculaste tu compañero",
+      "unpairedBody": "Ya no habla en nombre de tu negocio. Cuando quieras, sincronízalo de nuevo con el código de su pantalla.",
+      "pairAgain": "Sincronizar de nuevo"
+    },
+    "yourBusiness": "tu negocio",
+    "demoDeviceName": "Compañero de {name}",
+    "demoDeviceNameNoName": "Tu compañero"
+  },
+  "lab": {
+    "title": "Laboratorio del compañero",
+    "subtitle": "Cada estado de la cara, de la pantalla del robot y de la sincronización en Saleads.",
+    "faces": "Cara",
+    "sizes": "Tamaños",
+    "robot": "Pantalla del robot",
+    "flow": "Sincronización en Saleads",
+    "demo": "Demo en vivo",
+    "demoBody": "Abre la pantalla del robot en otra pestaña y escribe aquí el código que muestra.",
+    "openRobot": "Abrir pantalla del robot",
+    "openFlow": "Sincronizar compañero",
+    "tryVoice": "Probar voz"
+  }
+}

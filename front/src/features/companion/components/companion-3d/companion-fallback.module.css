@@ -1,0 +1,78 @@
+/* Gestos del respaldo SVG. Keyframes propios: dentro de un CSS module los
+   nombres llevan hash, así que no se usan los globales de meta-ui. */
+
+.figure {
+  transform-box: view-box;
+  transform-origin: 50% 94%;
+}
+
+.jump {
+  animation: companion-fallback-hop 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.nod {
+  animation: companion-fallback-nod 0.9s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wave {
+  animation: companion-fallback-wiggle 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.wake {
+  animation: companion-fallback-stretch 1.6s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+@keyframes companion-fallback-hop {
+  0%,
+  100% {
+    transform: translateY(0) scale(1, 1);
+  }
+  18% {
+    transform: translateY(0) scale(1.05, 0.9);
+  }
+  45% {
+    transform: translateY(-9%) scale(0.96, 1.06);
+  }
+  72% {
+    transform: translateY(0) scale(1.04, 0.93);
+  }
+}
+
+@keyframes companion-fallback-nod {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  25%,
+  65% {
+    transform: rotate(2.5deg) translateY(1%);
+  }
+  45% {
+    transform: rotate(0);
+  }
+}
+
+@keyframes companion-fallback-wiggle {
+  0%,
+  100% {
+    transform: rotate(0);
+  }
+  20%,
+  60% {
+    transform: rotate(-3deg);
+  }
+  40%,
+  80% {
+    transform: rotate(3deg);
+  }
+}
+
+@keyframes companion-fallback-stretch {
+  0%,
+  100% {
+    transform: scale(1, 1);
+  }
+  45% {
+    transform: scale(0.95, 1.07);
+  }
+}

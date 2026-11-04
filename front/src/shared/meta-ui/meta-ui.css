@@ -1,0 +1,529 @@
+/* Meta Assistant UI — el lenguaje del chat nuevo (tinta sobre negro puro).
+   Valores de prueba-modelo-negocio: src/features/saleads-ui/temas.ts (TEMAS.oscuro,
+   ESTADOS, IRIDISCENCIA) y chat-v2/blocks (kit, tinta, blocks.css). Es el mismo
+   origen que agent-chat/components/theme/agent-design-system.css, pero con su
+   propio scope: las features no se importan entre sí.
+
+   Todo vive bajo [data-meta-ui]. Dentro del scope también se reasignan los
+   --color-sa-* para que SaCard, SaButton, SaBadge y compañía (límites,
+   actividad, aprobaciones) hereden la paleta nueva sin reescribirlos. */
+
+@property --mu-giro {
+  syntax: '<angle>';
+  inherits: true;
+  initial-value: 0deg;
+}
+
+[data-meta-ui] {
+  /* TEMAS.oscuro */
+  --mu-bg: #000000;
+  --mu-bgr: 0, 0, 0;
+  --mu-ink: 255, 255, 255;
+  --mu-fg: #ffffff;
+  --mu-muted: #a1a1aa;
+  --mu-card: #0e0e11;
+  --mu-panel: #0b0b0d;
+  --mu-menu: #141416;
+  --mu-chip: #0c0c0f;
+  --mu-chip2: #141418;
+  --mu-tile: #08080a;
+  --mu-strip: #0a0a0c;
+  --mu-carcasa: #0e0e11;
+  --mu-pie: #17171a;
+
+  /* Escala de tinta: todo gris es la tinta a cierta opacidad. */
+  --mu-text: rgba(var(--mu-ink), 0.93);
+  --mu-text-2: rgba(var(--mu-ink), 0.6);
+  --mu-text-ap: rgba(var(--mu-ink), 0.46);
+  --mu-text-te: rgba(var(--mu-ink), 0.3);
+  --mu-line: rgba(var(--mu-ink), 0.07);
+  --mu-line-card: rgba(var(--mu-ink), 0.085);
+  --mu-line-float: rgba(var(--mu-ink), 0.11);
+  --mu-line-strong: rgba(var(--mu-ink), 0.14);
+  --mu-fill-1: rgba(var(--mu-ink), 0.018);
+  --mu-fill-2: rgba(var(--mu-ink), 0.04);
+  --mu-fill-3: rgba(var(--mu-ink), 0.06);
+  --mu-fill-hover: rgba(var(--mu-ink), 0.055);
+  --mu-fill-active: rgba(var(--mu-ink), 0.08);
+
+  /* ESTADOS.oscuro: van en el contenido (punto, ícono, texto), nunca en bordes. */
+  --mu-ok: #3ddc84;
+  --mu-aviso: #f0c05a;
+  --mu-violeta: #a78bfa;
+  --mu-peligro: #ff9b95;
+  --mu-mal: #ff6b6b;
+
+  /* IRIDISCENCIA: el único degradado de color, reservado a la IA de Saleads. */
+  --mu-iri-a: #ff86c8;
+  --mu-iri-b: #a98dff;
+  --mu-iri-c: #62c6ff;
+  --mu-iri-d: #5fe3c0;
+  --mu-iri-e: #ffcf8f;
+  --mu-iri: conic-gradient(
+    from var(--mu-giro),
+    var(--mu-iri-a),
+    var(--mu-iri-b),
+    var(--mu-iri-c),
+    var(--mu-iri-d),
+    var(--mu-iri-e),
+    var(--mu-iri-a)
+  );
+
+  /* Movimiento: una sola curva. */
+  --mu-ease: cubic-bezier(0.22, 1, 0.36, 1);
+  --mu-ease-row: cubic-bezier(0.22, 1.1, 0.3, 1);
+
+  /* Sombras */
+  --mu-shadow-card: 0 22px 46px -30px rgb(var(--mu-bgr));
+  --mu-shadow-dock: 0 18px 50px -20px rgba(0, 0, 0, 0.9);
+  --mu-shadow-shell: 0 26px 64px -28px rgba(0, 0, 0, 0.95);
+  --mu-shadow-modal: 0 60px 120px -40px rgba(0, 0, 0, 0.9);
+
+  /* Radios concéntricos */
+  --mu-r-modal: 30px;
+  --mu-r-drawer: 28px;
+  --mu-r-card: 20px;
+  --mu-r-nested: 16px;
+  --mu-r-tile: 11px;
+
+  /* Puente con los componentes Sa*: misma paleta dentro del scope. */
+  --color-sa-surface-base: var(--mu-bg);
+  --color-sa-surface-card: var(--mu-card);
+  --color-sa-surface-card-hover: var(--mu-chip2);
+  --color-sa-surface-brand-card: var(--mu-card);
+  --color-sa-surface-elevated: var(--mu-menu);
+  --color-sa-surface-elevated-active: rgba(var(--mu-ink), 0.1);
+  --color-sa-surface-popover: var(--mu-menu);
+  --color-sa-text-primary: var(--mu-text);
+  --color-sa-text-secondary: var(--mu-muted);
+  --color-sa-text-tertiary: var(--mu-text-ap);
+  --color-sa-text-muted: var(--mu-text-te);
+  --color-sa-text-disabled: var(--mu-text-te);
+  --color-sa-text-link: var(--mu-fg);
+  --color-sa-border-default: var(--mu-line-card);
+  --color-sa-border-hover: rgba(var(--mu-ink), 0.18);
+  --color-sa-border-subtle: var(--mu-line);
+  --color-sa-border-glass: rgba(var(--mu-ink), 0.1);
+  --color-sa-border-focus: rgba(var(--mu-ink), 0.4);
+  --color-sa-interactive-primary: var(--mu-fg);
+  --color-sa-interactive-primary-hover: rgba(var(--mu-ink), 0.88);
+  --color-sa-interactive-accent: var(--mu-fg);
+  --color-sa-interactive-disabled: rgba(var(--mu-ink), 0.05);
+  --color-sa-agent: var(--mu-fg);
+  --color-sa-agent-bg: var(--mu-fill-3);
+  --color-sa-agent-border: var(--mu-line-card);
+  --color-sa-state-success: var(--mu-ok);
+  --color-sa-state-success-bg: color-mix(
+    in oklab,
+    var(--mu-ok) 14%,
+    transparent
+  );
+  --color-sa-state-success-border: var(--mu-line-card);
+  --color-sa-state-connected: var(--mu-ok);
+  --color-sa-state-connected-bg: color-mix(
+    in oklab,
+    var(--mu-ok) 14%,
+    transparent
+  );
+  --color-sa-state-warning: var(--mu-aviso);
+  --color-sa-state-warning-bg: color-mix(
+    in oklab,
+    var(--mu-aviso) 14%,
+    transparent
+  );
+  --color-sa-state-warning-border: var(--mu-line-card);
+  --color-sa-state-warning-chip-bg: color-mix(
+    in oklab,
+    var(--mu-aviso) 14%,
+    transparent
+  );
+  --color-sa-state-error: var(--mu-mal);
+  --color-sa-state-error-bg: color-mix(
+    in oklab,
+    var(--mu-mal) 14%,
+    transparent
+  );
+  --color-sa-state-error-border: var(--mu-line-card);
+  --color-sa-state-info: var(--mu-fg);
+  --color-sa-state-info-bg: var(--mu-fill-3);
+  --color-sa-state-info-border: var(--mu-line-card);
+
+  background: var(--mu-bg);
+  color: var(--mu-text);
+  font-family: var(--font-dm-sans), ui-sans-serif, system-ui, sans-serif;
+  letter-spacing: -0.004em;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+[data-meta-ui] :where(h1, h2, h3, h4) {
+  text-wrap: balance;
+}
+
+[data-meta-ui] :where(p) {
+  text-wrap: pretty;
+}
+
+[data-meta-ui] :where(button) {
+  letter-spacing: inherit;
+}
+
+/* SaButton primario: sin borde degradado morado-naranja; píldora tinta. */
+[data-meta-ui] .sa-moving-border-container {
+  padding: 0;
+  box-shadow: none;
+}
+
+[data-meta-ui] .sa-moving-border-container:hover {
+  box-shadow: none;
+}
+
+[data-meta-ui] .sa-moving-border-gradient {
+  display: none;
+}
+
+[data-meta-ui] .sa-moving-border-container > span {
+  background: var(--mu-fg);
+  color: var(--mu-bg);
+  font-weight: 600;
+}
+
+[data-meta-ui] .sa-moving-border-container:hover > span {
+  background: rgba(var(--mu-ink), 0.88);
+}
+
+/* SaButton «accent» (Guardar en Límites): el acento es la tinta, así que el
+   texto va en negro (si no, queda blanco sobre blanco). */
+[data-meta-ui] .bg-sa-interactive-accent {
+  color: var(--mu-bg);
+  font-weight: 600;
+}
+
+/* ---------- Piezas del kit (chat-v2/blocks) ---------- */
+
+[data-meta-ui] .mu-card {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--mu-line-card);
+  border-radius: var(--mu-r-card);
+  background: var(--mu-card);
+  box-shadow: var(--mu-shadow-card);
+}
+
+[data-meta-ui] .mu-head {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 14px 18px 13px;
+}
+
+[data-meta-ui] .mu-row {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 18px;
+}
+
+[data-meta-ui] .mu-row + .mu-row {
+  border-top: 1px solid var(--mu-line);
+}
+
+[data-meta-ui] .mu-foot {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 11px 18px;
+  background: var(--mu-fill-1);
+  border-top: 1px solid var(--mu-line);
+}
+
+[data-meta-ui] .mu-tile {
+  display: inline-grid;
+  place-items: center;
+  flex: none;
+  width: 32px;
+  height: 32px;
+  border-radius: var(--mu-r-tile);
+  background: var(--mu-fill-3);
+  color: var(--mu-text);
+}
+
+[data-meta-ui] .mu-label {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--mu-muted);
+}
+
+[data-meta-ui] .mu-mono {
+  font-family: var(--font-jetbrains-mono), ui-monospace, monospace;
+  letter-spacing: 0;
+}
+
+[data-meta-ui] .mu-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 7px;
+  height: 34px;
+  padding: 0 15px;
+  border: 1px solid rgba(var(--mu-ink), 0.14);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--mu-fg);
+  font-size: 13.5px;
+  font-weight: 600;
+  letter-spacing: -0.005em;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.16s var(--mu-ease),
+    border-color 0.16s var(--mu-ease),
+    transform 0.16s var(--mu-ease);
+}
+
+[data-meta-ui] .mu-btn:hover {
+  border-color: rgba(var(--mu-ink), 0.26);
+  background: var(--mu-fill-3);
+}
+
+[data-meta-ui] .mu-btn:active {
+  transform: translateY(1px);
+}
+
+[data-meta-ui] .mu-btn-p {
+  border-color: transparent;
+  background: var(--mu-fg);
+  color: var(--mu-bg);
+}
+
+[data-meta-ui] .mu-btn-p:hover {
+  border-color: transparent;
+  background: rgba(var(--mu-ink), 0.88);
+}
+
+[data-meta-ui] .mu-btn-danger {
+  border-color: transparent;
+  background: var(--mu-mal);
+  color: #1a0505;
+}
+
+[data-meta-ui] .mu-btn-danger:hover {
+  border-color: transparent;
+  background: color-mix(in oklab, var(--mu-mal) 86%, white);
+}
+
+[data-meta-ui] .mu-btn-lg {
+  height: 44px;
+  padding: 0 22px;
+  font-size: 14.5px;
+}
+
+[data-meta-ui] .mu-btn-ghost {
+  border-color: transparent;
+  color: var(--mu-text-2);
+}
+
+/* Solo ícono (p. ej. el «?» de la ayuda): círculo del alto del botón. */
+[data-meta-ui] .mu-btn-icon {
+  width: 34px;
+  padding: 0;
+  justify-content: center;
+}
+
+[data-meta-ui] .mu-btn-ghost:hover {
+  border-color: transparent;
+  color: var(--mu-fg);
+  background: rgba(var(--mu-ink), 0.07);
+}
+
+[data-meta-ui] .mu-btn[aria-disabled='true'],
+[data-meta-ui] .mu-btn:disabled {
+  border-color: rgba(var(--mu-ink), 0.1);
+  background: rgba(var(--mu-ink), 0.05);
+  color: var(--mu-text-ap);
+  cursor: not-allowed;
+  transform: none;
+}
+
+/* El principal apagado sigue siendo el principal: más tenue, nunca otro botón. */
+[data-meta-ui] .mu-btn-p:disabled,
+[data-meta-ui] .mu-btn-p[aria-disabled='true'] {
+  border-color: transparent;
+  background: var(--mu-fg);
+  color: var(--mu-bg);
+  opacity: 0.38;
+}
+
+[data-meta-ui] :where(.mu-btn, .mu-focus):focus-visible {
+  outline: 2px solid rgba(var(--mu-ink), 0.4);
+  outline-offset: 2px;
+}
+
+[data-meta-ui] .mu-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 10px;
+  border-radius: 999px;
+  background: var(--mu-fill-3);
+  color: var(--mu-text-2);
+  font-size: 12.5px;
+  font-weight: 500;
+  white-space: nowrap;
+}
+
+[data-meta-ui] .mu-dot {
+  display: inline-block;
+  flex: none;
+  width: 7px;
+  height: 7px;
+  border-radius: 999px;
+  background: currentColor;
+}
+
+/* Isotipo o anillo iridiscente (la IA de Saleads). */
+[data-meta-ui] .mu-iri {
+  background: var(--mu-iri);
+  animation: mu-giro 9s linear infinite;
+}
+
+/* Texto vivo: la luz que barre «está pensando…». */
+[data-meta-ui] .mu-live-text {
+  background: linear-gradient(
+      90deg,
+      rgba(var(--mu-ink), 0.5) 0%,
+      rgba(var(--mu-ink), 0.5) 40%,
+      var(--mu-fg) 50%,
+      rgba(var(--mu-ink), 0.5) 60%,
+      rgba(var(--mu-ink), 0.5) 100%
+    )
+    0 0 / 250% 100%;
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+  animation: mu-sweep 2.4s linear infinite;
+}
+
+[data-meta-ui] .mu-skeleton {
+  border-radius: 8px;
+  background: linear-gradient(
+      90deg,
+      rgba(var(--mu-ink), 0.06) 25%,
+      rgba(var(--mu-ink), 0.13) 50%,
+      rgba(var(--mu-ink), 0.06) 75%
+    )
+    0 0 / 200% 100%;
+  animation: mu-shimmer 1.5s linear infinite;
+}
+
+[data-meta-ui] .mu-rise {
+  animation: mu-rise 0.46s var(--mu-ease) both;
+}
+
+[data-meta-ui] .mu-in {
+  animation: mu-in 0.3s var(--mu-ease) both;
+}
+
+[data-meta-ui] .mu-halo {
+  animation: mu-halo 2.1s var(--mu-ease) infinite;
+}
+
+@keyframes mu-giro {
+  to {
+    --mu-giro: 360deg;
+  }
+}
+
+@keyframes mu-sweep {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -150% 0;
+  }
+}
+
+@keyframes mu-shimmer {
+  from {
+    background-position: 100% 0;
+  }
+  to {
+    background-position: -100% 0;
+  }
+}
+
+@keyframes mu-rise {
+  from {
+    opacity: 0;
+    transform: translateY(9px);
+    filter: blur(3px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+    filter: none;
+  }
+}
+
+@keyframes mu-in {
+  from {
+    opacity: 0;
+    transform: translateY(8px);
+  }
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@keyframes mu-halo {
+  0% {
+    box-shadow: 0 0 0 0 rgba(var(--mu-ink), 0.16);
+  }
+  100% {
+    box-shadow: 0 0 0 5px rgba(var(--mu-ink), 0);
+  }
+}
+
+@keyframes mu-breathe {
+  0%,
+  100% {
+    transform: scale(1);
+  }
+  50% {
+    transform: scale(1.05);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  [data-meta-ui] .mu-iri,
+  [data-meta-ui] .mu-live-text,
+  [data-meta-ui] .mu-skeleton,
+  [data-meta-ui] .mu-rise,
+  [data-meta-ui] .mu-in,
+  [data-meta-ui] .mu-halo {
+    animation: none;
+  }
+
+  [data-meta-ui] .mu-live-text {
+    color: rgba(var(--mu-ink), 0.6);
+    background: none;
+  }
+}
+
+/* Meta Assistant dentro del dashboard: la barra superior (migas, créditos)
+   queda quieta arriba mientras bajas; en el resto de la app se va con el
+   scroll. En móvil ya es fija. */
+@media (min-width: 768px) {
+  [data-slot='sidebar-inset']:has([data-meta-ui]) > header {
+    position: sticky;
+    top: 0;
+  }
+}
+
+/* Lo que Meta pega arriba (su encabezado) queda justo bajo esa barra (h-13). */
+[data-slot='sidebar-inset']:has([data-meta-ui]) {
+  --meta-sticky-top: 3.25rem;
+}

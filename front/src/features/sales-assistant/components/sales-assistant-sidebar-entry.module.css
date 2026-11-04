@@ -1,0 +1,223 @@
+/* Meta Assistant en el menú: el isotipo de Saleads con la iridiscencia de la IA.
+   El menú vive fuera del scope Meta, así que la pieza trae todo lo suyo
+   (gira un pseudo-elemento: no depende de @property). */
+
+.isotype {
+  position: relative;
+  display: inline-block;
+  flex: none;
+  width: 18px;
+  height: 18px;
+  overflow: hidden;
+  -webkit-mask: url('/agent-chat/v2/saleads-isotipo.svg') center / contain
+    no-repeat;
+  mask: url('/agent-chat/v2/saleads-isotipo.svg') center / contain no-repeat;
+}
+
+.isotype::before {
+  content: '';
+  position: absolute;
+  inset: -50%;
+  background: conic-gradient(
+    #ff86c8,
+    #a98dff,
+    #62c6ff,
+    #5fe3c0,
+    #ffcf8f,
+    #ff86c8
+  );
+  animation: isotype-spin 9s linear infinite;
+}
+
+.ready {
+  background: #3ddc84;
+}
+
+@keyframes isotype-spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Meta con tu asistente asomado: tarjeta con su cara y un halo iridiscente.
+   Mismo marco que la tarjeta de Ale (px-3 py-2.5, rounded-xl). */
+.card {
+  position: relative;
+  isolation: isolate;
+  height: auto !important;
+  gap: 12px;
+  padding: 10px 12px !important;
+  border: 1px solid rgba(255, 255, 255, 0.07);
+  border-radius: 12px !important;
+  background: rgba(255, 255, 255, 0.025);
+  transition:
+    border-color 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    background-color 0.25s cubic-bezier(0.22, 1, 0.36, 1),
+    box-shadow 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* El azul de Meta: espera apagado y entra con el puntero o el foco. */
+.card::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: inherit;
+  background: linear-gradient(
+    120deg,
+    rgba(0, 100, 224, 0.42),
+    rgba(0, 130, 251, 0.14) 70%
+  );
+  opacity: 0;
+  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card[data-engaged='true'] {
+  border-color: rgba(0, 130, 251, 0.6);
+  background: rgba(0, 100, 224, 0.08);
+  box-shadow: 0 10px 28px -14px rgba(0, 130, 251, 0.85);
+}
+
+.card[data-engaged='true']::before {
+  opacity: 1;
+}
+
+.card[data-engaged='true'] .subtitle {
+  color: rgba(214, 232, 255, 0.78);
+}
+
+.card[data-active='true'] {
+  border-color: rgba(255, 255, 255, 0.16);
+  background: rgba(255, 255, 255, 0.06);
+}
+
+.avatar {
+  position: relative;
+  display: grid;
+  flex: none;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* La IA de Saleads respira detrás de su cara. */
+.avatar::before {
+  content: '';
+  position: absolute;
+  inset: 2px;
+  z-index: -1;
+  border-radius: 999px;
+  background: conic-gradient(
+    #ff86c8,
+    #a98dff,
+    #62c6ff,
+    #5fe3c0,
+    #ffcf8f,
+    #ff86c8
+  );
+  opacity: 0.45;
+  filter: blur(9px);
+  animation: isotype-spin 9s linear infinite;
+}
+
+.card[data-active='true'] .avatar::before {
+  opacity: 0.7;
+}
+
+/* Con el puntero, el halo se vuelve azul Meta. */
+.avatar::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border-radius: 999px;
+  background: radial-gradient(
+    circle,
+    rgba(0, 130, 251, 0.95),
+    rgba(0, 100, 224, 0) 70%
+  );
+  opacity: 0;
+  filter: blur(6px);
+  transition: opacity 0.25s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.card[data-engaged='true'] .avatar::after {
+  opacity: 0.85;
+}
+
+/* Responde sin aspavientos: se acerca un poco y ladea apenas la cabeza. */
+.card[data-engaged='true'] .avatar {
+  transform: translateY(-2px) rotate(-3deg);
+}
+
+.readyDot {
+  position: absolute;
+  top: 1px;
+  right: 1px;
+  width: 9px;
+  height: 9px;
+  border-radius: 999px;
+  background: #3ddc84;
+  box-shadow: 0 0 0 2px #0b0b0d;
+}
+
+.copy {
+  display: flex;
+  min-width: 0;
+  flex-direction: column;
+  gap: 1px;
+}
+
+.title {
+  overflow: hidden;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 500;
+  line-height: 1.25;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.subtitle {
+  overflow: hidden;
+  color: rgba(255, 255, 255, 0.5);
+  font-size: 12px;
+  line-height: 1.3;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* Menú colapsado: solo la cara, centrada en el hueco del ícono. */
+:global([data-collapsible='icon']) .card {
+  justify-content: center;
+  padding: 0 !important;
+  border-color: transparent;
+  background: none;
+  box-shadow: none;
+}
+
+/* Colapsado no hay tarjeta que pintar: solo el halo azul y el saltito. */
+:global([data-collapsible='icon']) .card::before {
+  display: none;
+}
+
+:global([data-collapsible='icon']) .avatar {
+  width: 32px;
+  height: 32px;
+}
+
+:global([data-collapsible='icon']) .copy {
+  display: none;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .isotype::before,
+  .avatar::before {
+    animation: none;
+  }
+
+  .avatar {
+    transition: none;
+  }
+}

@@ -1,0 +1,64 @@
+/* 0b3f6c0 parts/Hero.tsx + parts/Composer.tsx; textarea sizing responsive.css. */
+.beam {
+  display: block;
+  position: relative;
+  border-radius: 34px;
+}
+.surface {
+  position: relative;
+  border-radius: 34px;
+  background: var(--agent-v2-composer);
+  border: 1px solid rgba(var(--agent-v2-ink), 0.08);
+  color: var(--agent-v2-fg);
+  font-family: var(--font-agent-v2-sans), system-ui, sans-serif;
+  font-optical-sizing: auto;
+  font-size: 16px;
+  line-height: normal;
+}
+.content {
+  padding: 15px 16px 13px;
+}
+.surface[data-composer-variant='hero'] .content {
+  padding: 16px 18px 14px;
+}
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  min-height: 52px;
+  border: none;
+  background: transparent;
+  color: var(--agent-v2-fg);
+  font-family: inherit;
+  font-size: 17px;
+  line-height: 1.5;
+  outline: none;
+  resize: none;
+  padding: 0;
+  field-sizing: content;
+  max-height: min(40dvh, 260px);
+  overflow-y: auto;
+}
+.surface[data-composer-variant='hero'] .input {
+  min-height: 56px;
+  padding: 0 6px;
+}
+/* Hero/Composer use the enclosing border-beam for focus, not the legacy outline. */
+.surface .input:focus-visible {
+  outline: none;
+  outline-offset: 0;
+}
+.controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 12px;
+}
+
+/* D004 compatibility: unresolved real access/recovery panels need their full width. */
+.controls:has([data-inference-expanded]) {
+  flex-wrap: wrap;
+  justify-content: flex-end;
+}
+.controls > :has([data-inference-expanded]) {
+  flex-basis: 100%;
+}

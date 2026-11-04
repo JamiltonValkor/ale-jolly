@@ -1,0 +1,6 @@
+/* La raíz del modo agente pinta su fondo; aquí el compositor flota sobre la
+   página que lo contiene. */
+[data-agent-shell].root {
+  background: transparent;
+  transition: none;
+}

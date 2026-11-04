@@ -1,0 +1,95 @@
+/* Cara del compañero. La placa usa unidades de contenedor para que sombras y
+   radios escalen igual en pantalla completa, en una tarjeta o en un avatar. */
+
+.face {
+  position: relative;
+  display: block;
+  container: face / size;
+  overflow: hidden;
+  background: var(--face-plate);
+  color: #16120e;
+  isolation: isolate;
+}
+
+.plate {
+  width: 100%;
+  aspect-ratio: 1;
+  border-radius: 27%;
+  box-shadow:
+    inset 0 2.4cqmin 5cqmin rgba(255, 255, 255, 0.42),
+    inset 0 -5cqmin 12cqmin rgba(120, 78, 24, 0.13),
+    0 0 0 0.6cqmin rgba(0, 0, 0, 0.04);
+}
+
+.bleed {
+  width: 100%;
+  height: 100%;
+}
+
+/* Cabeza con capucha: sin placa ni brillo de pantalla; la silueta es el SVG. */
+.head {
+  width: 100%;
+  aspect-ratio: 1;
+  overflow: visible;
+  background: none;
+}
+
+.face.head::after {
+  content: none;
+}
+
+/* Luz de pantalla: un brillo amplio arriba a la izquierda (mismo tono, sin color). */
+.face::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: radial-gradient(
+    120% 90% at 30% 12%,
+    rgba(255, 255, 255, 0.16),
+    rgba(255, 255, 255, 0) 55%
+  );
+}
+
+.svg {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  overflow: visible;
+}
+
+.body,
+.part {
+  transform-box: fill-box;
+  transform-origin: center;
+}
+
+/* Tamaños pequeños: trazos más gruesos y sin detalles que no se leen. */
+@container face (max-width: 72px) {
+  .mouth {
+    stroke-width: 6.5;
+  }
+
+  .arc {
+    stroke-width: 8;
+  }
+
+  .brow {
+    stroke-width: 5.5;
+  }
+
+  .detail {
+    display: none;
+  }
+}
+
+@container face (max-width: 40px) {
+  .mouth {
+    stroke-width: 9;
+  }
+
+  .arc {
+    stroke-width: 11;
+  }
+}

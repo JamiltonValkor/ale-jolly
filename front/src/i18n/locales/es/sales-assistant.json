@@ -1,0 +1,560 @@
+{
+  "sidebar": {
+    "label": "Mi asistente",
+    "readyIndicator": "Tu asistente está listo"
+  },
+  "panel": {
+    "title": "Mi asistente",
+    "description": "Tu asistente de ventas conversa contigo sobre tus negocios con sus datos reales."
+  },
+  "errors": {
+    "notAvailable": "Tu asistente todavía no está disponible para tu cuenta.",
+    "sessionExpired": "Tu sesión expiró. Inicia sesión de nuevo para seguir con tu asistente.",
+    "generic": "Tu asistente no responde en este momento. Ya estamos revisándolo."
+  },
+  "activation": {
+    "title": "Activa tu asistente de ventas",
+    "description": "Con un clic preparamos tu asistente con acceso a tus negocios. Tú no tienes que hacer nada más.",
+    "cta": "Activar mi asistente",
+    "ctaBusy": "Activando tu asistente…",
+    "terms": "Al activarlo, tu asistente comparte con SaleADS lecciones abstractas de lo que tú dices o decides (nunca tus datos, cifras ni nombres) para crear habilidades para negocios como el tuyo."
+  },
+  "status": {
+    "loading": "Cargando tu asistente",
+    "preparing": {
+      "title": "Estamos preparando tu asistente",
+      "description": "Esto toma unos minutos. Puedes salir de esta página: te avisaremos en «Mi asistente» cuando esté listo."
+    },
+    "slow": "Está tomando un poco más de lo normal. Te avisaremos cuando esté listo.",
+    "failed": "Estamos terminando de preparar tu asistente. Te avisaremos cuando esté listo.",
+    "progressLabel": "Avance de la preparación",
+    "steps": {
+      "preparing_access": "Preparando tu acceso",
+      "preparing_environment": "Preparando tu entorno",
+      "installing_agent": "Instalando tu agente de ventas",
+      "configure_ai": "Configura tu IA"
+    },
+    "stepState": {
+      "done": "Completado",
+      "current": "En curso",
+      "pending": "Pendiente"
+    },
+    "configureAi": {
+      "title": "Tu asistente ya está instalado",
+      "description": "Solo falta un paso: configura tu IA para empezar a conversar."
+    },
+    "ready": {
+      "title": "Tu asistente está listo",
+      "description": "Ya puedes conversar con él sobre tus negocios."
+    },
+    "stopped": {
+      "title": "Tu asistente está desactivado",
+      "description": "Tus conversaciones y lo que aprendió siguen guardados. Reactívalo cuando quieras."
+    },
+    "deleting": {
+      "title": "Estamos borrando tu asistente",
+      "description": "Esto toma unos minutos. Cuando termine podrás activar un asistente nuevo."
+    }
+  },
+  "lifecycle": {
+    "title": "Administrar tu asistente",
+    "deactivate": "Desactivar asistente",
+    "reactivate": "Reactivar asistente",
+    "delete": "Borrar asistente",
+    "deactivateDialog": {
+      "title": "¿Desactivar tu asistente?",
+      "description": "Tu asistente se apagará y dejará de responder, también en los canales que hayas conectado. Tus conversaciones y lo que aprendió se conservan, y puedes reactivarlo cuando quieras.",
+      "confirm": "Desactivar",
+      "cancel": "Mantener activo"
+    },
+    "deleteDialog": {
+      "title": "¿Borrar tu asistente?",
+      "description": "Eliminaremos tu asistente y ya no podrás conversar con él ni recuperarlo. Sus memorias quedan archivadas en SaleADS. Después podrás activar un asistente nuevo desde cero.",
+      "confirm": "Sí, borrar asistente",
+      "cancel": "Cancelar"
+    }
+  },
+  "ai": {
+    "title": "Configura tu IA",
+    "description": "Tu asistente usa la IA que tú elijas. Elige tu proveedor, escribe el modelo y pega la clave de API de tu cuenta.",
+    "fields": {
+      "provider": "Proveedor de IA",
+      "model": "Modelo",
+      "modelHint": "Escribe el nombre del modelo tal como aparece en tu cuenta del proveedor.",
+      "key": "Clave de API",
+      "keyHint": "La probamos al guardar y no la volvemos a mostrar."
+    },
+    "validation": {
+      "modelRequired": "Escribe el modelo que quieres usar.",
+      "keyRequired": "Pega tu clave de API para continuar."
+    },
+    "actions": {
+      "save": "Probar y guardar",
+      "testing": "Probando tu IA…",
+      "replaceKey": "Reemplazar clave",
+      "cancel": "Cancelar",
+      "retry": "Reintentar"
+    },
+    "testingHint": "Estamos probando la conexión con tu proveedor. Puede tardar hasta un minuto.",
+    "summary": {
+      "title": "Tu IA está conectada",
+      "detail": "{provider} · {model}",
+      "keyHidden": "Tu clave está guardada y no se vuelve a mostrar."
+    },
+    "results": {
+      "ok": "¡Listo! Tu IA quedó conectada y ya puedes conversar con tu asistente.",
+      "invalidKey": "Esa clave no funciona con el proveedor que elegiste. Revisa que la clave sea de ese proveedor.",
+      "incompatibleModel": "Este modelo no es compatible con tu asistente. Prueba con otro modelo de tu proveedor.",
+      "providerRejected": "Tu proveedor rechazó la conexión o no respondió. Revisa tu cuenta con el proveedor e inténtalo de nuevo.",
+      "unreachable": "No pudimos probar tu IA en este momento. Inténtalo de nuevo en unos minutos."
+    },
+    "providers": {
+      "loading": "Cargando proveedores…",
+      "error": "No pudimos cargar la lista de proveedores. Inténtalo de nuevo.",
+      "empty": "Todavía no hay proveedores disponibles para tu asistente."
+    }
+  },
+  "chat": {
+    "title": "Conversa con tu asistente",
+    "transcript": "Conversación con tu asistente",
+    "you": "Tú",
+    "assistant": "Tu asistente",
+    "empty": "Pregúntale lo que quieras sobre tus negocios: cómo van tus ventas, tus campañas o qué hacer esta semana.",
+    "historyLoading": "Cargando tu conversación",
+    "historyError": "No pudimos cargar tu conversación anterior. Puedes seguir escribiendo.",
+    "composer": {
+      "label": "Escribe tu mensaje",
+      "hint": "Presiona Enter para enviar y Shift + Enter para escribir en otra línea.",
+      "send": "Enviar",
+      "sending": "Respondiendo…",
+      "tooLong": "Tu mensaje es muy largo. Acórtalo un poco para enviarlo."
+    },
+    "activity": {
+      "thinking": "Tu asistente está pensando…",
+      "saleads": "Consultando tus datos de SaleADS…",
+      "other": "Preparando tu respuesta…"
+    },
+    "mcpPaused": "Estoy reconectando con los datos de tus negocios. Puedes seguir escribiendo: en tu próximo mensaje lo intento de nuevo.",
+    "failure": {
+      "generic": "Tu asistente no pudo responder esta vez.",
+      "auth": "Tu IA rechazó la clave de API. Revisa tu clave en la cuenta de tu proveedor de IA.",
+      "quota": "Tu proveedor de IA no tiene saldo disponible. Recarga tu cuenta con el proveedor y vuelve a intentarlo.",
+      "rate_limit": "Tu proveedor de IA está recibiendo muchas solicitudes. Espera un momento y vuelve a intentarlo.",
+      "not_ready": "Tu asistente todavía se está preparando. Espera unos minutos y vuelve a intentarlo.",
+      "restarting": "Tu asistente se está reiniciando. Vuelve a enviar tu mensaje en unos segundos."
+    },
+    "retry": "Enviar de nuevo",
+    "whatsappQrAlt": "Código QR para vincular WhatsApp",
+    "whatsappQrHint": "Ábrelo desde WhatsApp → Dispositivos vinculados → Vincular dispositivo. Si vence, pide otro."
+  },
+  "approvals": {
+    "loading": "Cargando la aprobación…",
+    "kind": {
+      "install_skill": "Instalar una habilidad en tu asistente",
+      "uninstall_skill": "Quitar una habilidad de tu asistente",
+      "install_mcp": "Conectar una herramienta a tu asistente",
+      "launch_plan": "Lanzar un plan (empieza a gastar)",
+      "pause_campaign": "Pausar una campaña",
+      "change_budget": "Cambiar el presupuesto de un plan",
+      "resume_campaign": "Reanudar una campaña (vuelve a gastar)",
+      "activate_agent_publication": "Encender una campaña de tu equipo (empieza a gastar)"
+    },
+    "version": "Versión {version}",
+    "expires": "Puedes decidir hasta el {date}",
+    "status": {
+      "pending": "Pendiente",
+      "executing": "Instalando",
+      "executed": "Hecho",
+      "failed": "No se pudo",
+      "rejected": "Rechazada",
+      "expired": "Vencida",
+      "stale": "Desactualizada"
+    },
+    "approve": "Aprobar",
+    "reject": "Rechazar",
+    "cancel": "Cancelar",
+    "confirmApprove": {
+      "title": "¿Aprobar este cambio?",
+      "description": "Tu asistente aplicará «{name}» en unos segundos."
+    },
+    "confirmReject": {
+      "title": "¿Rechazar este cambio?",
+      "description": "«{name}» no se aplicará. Tu asistente puede volver a proponerlo más adelante."
+    },
+    "outcome": {
+      "pending": "Esta aprobación sigue pendiente.",
+      "executing": "Estamos aplicando el cambio en tu asistente.",
+      "executed": "Listo. Tu asistente ya tiene este cambio.",
+      "failed": "No pudimos aplicar el cambio. Tu asistente lo intentará de nuevo y te avisará.",
+      "rejected": "Rechazaste este cambio. No se aplicó nada.",
+      "expired": "Esta aprobación venció. Pídele a tu asistente que la proponga de nuevo.",
+      "stale": "La habilidad cambió de versión. Pídele a tu asistente que la proponga de nuevo."
+    },
+    "errors": {
+      "expired": "Esta aprobación venció. Pídele a tu asistente que la proponga de nuevo.",
+      "stale": "La habilidad cambió de versión mientras decidías. Pídele a tu asistente que la proponga de nuevo.",
+      "alreadyDecided": "Esta aprobación ya se decidió.",
+      "notFound": "Esta aprobación no está disponible.",
+      "sessionExpired": "Tu sesión venció. Vuelve a iniciar sesión para continuar.",
+      "generic": "No pudimos completar la acción. Inténtalo de nuevo en unos minutos.",
+      "codeInvalid": "El código no coincide. Revísalo e inténtalo de nuevo.",
+      "codeExpired": "El código venció. Pide otro.",
+      "codeAttempts": "Se agotaron los intentos. Pide otro código o pídele a tu asistente que proponga la acción de nuevo."
+    },
+    "breadcrumb": "Aprobación",
+    "details": {
+      "monthlyBudget": "Presupuesto mensual",
+      "campaigns": "Campañas",
+      "campaignCount": "{count, plural, one {# campaña} other {# campañas}}",
+      "reason": "Motivo",
+      "effect": {
+        "launch_plan": "Al aprobar, SaleADS lanza el plan en Meta y empieza a gastar.",
+        "pause_campaign": "Al aprobar, la campaña deja de gastar.",
+        "change_budget": "Al aprobar, el plan queda con este presupuesto mensual.",
+        "resume_campaign": "Al aprobar, la campaña vuelve a gastar.",
+        "activate_agent_publication": "Al aprobar, SaleADS enciende la campaña en Meta y empieza a gastar."
+      }
+    },
+    "confirmSpend": {
+      "title": "¿Aprobar esta acción?",
+      "description": "«{name}» se ejecuta en SaleADS en cuanto confirmes con el código."
+    },
+    "code": {
+      "title": "Confirma con tu código de un solo uso",
+      "label": "Código de 6 dígitos",
+      "simulated": "Tu código (en esta versión te lo mostramos aquí):",
+      "another": "Pedir otro código ({left})",
+      "rules": "El código vence en 5 minutos y tienes 3 intentos. Puedes pedir hasta 3 códigos."
+    },
+    "agentActivation": {
+      "title": "Tu equipo quiere encender esta campaña",
+      "sections": {
+        "what": "Qué se enciende",
+        "who": "A quién",
+        "howMuch": "Cuánto",
+        "bet": "Apuesta y habilidad",
+        "pieces": "Piezas"
+      },
+      "objective": "Objetivo: {objective}",
+      "adSetsCount": "{count, plural, one {# caja} other {# cajas}}",
+      "adsCount": "{count, plural, one {# anuncio} other {# anuncios}}",
+      "audienceFallback": "Público definido por tu equipo",
+      "perDay": "{amount} al día",
+      "noDaily": "Sin presupuesto diario",
+      "campaignDaily": "Presupuesto diario de la campaña",
+      "campaignLifetime": "Presupuesto total de la campaña",
+      "spentToDate": "Gastado este mes",
+      "projected": "Proyección del mes con este encendido",
+      "monthly": "Tu presupuesto mensual",
+      "noMonthly": "Sin presupuesto fijado",
+      "skill": "Habilidad: {skill}",
+      "skillVersion": "Habilidad: {skill} · versión {version}",
+      "noBets": "Tu equipo no registró una apuesta para esta campaña.",
+      "noPieces": "Tu equipo no adjuntó miniaturas de las piezas.",
+      "piecesMore": "y {count} más",
+      "pieceAlt": "Pieza {number} de la campaña",
+      "pieceVideo": "Video",
+      "exceedsWarning": "Este encendido supera tu presupuesto mensual.",
+      "noBudgetWarning": "Aún no has fijado un presupuesto mensual: al aprobar quedará fijado.",
+      "approve": "Encender campaña",
+      "approveRaise": "Encender y subir mi presupuesto a {amount}",
+      "approveSet": "Encender y fijar mi presupuesto mensual en {amount}",
+      "confirmApprove": {
+        "title": "¿Encender la campaña?",
+        "description": "Empieza a gastar en Meta.",
+        "raise": "Empieza a gastar en Meta y tu presupuesto mensual queda en {amount}."
+      },
+      "confirmReject": {
+        "title": "¿Rechazar el encendido?",
+        "description": "La campaña queda en pausa."
+      },
+      "status": {
+        "pending": "Pendiente",
+        "executing": "Encendiendo",
+        "executed": "Encendida",
+        "failed": "No se pudo",
+        "rejected": "Rechazada",
+        "expired": "Vencida",
+        "stale": "Desactualizada"
+      },
+      "outcome": {
+        "pending": "Esta aprobación sigue pendiente.",
+        "executing": "Estamos encendiendo tu campaña en Meta.",
+        "executed": "Listo. Tu campaña está encendida en Meta.",
+        "rejected": "Rechazaste el encendido. La campaña queda en pausa.",
+        "expired": "Esta aprobación venció. Tu campaña sigue en pausa; tu equipo puede pedir el encendido de nuevo.",
+        "stale": "La campaña cambió desde que tu equipo pidió encenderla. Sigue en pausa; tu equipo puede pedirlo de nuevo.",
+        "failed": "No se pudo encender. Tu campaña sigue en pausa."
+      },
+      "failure": {
+        "BUDGET_EXCEEDED": "No se encendió: el gasto del mes ya no cabe en el presupuesto que aprobaste. Tu campaña sigue en pausa.",
+        "CURRENCY_MISMATCH": "No se encendió: la moneda de tu presupuesto no coincide con la de tu cuenta publicitaria. Tu campaña sigue en pausa.",
+        "BUDGET_REVISION_CONFLICT": "No se encendió: tu presupuesto mensual cambió mientras decidías. Tu campaña sigue en pausa.",
+        "ACTIVATION_OUTCOME_UNKNOWN": "Meta no confirmó el encendido a tiempo. Tu equipo lo revisa; mira el estado de la campaña en «Mis estrategias» en unos minutos."
+      },
+      "budgetRaised": "Tu presupuesto mensual quedó en {amount}."
+    }
+  },
+  "skills": {
+    "title": "Habilidades",
+    "subtitle": "Lo que tu asistente sabe hacer para {industry}.",
+    "industryUnknown": "tu negocio",
+    "installedTitle": "Instaladas",
+    "availableTitle": "Disponibles",
+    "retiredTitle": "SaleADS retiró estas habilidades",
+    "empty": "Por ahora no hay habilidades nuevas para tu negocio.",
+    "install": "Instalar",
+    "uninstall": "Quitar",
+    "installed": "Instalada",
+    "version": "Versión {version}",
+    "source": {
+      "saleads_capability": "De SaleADS",
+      "industry_playbook": "Para tu industria",
+      "validated_lesson": "Aprendida con la comunidad"
+    },
+    "loading": "Cargando habilidades…",
+    "error": "No pudimos cargar las habilidades. Inténtalo de nuevo en unos minutos.",
+    "noBusiness": "Selecciona un negocio para ver sus habilidades."
+  },
+  "brain": {
+    "tabs": {
+      "chat": "Chat",
+      "brain": "Mi cerebro",
+      "skills": "Habilidades",
+      "limits": "Límites",
+      "activity": "Actividad"
+    },
+    "title": "Mi cerebro",
+    "subtitle": "Lo que tu asistente sabe de {business}, y cómo va creciendo.",
+    "empty": "Tu asistente todavía no ha guardado una foto de su cerebro. Aparece después de sus primeras conversaciones.",
+    "noBusiness": "Selecciona un negocio para ver su cerebro.",
+    "loading": "Cargando el cerebro…",
+    "error": "No pudimos cargar el cerebro. Inténtalo de nuevo en unos minutos.",
+    "stoppedNote": "Tu asistente está desactivado. Ves la última foto que guardó.",
+    "timeline": "Fotos guardadas",
+    "snapshotOption": "{date} · {nodes} ideas",
+    "stats": "{nodes} ideas · {edges} relaciones",
+    "listTitle": "Lo que sabe",
+    "listHint": "Tu navegador no puede dibujar el grafo; aquí tienes la misma información en lista.",
+    "family": {
+      "identity": "Identidad",
+      "offer": "Oferta",
+      "market": "Mercado",
+      "competition": "Competencia",
+      "channels": "Canales",
+      "strategy": "Estrategia",
+      "operations": "Operación",
+      "learning": "Aprendizajes",
+      "meta": "Contexto",
+      "learned": "Aprendido",
+      "other": "Otros"
+    },
+    "state": {
+      "observed": "Observado",
+      "proposed": "Propuesto",
+      "validated": "Validado",
+      "superseded": "Reemplazado"
+    },
+    "detail": {
+      "close": "Cerrar",
+      "state": "Estado",
+      "family": "Tipo",
+      "mentions": "Menciones: {count}",
+      "relations": "Relaciones",
+      "since": "Desde {date}",
+      "noSummary": "Sin descripción."
+    },
+    "canvas": {
+      "zoomIn": "Acercar",
+      "zoomOut": "Alejar",
+      "reset": "Ver todo",
+      "label": "Grafo del cerebro de tu asistente"
+    },
+    "modes": {
+      "label": "Cómo ver el cerebro",
+      "sections": "Por secciones",
+      "changes": "Qué cambió",
+      "graph": "Grafo"
+    },
+    "card": {
+      "certainty": {
+        "verifiedData": "Verificado con datos",
+        "youConfirmed": "Lo confirmaste tú",
+        "youSaid": "Lo dijiste tú",
+        "observed": "Lo observé",
+        "deduced": "Lo deduzco",
+        "proposed": "Propuesta",
+        "contradicted": "Contradicho"
+      },
+      "confidence": {
+        "baja": "Confianza baja",
+        "media": "Confianza media",
+        "alta": "Confianza alta"
+      },
+      "stage": "Etapa: {stage}",
+      "stages": {
+        "en_plan": "En el plan",
+        "en_prueba": "En prueba",
+        "lanzada": "Lanzada",
+        "ganadora": "Ganó en esta prueba",
+        "perdedora": "Perdió en esta prueba",
+        "concluido": "Concluido",
+        "vigente": "Vigente",
+        "reemplazado": "Reemplazado"
+      },
+      "evidence": "{count, plural, one {# evidencia} other {# evidencias}}",
+      "since": "Aplica desde {date}",
+      "scope": "Aplica a: {scope}",
+      "replacedBy": "Reemplazado por: {label}",
+      "showPath": "Ver cómo llegó aquí",
+      "hidePath": "Ocultar ruta",
+      "pathLabel": "Cómo se llegó a esta memoria",
+      "noPath": "Esta memoria todavía no está conectada a otras.",
+      "relations": {
+        "TARGETS": "le habla a",
+        "USES": "usa",
+        "SPEAKS_WITH": "le habla a",
+        "TESTED_IN": "se prueba en",
+        "GIVES": "dio",
+        "DERIVED_FROM": "sale de",
+        "ABOUT": "es sobre",
+        "TEACHES": "enseña",
+        "SUPERSEDES": "reemplaza a",
+        "INSPIRES": "inspira",
+        "SUGGESTS": "sugiere"
+      },
+      "actions": {
+        "confirm": "Confirmar",
+        "correct": "Corregir",
+        "noLongerApplies": "Ya no aplica",
+        "send": "Enviar corrección"
+      },
+      "correctPlaceholder": "Cuéntale a tu asistente qué es lo correcto.",
+      "sent": "Listo, tu asistente ya lo tiene.",
+      "sentLater": "Se enviará a tu asistente cuando esté encendido.",
+      "error": "No pudimos enviarlo. Inténtalo de nuevo."
+    },
+    "sections": {
+      "filters": {
+        "scope": "Ver",
+        "current": "Vigente",
+        "history": "Historial",
+        "certainty": "Certeza",
+        "stage": "Etapa",
+        "all": "Todas"
+      },
+      "certainty": {
+        "verifiedData": "Verificado con datos",
+        "youConfirmed": "Lo confirmaste tú",
+        "youSaid": "Lo dijiste tú",
+        "observed": "Lo observé",
+        "deduced": "Lo deduzco",
+        "proposed": "Propuesta",
+        "contradicted": "Contradicho"
+      },
+      "titles": {
+        "my_business": "Mi negocio",
+        "active_bets": "Apuestas activas",
+        "learned": "Lo que aprendimos",
+        "did_not_work": "Lo que no funcionó",
+        "your_corrections": "Tus correcciones y preferencias",
+        "to_confirm": "Pendiente de confirmar",
+        "history": "Historial"
+      },
+      "empty": {
+        "my_business": "Todavía no hay datos de tu negocio.",
+        "active_bets": "No hay apuestas en curso.",
+        "learned": "Todavía no hay aprendizajes: aparecen después de leer los resultados.",
+        "did_not_work": "Nada ha perdido todavía.",
+        "your_corrections": "No has corregido nada todavía.",
+        "to_confirm": "Nada pendiente.",
+        "history": "Nada reemplazado todavía."
+      }
+    },
+    "diff": {
+      "needTwo": "Hacen falta al menos dos fotos para comparar.",
+      "from": "Desde",
+      "to": "Hasta",
+      "notYet": "Aún no disponible.",
+      "error": "No pudimos comparar las fotos.",
+      "counts": "{added} nuevas · {removed} retiradas · {modified} cambiadas",
+      "added": "Nuevas",
+      "removed": "Retiradas",
+      "modified": "Cambiaron"
+    }
+  },
+  "brainHub": {
+    "title": "Buzón del Cerebro SaleADS",
+    "subtitle": "Valida lecciones de la comunidad y publícalas como habilidades.",
+    "unavailable": "Esta página no está disponible.",
+    "filters": {
+      "status": "Estado",
+      "industry": "Industria",
+      "all": "Todas"
+    },
+    "lessonsEmpty": "No hay lecciones con estos filtros.",
+    "provenance": {
+      "owner_said": "Lo dijo el dueño",
+      "owner_decided": "Lo decidió el dueño"
+    },
+    "validate": "Validar",
+    "reject": "Rechazar",
+    "publish": "Publicar",
+    "publishForm": {
+      "title": "Publicar como habilidad",
+      "itemId": "Id de la habilidad",
+      "name": "Nombre",
+      "summary": "Resumen",
+      "submit": "Publicar",
+      "cancel": "Cancelar",
+      "invalid": "Revisa el id (letras, números, puntos o guiones) y el nombre."
+    },
+    "published": "Publicada como versión {version}.",
+    "catalogTitle": "Catálogo publicado",
+    "catalogEmpty": "No hay habilidades publicadas.",
+    "retire": "Retirar",
+    "retired": "Habilidad retirada.",
+    "error": "No pudimos completar la acción. Inténtalo de nuevo.",
+    "loading": "Cargando…"
+  },
+  "businessType": {
+    "label": "Tipo de negocio",
+    "title": "Tipo de negocio",
+    "question": "¿Qué vende {business}?",
+    "prefilled": "Lo tomamos de lo que ya sabe SaleADS. Puedes cambiarlo.",
+    "current": "Tu equipo usa la estrategia de: {type}.",
+    "choose": "Elige qué vende este negocio: así tu equipo usa la estrategia correcta.",
+    "change": "Cambiar",
+    "unavailable": "No pudimos leer el tipo de negocio ahora.",
+    "retry": "Reintentar",
+    "error": "No pudimos guardar el cambio. Inténtalo de nuevo.",
+    "confirm": {
+      "title": "¿Cambiar el tipo de negocio?",
+      "description": "Tu equipo pasará a usar la estrategia de «{type}» y cambiarán sus habilidades.",
+      "cta": "Cambiar",
+      "cancel": "Cancelar"
+    },
+    "options": {
+      "physical_product": {
+        "title": "Productos físicos",
+        "description": "Vendes cosas que se envían o se entregan: ropa, cosméticos, accesorios."
+      },
+      "service": {
+        "title": "Servicios",
+        "description": "Vendes tu tiempo o tu trabajo: citas, asesorías, reparaciones, clases presenciales."
+      },
+      "infoproduct": {
+        "title": "Infoproductos",
+        "description": "Vendes conocimiento digital: cursos, mentorías, clases en línea, membresías."
+      }
+    }
+  },
+  "sharing": {
+    "lessonStatus": {
+      "received": "Recibida",
+      "validated": "Validada",
+      "rejected": "No usada",
+      "published": "Ya es una habilidad"
+    }
+  }
+}

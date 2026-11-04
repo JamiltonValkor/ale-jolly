@@ -1,0 +1,19 @@
+{
+  "$id": "https://saleads.ai/contracts/one-click/v1/ai-config-response.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "result": {
+      "type": "string",
+      "enum": [
+        "ok",
+        "invalid_key",
+        "incompatible_model",
+        "provider_rejected",
+        "unreachable"
+      ]
+    }
+  },
+  "required": ["result"],
+  "additionalProperties": false
+}

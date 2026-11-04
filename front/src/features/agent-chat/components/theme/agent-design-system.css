@@ -1,0 +1,59 @@
+/* SPEC:133-agent-design-system-migration — tokens locales, AD-002.
+   Fuente: 0b3f6c0f9b27413f9a53e4b906a365fb2e5418e6
+   src/features/saleads-ui/temas.ts: TEMAS, ESTADOS, PLANTILLA.
+   No redefine --sa-* ni aplica estilos a consumidores antiguos.
+   Los resets de cada pieza requieren data-agent-ui="v2" y su propia ficha. */
+
+[data-agent-shell][data-agent-design='v2'] {
+  /* TEMAS.oscuro */
+  --agent-v2-bg: #000000;
+  --agent-v2-bgr: 0, 0, 0;
+  --agent-v2-panel: #0b0b0d;
+  --agent-v2-composer: #0b0b0d;
+  --agent-v2-muted: #a1a1aa;
+  --agent-v2-violet: #d4d4d8;
+  --agent-v2-strip: #0a0a0c;
+  --agent-v2-menu: #141416;
+  --agent-v2-chip: #0c0c0f;
+  --agent-v2-chip2: #141418;
+  --agent-v2-ink: 255, 255, 255;
+  --agent-v2-fg: #ffffff;
+  --agent-v2-card: #0e0e11;
+  --agent-v2-tile: #08080a;
+  /* ESTADOS.oscuro: violet (neutro) no es violeta (estado). */
+  --agent-v2-ok: #3ddc84;
+  --agent-v2-aviso: #f0c05a;
+  --agent-v2-violeta: #a78bfa;
+  --agent-v2-peligro: #ff9b95;
+  --agent-v2-mal: #ff6b6b;
+  /* PLANTILLA.oscuro: superficies distintas del Card genérico. */
+  --agent-v2-pie: #17171a;
+  --agent-v2-carcasa: #0e0e11;
+}
+
+[data-agent-shell][data-agent-design='v2'][data-theme='light'] {
+  /* TEMAS.claro */
+  --agent-v2-bg: #fafafa;
+  --agent-v2-bgr: 250, 250, 250;
+  --agent-v2-panel: #ffffff;
+  --agent-v2-composer: #ffffff;
+  --agent-v2-muted: #71717a;
+  --agent-v2-violet: #3f3f46;
+  --agent-v2-strip: #eeeef2;
+  --agent-v2-menu: #ffffff;
+  --agent-v2-chip: #ebebeb;
+  --agent-v2-chip2: #e4e4e4;
+  --agent-v2-ink: 23, 23, 23;
+  --agent-v2-fg: #171717;
+  --agent-v2-card: #ffffff;
+  --agent-v2-tile: #efeff2;
+  /* ESTADOS.claro */
+  --agent-v2-ok: #0f7a46;
+  --agent-v2-aviso: #8a6100;
+  --agent-v2-violeta: #6d28d9;
+  --agent-v2-peligro: #b3261e;
+  --agent-v2-mal: #c9353a;
+  /* PLANTILLA.claro */
+  --agent-v2-pie: #f0f0ed;
+  --agent-v2-carcasa: #f7f7f5;
+}

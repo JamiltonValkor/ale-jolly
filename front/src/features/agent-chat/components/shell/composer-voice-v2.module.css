@@ -1,0 +1,119 @@
+/* 0b3f6c0 parts/Composer and Hero VOICEON: browser dictation (E9-07/E9-08). */
+.voice {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+.transcript {
+  margin: 0;
+  min-height: 52px;
+  padding: 0 6px;
+  font-size: 17px;
+  line-height: 1.5;
+  color: var(--agent-v2-fg);
+  max-height: min(40dvh, 260px);
+  overflow-y: auto;
+  overflow-wrap: anywhere;
+}
+.transcript[data-empty='true'] {
+  color: var(--agent-v2-muted);
+}
+.row {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+}
+.mic,
+.pause,
+.done {
+  flex: none;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.mic,
+.done {
+  background: var(--agent-v2-fg);
+  color: var(--agent-v2-bg);
+  border: none;
+}
+.status {
+  flex: 1;
+  min-width: 0;
+  line-height: 1.3;
+}
+.title,
+.hint {
+  display: block;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.title {
+  font-size: 15.5px;
+  font-weight: 500;
+}
+.hint {
+  font-size: 13.5px;
+  color: var(--agent-v2-muted);
+  margin-top: 3px;
+}
+.write {
+  flex: none;
+  height: 40px;
+  padding: 0 10px;
+  border: none;
+  background: transparent;
+  color: var(--agent-v2-fg);
+  font: inherit;
+  font-size: 15px;
+  font-weight: 500;
+  opacity: 0.85;
+}
+.pause {
+  border: 1px solid rgba(var(--agent-v2-ink), 0.1);
+  background: rgba(var(--agent-v2-ink), 0.035);
+  color: var(--agent-v2-fg);
+}
+.row button {
+  cursor: pointer;
+}
+.row button:focus-visible {
+  outline: 2px solid rgba(var(--agent-v2-ink), 0.35);
+  outline-offset: 3px;
+}
+.row button:disabled {
+  opacity: 0.35;
+  cursor: not-allowed;
+}
+.error {
+  font-size: 12.5px;
+  color: var(--agent-v2-muted);
+}
+.mic[data-listening='true'] {
+  animation: listening 1.6s ease-in-out infinite;
+}
+@keyframes listening {
+  50% {
+    box-shadow: 0 0 0 6px rgba(var(--agent-v2-ink), 0.08);
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .mic[data-listening='true'] {
+    animation: none;
+  }
+}
+.error {
+  margin: 0;
+}
+@media (max-width: 399px) {
+  .row {
+    gap: 10px;
+  }
+  .write {
+    padding: 0 6px;
+  }
+}
