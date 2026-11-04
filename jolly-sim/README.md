@@ -32,6 +32,7 @@ export META_API_KEY=...            # your key from dev.meta.ai; or put it in loc
 1. The window shows a pairing code such as `K7QM-3XPA`.
 2. Open http://localhost:3000, go to **Vincular mi compañero** (pair my companion) and type the code.
 3. In a few seconds Jolly says it is paired. The credential stays in `robot/voz-hermes/.env`, so the next start skips this step.
+   Against the local backend, `sembrar.py` then seeds Masquebella's Stock inventory once through the robot's channel (`bench_seed`) and prints `✓ Stock listo`.
 4. Talk to it starting with its name: **«Jolly, …»**, in Spanish or English. After each answer you have 20 seconds to keep going without the name.
 
 To see the eye work, ask about stock, for example «Jolly, ¿cuántos frascos hay en la repisa?». Ale decides whether to count; when it does, Jolly takes the photo, SAM counts it, the numbered photo shows on the face for 15 s, and both photos are uploaded (to the simulated Storage of `cloud-sim`). The count then appears as a card in the web's Stock tab, waiting for your approval.
@@ -63,6 +64,7 @@ It checks, in this order: Python 3.12 and packages, the bus ports, the output vo
 | `./start.sh --camara v4l2:/dev/video0` | A webcam on Linux |
 | `./start.sh --camara carpeta:/path/manifiesto.json` | Your own photos, with a manifest like `fotos-ejemplo/manifiesto.json` |
 | `./start.sh --desvincular` | Forgets the pairing: the face shows a new code |
+| `./start.sh --sembrar` | Seeds the demo Stock inventory by hand (needs a paired Jolly and the local backend) |
 | `./start.sh --grabar` | Also records the bus to `jolly-sim/grabaciones/` |
 
 Keys and settings are read from the environment, then from `local/.env` or `.env` at the repo root:

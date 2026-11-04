@@ -67,3 +67,25 @@ def test_el_reproductor_resuelve_la_pantalla_y_la_etiqueta():
     assert rutas and all(Path(r).is_file() for r in rutas)
     assert [m["t_pub"] for m in msgs] == sorted(m["t_pub"] for m in msgs)
     assert any(m["tema"] == "voz/frase" for m in msgs) and any(m["tema"] == "ojo/conteo" for m in msgs)
+
+
+# ---- sembrar.py: el inventario demo de Stock ---------------------------------------------------------------------
+
+def test_sembrar_casa_cada_oferta_de_la_semilla_con_una_de_saleads_sim():
+    import yaml
+    sys.path.insert(0, str(AQUI))
+    import sembrar
+    semilla = yaml.safe_load((AQUI.parent / "ale-runtime" / "robot" / "banco" / "semillas" / "masquebella-v1.yaml").read_text())
+    ofertas = sembrar.ofertas(semilla["ofertas_por_nombre"])
+    assert set(ofertas) == {p["oferta"] for p in semilla["productos"]}
+    assert all(o["type"] in ("product", "service") and re.fullmatch(r"[0-9a-f-]{36}", o["id"]) for o in ofertas.values())
+    assert len({o["id"] for o in ofertas.values()}) == len(ofertas)
+
+
+def test_sembrar_sin_vincular_explica_que_falta(tmp_path, monkeypatch):
+    sys.path.insert(0, str(AQUI))
+    import sembrar
+    monkeypatch.setattr(sembrar, "ENV_ROBOT", tmp_path / ".env")
+    monkeypatch.setattr(sys, "argv", ["sembrar.py"])
+    with pytest.raises(SystemExit, match="no está vinculado"):
+        sembrar.main()

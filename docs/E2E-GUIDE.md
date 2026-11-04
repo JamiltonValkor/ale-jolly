@@ -92,9 +92,9 @@ On **Hoy**, open **«Abrir la oficina de tu equipo»**.
 
 Open **Stock**.
 
-**You should see:** the shop's catalog (Bio Mascarilla, Tónico «La Receta CBD», Ampolleta, Kit Emergencia, Shampoo, Aceite) with its expected stock. Stock is the agent that watches inventory: it notices differences and stuck products and brings them to the owner for approval.
+**You should see:** «Aún no hay productos». That is expected: the shop's inventory arrives with Jolly. As soon as you pair it (step 10), `jolly-sim` seeds Masquebella's inventory through the robot's device channel, with the same `bench_seed` the bench uses on the real robot: catalog, suppliers, costs, the initial count and eight weeks of simulated sales, all through Stock's real rules. Stock is the agent that watches inventory: it notices differences and stuck products and brings them to the owner for approval.
 
-In **Conversar**, ask «¿Cómo está mi inventario?». Ale answers with the Stock tools.
+You come back to this tab in step 10.
 
 ## Part 4. Jolly, the robot
 
@@ -118,6 +118,10 @@ On macOS, allow the terminal to use the microphone (System Settings → Privacy 
 In the web app, on **Hoy**, go to **«Compañero físico»** → **«Vincular»** and type the code from Jolly's face.
 
 **You should see:** Jolly says it is paired, and the web shows «Compañero físico · Activo». The robot now has its own device credential and talks to Ale only through ale-runtime's robot channel, sending text.
+
+A few seconds later the `jolly-sim` terminal prints `✓ Stock listo`. Open **Stock** again: the catalog shows Bio Mascarilla Capilar 500 g, Tónico Capilar 120 ml, Sérum Capilar 30 ml and Kit Emergencia y Reparación, with their expected stock (Shampoo and Aceite are in the SaleADS catalog but have no inventory). In **Conversar**, ask «¿Cómo está mi inventario?»: Ale answers with the Stock tools.
+
+The seed runs once; `./jolly-sim/start.sh --sembrar` runs it by hand (for example if you paired Jolly before this version).
 
 ### 11. Talk to Jolly and count the shelf
 
@@ -171,6 +175,7 @@ More evidence from the real robot and the real cloud deployment: [`../evidence/`
 |---|---|
 | `doctor` says a port is busy | `FRONT_PORT=3100 ./demo.sh up` and open that port |
 | Activation stays in «configure_ai» | The Meta key is missing or wrong: fix `META_API_KEY` in `local/.env` and run `./demo.sh up` |
+| Stock says «Aún no hay productos» after pairing | Run `./jolly-sim/start.sh --sembrar` and read its message |
 | Stock tab or Stock answers missing | The team setup is still running: wait for `orqa synced` in `./demo.sh logs ale-runtime` |
 | Jolly never hears you | `./jolly-sim/start.sh doctor`; give the terminal microphone permission and restart it |
 | Jolly: «ale-runtime no responde» | The stack is not up: `cd local && ./demo.sh up`, or use `--replay` |

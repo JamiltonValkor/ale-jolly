@@ -5,6 +5,7 @@
 #   ./start.sh doctor                revisa Python, PortAudio, micrófono, ffmpeg, cámara, llave, voz y backend
 #   ./start.sh --camara avfoundation:0 | v4l2:/dev/video0 | carpeta:/ruta/manifiesto.json
 #   ./start.sh --desvincular         borra la credencial del robot: vuelve a mostrar un código
+#   ./start.sh --sembrar             siembra el inventario demo de Stock (en vivo y local lo hace solo al vincular)
 #   ./start.sh --grabar              además graba el bus en jolly-sim/grabaciones/
 # Llaves: META_API_KEY (obligatoria en vivo) y CARTESIA_API_KEY (opcional; sin ella, say en macOS o espeak en Linux).
 # Se leen del entorno, o de local/.env o .env en la raíz del repo. Ctrl+C cierra todo.
@@ -23,7 +24,8 @@ while [ $# -gt 0 ]; do
     --camara) CAMARA="$2"; shift ;;
     --grabar) GRABAR=1 ;;
     --desvincular) DESVINCULAR=1 ;;
-    -h|--help) sed -n '2,10p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
+    --sembrar) MODO=sembrar ;;
+    -h|--help) sed -n '2,11p' "$0" | sed 's/^# \{0,1\}//'; exit 0 ;;
     *) echo "❌ Opción desconocida: $1 (./start.sh --help)"; exit 2 ;;
   esac
   shift
@@ -104,6 +106,9 @@ case "$MODO" in
   doctor)
     exec "$PY" "$AQUI/doctor.py" ;;
 
+  sembrar)
+    exec "$PY" "$AQUI/sembrar.py" ;;
+
   replay)
     "$PY" "$AQUI/doctor.py" --rapido --replay || exit 1
     TRAZA="${JOLLY_TRAZA:-$AQUI/replay/traza-2026-11-02-p2.jsonl}"
@@ -117,6 +122,12 @@ case "$MODO" in
   vivo)
     "$PY" "$AQUI/doctor.py" --rapido || { echo "   Más detalle: ./start.sh doctor · Sin backend ni llave: ./start.sh --replay"; exit 1; }
     escribir_env_robot
+    # Contra el entorno local, Stock necesita el inventario demo: se siembra solo en cuanto Jolly queda vinculado.
+    case "$ALE_RUNTIME_URL" in
+      http://localhost*|http://127.0.0.1*)
+        "$PY" "$AQUI/sembrar.py" --esperar 1800 &
+        PIDS+=($!) ;;
+    esac
     export ALE_AVISOS="${ALE_AVISOS:-1}"     # avisos por iniciativa propia; también enciende los eventos (fotos)
     export ALE_EVENTOS=1
     (cd "$ROBOT/cara" && exec "$PY" main.py --bus) &

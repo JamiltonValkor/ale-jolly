@@ -121,6 +121,8 @@ services:
       # Negocio demo con Stock encendido: negocio:usuario:moneda.
       STOCK_BUSINESS_SEEDS: a6b8e93d-386f-4141-96ff-4b49e137728a:00000000-0000-4000-a000-000000000001:COP
       STOCK_BUCKET: ale-local-stock
+      # Banco: jolly-sim/sembrar.py siembra el inventario demo con la credencial de Jolly (bench_seed).
+      STOCK_BENCH_ENABLED: "true"
       ASSISTANT_BUNDLE_DIR: distribution/saleads-sales-agent/1.5.13
       ASSISTANT_BUNDLE_VERSION: saleads-sales-agent@1.5.13
       # Sincroniza conocimiento con un servicio de SaleADS que no se imita.

@@ -4,3 +4,4 @@ grabaciones/
 robot/ojo/datos/
 robot/voz-hermes/grabaciones/
 robot/voz-hermes/.env
+.banco/
