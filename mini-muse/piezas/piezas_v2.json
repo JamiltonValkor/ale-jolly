@@ -1,0 +1,40 @@
+{
+ "brazo_der": {
+  "corrido_mm": 2,
+  "holgura_mm": 4.0,
+  "eje": [
+   0.088,
+   -0.0017,
+   0.1263
+  ],
+  "mm": [
+   38.0,
+   73.7,
+   78.6
+  ],
+  "estanca": true
+ },
+ "brazo_izq": {
+  "corrido_mm": 2,
+  "holgura_mm": 4.0,
+  "eje": [
+   -0.088,
+   -0.0017,
+   0.1267
+  ],
+  "mm": [
+   38.0,
+   73.9,
+   79.0
+  ],
+  "estanca": true
+ },
+ "cuerpo": {
+  "mm": [
+   171.5,
+   169.1,
+   297.1
+  ],
+  "estanca": true
+ }
+}

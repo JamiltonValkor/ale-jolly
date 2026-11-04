@@ -1,0 +1,40 @@
+.git
+node_modules
+dist
+coverage
+test
+vm/*
+!vm/extensions/
+vm/extensions/*
+!vm/extensions/first-loop-exporter.py
+!vm/extensions/saleads-meta-search/
+vm/extensions/saleads-meta-search/*
+!vm/extensions/saleads-meta-search/plugin.yaml
+!vm/extensions/saleads-meta-search/__init__.py
+!vm/extensions/saleads-meta-search/search.py
+!vm/extensions/saleads-continuity/
+!vm/extensions/saleads-continuity/**
+!vm/extensions/saleads-memory/
+!vm/extensions/saleads-memory/**
+!vm/extensions/continuous-exporter.py
+!vm/extensions/curation-dispatcher.py
+vm/extensions/**/__pycache__
+vm/extensions/**/*.pyc
+scripts
+k8s
+*.md
+.env
+.env.*
+*.log
+# El bundle SOUL + skills viaja en la imagen (OCB-007); su README no hace falta.
+!distribution/**
+distribution/*/*/README.md
+# Fixed managed landing helpers; keep the README exception after the global Markdown rule.
+!vm/extensions/landing-pilot/
+!vm/extensions/landing-pilot/cli/
+!vm/extensions/landing-pilot/build_metadata.py
+!vm/extensions/landing-pilot/cli/landing_cli.py
+!vm/extensions/landing-pilot/cli/README.md
+
+# El robot corre en la Raspberry, no en la imagen del servicio.
+robot

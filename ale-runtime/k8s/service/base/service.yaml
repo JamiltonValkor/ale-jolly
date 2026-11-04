@@ -1,0 +1,17 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: sa-assistant-service
+  labels:
+    app: sa-assistant-service
+    app.kubernetes.io/name: sa-assistant-service
+    app.kubernetes.io/part-of: saleads-platform
+spec:
+  type: ClusterIP
+  selector:
+    app: sa-assistant-service
+  ports:
+    - name: http
+      port: 8060
+      targetPort: http
+      protocol: TCP

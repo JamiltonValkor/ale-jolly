@@ -1,0 +1,254 @@
+{
+  "schema_version": "landing_design_source_provenance_v1",
+  "adaptation_version": "landing-design-variation@1",
+  "task": "MAL-027",
+  "source_archive": {
+    "file_name": "landing-saleads.zip",
+    "bytes": 104808,
+    "sha256": "7291d6c31cf37c7c61417d331b1b4c912686003c656fb91a604ec5818eddd5f2",
+    "entries": 23,
+    "regular_files": 18,
+    "directories": [
+      "landing-saleads/",
+      "landing-saleads/historial/",
+      "landing-saleads/references/",
+      "landing-saleads/scripts/",
+      "landing-saleads/assets/"
+    ]
+  },
+  "source_handling": "Original archive and extracted files retained in separate private source backup; never in managed prompt paths. No source script executed by this adaptation.",
+  "source_files": [
+    {
+      "archive_path": "landing-saleads/historial/LEEME.md",
+      "bytes": 544,
+      "sha256": "e8c3f538e393e9a4e2d75ffd05cc9196b3518611b596bc950e28ca6a50b4d38a",
+      "mode": "0o100644",
+      "adapted_to": [
+        "SKILL.md",
+        "references/narrative-and-copy.md"
+      ],
+      "handling": "adapted_task_scoped_same_business_history_not_global_store"
+    },
+    {
+      "archive_path": "landing-saleads/references/revision.md",
+      "bytes": 6313,
+      "sha256": "cfb4f5f5ec482da662a021bcc2daa1f7d2b23a5863f4e75d5b97b64556fac2a7",
+      "mode": "0o100644",
+      "adapted_to": [
+        "references/visual-review.md"
+      ],
+      "handling": "adapted_tests_and_rubric_without_server_schema_change"
+    },
+    {
+      "archive_path": "landing-saleads/references/ejes.md",
+      "bytes": 24045,
+      "sha256": "f126caa7419895ebdab20b065a4b51b7b7561fbad7c994cd6c3a73258174351e",
+      "mode": "0o100644",
+      "adapted_to": [
+        "references/variation-axes.md"
+      ],
+      "handling": "adapted_13_axes_customer_brand"
+    },
+    {
+      "archive_path": "landing-saleads/references/conceptos.md",
+      "bytes": 13291,
+      "sha256": "2882b339e588152052659723012ad960f0b68bfe39da52a7a6d228b3af418c5b",
+      "mode": "0o100644",
+      "adapted_to": [
+        "references/narrative-and-copy.md"
+      ],
+      "handling": "adapted_all_12_narrative_routes"
+    },
+    {
+      "archive_path": "landing-saleads/references/voz.md",
+      "bytes": 10242,
+      "sha256": "45d61997eae3a85758a9c63cbf83676291d69a4d0f7af53c79dbee4e160acf76",
+      "mode": "0o100644",
+      "adapted_to": [
+        "references/narrative-and-copy.md"
+      ],
+      "handling": "adapted_headlines_and_clear_copy_not_Ale_persona"
+    },
+    {
+      "archive_path": "landing-saleads/references/movimiento.md",
+      "bytes": 7451,
+      "sha256": "4720f11843cabbb01f91e0a46e5ce5eb5eae1ff4d7fe42824ae6f4ada8bd3450",
+      "mode": "0o100644",
+      "adapted_to": [
+        "references/platform-and-motion.md"
+      ],
+      "handling": "adapted_intent_to_existing_declarative_runtime"
+    },
+    {
+      "archive_path": "landing-saleads/references/datos-de-marca.md",
+      "bytes": 16654,
+      "sha256": "29e49f1f302e712c6ab03239db2986a4da1ee710084a612cea9036d46afd2599",
+      "mode": "0o100644",
+      "adapted_to": [
+        "ADAPTATION.md"
+      ],
+      "handling": "excluded_not_customer_or_current_product_evidence"
+    },
+    {
+      "archive_path": "landing-saleads/references/produccion.md",
+      "bytes": 4730,
+      "sha256": "522c1e937bfff725e4a505e16fd59d20d8627feaaa1afc3a4375f168c3ca9691",
+      "mode": "0o100644",
+      "adapted_to": [
+        "ADAPTATION.md",
+        "references/platform-and-motion.md"
+      ],
+      "handling": "excluded_frontend_migration_and_external_environment_assumptions"
+    },
+    {
+      "archive_path": "landing-saleads/references/adn.md",
+      "bytes": 15259,
+      "sha256": "807afa38d3e989707e4f9353627872158a566ec6bf03bf5fb6cb42bc757bb98d",
+      "mode": "0o100644",
+      "adapted_to": [
+        "references/variation-axes.md",
+        "references/platform-and-motion.md"
+      ],
+      "handling": "adapted_coherence_not_corporate_tokens_assets"
+    },
+    {
+      "archive_path": "landing-saleads/references/secciones.md",
+      "bytes": 17804,
+      "sha256": "9aa31f5455626c9f0b085dc03008058acce92a72ec599038c2322701183f30b8",
+      "mode": "0o100644",
+      "adapted_to": [
+        "references/variation-axes.md",
+        "references/platform-and-motion.md"
+      ],
+      "handling": "adapted_product_evidence_and_action_distinction_not_chat_markup"
+    },
+    {
+      "archive_path": "landing-saleads/scripts/capturar.sh",
+      "bytes": 4032,
+      "sha256": "d0274d848894cd7deff8b13607b691293cd8fc9c9a6e7446ae37cbe230695ff3",
+      "mode": "0o100755",
+      "adapted_to": [
+        "ADAPTATION.md"
+      ],
+      "handling": "not_executed_or_installed_no_local_browser"
+    },
+    {
+      "archive_path": "landing-saleads/scripts/capturar.mjs",
+      "bytes": 7758,
+      "sha256": "880ca01392e4ccf29b9b63af9640d4c6d3e389d55f5f1234353290702549efac",
+      "mode": "0o100755",
+      "adapted_to": [
+        "ADAPTATION.md"
+      ],
+      "handling": "not_executed_or_installed_existing_remote_capture_preserved"
+    },
+    {
+      "archive_path": "landing-saleads/scripts/revisar.py",
+      "bytes": 15350,
+      "sha256": "4b6bc42418e685751b85867017f18c85dad4763ea31a00f4a4a220787d358270",
+      "mode": "0o100644",
+      "adapted_to": [
+        "ADAPTATION.md"
+      ],
+      "handling": "not_executed_or_installed_existing_validator_preserved"
+    },
+    {
+      "archive_path": "landing-saleads/scripts/variar.py",
+      "bytes": 31458,
+      "sha256": "7348e1cecab0133106ef0d5254ad9b6b3cf4e2e94ef7af94b39f957c3394fc48",
+      "mode": "0o100755",
+      "adapted_to": [
+        "ADAPTATION.md"
+      ],
+      "handling": "not_executed_or_installed_script_audit_separate"
+    },
+    {
+      "archive_path": "landing-saleads/SKILL.md",
+      "bytes": 14288,
+      "sha256": "8e10ee197fa0d46b97f1a825f5dd02e6ccfa75e0cf40d3d28fea583e40c53f62",
+      "mode": "0o100644",
+      "adapted_to": [
+        "SKILL.md",
+        "ADAPTATION.md"
+      ],
+      "handling": "adapted_workflow_not_installed_original"
+    },
+    {
+      "archive_path": "landing-saleads/assets/base.html",
+      "bytes": 34719,
+      "sha256": "62ff8445b6d5baa4a568823b7bf7895b897a54200769ccc76de6c720ff2df83a",
+      "mode": "0o100644",
+      "adapted_to": [
+        "ADAPTATION.md",
+        "references/platform-and-motion.md"
+      ],
+      "handling": "excluded_brand_markup_custom_JS_CDN_and_composer"
+    },
+    {
+      "archive_path": "landing-saleads/assets/saleads-isotipo.svg",
+      "bytes": 1224,
+      "sha256": "99a488a8f42458857cea4014dc8c643b1ce65711423a838a1921a9c5fbac8a3f",
+      "mode": "0o100644",
+      "adapted_to": [
+        "ADAPTATION.md"
+      ],
+      "handling": "excluded_corporate_brand_asset"
+    },
+    {
+      "archive_path": "landing-saleads/assets/muestrario.html",
+      "bytes": 44568,
+      "sha256": "4ad7d40d34f6fd2d2140a04e632a9ae767cdbbcaae8d64bd4820dfe0092c0441",
+      "mode": "0o100644",
+      "adapted_to": [
+        "ADAPTATION.md"
+      ],
+      "handling": "excluded_SaaS_showcase_not_customer_asset"
+    }
+  ],
+  "managed_files_excluding_this_manifest": [
+    {
+      "path": "ADAPTATION.md",
+      "bytes": 5562,
+      "sha256": "31e7df227ee5133dda259004924c321cc712dd74f3ce19459ac31c92797ad58d",
+      "instruction_language": "en",
+      "source_sha256": "f4788518681eca62171de239177f2f3fbdf7ceea3d14592e6730198791ff9852"
+    },
+    {
+      "path": "SKILL.md",
+      "bytes": 5224,
+      "sha256": "389eda9cca915bf27420fc95a3b1d1e915744da75956a1141a1fab56566831a8",
+      "instruction_language": "en"
+    },
+    {
+      "path": "references/narrative-and-copy.md",
+      "bytes": 8117,
+      "sha256": "c5dc83f03d298c7630a66af34e88df9658ded2adbd9048f14bb026964541280f",
+      "instruction_language": "en"
+    },
+    {
+      "path": "references/platform-and-motion.md",
+      "bytes": 5056,
+      "sha256": "7138e33af44bea2601b39e57ee7ac42172fd05ba16756009e444a294ad7478ae",
+      "instruction_language": "en"
+    },
+    {
+      "path": "references/variation-axes.md",
+      "bytes": 10083,
+      "sha256": "4d387c257dc7478c56cb8c19d90a63ec8da45ff31ec784b0e07c802a01a784eb",
+      "instruction_language": "en"
+    },
+    {
+      "path": "references/visual-review.md",
+      "bytes": 5739,
+      "sha256": "08edfd1249923d24ce4bb5c7e3fe6b775696df950449c2e1a090ea64f50e47a5",
+      "instruction_language": "en"
+    }
+  ],
+  "base_profile_commit": "442c1460be5d3e547268723d49f380cc95a4e580",
+  "instructions_language": "en",
+  "visible_copy_locale": "trusted SaleADS task locale",
+  "source_brand_facts": "excluded; actual approved business facts required",
+  "history": "same-business task artifacts only; no global store or MCL changes",
+  "existing_attribution": "Existing landing-coder source-map, Santi/Frontend Design/Liquid Glass references and THIRD_PARTY_NOTICES remain unchanged. Archive-internal upstream paths are source-declared references, not independently verified evidence.",
+  "runtime_validation": "Installation hashes establish source consistency only. Actual model use, visual review and later applied learning require evidence from the current owner/business task; source-pack examples and historical operator checks do not supply customer facts or publication state."
+}

@@ -1,0 +1,81 @@
+# Example only. Replace the image, identity, SQL instance and secret store.
+apiVersion: kustomize.config.k8s.io/v1beta1
+kind: Kustomization
+namespace: saleads
+resources:
+  - ../../base
+  - configmap.yaml
+  - external-secret.yaml
+images:
+  - name: us-central1-docker.pkg.dev/example-project/sa-assistant-service/sa-assistant-service
+    newTag: REPLACE_WITH_VALIDATED_TAG
+    newName: us-central1-docker.pkg.dev/example-project/sa-assistant-service/sa-assistant-service
+patches:
+  # Workload Identity: KSA sa-assistant-service -> GSA dedicada (Compute de las
+  # VMs, serviceAccountUser sobre la identidad de VM, bucket de memorias, Cloud SQL client).
+  - target:
+      kind: ServiceAccount
+      name: sa-assistant-service
+    patch: |-
+      apiVersion: v1
+      kind: ServiceAccount
+      metadata:
+        name: sa-assistant-service
+        annotations:
+          iam.gke.io/gcp-service-account: sa-assistant-service@example-project.iam.gserviceaccount.com
+  # cloud-sql-proxy como native sidecar (initContainer restartPolicy:Always),
+  # IP privada, WI sin credentials-file, health-check HTTP y exit-zero en SIGTERM.
+  # Instancia example-sql-instance (base assistant_db, schema assistant, rol assistant).
+  - target:
+      kind: Deployment
+      name: sa-assistant-service
+    patch: |-
+      apiVersion: apps/v1
+      kind: Deployment
+      metadata:
+        name: sa-assistant-service
+      spec:
+        template:
+          spec:
+            initContainers:
+              - name: cloud-sql-proxy
+                image: gcr.io/cloud-sql-connectors/cloud-sql-proxy:2.8.0
+                restartPolicy: Always
+                imagePullPolicy: IfNotPresent
+                args:
+                  - --structured-logs
+                  - --private-ip
+                  - example-project:us-central1:example-sql-instance
+                  - --port=5432
+                  - --health-check
+                  - --http-address=0.0.0.0
+                  - --http-port=9801
+                  - --exit-zero-on-sigterm
+                startupProbe:
+                  httpGet:
+                    path: /startup
+                    port: 9801
+                  periodSeconds: 1
+                  timeoutSeconds: 5
+                  failureThreshold: 30
+                livenessProbe:
+                  httpGet:
+                    path: /liveness
+                    port: 9801
+                  periodSeconds: 60
+                  timeoutSeconds: 30
+                  failureThreshold: 5
+                resources:
+                  limits:
+                    cpu: 100m
+                    memory: 128Mi
+                  requests:
+                    cpu: 50m
+                    memory: 64Mi
+                securityContext:
+                  runAsNonRoot: true
+                  runAsUser: 65532
+                  allowPrivilegeEscalation: false
+                  readOnlyRootFilesystem: true
+                  capabilities:
+                    drop: ["ALL"]

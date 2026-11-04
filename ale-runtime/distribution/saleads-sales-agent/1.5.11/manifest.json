@@ -1,0 +1,453 @@
+{
+  "schema": "saleads-bundle-language/1",
+  "bundle": "saleads-sales-agent@1.5.11",
+  "base_bundle": "saleads-sales-agent@1.5.10",
+  "immutable_history": [
+    "1.5.9",
+    "1.5.10"
+  ],
+  "instruction_language": "en",
+  "response_locale": [
+    "es",
+    "en"
+  ],
+  "research": {
+    "tool": "saleads_web_search",
+    "model": "muse-spark-1.3-contributor",
+    "search_context_size": "medium",
+    "reasoning": "medium",
+    "stream": true,
+    "fallback": false
+  },
+  "scope": "proposal-only until separately authorized commercial work",
+  "preserved": [
+    "stable Spanish profile/CLI IDs",
+    "API schemas and enum/status keys",
+    "literal synthetic contract examples",
+    "original owner facts and quotes at runtime",
+    "Juan Diego Libreros method and attribution"
+  ],
+  "external_surfaces": {
+    "upstream_skills": "preserve originals; operational audit required",
+    "owner_customizations": "preserve and reconcile explicitly, never claim translated",
+    "saleads_mcp_catalog": "external owner; English metadata not established by this bundle"
+  },
+  "files": [
+    {
+      "path": "README.md",
+      "sha256": "d4c6d66857a81e867473d6782cfa25950eb9c0f6802914940e2b59b6b6224f21",
+      "base_sha256": "393ab01db66b04ef909e2bb9f52b600ed6462f344a556e803d090714d0a08af9",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "SOUL.md",
+      "sha256": "32b82517957e9844982a3976d385591443c3f519e975301172add872cdfd79de",
+      "base_sha256": "9e9e4225e0fe38341653770b0f2e62b994bb492ceb1328666676a9bf686c936d",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "jobs.json",
+      "sha256": "c5d9787478709410c1a5ef37a504402ffd5f1033e39cb85740a824cda3f4ef47",
+      "base_sha256": "9188d6da2360d3a25c1f1823a1b1e84adf134867c8260eb5ec52c8adb03207c2",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "profiles/analista/SOUL.md",
+      "sha256": "11d7583cc86aae3a5223b196306068e83a3c95f754c7774c5ce32882cb89fdae",
+      "base_sha256": "00909bbaccc8de092b50a6112de220e3bd9fadd038d5ec399b9a4cc9d5290b98",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "profiles/estratega/SOUL.md",
+      "sha256": "d2712484d248df96b0b6a88f48d6b2d03c807a846d3f77fbadf3367c8ddcc887",
+      "base_sha256": "a9ec9c0eabbeebd309fa7c02df955568740054bb8a95059ba7c885e5a2bd5fcd",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "profiles/estructurador/SOUL.md",
+      "sha256": "df23541b3ec63c53843214746ef96353f0293659443e7752e586bf908673809c",
+      "base_sha256": "042d4c7b39feeb607d35ecf9e014a2161083cdcc01791b69480af6af8d4a3ef6",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "profiles/investigador/SOUL.md",
+      "sha256": "db4493b461611a8dfb02c06d101111533ccc5f700bbc30ee215b1cf90f4ec9db",
+      "base_sha256": "110e6a6b8263ea73efd1780507487cd45602849b7d3e0031dc8e3387f9db6dfa",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "profiles/optimizador/SOUL.md",
+      "sha256": "09649316f2030bef18e958406ae6a3f5bca99e2cfb161615eae0369ca4de3b46",
+      "base_sha256": "fece48ef71301247a9376b8e67183d97eee6b741016c000443184af52b7fa236",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/functions/saleads-estructura-optimizacion-juan/SKILL.md",
+      "sha256": "0760d4b30682483cb66e8fe4137af3621e28cb8c0e530d3c0267a5b124658f59",
+      "base_sha256": "552dc789c16dd539cd1bbebd9cf08341c459530b1a7fe934d8e39cd34e16f827",
+      "instruction_language": "en",
+      "origin": "juan-attributed",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/functions/saleads-estructura-optimizacion-juan/references/arbol.md",
+      "sha256": "42a9d07c894be820ee9d09bf7d8916ef693baa3e0f19bf74cd3e8c82d634d447",
+      "base_sha256": "8fa1144a9ab30b6e0e2f232cc5b50dab1cdc7e0a09df7fd4aa36957f1fa2699b",
+      "instruction_language": "en",
+      "origin": "juan-attributed",
+      "literal_contract_data_preserved": true
+    },
+    {
+      "path": "skills/functions/saleads-estructura-optimizacion-juan/references/metodo.md",
+      "sha256": "427dcf625d453ee232b9cac0ef14c1f3ffd0052bbe8f074c9fb70a366c6821b4",
+      "base_sha256": "b3845effab51a8bd7dd3dc59ab0e86c708639b54af14fe7ee1eed334c8eadab3",
+      "instruction_language": "en",
+      "origin": "juan-attributed",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/functions/saleads-market-research/SKILL.md",
+      "sha256": "ea91f53752ac5fe6ec1450f6665f9491d322d3ba090258969ab3a6f5ad52c56f",
+      "base_sha256": "d05f4fa266b881a26b3b78c1731af164cb23879bbd75fb3a6f6ebe78f219d300",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/functions/saleads-market-research/references/etapas.md",
+      "sha256": "521172a0a04451bcd6863219e490fb473f71434dea205e2991fe2a49086b88f4",
+      "base_sha256": "d9167fcacc56b7cfe74a0c9784f14b020f2dd8d9d0b6730cc6928acce5d10dd4",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/functions/saleads-market-research/references/trendtrack.md",
+      "sha256": "53d9e4981ff47a90c6284d9dd19551f86e325e71b75dca3583846a6dcc013690",
+      "base_sha256": "38987e590bd31eb2997bccf0865498459e0f4eb0c81dc592988e2de26a670a91",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/functions/saleads-optimization-scaling/SKILL.md",
+      "sha256": "03953187a0dae5343e7820fe7cdd64d58f866aa385509c7384ff3c3138aa2fe0",
+      "base_sha256": "056141cb0022c1c9c8f0e4ce0a3eee1f4fc774d3cb82c1aa18ad63c00b88c8c3",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/functions/saleads-reading-diagnosis/SKILL.md",
+      "sha256": "afe487816b1953e1ac590f41791d0066b072526f8e01251fb3034ccbdf57c7bd",
+      "base_sha256": "5c81c97a2121ad8d9726619b5629bb718a5104e716359ed8875c5a8a8836a671",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-account-health/SKILL.md",
+      "sha256": "e257c8dcb2d668a684b03f3486cd770d2b8a4875b35470019dd606322188620b",
+      "base_sha256": "e3cd32f1a65d1f8b4086b22da8c8c19de1029005f4808aeb29beba92252361c9",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-business-brain/SKILL.md",
+      "sha256": "1146a4956defc1df235c6ec5ea795e9b553e64eb216cadda8d5253dde98841f5",
+      "base_sha256": "8bada495f362c7a636c3567254fe26b23a37e8f2c5b488fed8058626b3bd03f9",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-business-orientation/SKILL.md",
+      "sha256": "716ac300a535cd220d0ea854e2261e6304d9ef1f6f1944f0f5585471585a4f30",
+      "base_sha256": "f9454876fe1a81323af713023b0536563b67547dd23de46aa6c3e21742828f8a",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-business-orientation/references/evidence.md",
+      "sha256": "4562d6780b694729597c53727b9cb2acd200ea9d96a5e5896af7eca4ddac6f95",
+      "base_sha256": "6ade28e0421bc216928e70a3399f5439402341a873da90e298c285aec94e4153",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-carousel-quality/SKILL.md",
+      "sha256": "77f69789779a96b494f26e75ec05d3db1d57def29dff6a83f7fb8a7e8aa61e0a",
+      "base_sha256": "41601275575d05b1fc32109e0d07f5892e455871293434b93e6efc1e12d6a841",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-cli/SKILL.md",
+      "sha256": "8a1be8cda78ff8b35d27f71314c58c46969649b05b3cc7b097e15fdb54176e38",
+      "base_sha256": "1170442cef3c08596056b7be04ae90eda1d1414b812985e72801c704e3b3c617",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-cli/references/comandos.md",
+      "sha256": "b59de9e0c1570a480cfbd2f1d56830324e82956beb0d34c879dd012ff9acae8b",
+      "base_sha256": "37e7ccc3084e8fcb15852d5d7be81881f85c5eb8c8c1170dfb3701dbb6306f99",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-cli/references/formatos.md",
+      "sha256": "0d281b1d5269a194e3c033d587062e50ec8e26f9f65618af9a758fe7756e75f5",
+      "base_sha256": "86be6aa7105914a077614dfdab99984d28c2f61c1fa36bc29821181fe7711725",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": true
+    },
+    {
+      "path": "skills/saleads-cli/scripts/saleads.py",
+      "sha256": "b9878c1a57ae144d80b2c7ae4f0ea10f9b4f054e0766818122cc5863668b8e09",
+      "base_sha256": "bc4eb9202cb5c36689e0fc69f416c998df2caffb17ece4f1bb168812b18b0748",
+      "instruction_language": "en-help-stable-contracts",
+      "origin": "saleads",
+      "literal_contract_data_preserved": true
+    },
+    {
+      "path": "skills/saleads-collective-learning/SKILL.md",
+      "sha256": "89b67308e089278e31baffb9138a992a8ff825bd372d79b7fd535eb491fce034",
+      "base_sha256": "80799811c7d57098ada47b15aead36591459aaafa262e3b6eb63cced249af239",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-company-analysis/SKILL.md",
+      "sha256": "9b3b37ae6b95fc8018573c9536295f8d2fa6d9a707ca8ba45da872b6b4a94909",
+      "base_sha256": "4656907b3e9e314ef26d19dc51190d934613850e57a01a0ec90d14141decd670",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-connect-channel/SKILL.md",
+      "sha256": "729cd31d311c595d8ae5161930284b1b2d39c2cc7a839d3237931bf9c4b65477",
+      "base_sha256": "56bb58a54fdbcded661281cfd5359965ff2f0c835c69e6259c627c2a968b6365",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-connect-channel/scripts/whatsapp_link.py",
+      "sha256": "340356bfb8caffea6d9da71c96ca9e0c39727c2f803dd92418c4bcf741bce4c5",
+      "base_sha256": "9c262e5efc37126c6b25cd654e1dc9ce4556052658e1af2d51957894dea9a563",
+      "instruction_language": "en-help-stable-contracts",
+      "origin": "saleads",
+      "literal_contract_data_preserved": true
+    },
+    {
+      "path": "skills/saleads-creative-fatigue/SKILL.md",
+      "sha256": "411ee6e196ce0c95ec6af1232a20a1b14b9a9bd128fe2c92d9b283a5764829a7",
+      "base_sha256": "2339f6983e567d8b9d2bd21a7e61f6f875d850dd02aff5550e240333d05d0a7a",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-daily-summary/SKILL.md",
+      "sha256": "dcbfc566ea81afc0a4730109dbfac306cfd0aa3328e25820d95a47ca153da942",
+      "base_sha256": "ac15ac224fc08889bf803f4805cdd7ab7823fc8dcf665bbb4d147de086ea4f0b",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-daily-summary/references/summary.md",
+      "sha256": "7500e403fb4c723f56d81adec7af9c52dcea8c0709676f18474d59be54f33b14",
+      "base_sha256": "12ecfd18603b2efe0eab611b63ce0b3ba33d449ae45855fc1aba3490d6299ef8",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-decision-support/SKILL.md",
+      "sha256": "902697488f45c73feb08af4390eaffc4272f39d08a3e8cc4838d3b2b2db0e14f",
+      "base_sha256": "ded0d7d9747fa3cae3c31ea9e3ee1501915aaa97a63d72c08b75d80f3495ab6a",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-human-decisions/SKILL.md",
+      "sha256": "c2c5f3ce4b744e6434803455e61a4b144989a67c1ef83ea16d8b7b8934001d2d",
+      "base_sha256": "a8e4100a59557e6c0ce087c857821badf5114f601559dadd663873e1585b366c",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-human-decisions/references/decision.md",
+      "sha256": "440c3b406f7a9b566338849c4f15becf2cb5d874dcdab8472cb67c65a259d241",
+      "base_sha256": "3ba30a5345b25086e27b1cdd5dd7a10e4168bbc8e51b05fbddf4970a346eb2f1",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-loop-orchestration/SKILL.md",
+      "sha256": "ba610bf33d91def153db4662a241ca440a1c205db5ed1ced6146e6f9c2dc26eb",
+      "base_sha256": "6168ebdbb48cc4976600af075602a5939f5b590b6a6a1647adbff1a2d9f56a64",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-monthly-review/SKILL.md",
+      "sha256": "39ad224704e94486a953835bcf761b5b4efd053ef1d0f780c73ef1e019b2f83e",
+      "base_sha256": "d574ee879c1012e44d76cc89410117dd71927c7e9bc016e8d97a7ae18092a340",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-operating-review/SKILL.md",
+      "sha256": "7cc7b81b531fe36375ee54239b14b285827fde9ce332527a90aa3da895fd53b2",
+      "base_sha256": "3f9edefe241b2170378722345cbc132ef2e2fc52b8a7b280132d71f3241a087c",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-operating-review/references/review.md",
+      "sha256": "3c48a344fe6fcbfd22c7f80d3ecbc6d9e53be08e28ed68c2dcc5fcce3c64339d",
+      "base_sha256": "df9f2b34bf25bcf00b551713b9cb51709effe690debe880c83e9d68501517bbd",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-paid-growth/SKILL.md",
+      "sha256": "fc285d1a79a72638fea48ad6023b6abe7ee7209173ca46fe973d010be559e2d2",
+      "base_sha256": "ef5d59f0a43623662a279bb7406b3544fec385aa113a2604965066b2fe243d10",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-prepare-approved-work/SKILL.md",
+      "sha256": "f8b39f8de2960677b424a48b5db9429dcc36ca6fd998bc0f0f7e3cd98b1b7f2f",
+      "base_sha256": "6665bece3657b07a9c192ed01aee5be380b42698f23f416c4ac5ef6b2b09e95b",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-prepare-approved-work/references/preparation.md",
+      "sha256": "3346001950c95d9792be2ee6b9359416c539125330695c1bd73108fc1b6e2ee6",
+      "base_sha256": "bf53fc1cbe40315af7c53359d450fa61a0ef79202362ac9166505577cf0257e0",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-proactive-digest/SKILL.md",
+      "sha256": "5c8944789b6e1a98ef9c00d53f8e75f83fbef54c28b31da76a19c6c97632b4b0",
+      "base_sha256": "7635f3af5db4dcadbb53b2e8b4580d27d250de4885a71481efb5c2138254c081",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-report-analysis/SKILL.md",
+      "sha256": "84f12840499deebacdcceeeaae9955a0da32d92fcf58e9724f4b73fd77c2dc04",
+      "base_sha256": "40e1c35cea024992098f274e0a3b2f6fe789ee9e4a598a76de5bbf74305f99e1",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-seasonal-lookahead/SKILL.md",
+      "sha256": "ae1642c37536b780a2f43dfeb05726bbd76d483956728f3efb84a96290661749",
+      "base_sha256": "38a8944f3858b18f44449cb073960da3e738c18760fda9752085cbb66ab5ccb7",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/saleads-silo-analysis/SKILL.md",
+      "sha256": "a163813c9eeb77a4c05108e2fa9742af0206e0c6c52af3874fc0adbd28cb1704",
+      "base_sha256": "f9704147291dc9766eaa839cc00ac7d0d294b2ccecc35dee35e72b810fe91b69",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/types/infoproduct/saleads-type-infoproduct/SKILL.md",
+      "sha256": "12296e55c8a4d6d4835c1aa9b72e700f16a6bb31cb317cb2dcdd69812cac2ee5",
+      "base_sha256": "331a40e4080b76d0227415ec99870408c0d5020a333222c68fa552f35e301956",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/types/infoproduct/saleads-type-infoproduct/references/fases.md",
+      "sha256": "9cb6ff9196f43c593faf93c5f8af2ca80f61e5fd5145221e984f38de5d1e2eda",
+      "base_sha256": "2e5fb0dec6fc5f9d8652818531033840802f1ec50b41599b06fd2d3236555b86",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/types/physical_product/saleads-type-physical-product/SKILL.md",
+      "sha256": "0f3b2c1550716e2e7c8879f7631770b2ff53048a667f15cb912bc1b69575baad",
+      "base_sha256": "d28b16ab1784b92ce11fab5037e294da37e83d76bc40f29e39bd3ec217962ece",
+      "instruction_language": "en",
+      "origin": "juan-attributed",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "skills/types/physical_product/saleads-type-physical-product/references/formatos.md",
+      "sha256": "f98454a6226273491c13c81d45f6c8394ed584bc4d627b9bcd36cf97721a0587",
+      "base_sha256": "9ea0334336f40f182b86f957986f0937ad18e7cdec78b90dd5b0eaaa06b5e3f4",
+      "instruction_language": "en",
+      "origin": "juan-attributed",
+      "literal_contract_data_preserved": true
+    },
+    {
+      "path": "skills/types/service/saleads-type-service/SKILL.md",
+      "sha256": "5ef65c3870c3f779d340c8ee0cbb79bf4c56345d1120737402bc3f7e7edaf96f",
+      "base_sha256": "16265dee80617ab314aacc0c82c0bbc254ec38b7822b3e0587ee2c9e7ad1ea9d",
+      "instruction_language": "en",
+      "origin": "juan-attributed",
+      "literal_contract_data_preserved": false
+    },
+    {
+      "path": "validate.py",
+      "sha256": "179993bcf3df7cbf17527e7747e7cee7935596ee8aed592456567edc1355bf33",
+      "base_sha256": "0bbf66af9c6bc28d5e4d08c635ac435b091eb5c08f0fd933af65a9f142524b57",
+      "instruction_language": "en",
+      "origin": "saleads",
+      "literal_contract_data_preserved": true
+    }
+  ]
+}

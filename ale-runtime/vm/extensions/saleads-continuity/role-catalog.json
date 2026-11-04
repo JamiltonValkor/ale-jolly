@@ -1,0 +1,21 @@
+{
+  "schema_version": "actor-role-catalog/1",
+  "specialist_roles": [
+    "investigador",
+    "estratega",
+    "estructurador",
+    "analista",
+    "optimizador",
+    "disenador_landings"
+  ],
+  "actor_roles": [
+    "ale",
+    "investigador",
+    "estratega",
+    "estructurador",
+    "analista",
+    "optimizador",
+    "disenador_landings",
+    "curador"
+  ]
+}

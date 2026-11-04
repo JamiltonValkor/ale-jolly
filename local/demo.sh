@@ -7,7 +7,7 @@
 set -euo pipefail
 cd "$(dirname "$0")"
 
-: "${ALE_RUNTIME_SRC:=$(cd .. && pwd)/vendor/ale-runtime}"
+: "${ALE_RUNTIME_SRC:=$(cd .. && pwd)/ale-runtime}"
 export ALE_RUNTIME_SRC
 export ALE_CA_CERT="$PWD/certs/ca.crt"
 case "$(uname -m)" in arm64|aarch64) : "${BUILD_PLATFORM:=linux/arm64}" ;; *) : "${BUILD_PLATFORM:=linux/amd64}" ;; esac

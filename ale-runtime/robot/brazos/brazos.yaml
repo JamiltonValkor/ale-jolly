@@ -1,0 +1,7 @@
+# Sistema de alineamiento de Meta — límites REALES de los brazos de Mini-Muse (única verdad).
+# La web (alineamiento.py) es la única que escribe este archivo; cada guardado deja brazos.yaml.bak.
+# Unidades: microsegundos de pulso del SG90. reposo = brazo abajo; maximo = brazo arriba (saludo); minimo = tope opuesto.
+# Valores iniciales = sobre de prueba seguro alrededor del centro; NO son límites físicos hasta `calibrado: true`.
+brazos:
+  derecho:   {pin: A0, minimo_us: 500, reposo_us: 1500, maximo_us: 2500, calibrado: true}
+  izquierdo: {pin: A1, minimo_us: 2500, reposo_us: 1500, maximo_us: 500, calibrado: true}

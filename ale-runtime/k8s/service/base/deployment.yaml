@@ -1,0 +1,101 @@
+# sa-assistant-service — asistente Hermes en un clic (ADR0028).
+# Patrón de sa-mcp-server k8s/service/base/deployment.yaml (KSA dedicada, probes
+# /healthz y /readyz, raíz de solo lectura); el overlay agrega WI y cloud-sql-proxy.
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sa-assistant-service
+  labels:
+    app: sa-assistant-service
+    app.kubernetes.io/name: sa-assistant-service
+    app.kubernetes.io/part-of: saleads-platform
+spec:
+  replicas: 1
+  revisionHistoryLimit: 5
+  selector:
+    matchLabels:
+      app: sa-assistant-service
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  template:
+    metadata:
+      labels:
+        app: sa-assistant-service
+        app.kubernetes.io/name: sa-assistant-service
+        app.kubernetes.io/part-of: saleads-platform
+    spec:
+      serviceAccountName: sa-assistant-service
+      automountServiceAccountToken: true # requerido por Workload Identity (token proyectado)
+      nodeSelector:
+        kubernetes.io/arch: amd64
+        kubernetes.io/os: linux
+      securityContext:
+        runAsNonRoot: true
+        runAsUser: 1000
+        runAsGroup: 1000
+        fsGroup: 1000
+        seccompProfile:
+          type: RuntimeDefault
+      # Deja drenar streams SSE del chat en curso.
+      terminationGracePeriodSeconds: 60
+      containers:
+        - name: sa-assistant-service
+          image: us-central1-docker.pkg.dev/example-project/sa-assistant-service/sa-assistant-service:latest
+          imagePullPolicy: IfNotPresent
+          ports:
+            - name: http
+              containerPort: 8060
+              protocol: TCP
+          envFrom:
+            # Configuración no secreta del overlay.
+            - configMapRef:
+                name: sa-assistant-service-config
+            # Secreto propio (ExternalSecret del overlay). No se monta saleads-common-secret.
+            - secretRef:
+                name: saleads-assistant-secret
+          startupProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 2
+            timeoutSeconds: 3
+            failureThreshold: 30
+          livenessProbe:
+            httpGet:
+              path: /healthz
+              port: http
+            periodSeconds: 10
+            timeoutSeconds: 2
+            failureThreshold: 3
+          readinessProbe:
+            httpGet:
+              path: /readyz
+              port: http
+            periodSeconds: 5
+            timeoutSeconds: 3
+            failureThreshold: 3
+          lifecycle:
+            preStop:
+              sleep:
+                seconds: 10
+          resources:
+            requests:
+              cpu: 100m
+              memory: 192Mi
+            limits:
+              memory: 384Mi
+          securityContext:
+            allowPrivilegeEscalation: false
+            readOnlyRootFilesystem: true
+            capabilities:
+              drop: ["ALL"]
+          volumeMounts:
+            - name: tmp
+              mountPath: /tmp
+      volumes:
+        - name: tmp
+          emptyDir:
+            sizeLimit: 64Mi

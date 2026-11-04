@@ -1,0 +1,343 @@
+[
+  {
+    "archivo": "f1-pdf-limpia.pdf",
+    "content_type": "application/pdf",
+    "sha256": "1fc046d764316f0088805ed0e13128f6309e2cc88b8abf15b6d62ff369c93790",
+    "proveedor": "Distribuidora Capilar Andina SAS",
+    "nit": "900111222-3",
+    "fecha": "2026-10-27",
+    "moneda": "COP",
+    "total": "1416000.00",
+    "lineas": [
+      {
+        "descripcion": "Shampoo reparador 250 ml",
+        "cantidad": 36,
+        "costo_unitario": "17000.00"
+      },
+      {
+        "descripcion": "Acondicionador argán 250 ml",
+        "cantidad": 24,
+        "costo_unitario": "19500.00"
+      },
+      {
+        "descripcion": "Mascarilla keratina 300 g",
+        "cantidad": 12,
+        "costo_unitario": "28000.00"
+      }
+    ],
+    "ambiguos": [],
+    "paginas": 1
+  },
+  {
+    "archivo": "f2-pdf-dos-paginas.pdf",
+    "content_type": "application/pdf",
+    "sha256": "fec4130adda827079bc46d33682861aab0e9651d8ec764621cf428fc5b42dbca",
+    "proveedor": "Insumos Belleza del Valle Ltda",
+    "nit": "800222333-1",
+    "fecha": "2026-10-28",
+    "moneda": "COP",
+    "total": "6951000.00",
+    "lineas": [
+      {
+        "descripcion": "Tratamiento capilar lote 01 250 ml",
+        "cantidad": 7,
+        "costo_unitario": "15500.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 02 250 ml",
+        "cantidad": 8,
+        "costo_unitario": "16000.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 03 250 ml",
+        "cantidad": 9,
+        "costo_unitario": "16500.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 04 250 ml",
+        "cantidad": 10,
+        "costo_unitario": "17000.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 05 250 ml",
+        "cantidad": 6,
+        "costo_unitario": "17500.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 06 250 ml",
+        "cantidad": 7,
+        "costo_unitario": "18000.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 07 250 ml",
+        "cantidad": 8,
+        "costo_unitario": "18500.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 08 250 ml",
+        "cantidad": 9,
+        "costo_unitario": "19000.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 09 250 ml",
+        "cantidad": 10,
+        "costo_unitario": "19500.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 10 250 ml",
+        "cantidad": 6,
+        "costo_unitario": "20000.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 11 250 ml",
+        "cantidad": 7,
+        "costo_unitario": "20500.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 12 250 ml",
+        "cantidad": 8,
+        "costo_unitario": "21000.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 13 250 ml",
+        "cantidad": 9,
+        "costo_unitario": "21500.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 14 250 ml",
+        "cantidad": 10,
+        "costo_unitario": "22000.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 15 250 ml",
+        "cantidad": 6,
+        "costo_unitario": "22500.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 16 250 ml",
+        "cantidad": 7,
+        "costo_unitario": "23000.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 17 250 ml",
+        "cantidad": 8,
+        "costo_unitario": "23500.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 18 250 ml",
+        "cantidad": 9,
+        "costo_unitario": "24000.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 19 250 ml",
+        "cantidad": 10,
+        "costo_unitario": "24500.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 20 250 ml",
+        "cantidad": 6,
+        "costo_unitario": "25000.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 21 250 ml",
+        "cantidad": 7,
+        "costo_unitario": "25500.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 22 250 ml",
+        "cantidad": 8,
+        "costo_unitario": "26000.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 23 250 ml",
+        "cantidad": 9,
+        "costo_unitario": "26500.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 24 250 ml",
+        "cantidad": 10,
+        "costo_unitario": "27000.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 25 250 ml",
+        "cantidad": 6,
+        "costo_unitario": "27500.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 26 250 ml",
+        "cantidad": 7,
+        "costo_unitario": "28000.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 27 250 ml",
+        "cantidad": 8,
+        "costo_unitario": "28500.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 28 250 ml",
+        "cantidad": 9,
+        "costo_unitario": "29000.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 29 250 ml",
+        "cantidad": 10,
+        "costo_unitario": "29500.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 30 250 ml",
+        "cantidad": 6,
+        "costo_unitario": "30000.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 31 250 ml",
+        "cantidad": 7,
+        "costo_unitario": "30500.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 32 250 ml",
+        "cantidad": 8,
+        "costo_unitario": "31000.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 33 250 ml",
+        "cantidad": 9,
+        "costo_unitario": "31500.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 34 250 ml",
+        "cantidad": 10,
+        "costo_unitario": "32000.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 35 250 ml",
+        "cantidad": 6,
+        "costo_unitario": "32500.00"
+      },
+      {
+        "descripcion": "Tratamiento capilar lote 36 250 ml",
+        "cantidad": 7,
+        "costo_unitario": "33000.00"
+      }
+    ],
+    "ambiguos": [],
+    "paginas": 2
+  },
+  {
+    "archivo": "f3-foto-torcida.jpg",
+    "content_type": "image/jpeg",
+    "sha256": "bb1a5462ddd6bdcc1ce031f58b7782442729026210ac6bc4b6d72a7513519510",
+    "proveedor": "Cosméticos La Sabana SAS",
+    "nit": "901333444-7",
+    "fecha": "2026-11-02",
+    "moneda": "COP",
+    "total": "962000.00",
+    "lineas": [
+      {
+        "descripcion": "Crema para peinar rizos 300 ml",
+        "cantidad": 18,
+        "costo_unitario": "16500.00"
+      },
+      {
+        "descripcion": "Aceite de coco 120 ml",
+        "cantidad": 30,
+        "costo_unitario": "12000.00"
+      },
+      {
+        "descripcion": "Gel fijador 500 g",
+        "cantidad": 10,
+        "costo_unitario": "9500.00"
+      },
+      {
+        "descripcion": "Tinte castaño 60 ml",
+        "cantidad": 15,
+        "costo_unitario": "14000.00"
+      }
+    ],
+    "ambiguos": [],
+    "paginas": 1
+  },
+  {
+    "archivo": "f4-foto-oscura.jpg",
+    "content_type": "image/jpeg",
+    "sha256": "018436e40da62c9c96a6526fba2e905df13818a0a1ee1354d272172bf07712a0",
+    "proveedor": "Droguería Mayorista Norte SAS",
+    "nit": "900444555-2",
+    "fecha": "2026-11-01",
+    "moneda": "COP",
+    "total": "915000.00",
+    "lineas": [
+      {
+        "descripcion": "Sérum antifrizz 60 ml",
+        "cantidad": 20,
+        "costo_unitario": "22000.00"
+      },
+      {
+        "descripcion": "Spray termoprotector 200 ml",
+        "cantidad": 14,
+        "costo_unitario": "18500.00"
+      },
+      {
+        "descripcion": "Ampolla capilar 15 ml",
+        "cantidad": 48,
+        "costo_unitario": "4500.00"
+      }
+    ],
+    "ambiguos": [],
+    "paginas": 1
+  },
+  {
+    "archivo": "f5-mancha-ambigua.png",
+    "content_type": "image/png",
+    "sha256": "2f8370c8cb792ee7d89dcb98237f50b81c21cb2affb49dd4a895411e8b6a6bca",
+    "proveedor": "Laboratorios Nativa SAS",
+    "nit": "901555666-9",
+    "fecha": "2026-11-02",
+    "moneda": "COP",
+    "total": "786000.00",
+    "lineas": [
+      {
+        "descripcion": "Shampoo sin sal 500 ml",
+        "cantidad": 12,
+        "costo_unitario": "23000.00"
+      },
+      {
+        "descripcion": "Crema de manos 100 ml",
+        "cantidad": 40,
+        "costo_unitario": "7500.00"
+      },
+      {
+        "descripcion": "Bálsamo labial 10 g",
+        "cantidad": 60,
+        "costo_unitario": "3500.00"
+      }
+    ],
+    "ambiguos": [
+      "lineas[2].cantidad"
+    ],
+    "paginas": 1
+  },
+  {
+    "archivo": "f6-usd-total-mal.pdf",
+    "content_type": "application/pdf",
+    "sha256": "88c649c919973f085d74fd8c695beb327671f239e9f6f9593b3fda42652876eb",
+    "proveedor": "Global Beauty Supply Inc",
+    "nit": "US-77001",
+    "fecha": "2026-11-03",
+    "moneda": "USD",
+    "total": "450.00",
+    "lineas": [
+      {
+        "descripcion": "Keratin treatment 1 L",
+        "cantidad": 6,
+        "costo_unitario": "42.00"
+      },
+      {
+        "descripcion": "Argan oil 250 ml",
+        "cantidad": 10,
+        "costo_unitario": "15.00"
+      }
+    ],
+    "ambiguos": [],
+    "paginas": 1
+  }
+]

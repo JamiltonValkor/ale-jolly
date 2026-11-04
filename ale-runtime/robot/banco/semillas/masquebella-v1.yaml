@@ -1,0 +1,134 @@
+# Semilla del banco E2E de 9 pasos (IVB-024). Masquebella COPIA DE PRUEBA en dev, una sola corrida.
+# Todo lo que entra por aquí va con `bench_seed`: método `semilla`, `simulated=true` y `run_id` de la corrida.
+# Las ofertas se casan por nombre al sembrar (los ids cambian si el dueño reconecta el negocio: 2-nov, 14:15Z).
+nombre: masquebella-e2e-v1
+semilla: ivb024-v1
+moneda: COP
+historia_semanas: 8
+hora_inicio: 9            # el día 0 simulado empieza a las 09:00 de Bogotá, con la tienda abierta
+
+# ---- Presupuestos de la corrida (stock_run_budgets) -----------------------------------------------------------------
+# IVB-027 se pasó: 5,7 M contra el tope diario de 2,2 M, y con el tope gastado `wake` no despierta a Ale (la negociación
+# queda esperando el tick de 3 h). Aquí se fija por turnos. Medido en el ensayo del 2-nov (corrida 2fd4f8b7): 4 turnos del
+# canal robot gastaron 6,04 M, 1,51 M por turno, porque la voz cae en la sesión del negocio (315 mensajes). El tope de 11 M
+# del primer borrador se habría agotado en el paso 3. `turnos` es la cuenta del guion, paso por paso.
+consumo:
+  tokens_por_turno_medido: 1510000     # ensayo 2fd4f8b7, `bench_state.presupuestos.tokens_ale`
+  margen: 0.10
+  turnos: {p1: 3, p2: 3, p3: 2, p4: 3, p5: 3, p6: 2, p7: 6, p8: 3, p9: 2}   # p7: un despertar por respuesta del proveedor
+presupuestos:
+  tokens_ale: 45000000       # 27 turnos × 1,51 M = 40,8 M, más 10 %. A US$ 0,10/M de entrada: hasta ~US$ 4,5
+  despertares_ale: 16        # p3, p6, p9 y hasta 6 rondas de p7, con margen
+  tarjetas_stock: 30
+  sam_llamadas: 15           # 4 conteos × 3 fotos (original y 2 reintentos, R14)
+  extraccion: 4              # factura del paso 1 y pantallazo del paso 5, con reintento
+  avisos_voz: 20             # cada resultado de voz cuenta: p3 (una por producto), p4, p5, p6, p8, p9 y margen. Con 8 se agotó en el P4 y el P5 de la oficial 321e84d9
+
+# ---- Catálogo ------------------------------------------------------------------------------------------------------
+# La mascarilla es la protagonista: todas las escenas del guion son sus frascos de tapa verde.
+# Cuenta de la mascarilla: 0 al empezar → +24 (p1) → −2 fiado (p2) = 22 → −2 (salto p3) = 20 → −4 (salto p5) = 16.
+productos:
+  - {key: mascarilla, nombre: "Bio Mascarilla Capilar", variante: "500 g", oferta: mascarilla, papel: protagonista,
+     historia: [8, 9, 10, 9, 8, 9, 10, 9], stock_final_historia: 0}
+  # Costo del Tónico (corta del 3-nov: el estratega lo pidió para armar el kit). Igual a la cotización de Valle, bajo los $40.000.
+  - {key: tonico, nombre: "Tónico Capilar", variante: "120 ml", oferta: tonico, papel: sano, costo: "16000",
+     historia: [6, 5, 6, 7, 6, 5, 6, 6], stock_final_historia: 12}
+  # 1.0.4: el Sérum es el estancado del paso 3. Trae costo para que Stock lo pueda pasar a marketing (sin factura propia).
+  # Corta del 3-nov: con 19.000 el margen salía negativo contra la Ampolleta de $14.000. Costo 7.000.
+  - {key: serum, nombre: "Sérum Capilar", variante: "30 ml", oferta: serum, papel: estancado, costo: "7000",
+     historia: [5, 5, 6, 5, 4, 5, 6, 5], stock_final_historia: 12}
+  - {key: kit_rep, nombre: "Kit Emergencia y Reparación", variante: "Kit", oferta: kit, papel: sin_pauta,
+     historia: [0, 0, 1, 0, 0, 0, 0, 0], stock_final_historia: 15}
+
+ofertas_por_nombre:
+  mascarilla: "^Bio Mascarilla"
+  # Corta del 3-nov: «Tratamiento capilar revitalizante» no es un tónico y el estratega no pudo casarlo. La oferta real
+  # del Tónico es «Tónico Capilar – La Receta CBD», $40.000.
+  tonico: "^T[oó]nico Capilar.*La Receta CBD"
+  serum: "^Ampolleta"
+  kit: "^Kit Emergencia"
+
+proveedores:
+  - id_clave: prov_valle
+    nombre: "Distribuidora Capilar del Valle SAS (simulada)"
+    dias_entrega: 5
+    cotizaciones:
+      - {producto: mascarilla, precio: "21000", flete: "15000", minimo: 12, plazo_pago_dias: 30, garantia: "Cambio por defecto de fábrica", moneda: COP}
+      # F-P6c (oficial del 2-nov): el Tónico llegó a 1,4 días de cobertura y Stock no pudo pedir porque no tenía proveedor.
+      - {producto: tonico, precio: "16000", flete: "15000", minimo: 12, plazo_pago_dias: 30, garantia: null, moneda: COP}
+  - id_clave: prov_norte
+    nombre: "Insumos Belleza Norte SAS (simulada)"
+    dias_entrega: 8
+    cotizaciones:
+      - {producto: mascarilla, precio: "20500", flete: "30000", minimo: 24, plazo_pago_dias: null, garantia: null, moneda: COP}
+
+# ---- Lo que el guion necesita y no siembra ---------------------------------------------------------------------------
+# Documentos que Ale registra (`document_register`). Canal `banco` (simulado) hasta que haya canal real (Telegram, R8b).
+# La factura no está en `verdad.json` (corpus de IVB-010). Ambos los genera `facturas/generar.py`.
+documentos:
+  p1:
+    tipo: factura
+    archivo: robot/banco/facturas/f7-e2e-mascarilla-24.pdf
+    sha256: 37470cf49a927d971ee3f545cbd35662f5f1b73dbbb1d1a00db11c72de7049b1
+    proveedor: "Distribuidora Capilar del Valle SAS (simulada)"
+    lineas: [{descripcion: "Bio Mascarilla Capilar 500 g", cantidad: 24, costo_unitario: "21000.00"}]
+  p5:
+    tipo: pantallazo
+    archivo: robot/banco/facturas/pantallazo-e2e-p5.pdf
+    sha256: 3b335c9fc0cbd9717be5aabaa0bbebab851c6a8d0d0197e9ea1ddb8a1194f456
+    cifras: {impresiones: 126000, clics: 2940, conversaciones: 41, gasto: 245000, presupuesto_diario: 35000}
+  p8:   # factura del pedido acordado: se genera en la corrida con la cantidad y el precio acordados (`--cantidad --precio`)
+    tipo: factura
+    generada: true
+    proveedor: "Distribuidora Capilar del Valle SAS (simulada)"
+    nit: "900777888-1"
+    numero: "FV-2702"
+    descripcion: "Bio Mascarilla Capilar 500 g"
+
+# Escenas: imágenes de IVB-022 con error 0 en 3 corridas de SAM (evidencia/imagenes/exactitud.md). `conteo` es el mirado,
+# `sha256` el del manifiesto de la Pi (~/ale/ojo/banco/manifiesto.json). Repuesto del paso 2: S2-b, 22, db9d86b8….
+escenas:
+  p1: {id: S1-recibo, conteo: 12, sha256: 10575d8ae6c0bb17ec4c5492721d43518e373fb2abd29332e57bcfe5ac6e0949}   # caja abierta (marca real al fondo: no publicar)
+  p2: {id: S2-a, conteo: 22, sha256: 0f8d36bf0d7e23248350c397b50dfa5eb4f84e425929761ff49f092f3a1793fe}   # 2 repisas de 11
+  p5: {id: S5-a, conteo: 16, sha256: 1e05edfc10fc304f99c0894abc666ef865d14cb4d481da697f17efc7c8c89880}   # 2 repisas de 8
+  p8: {id: S8-b, conteo: 33, sha256: 9aa6be693eb678e1a7f3e8d8533c888539594ca2d05535ca52ef988f65b71340}   # 3 repisas de 11. S8-a (60–80, filas ocultas) no sirve: no es exacta
+
+# Ventas simuladas que trae cada salto, por producto. El paso 8 se cuadra al pedido real (ver `cuadre_p8`).
+saltos:
+  # Corta del 3-nov: con 2 ventas la mascarilla quedaba con 70 días de cobertura y salía «sin pauta» (> 45 días). Con 6
+  # queda en 16 y unos 19 días: sana. No se usa 8 porque la repisa del P5 (S5-a) tiene 16 y no hay imagen exacta de 14.
+  p3: {dias: 7, ventas: {mascarilla: 6, tonico: 6, serum: 0, kit_rep: 0}}   # sano no alerta; sérum frena; kit sin pauta
+  p5: {dias: 3, ventas: {mascarilla: 0, tonico: 3, serum: 0, kit_rep: 0}}   # la repisa sigue en 16 para el conteo
+  p5b: {dias: 1, ventas: {tonico: 1, serum: 0, kit_rep: 0}, pega: {producto: mascarilla, tras: p5}}   # mitad de semana: la pauta pega
+  p8: {dias: entrega, ventas: {tonico: 4, serum: 1, kit_rep: 0}}
+# Paso 8: la cantidad la decide Stock en el paso 6 (R24), así que no se conoce antes. Para que la repisa (33) sea el
+# esperado tras recibir todo, el salto vende `saldo + pedido − 33` mascarillas. Si da negativo, no se vende nada y la
+# diferencia (llegaron de más) queda como hallazgo del paso: Jolly debe preguntar (R6, R32).
+cuadre_p8: {producto: mascarilla, escena: p8}
+
+# El dueño fija el mandato en pantalla al aprobar el pedido (paso 6). Estos son los valores del guion.
+mandato: {precio_objetivo: "18000", tope: "20000"}
+# Paso 4: señales de la campaña simulada que prende `bench_campaign` tras aprobar la apuesta.
+# `gasto` y `mensajes` son los que lee `bet-signal` (`pauta.senales`): sin ellos dice gasto 0. Son los 7 días del pantallazo del paso 5.
+campana_senales: {impresiones: 18000, clics: 420, ventas_atribuidas_dia: 4, gasto: 245000, mensajes: 41}
+# 1.0.4: la pauta de la Mascarilla pega. El servidor marca `pegando` con las ventas de los últimos 2 días desde la pauta
+# (rotation.ts `hotSignal`, umbral 1,5 × lo previsto). `salto --paso p5b --previstas N` vende lo justo para llegar al doble
+# de la previsión aprobada. `campana --previstas N` pone las señales de la campaña con el mismo factor.
+campana_pega: {factor: 2, ventana_dias: 2}
+
+# Puertas humanas de la corrida oficial: el owner hace cada clic. `banco.py puerta` arma el mensaje que el operador manda
+# al coordinador, y `banco.py esperar` anota la decisión en la bitácora. Textos de la pantalla rediseñada (front 622f91b9b).
+mensaje_puerta: "IVB-024 {paso}, puerta humana. Owner: en https://dev.saleads.ai › Meta Assistant › Stock › Por aprobar, tarjeta «{tarjeta}». {que}{causa} Botón «{boton}» en la tarjeta y otra vez «{boton}» en el diálogo. Avísame cuando lo haga, o si decide rechazar."
+puertas:   # botones tal como los mostró la pantalla en la oficial 321e84d9 (2-nov)
+  entrada: {tarjeta: "Entrada de mercancía", boton: "Confirmar factura"}
+  conteo: {tarjeta: "Conteo", boton: "Confirmar conteo"}
+  apuesta: {tarjeta: "Apuesta de pauta", boton: "Aprobar apuesta"}
+  kit: {tarjeta: "Kit", boton: "el botón de aprobar de la tarjeta del kit"}
+  pedido: {tarjeta: "Pedido", boton: "Aprobar y negociar"}
+  autonomia: {tarjeta: "Permiso", boton: "Aprobar o Rechazar, como decida"}
+
+# Arranque en el P3 (prueba corta del tramo P3–P6 con la 1.0.4): deja el estado del final del P2 sin repetir P1 y P2.
+# La mascarilla queda con 22 (24 de la factura − 2) y su costo de factura, todo por semilla y marcado simulado.
+arranque_p3:
+  conteos: {mascarilla: 22}
+  costos: {mascarilla: "21000"}

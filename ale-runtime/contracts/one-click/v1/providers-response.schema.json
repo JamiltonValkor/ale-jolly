@@ -1,0 +1,29 @@
+{
+  "$id": "https://saleads.ai/contracts/one-click/v1/providers-response.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "array",
+  "items": {
+    "type": "object",
+    "properties": {
+      "id": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 100
+      },
+      "label": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 200
+      },
+      "needs_key": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "id",
+      "label",
+      "needs_key"
+    ],
+    "additionalProperties": false
+  }
+}

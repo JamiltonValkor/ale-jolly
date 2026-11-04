@@ -1,0 +1,179 @@
+{
+  "trusted-context": {
+    "schema_version": "trusted-context/1",
+    "owner_id": "fixture-owner",
+    "business_id": "11111111-1111-4111-8111-111111111111",
+    "session_id": "session-fixture-1",
+    "actor_role": "ale",
+    "native_task_id": null,
+    "native_run_id": null,
+    "response_locale": "en",
+    "locale_revision": 1,
+    "capabilities": [
+      "saleads:read"
+    ],
+    "mandate_id": null,
+    "pending_context": true
+  },
+  "source-event": {
+    "schema_version": "source-event/1",
+    "event_id": "source-fixture-1",
+    "owner_id": "fixture-owner",
+    "business_id": "11111111-1111-4111-8111-111111111111",
+    "source_kind": "operator_canary",
+    "source_id": "fixture-message-1",
+    "source_version": "1",
+    "author": {
+      "kind": "operator",
+      "id": "fixture-operator"
+    },
+    "extractor_id": null,
+    "occurred_at": "2026-10-28T12:00:00Z",
+    "recorded_at": "2026-10-29T12:00:00Z",
+    "content": "Synthetic compatibility observation only.",
+    "content_sha256": "2fa0b5dfaa87bf7f8406a8dbda5338f20afddb96f0e347f7b36e66254db8919c",
+    "refs": [],
+    "purpose": "technical_canary",
+    "native_task_id": null,
+    "native_run_id": null
+  },
+  "knowledge-candidate": {
+    "schema_version": "knowledge-candidate/1",
+    "candidate_id": "candidate-fixture-1",
+    "owner_id": "fixture-owner",
+    "business_id": "11111111-1111-4111-8111-111111111111",
+    "entity_type": "Research",
+    "content": "Synthetic research proposal for contract verification.",
+    "attributes": {},
+    "source_event_ids": [
+      "source-fixture-1"
+    ],
+    "scope": "business",
+    "specialist_role": null,
+    "extractor_id": "curador",
+    "epistemic": "inferred",
+    "validation_state": "proposed",
+    "valid_from": "2026-11-01T12:00:00Z",
+    "valid_until": null,
+    "supersedes_id": null,
+    "contradicts_id": null
+  },
+  "specialist-experience": {
+    "schema_version": "specialist-experience/1",
+    "experience_id": "experience-fixture-1",
+    "owner_id": "fixture-owner",
+    "business_id": "11111111-1111-4111-8111-111111111111",
+    "specialist_role": "investigador",
+    "task_id": "task-fixture-1",
+    "run_id": "run-fixture-1",
+    "method": "Compare source identities.",
+    "observed_result": "Two URLs identify the same underlying source.",
+    "correction": "Count a source once.",
+    "lesson": "Do not count repeated sources as independent evidence.",
+    "applicability": "Source corroboration checks.",
+    "source_event_ids": [
+      "source-fixture-1"
+    ],
+    "confidence": "proposed",
+    "valid_from": "2026-10-31T12:00:00Z",
+    "valid_until": null,
+    "shared_summary": null
+  },
+  "curation-batch": {
+    "schema_version": "curation-batch/1",
+    "batch_id": "batch-fixture-1",
+    "owner_id": "fixture-owner",
+    "business_id": "11111111-1111-4111-8111-111111111111",
+    "source_event_ids": [
+      "source-fixture-1"
+    ],
+    "cursor": "cursor-1",
+    "state": "pending",
+    "native_task_id": null,
+    "native_run_id": null,
+    "idempotency_key": "curation:fixture:1",
+    "committed_ids": [],
+    "discarded_reason": null,
+    "error_code": null,
+    "updated_at": "2026-10-29T12:00:00Z"
+  },
+  "context-pack": {
+    "schema_version": "context-pack/1",
+    "pack_id": "pack-fixture-1",
+    "owner_id": "fixture-owner",
+    "business_id": "11111111-1111-4111-8111-111111111111",
+    "actor_role": "ale",
+    "goal": null,
+    "knowledge": [],
+    "experiences": [],
+    "refs": [],
+    "versions": {},
+    "pending": [],
+    "text": "No verified business facts available yet.",
+    "truncated": false,
+    "generated_at": "2026-11-01T12:00:00Z"
+  },
+  "goal-state": {
+    "schema_version": "goal-state/1",
+    "goal_id": "goal-fixture-1",
+    "owner_id": "fixture-owner",
+    "business_id": "11111111-1111-4111-8111-111111111111",
+    "mandate": "Verify synthetic intake.",
+    "source_event_ids": [
+      "source-fixture-1"
+    ],
+    "native_task_ids": [],
+    "state": "intake",
+    "blockers": [],
+    "next_condition": null,
+    "next_review_at": null,
+    "result_summary": null,
+    "revision": 1,
+    "updated_at": "2026-10-30T12:00:00Z",
+    "origin": "assistant_proposed"
+  },
+  "notification": {
+    "schema_version": "notification/1",
+    "notification_id": "notice-fixture-1",
+    "owner_id": "fixture-owner",
+    "business_id": "11111111-1111-4111-8111-111111111111",
+    "session_id": "session-fixture-1",
+    "source_id": "job-fixture-1",
+    "execution_id": "execution-fixture-1",
+    "source_version": "1",
+    "source_kind": "cron_result",
+    "text": "The synthetic check completed.",
+    "response_locale": "en",
+    "terminal_state": "completed",
+    "limitations": [],
+    "created_at": "2026-10-29T12:00:00Z"
+  },
+  "delivery-receipt": {
+    "schema_version": "delivery-receipt/1",
+    "receipt_id": "receipt-fixture-1",
+    "notification_id": "notice-fixture-1",
+    "owner_id": "fixture-owner",
+    "business_id": "11111111-1111-4111-8111-111111111111",
+    "destination": "saleads",
+    "destination_version": "1",
+    "attempt_id": "attempt-fixture-1",
+    "state": "delivered",
+    "fallback": true,
+    "evidence_ref": null,
+    "reconcile_by": null,
+    "updated_at": "2026-11-03T12:00:00Z"
+  },
+  "conversation-event": {
+    "schema_version": "conversation-event/1",
+    "event_id": "event-fixture-1",
+    "cursor": "cursor-1",
+    "business_id": "11111111-1111-4111-8111-111111111111",
+    "session_id": "session-fixture-1",
+    "message_id": "notice-fixture-1",
+    "role": "assistant",
+    "text": "The synthetic check completed.",
+    "created_at": "2026-11-03T12:00:00Z",
+    "source": "scheduled",
+    "dedupe_key": "notice-fixture-1"
+  }
+}

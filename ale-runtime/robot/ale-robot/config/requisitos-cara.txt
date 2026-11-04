@@ -1,0 +1,9 @@
+# Cara (robot/cara) y brazos (robot/brazos).
+numpy==2.5.4
+pillow
+pygame-ce==2.5.8
+pyyaml==6.0.3
+pyzmq==27.2.0
+pyserial==3.5
+pytest==9.2.0
+segno==1.6.6

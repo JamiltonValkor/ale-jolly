@@ -1,0 +1,4 @@
+# Ojo (robot/ojo): proceso propio, sin compartir .venv con la voz.
+pillow==11.3.0
+pyzmq==27.2.0
+pytest==9.2.0

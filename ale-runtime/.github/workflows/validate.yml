@@ -1,0 +1,163 @@
+name: Validate source
+
+on:
+  push:
+  pull_request:
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  node:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    container:
+      image: node:22-bookworm-slim@sha256:de170b39439eb0e5a3444ad7d60b015614a381e10fecae2e30ec9e735122f38d
+    env:
+      CI: 'true'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Install interpreter for the Jest CLI contract test
+        run: |
+          apt-get update
+          apt-get install --yes --no-install-recommends python3
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: npm run typecheck
+      - run: npm run lint
+      - run: npm test -- --runInBand
+      - run: npm run build
+
+  python:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    container:
+      image: python:3.12-slim-bookworm@sha256:6a0e06f5ba0b373d051aabd3fffb9b873f27f9a2a3a14bcbe37dee6f0e3bbc70
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PIP_DISABLE_PIP_VERSION_CHECK: '1'
+      PIP_NO_CACHE_DIR: '1'
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Install local watcher test prerequisite
+        run: |
+          apt-get update
+          apt-get install --yes --no-install-recommends curl
+      - name: Test CLI with temporary homes and a fake local HTTP server
+        run: python -I -m unittest discover -s test/cli -p 'test_*.py'
+      - name: Test current managed Meta CLI
+        run: |
+          SALEADS_CLI_BUNDLE=1.5.13 python -I -m unittest discover -s test/cli -p 'test_*.py'
+          python -I -m unittest discover -s test/landing-cli -p 'test_*.py'
+      - name: Test native Meta search and read-only loop projection
+        run: |
+          python -I -m unittest discover -s vm/extensions/saleads-meta-search -p 'test_*.py'
+      - name: Install declared Brain dependency profiles
+        run: |
+          python -m pip install './brain[dev,runtime]'
+          python -m pip check
+      - name: Test Brain
+        working-directory: brain
+        run: python -m pytest -q
+      - name: Lint Brain
+        working-directory: brain
+        run: python -m ruff check .
+      - name: Typecheck Brain
+        working-directory: brain
+        run: python -m mypy
+      - name: Test managed extensions and read-only export
+        run: python -I -m unittest discover -s vm/test -p 'first_loop_*test.py'
+      - name: Test watcher with fake metadata and Docker adapters
+        run: |
+          bash vm/test/watcher-test.sh
+          python -I -m unittest discover -s vm/test -p 'continuous_watcher_test.py'
+
+  # Pruebas del robot: sin Pi, sin tarjeta de sonido, sin red. Las de voz corren sin ALE_SILENCIO a propósito.
+  robot:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    container:
+      image: python:3.12-slim-bookworm@sha256:6a0e06f5ba0b373d051aabd3fffb9b873f27f9a2a3a14bcbe37dee6f0e3bbc70
+    env:
+      PYTHONDONTWRITEBYTECODE: '1'
+      PIP_DISABLE_PIP_VERSION_CHECK: '1'
+      PIP_NO_CACHE_DIR: '1'
+      SDL_VIDEODRIVER: dummy
+      SDL_AUDIODRIVER: dummy
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Install PortAudio, rsync and lsof
+        run: |
+          apt-get update
+          apt-get install --yes --no-install-recommends libportaudio2 lsof rsync
+      - run: pip install -r robot/ale-robot/config/requisitos-cara.txt -r robot/ale-robot/config/requisitos-voz.txt
+      - name: Test face
+        working-directory: robot/cara
+        run: python -m pytest -q -p no:cacheprovider pruebas_cara.py pruebas_viva.py pruebas_carga.py pruebas_sueno.py pruebas_conteo.py
+      - name: Test arms
+        working-directory: robot/brazos
+        run: python -m pytest -q -p no:cacheprovider pruebas_brazos.py pruebas_calibracion.py
+      - name: Test voice
+        working-directory: robot/voz-hermes
+        run: python -m pytest -q -p no:cacheprovider cuerpo/pruebas_bus.py cuerpo/pruebas_director.py cuerpo/pruebas_voz.py cuerpo/pruebas_sueno.py cuerpo/pruebas_avisos.py pruebas_canal_robot.py
+      - name: Test eye
+        working-directory: robot/ojo
+        run: python -m pytest -q -p no:cacheprovider pruebas_ojo.py
+      - name: Test E2E bench (IVB-024)
+        working-directory: robot/banco
+        run: |
+          pip install pyyaml==6.0.2
+          python -m pytest -q -p no:cacheprovider pruebas_banco.py pruebas_puente.py
+      - name: Dry run of the Pi sync
+        run: bash robot/ale-robot/test_llevar_a_pi.sh
+
+  # Flyway y concurrencia sobre Postgres real (versión de dev, S-40), en el runner: nunca Docker local en el Mac.
+  stock-postgres:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    container:
+      image: node:22-bookworm-slim@sha256:de170b39439eb0e5a3444ad7d60b015614a381e10fecae2e30ec9e735122f38d
+    services:
+      postgres:
+        image: postgres:14.23
+        env:
+          POSTGRES_PASSWORD: stock-ci
+        options: >-
+          --health-cmd pg_isready --health-interval 5s --health-timeout 5s --health-retries 10
+    env:
+      CI: 'true'
+      STOCK_PG_URL: postgresql://postgres:stock-ci@postgres:5432/postgres
+      FLYWAY_VERSION: 10.22.0
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Install PostgreSQL client and Flyway
+        run: |
+          apt-get update
+          apt-get install --yes --no-install-recommends ca-certificates curl postgresql-client
+          curl --fail --silent --show-error --location \
+            "https://repo1.maven.org/maven2/org/flywaydb/flyway-commandline/${FLYWAY_VERSION}/flyway-commandline-${FLYWAY_VERSION}-linux-x64.tar.gz" \
+            | tar -xz -C /opt
+          ln -s "/opt/flyway-${FLYWAY_VERSION}/flyway" /usr/local/bin/flyway
+      - run: npm ci --ignore-scripts --no-audit --no-fund
+      - run: bash scripts/stock-postgres-real.sh
+
+  images:
+    needs: [node, python]
+    runs-on: ubuntu-24.04
+    timeout-minutes: 20
+    steps:
+      - uses: actions/checkout@11bd71901bbe5b1630ceea73d27597364c9af683 # v4.2.2
+        with:
+          persist-credentials: false
+      - name: Build service image without publishing
+        run: docker build --pull --tag ale-runtime:validation .
+      - name: Build Brain image without publishing
+        run: docker build --pull --tag ale-brain:validation brain

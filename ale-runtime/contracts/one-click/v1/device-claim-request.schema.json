@@ -1,0 +1,16 @@
+{
+  "$id": "https://saleads.ai/contracts/one-click/v1/device-claim-request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "minLength": 8,
+      "maxLength": 20
+    }
+  },
+  "required": [
+    "code"
+  ],
+  "additionalProperties": false
+}

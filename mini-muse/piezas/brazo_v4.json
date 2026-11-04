@@ -1,0 +1,16 @@
+{
+ "brazo_der": {
+  "estanca": true,
+  "volumen_cm3": 242.2,
+  "masa_g_15pc": 75.0,
+  "tarugo_hasta_x_mm": 77.6
+ },
+ "brazo_izq": {
+  "estanca": true,
+  "volumen_cm3": 242.2,
+  "masa_g_15pc": 75.0,
+  "tarugo_hasta_x_mm": -77.6
+ },
+ "agujero_cuerpo_diam_mm": 21.6,
+ "servo_cara_superior_x_mm": 73.1
+}

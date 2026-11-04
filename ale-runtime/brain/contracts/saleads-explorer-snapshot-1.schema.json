@@ -1,0 +1,69 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://saleads.ai/contracts/brain/saleads-explorer-snapshot-1.schema.json",
+  "title": "saleads-explorer-snapshot/1",
+  "description": "Foto acotada del cerebro de los negocios de una VM (OSB-004). Sin embeddings, sin evidencia cruda ni datos personales.",
+  "type": "object",
+  "required": ["schema", "generated_at", "businesses"],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {"const": "saleads-explorer-snapshot/1"},
+    "generated_at": {"type": "string"},
+    "businesses": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "required": ["business_id", "nodes", "edges", "stats"],
+        "additionalProperties": false,
+        "properties": {
+          "business_id": {"type": "string", "format": "uuid"},
+          "nodes": {
+            "type": "array",
+            "maxItems": 500,
+            "items": {
+              "type": "object",
+              "required": ["id", "type", "family", "label", "summary", "state", "provenance", "mentions", "created_at"],
+              "additionalProperties": false,
+              "properties": {
+                "id": {"type": "string", "maxLength": 64},
+                "type": {"type": "string", "maxLength": 64},
+                "family": {"type": "string", "enum": ["identity", "offer", "market", "competition", "channels", "strategy", "operations", "learning", "meta", "learned", "other"]},
+                "label": {"type": "string", "maxLength": 200},
+                "summary": {"type": "string", "maxLength": 500},
+                "state": {"type": "string", "enum": ["observed", "proposed", "validated", "superseded"]},
+                "provenance": {"type": "string", "maxLength": 40},
+                "mentions": {"type": "integer", "minimum": 0},
+                "created_at": {"type": ["string", "null"]}
+              }
+            }
+          },
+          "edges": {
+            "type": "array",
+            "maxItems": 2000,
+            "items": {
+              "type": "object",
+              "required": ["source", "target", "type", "fact", "provenance", "valid_at", "invalid_at"],
+              "additionalProperties": false,
+              "properties": {
+                "source": {"type": "string"},
+                "target": {"type": "string"},
+                "type": {"type": "string", "maxLength": 64},
+                "fact": {"type": "string", "maxLength": 300},
+                "provenance": {"type": "string", "maxLength": 40},
+                "valid_at": {"type": ["string", "null"]},
+                "invalid_at": {"type": ["string", "null"]}
+              }
+            }
+          },
+          "stats": {
+            "type": "object",
+            "required": ["nodes", "edges"],
+            "additionalProperties": false,
+            "properties": {"nodes": {"type": "integer"}, "edges": {"type": "integer"}}
+          }
+        }
+      }
+    }
+  }
+}

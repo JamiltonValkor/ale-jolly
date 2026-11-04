@@ -1,0 +1,310 @@
+{
+  "schema": "saleads-landing-distribution/1",
+  "bundle": "saleads-sales-agent@1.5.13",
+  "base_bundle": "saleads-sales-agent@1.5.12",
+  "instruction_language": "en",
+  "response_locale_source": "configured_saleads_user_preference",
+  "model": "muse-spark-1.3-contributor",
+  "minimum_watcher": 11,
+  "learning_adapter_source": "9868738ba6a974e59744d20e68637a93313f02c0",
+  "files": [
+    {
+      "path": "profiles/disenador_landings/SOUL.md",
+      "sha256": "ab0acd8659ae4ce50337f5e09cede58357a49daa791b47842b7c4e40b811a46d",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/SOUL.md",
+      "source_sha256": "5430a78706f7902d786096b5ff7241df7bcb95c2eeba845f52d97ade0810e0c4",
+      "adaptation": "Generalized historical pilot wording/state; preserved method, model, configured locale and owner web publication boundaries."
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/THIRD_PARTY_NOTICES.md",
+      "sha256": "9aeef38cf80241abf861a9757422e5de27db61b55297fc414e1e69fb0b8aecf3",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/THIRD_PARTY_NOTICES.md",
+      "source_sha256": "9aeef38cf80241abf861a9757422e5de27db61b55297fc414e1e69fb0b8aecf3"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/SKILL.md",
+      "sha256": "b53e87613c9e5f536fe639c642020a8b74b5a06071904d728c3a6fce73022566",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/SKILL.md",
+      "source_sha256": "b53e87613c9e5f536fe639c642020a8b74b5a06071904d728c3a6fce73022566"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/art-direction.md",
+      "sha256": "1dda93398c592c10c458923f2fd43ad220a676a6ed01ea8f4c00e50a3195a1e4",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/art-direction.md",
+      "source_sha256": "1dda93398c592c10c458923f2fd43ad220a676a6ed01ea8f4c00e50a3195a1e4"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/build.md",
+      "sha256": "d032c9317aabaeefddec2aa444b057fb5785d6ba39ee51d673659a6dd72d267d",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/build.md",
+      "source_sha256": "d032c9317aabaeefddec2aa444b057fb5785d6ba39ee51d673659a6dd72d267d"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/catalogo-archetypes.md",
+      "sha256": "a663c0d4d1dbd4e52096abcd3b1399be2d9dd65dd882acc6795b35a747d788ee",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/catalogo-archetypes.md",
+      "source_sha256": "a663c0d4d1dbd4e52096abcd3b1399be2d9dd65dd882acc6795b35a747d788ee"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/frontend-design.LICENSE.txt",
+      "sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/frontend-design.LICENSE.txt",
+      "source_sha256": "0d542e0c8804e39aa7f37eb00da5a762149dc682d7829451287e11b938e94594"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/frontend-design.md",
+      "sha256": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/frontend-design.md",
+      "source_sha256": "d91970639e9f5c37682ac7ab60094d35f1c7c1f38d731bd56396563aee10c1d3"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/liquid-glass/LICENSE",
+      "sha256": "ae9975b91105d83e49b738d28eff130417d51db3a3f24a3176fab36e1cb430fd",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/liquid-glass/LICENSE",
+      "source_sha256": "ae9975b91105d83e49b738d28eff130417d51db3a3f24a3176fab36e1cb430fd"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/liquid-glass/SKILL.md",
+      "sha256": "6328031c843f803ffd5f2b0727c936910aba30b0243753ebe9a6f71ede96ae7d",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/liquid-glass/SKILL.md",
+      "source_sha256": "6328031c843f803ffd5f2b0727c936910aba30b0243753ebe9a6f71ede96ae7d"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/liquid-glass/assets/globals.css",
+      "sha256": "759f312ca878096caabbce2343888eed0156d9f847520c8ad5bb729b8cca90f3",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/liquid-glass/assets/globals.css",
+      "source_sha256": "759f312ca878096caabbce2343888eed0156d9f847520c8ad5bb729b8cca90f3"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/liquid-glass/references/creative-direction.md",
+      "sha256": "9abf50deceed5c8bba9277ea9f9da32c8bdbea90d686c79791d30ce536208aff",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/liquid-glass/references/creative-direction.md",
+      "source_sha256": "9abf50deceed5c8bba9277ea9f9da32c8bdbea90d686c79791d30ce536208aff"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/liquid-glass/references/layout-composition.md",
+      "sha256": "812a282a26fcf72f2f1eed7d92c00ff18b0dee7e6f5bc0f54f21f713323316b6",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/liquid-glass/references/layout-composition.md",
+      "source_sha256": "812a282a26fcf72f2f1eed7d92c00ff18b0dee7e6f5bc0f54f21f713323316b6"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/liquid-glass/references/liquid-glass.md",
+      "sha256": "c3b461df1c4b7feb46d8cc64e7a4841550abe45038bc269c91e0a029b569d995",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/liquid-glass/references/liquid-glass.md",
+      "source_sha256": "c3b461df1c4b7feb46d8cc64e7a4841550abe45038bc269c91e0a029b569d995"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/liquid-glass/references/motion.md",
+      "sha256": "5d7fd0efc6b229c57d025dfc9b95276ee97ec2b16581f792c94e4627f0d002bf",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/liquid-glass/references/motion.md",
+      "source_sha256": "5d7fd0efc6b229c57d025dfc9b95276ee97ec2b16581f792c94e4627f0d002bf"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/liquid-glass/references/theming.md",
+      "sha256": "56985a22de2b2aecd37827b9b8218cfcd4bf51422de4c66ecabc470788448845",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/liquid-glass/references/theming.md",
+      "source_sha256": "56985a22de2b2aecd37827b9b8218cfcd4bf51422de4c66ecabc470788448845"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/liquid-glass/references/typography-color.md",
+      "sha256": "b72942f25ad4e99fb150901486ddd7d49595af5e36b46daaabbc2b63e2c5133a",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/liquid-glass/references/typography-color.md",
+      "source_sha256": "b72942f25ad4e99fb150901486ddd7d49595af5e36b46daaabbc2b63e2c5133a"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/platform.md",
+      "sha256": "916322dbe90609e2536dd4484a3e165bd13be10cbbb59ea5c21b3211371d1ff4",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/platform.md",
+      "source_sha256": "916322dbe90609e2536dd4484a3e165bd13be10cbbb59ea5c21b3211371d1ff4"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/review.md",
+      "sha256": "69de2acad58a311f3448e5071336ab3faed7c0225822cea9ff1a673fca545d4e",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/review.md",
+      "source_sha256": "69de2acad58a311f3448e5071336ab3faed7c0225822cea9ff1a673fca545d4e"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/saleads-motion.md",
+      "sha256": "6370d6b208eee3a15d9e1b7e253d81638a2a859854365106cffa3fae34324f0f",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/saleads-motion.md",
+      "source_sha256": "6370d6b208eee3a15d9e1b7e253d81638a2a859854365106cffa3fae34324f0f"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/santi/02-page-types.md",
+      "sha256": "c3a882469b6aeacb930b5cc33aec94793c4f11e718ffb4d6696eadf79bd5b7e1",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/santi/02-page-types.md",
+      "source_sha256": "c3a882469b6aeacb930b5cc33aec94793c4f11e718ffb4d6696eadf79bd5b7e1"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/santi/03-copywriting.md",
+      "sha256": "0f3e041c2ddeb80b39fe09ec928686f7522a4a0269e536205567c341953c0917",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/santi/03-copywriting.md",
+      "source_sha256": "0f3e041c2ddeb80b39fe09ec928686f7522a4a0269e536205567c341953c0917"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/santi/08-review.md",
+      "sha256": "1dc2bb37ffabd2a6db7c458049e7ec764533b6ff527d6d72c02253f3f4d1289f",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/santi/08-review.md",
+      "source_sha256": "1dc2bb37ffabd2a6db7c458049e7ec764533b6ff527d6d72c02253f3f4d1289f"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/santi/10-professional-design-section-8.md",
+      "sha256": "e536e68c056cf9fc14c5e8ac5029f3efa0d9578c527d82450c38e98bec9bed3d",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/santi/10-professional-design-section-8.md",
+      "source_sha256": "e536e68c056cf9fc14c5e8ac5029f3efa0d9578c527d82450c38e98bec9bed3d"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/santi/12-effects-and-errors.md",
+      "sha256": "0b9de8470aff1c1c09c629f1809291b763c00097bbaa2d96f497ee85a6442791",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/santi/12-effects-and-errors.md",
+      "source_sha256": "0b9de8470aff1c1c09c629f1809291b763c00097bbaa2d96f497ee85a6442791"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/santi/ADAPTATION.md",
+      "sha256": "884c76351bc5bc54e7b07fec53216ab262223421a58d7aa45312b4bcde47a53c",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/santi/ADAPTATION.md",
+      "source_sha256": "884c76351bc5bc54e7b07fec53216ab262223421a58d7aa45312b4bcde47a53c"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/santi/source-reference-manifest.json",
+      "sha256": "acee271d2acc63c488bdab3125a146ea522d954ab12227864ba979a533c94822",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/santi/source-reference-manifest.json",
+      "source_sha256": "acee271d2acc63c488bdab3125a146ea522d954ab12227864ba979a533c94822"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/structure.md",
+      "sha256": "c9bd512e34ce322a87f7261fa865c251ab9b650a08dfa8ce5c75b18b04a8bc49",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/structure.md",
+      "source_sha256": "c9bd512e34ce322a87f7261fa865c251ab9b650a08dfa8ce5c75b18b04a8bc49"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/references/visual-marketing.md",
+      "sha256": "8d847689cebd06ff2188d1af255b19e15dbf0c5b3d9c324ec9866e6786d97d5b",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-coder/references/visual-marketing.md",
+      "source_sha256": "8d847689cebd06ff2188d1af255b19e15dbf0c5b3d9c324ec9866e6786d97d5b"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-design-variation/ADAPTATION.md",
+      "sha256": "31e7df227ee5133dda259004924c321cc712dd74f3ce19459ac31c92797ad58d",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-design-variation/ADAPTATION.md",
+      "source_sha256": "f4788518681eca62171de239177f2f3fbdf7ceea3d14592e6730198791ff9852",
+      "adaptation": "Generalized historical pilot wording/state; preserved method, model, configured locale and owner web publication boundaries."
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-design-variation/SKILL.md",
+      "sha256": "389eda9cca915bf27420fc95a3b1d1e915744da75956a1141a1fab56566831a8",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-design-variation/SKILL.md",
+      "source_sha256": "389eda9cca915bf27420fc95a3b1d1e915744da75956a1141a1fab56566831a8"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-design-variation/references/narrative-and-copy.md",
+      "sha256": "c5dc83f03d298c7630a66af34e88df9658ded2adbd9048f14bb026964541280f",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-design-variation/references/narrative-and-copy.md",
+      "source_sha256": "c5dc83f03d298c7630a66af34e88df9658ded2adbd9048f14bb026964541280f"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-design-variation/references/platform-and-motion.md",
+      "sha256": "7138e33af44bea2601b39e57ee7ac42172fd05ba16756009e444a294ad7478ae",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-design-variation/references/platform-and-motion.md",
+      "source_sha256": "7138e33af44bea2601b39e57ee7ac42172fd05ba16756009e444a294ad7478ae"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-design-variation/references/variation-axes.md",
+      "sha256": "4d387c257dc7478c56cb8c19d90a63ec8da45ff31ec784b0e07c802a01a784eb",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-design-variation/references/variation-axes.md",
+      "source_sha256": "4d387c257dc7478c56cb8c19d90a63ec8da45ff31ec784b0e07c802a01a784eb"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-design-variation/references/visual-review.md",
+      "sha256": "08edfd1249923d24ce4bb5c7e3fe6b775696df950449c2e1a090ea64f50e47a5",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-design-variation/references/visual-review.md",
+      "source_sha256": "08edfd1249923d24ce4bb5c7e3fe6b775696df950449c2e1a090ea64f50e47a5"
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-design-variation/source-provenance.json",
+      "sha256": "2922bbf08731157c1ee56bd4cc531898df53e2d4b5e33ba32e01f5d5afd27674",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/skills/landing-design-variation/source-provenance.json",
+      "source_sha256": "88fb30f80b4a5f74dfd5b96f31a7538b978e4313552ad320d8b3bc5cde304bfe",
+      "adaptation": "Generalized historical pilot wording/state; preserved method, model, configured locale and owner web publication boundaries."
+    },
+    {
+      "path": "profiles/disenador_landings/skills/landing-coder/source-map.json",
+      "sha256": "a98b206553cfb859c8e554f2adf1b41fa88b49ff1b5ff92e454e015d23e52b57",
+      "source_commit": "cff678eab55fa34cdb6fc96eae77f22be186d3ae",
+      "source_path": "experiments/landing-specialist-pilot/profile/source-map.json",
+      "source_sha256": "a98b206553cfb859c8e554f2adf1b41fa88b49ff1b5ff92e454e015d23e52b57"
+    },
+    {
+      "path": "skills/saleads-landing-pilot/SKILL.md",
+      "sha256": "2fbe4288e206a79d253f001b33e8951973a2ee37b55480fd80b8c5ac7d7169bc",
+      "source_commit": "817e51edbb689004db427bce1abd48d75d472aa8",
+      "source_path": "experiments/landing-specialist-pilot/root/skills/saleads-landing-pilot/SKILL.md",
+      "source_sha256": "c9f0945caabef26089a7ae8f3b80fa4b5b49dba0a4ee8de07cad8b627c849fd2",
+      "adaptation": "Generalized historical pilot wording/state; preserved method, model, configured locale and owner web publication boundaries."
+    }
+  ],
+  "runtime_files": [
+    {
+      "path": "landing-pilot/cli/landing_cli.py",
+      "sha256": "92a1a78458b402f1def7057f76ed75157ade7656c5272a0d4ac21869a24aa5f1",
+      "source_commit": "817e51edbb689004db427bce1abd48d75d472aa8",
+      "source_path": "experiments/landing-specialist-pilot/cli/landing_cli.py"
+    },
+    {
+      "path": "landing-pilot/cli/README.md",
+      "sha256": "49c60edb066612c19afada8fa2abb61f7713b51d5c81aa4a572f7e2a81fbde6f",
+      "source_commit": "817e51edbb689004db427bce1abd48d75d472aa8",
+      "source_path": "experiments/landing-specialist-pilot/cli/README.md"
+    },
+    {
+      "path": "landing-pilot/build_metadata.py",
+      "sha256": "798b04c2868f91e8606822c2efb745347968650420383e1c76380eea040f748f",
+      "source_commit": "817e51edbb689004db427bce1abd48d75d472aa8",
+      "source_path": "experiments/landing-specialist-pilot/build_metadata.py"
+    }
+  ],
+  "adaptations": [
+    "Validated root SOUL addendum appended to the current MCL SOUL without replacing its instructions.",
+    "Profile attribution and source map are copied unchanged under landing-coder for the existing profile archive contract.",
+    "Scoped MCL memory tools replace native global memory/session search; file and same-Spark vision remain available.",
+    "Combined helper adds corroborated memory receipts to the already-installed C10 destination commands.",
+    "Only the new physical-product skill changes the obsolete landing-unavailable sentence to delegate through Ale; its method and Juan attribution remain.",
+    "Removed pilot-grant assumptions and historical owner waiver/published-version6 statements; each owner uses live authenticated scope, mandate, trusted context and actual CLI publication readback. Stable pilot-named paths are compatibility identifiers only."
+  ]
+}

@@ -1,0 +1,3 @@
+# Decision card
+Object: IDs returned by actual state. Change: operation/effect. Cost: returned budget/credits/AI cost with currency/source, unavailable if absent. Authority: proposal-only means no commercial mutation. In separately authorized work, permitted pause/reallocation within the monthly total differs from activation, deletion/excess requiring owner web approval.
+Synthetic completed-action examples must not be reused as facts: a box paused after4days without purchases; a paused campaign with3boxes/9ads awaiting40,000COP/day approval. Say activated only after reading actual state. Silence is not yes. Use only authentic returned links; a link is not execution evidence.

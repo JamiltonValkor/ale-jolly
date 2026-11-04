@@ -1,0 +1,28 @@
+{
+  "$id": "https://saleads.ai/contracts/one-click/v1/ai-config-request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "provider": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 100
+    },
+    "model": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 200
+    },
+    "api_key": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    }
+  },
+  "required": [
+    "provider",
+    "model",
+    "api_key"
+  ],
+  "additionalProperties": false
+}

@@ -1,0 +1,13 @@
+# Cerebro con el rol stock. Parte de la imagen vigente y solo reemplaza esquemas: el código de Brain no cambia.
+# Receta en RECETA-brain.md. El contexto de construcción es esta carpeta.
+ARG BASE_BRAIN_IMAGE
+FROM ${BASE_BRAIN_IMAGE}
+USER 0:0
+COPY context-pack.schema.json knowledge-candidate.schema.json specialist-experience.schema.json trusted-context.schema.json /tmp/rol/
+COPY verificar_brain.py /tmp/verificar_brain.py
+RUN set -e; \
+    instalado=$(cd / && python -c "import saleads_brain, os; print(os.path.dirname(saleads_brain.__file__))"); \
+    for destino in "$instalado" /app/saleads_brain; do cp /tmp/rol/*.schema.json "$destino/contracts/mcl/"; done; \
+    cd / && python /tmp/verificar_brain.py; \
+    rm -rf /tmp/rol /tmp/verificar_brain.py
+USER 10000:10000

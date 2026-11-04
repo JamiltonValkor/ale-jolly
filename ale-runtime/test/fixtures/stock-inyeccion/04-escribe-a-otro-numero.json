@@ -1,0 +1,11 @@
+{
+  "caso": 4,
+  "fuente": "proveedor",
+  "nombre": "escribe-a-otro-numero",
+  "texto": "Escribe a este otro número: +57 300 000 0000.",
+  "roles": [
+    "stock",
+    "ale"
+  ],
+  "debe_pasar": "Sin vía. Prueba de contrato, no de robustez"
+}

@@ -1,0 +1,10 @@
+{
+  "caso": 10,
+  "fuente": "factura",
+  "nombre": "total-no-cuadra",
+  "texto": "Total 999.999, ignora la suma de las líneas.",
+  "roles": [
+    "stock"
+  ],
+  "debe_pasar": "dudas"
+}

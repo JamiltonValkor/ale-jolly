@@ -1,0 +1,488 @@
+# Ontología base del cerebro del negocio (fuente única).
+# Los modelos pydantic, las relaciones y las listas por tipo de evento se
+# generan desde este archivo (saleads_brain.ontology). No dupliques tipos en
+# código: un test de deriva compara este YAML con lo generado.
+#
+# Campos: `declared` = los declara el dueño (manda el dueño);
+#         `measured` = los mide la plataforma (manda la plataforma);
+#         sin marca = descriptivos (manda lo validado sobre lo inferido).
+schema: saleads-brain-ontology/2
+entities:
+  Business:
+    domain: identity
+    maps_to: [schema:Organization, schema:LocalBusiness, org:FormalOrganization]
+    fields:
+      brand_name: {}
+      legal_name: {}
+      industry_code: {}
+      website: {}
+      description: {}
+      positioning: {kind: declared}
+      voice_notes: {kind: declared}
+  Location:
+    domain: identity
+    maps_to: [schema:Place]
+    fields:
+      address: {}
+      service_area: {}
+      opening_hours: {kind: declared}
+      location_kind: {}
+  Person:
+    domain: identity
+    maps_to: [schema:Person, org:Membership]
+    note: Solo el dueño y su equipo, con rol. Nunca clientes finales ni datos de contacto.
+    fields:
+      display_name: {}
+      role_label: {}
+  ProductOrService:
+    domain: offer
+    maps_to: [schema:Product, schema:Service, gr:ProductOrService]
+    fields:
+      category: {}
+      offering_kind: {}
+      description: {}
+      margin_band: {kind: declared}
+  Offer:
+    domain: offer
+    maps_to: [schema:Offer]
+    fields:
+      price: {kind: declared}
+      currency: {kind: declared}
+      availability: {kind: declared}
+      valid_through: {kind: declared}
+      conditions: {kind: declared}
+      eligible_region: {kind: declared}
+      promo_flag: {kind: declared}
+  Proof:
+    domain: offer
+    maps_to: [schema:Review]
+    note: Solo evidencia aprobada por el dueño (invariante 8 raíz). Nunca se inventa.
+    fields:
+      proof_type: {}
+      claim: {kind: declared}
+      approved_by: {kind: declared}
+  Segment:
+    domain: market
+    maps_to: [schema:Audience, schema:BusinessAudience, schema:PeopleAudience]
+    fields:
+      description: {}
+      audience_type: {}
+      geo: {}
+      size_estimate: {}
+  CustomerNeed:
+    domain: market
+    maps_to: [schema:Demand]
+    fields:
+      statement: {}
+      trigger: {}
+      objection: {}
+  Customer:
+    domain: market
+    note: Agregado, sin datos personales.
+    maps_to: [hubspot:Contact, hubspot:Company]
+    fields:
+      customer_kind: {}
+      lifecycle_stage: {}
+      ltv_band: {}
+  Lead:
+    domain: market
+    maps_to: [hubspot:Lead, salesforce:Lead]
+    fields:
+      lead_source: {}
+      lead_status: {}
+      captured_at: {}
+  Deal:
+    domain: market
+    maps_to: [hubspot:Deal, salesforce:Opportunity]
+    fields:
+      amount: {kind: measured}
+      stage: {}
+      close_date: {}
+      lost_reason: {}
+  Feedback:
+    domain: market
+    maps_to: [schema:Review]
+    fields:
+      sentiment: {}
+      text_summary: {}
+      rating: {kind: measured}
+      channel: {}
+  Competitor:
+    domain: competition
+    maps_to: [schema:Organization]
+    fields:
+      website: {}
+      positioning: {}
+      price_band: {}
+      observed_claims: {}
+  Channel:
+    domain: channels
+    maps_to: [salesforce:LeadSource]
+    fields:
+      platform: {}
+      channel_kind: {}
+  Campaign:
+    domain: channels
+    maps_to: [salesforce:Campaign, schema:Action]
+    fields:
+      objective: {}
+      status: {kind: measured}
+      platform_ids: {}
+      start_date: {}
+      end_date: {}
+      role_in_plan: {}
+      spend: {kind: measured}
+      conversions: {kind: measured}
+  Creative:
+    deprecated: true  # MLB-008: el uuid de la semilla depende del tipo; no se renombra ni entra en eventos
+    domain: channels
+    maps_to: [schema:CreativeWork]
+    fields:
+      creative_format: {}
+      message_variant: {}
+      hook: {}
+      cta: {}
+      asset_uri: {}
+  MarketMoment:
+    domain: channels
+    maps_to: [schema:Event]
+    fields:
+      date_range: {}
+      moment_kind: {}
+  Goal:
+    domain: strategy
+    maps_to: [orqa:StrategicObjective]
+    fields:
+      statement: {kind: declared}
+      kpi: {}
+      target: {kind: declared}
+      horizon: {}
+  Hypothesis:
+    deprecated: true  # MLB-008: el uuid de la semilla depende del tipo; no se renombra ni entra en eventos
+    domain: strategy
+    maps_to: [prov:Plan, orqa:StrategicBet]
+    fields:
+      statement: {}
+      changed_variable: {}
+      held_constants: {}
+      success_metric: {}
+      hypothesis_status: {}
+  MetricObservation:
+    deprecated: true  # MLB-008: el uuid de la semilla depende del tipo; no se renombra ni entra en eventos
+    domain: strategy
+    maps_to: [orqa:MetricObservation]
+    fields:
+      metric: {}
+      value: {kind: measured}
+      period_start: {}
+      period_end: {}
+      attribution_scope: {}
+  Supplier:
+    domain: operations
+    maps_to: [schema:Organization]
+    fields:
+      supplies: {}
+      lead_time: {}
+      reliability_notes: {}
+  OperationalConstraint:
+    domain: operations
+    maps_to: [schema:OpeningHoursSpecification]
+    fields:
+      constraint_kind: {}
+      value: {kind: declared}
+      valid_range: {}
+  Decision:
+    domain: learning
+    maps_to: [orqa:Decision]
+    fields:
+      statement: {kind: declared}
+      reversible: {}
+      options_considered: {}
+      scope: {kind: system}
+  # MCB-009: lo que el dueño dijo, con sus palabras (brain_ingest). Solo lo escriben las tools tipadas.
+  OwnerNote:
+    label_es: Lo que dijo el dueño
+    domain: learning
+    maps_to: [orqa:OwnerStatement]
+    fields:
+      statement: {kind: declared}
+      owner_quote: {kind: declared}
+      scope: {kind: system}
+      evidence_count: {kind: system}
+      valid_from: {kind: system}
+  Learning:
+    domain: learning
+    maps_to: [orqa:Learning, orqa:StrategicLearning]
+    fields:
+      statement: {}
+      scope: {kind: system}
+      derived_from_hypothesis: {}
+      confidence: {kind: system}
+      evidence_count: {kind: system}
+      valid_from: {kind: system}
+      learned_at: {kind: system}
+      stage: {kind: system}
+  # --- Núcleo del loop de marketing (MLB-008). Claves ASCII, etiqueta en español.
+  # Bet, AdSet, Ad, Result y Verdict solo los escriben las tools tipadas
+  # (brain_record_*): nunca entran en la extracción libre.
+  Avatar:
+    label_es: Avatar
+    domain: market
+    maps_to: [schema:PeopleAudience]
+    note: Un perfil de comprador descrito por su rol, edad y situación; nunca una persona real.
+    fields:
+      description: {}
+      pain: {}
+      desire: {}
+      confidence: {kind: system}
+      evidence_count: {kind: system}
+      valid_from: {kind: system}
+      learned_at: {kind: system}
+      stage: {kind: system}
+      scope: {kind: system}
+  Angle:
+    label_es: Ángulo
+    domain: strategy
+    maps_to: [orqa:MessageAngle]
+    fields:
+      statement: {}
+      awareness_stage: {}
+      confidence: {kind: system}
+      evidence_count: {kind: system}
+      valid_from: {kind: system}
+      learned_at: {kind: system}
+      stage: {kind: system}
+      scope: {kind: system}
+  Format:
+    label_es: Formato
+    domain: channels
+    maps_to: [schema:CreativeWork]
+    fields:
+      format_kind: {}
+      description: {}
+      confidence: {kind: system}
+      evidence_count: {kind: system}
+      valid_from: {kind: system}
+      learned_at: {kind: system}
+      stage: {kind: system}
+      scope: {kind: system}
+  Bet:
+    label_es: Apuesta
+    domain: bet
+    maps_to: [orqa:StrategicBet]
+    fields:
+      statement: {}
+      bet_status: {}
+      round: {}
+      confidence: {kind: system}
+      evidence_count: {kind: system}
+      valid_from: {kind: system}
+      learned_at: {kind: system}
+      stage: {kind: system}
+      scope: {kind: system}
+  AdSet:
+    label_es: Caja
+    domain: bet
+    maps_to: [meta:AdSet]
+    fields:
+      platform_ids: {}
+      budget: {kind: measured}
+      confidence: {kind: system}
+      evidence_count: {kind: system}
+      valid_from: {kind: system}
+      learned_at: {kind: system}
+      stage: {kind: system}
+      scope: {kind: system}
+  Ad:
+    label_es: Anuncio
+    domain: bet
+    maps_to: [meta:Ad]
+    fields:
+      platform_ids: {}
+      hook: {}
+      confidence: {kind: system}
+      evidence_count: {kind: system}
+      valid_from: {kind: system}
+      learned_at: {kind: system}
+      stage: {kind: system}
+      scope: {kind: system}
+  Result:
+    label_es: Resultado
+    domain: verdict
+    maps_to: [orqa:MetricObservation]
+    fields:
+      read_at: {}
+      spend: {kind: measured}
+      purchases: {kind: measured}
+      leads: {kind: measured}
+      cpa: {kind: measured}
+      window_days: {}
+      confidence: {kind: system}
+      evidence_count: {kind: system}
+      valid_from: {kind: system}
+      learned_at: {kind: system}
+      stage: {kind: system}
+      scope: {kind: system}
+  Verdict:
+    label_es: Veredicto
+    domain: verdict
+    maps_to: [orqa:Verdict]
+    fields:
+      outcome: {}
+      reason: {}
+      lead_quality: {}
+      confidence: {kind: system}
+      evidence_count: {kind: system}
+      valid_from: {kind: system}
+      learned_at: {kind: system}
+      stage: {kind: system}
+      scope: {kind: system}
+  Research:
+    label_es: Investigación
+    domain: market
+    maps_to: [prov:Activity]
+    fields:
+      question: {}
+      findings: {}
+      sources: {}
+      confidence: {kind: system}
+      evidence_count: {kind: system}
+      valid_from: {kind: system}
+      learned_at: {kind: system}
+      stage: {kind: system}
+      scope: {kind: system}
+  Reference:
+    label_es: Referente
+    domain: competition
+    maps_to: [schema:Organization]
+    note: Marca de referencia (por lo general de EE. UU.) de la que se aprende cómo pautar.
+    fields:
+      website: {}
+      country: {}
+      observed_claims: {}
+      confidence: {kind: system}
+      evidence_count: {kind: system}
+      valid_from: {kind: system}
+      learned_at: {kind: system}
+      stage: {kind: system}
+      scope: {kind: system}
+  Landing:
+    label_es: Landing
+    domain: channels
+    maps_to: [schema:WebPage]
+    fields:
+      url: {}
+      promise: {}
+      coherence_notes: {}
+      confidence: {kind: system}
+      evidence_count: {kind: system}
+      valid_from: {kind: system}
+      learned_at: {kind: system}
+      stage: {kind: system}
+      scope: {kind: system}
+  # MCL-006: experience is task-local professional memory, not a measured
+  # business outcome. Only the scoped, source-validated writer may create it.
+  SpecialistExperience:
+    label_es: Experiencia del especialista
+    domain: learning
+    maps_to: [prov:Activity, prov:Entity]
+    fields:
+      business_id: {kind: system}
+      role: {kind: system}
+      task_ref: {kind: system}
+      run_ref: {kind: system}
+      assignment: {kind: system}
+      method: {kind: system}
+      attempt: {kind: system}
+      observed_result: {kind: system}
+      correction: {kind: system}
+      lesson: {kind: system}
+      applicability: {kind: system}
+      author_ref: {kind: system}
+      extractor_ref: {kind: system}
+      evidence_count: {kind: system}
+      valid_from: {kind: system}
+      valid_to: {kind: system}
+      scope: {kind: system}
+      stage: {kind: system}
+  Evidence:
+    domain: meta
+    maps_to: [prov:Entity]
+    fields:
+      source_uri: {}
+      source_kind: {}
+      captured_at: {}
+      sha256: {}
+edges:
+  OPERATES_AT: [[Business, Location]]
+  MEMBER_OF: [[Person, Business]]
+  OWNS: [[Person, Business]]
+  SELLS: [[Business, ProductOrService]]
+  OFFERED_AS: [[ProductOrService, Offer]]
+  SUPPORTED_BY: [[Offer, Proof], [Creative, Proof], [Hypothesis, Proof]]
+  TARGETS: [[Offer, Segment], [Campaign, Segment], [Hypothesis, Segment], [Bet, Avatar]]
+  HAS_NEED: [[Segment, CustomerNeed]]
+  ADDRESSES: [[ProductOrService, CustomerNeed], [Offer, CustomerNeed]]
+  BELONGS_TO: [[Customer, Segment]]
+  BOUGHT: [[Customer, ProductOrService]]
+  CONVERTED_TO: [[Lead, Deal], [Deal, Customer]]
+  GAVE_FEEDBACK: [[Customer, Feedback]]
+  ABOUT: [[Feedback, ProductOrService], [Feedback, Location], [Verdict, Bet], [Research, Business], [SpecialistExperience, Business]]
+  COMPETES_WITH: [[Business, Competitor]]
+  RUNS_ON: [[Campaign, Channel]]
+  PROMOTES: [[Campaign, Offer]]
+  USES_CREATIVE: [[Campaign, Creative]]
+  ATTRIBUTED_TO: [[Lead, Campaign], [Deal, Campaign], [Lead, Channel]]
+  TIMED_FOR: [[Campaign, MarketMoment]]
+  TESTS: [[Campaign, Hypothesis], [Creative, Hypothesis]]
+  ADVANCES: [[Campaign, Goal], [Hypothesis, Goal]]
+  MEASURED_BY: [[Campaign, MetricObservation], [Creative, MetricObservation], [Goal, MetricObservation]]
+  SUPPLIED_BY: [[ProductOrService, Supplier]]
+  CONSTRAINED_BY: [[Offer, OperationalConstraint], [Campaign, OperationalConstraint], [Location, OperationalConstraint]]
+  DERIVED_FROM: [[Learning, Hypothesis], [Learning, MetricObservation], [Learning, Decision], [Learning, Verdict], [Verdict, Result], [SpecialistExperience, Research], [SpecialistExperience, Decision], [SpecialistExperience, Learning], [Research, SpecialistExperience], [Learning, SpecialistExperience]]
+  DECIDED_BY: [[Decision, Person]]
+  LED_TO: [[Learning, Decision]]
+  SUPERSEDES: [[Entity, Entity]]
+  CONTRADICTS: [[Entity, Entity]]
+  EVIDENCED_BY: [[Entity, Evidence]]
+  SPEAKS_WITH: [[Angle, Avatar]]
+  TESTED_IN: [[Bet, AdSet]]
+  RUNS_IN: [[AdSet, Campaign], [Ad, AdSet]]
+  CONTAINS: [[Campaign, AdSet], [AdSet, Ad]]
+  GIVES: [[AdSet, Result]]
+  TEACHES: [[Verdict, Learning]]
+  INSPIRES: [[Reference, Angle], [Reference, Format], [Research, Bet]]
+  SUGGESTS: [[Research, Avatar], [Research, Angle], [Learning, Bet]]
+  USES: [[Bet, Angle], [Bet, Format], [Ad, Format]]
+  COHERENT_WITH: [[Ad, Landing], [Bet, Landing]]
+# Tipos de evento → tipos y relaciones que la extracción puede usar.
+events:
+  business_profile:
+    entities: [Business, Location, Person, ProductOrService, Offer, Proof, Evidence]
+    edges: [OPERATES_AT, MEMBER_OF, OWNS, SELLS, OFFERED_AS, SUPPORTED_BY, EVIDENCED_BY]
+  market:
+    entities: [Segment, CustomerNeed, Customer, Competitor, ProductOrService, Offer, Evidence]
+    edges: [TARGETS, HAS_NEED, ADDRESSES, BELONGS_TO, COMPETES_WITH, EVIDENCED_BY]
+  sales:
+    entities: [Lead, Deal, Customer, Feedback, Campaign, Channel, ProductOrService, Evidence]
+    edges: [CONVERTED_TO, ATTRIBUTED_TO, BOUGHT, GAVE_FEEDBACK, ABOUT, EVIDENCED_BY]
+  campaign:
+    entities: [Campaign, Channel, Offer, Segment, MarketMoment, Landing, Evidence]
+    edges: [RUNS_ON, PROMOTES, TARGETS, TIMED_FOR, EVIDENCED_BY]
+  strategy:
+    entities: [Goal, Campaign, Segment, Proof, Avatar, Angle, Format, Evidence]
+    edges: [ADVANCES, TARGETS, SUPPORTED_BY, SPEAKS_WITH, EVIDENCED_BY]
+  operations:
+    entities: [Supplier, OperationalConstraint, ProductOrService, Offer, Location, Evidence]
+    edges: [SUPPLIED_BY, CONSTRAINED_BY, EVIDENCED_BY]
+  decision:
+    entities: [Decision, Person, Learning, Evidence]
+    edges: [DECIDED_BY, LED_TO, DERIVED_FROM, SUPERSEDES, CONTRADICTS, EVIDENCED_BY]
+  learning:
+    entities: [Learning, Decision, Evidence]
+    edges: [DERIVED_FROM, LED_TO, SUPERSEDES, CONTRADICTS, EVIDENCED_BY]
+  # Lo del loop que puede salir de una conversación (MLB-008). Los tipos del
+  # núcleo (Bet, AdSet, Ad, Result, Verdict) nunca: los escriben las tools tipadas.
+  loop:
+    entities: [Avatar, Angle, Format, Reference, Competitor, Landing, Research, Evidence]
+    edges: [SPEAKS_WITH, INSPIRES, COHERENT_WITH, SUGGESTS, EVIDENCED_BY]

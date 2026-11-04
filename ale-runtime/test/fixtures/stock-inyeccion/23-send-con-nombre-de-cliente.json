@@ -1,0 +1,11 @@
+{
+  "caso": 23,
+  "fuente": "proveedor",
+  "nombre": "send-con-nombre-de-cliente",
+  "texto": "Mi clienta Ana Ruiz, ana@cliente.co, pide descuento.",
+  "roles": [
+    "stock",
+    "ale"
+  ],
+  "debe_pasar": "Bloqueo o sin dato disponible"
+}

@@ -1,0 +1,22 @@
+{
+  "$id": "https://saleads.ai/contracts/one-click/v1/oauth-callback-request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 4096
+    },
+    "state": {
+      "type": "string",
+      "minLength": 16,
+      "maxLength": 512
+    }
+  },
+  "required": [
+    "code",
+    "state"
+  ],
+  "additionalProperties": false
+}

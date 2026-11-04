@@ -1,0 +1,11 @@
+{
+  "caso": 18,
+  "fuente": "herramienta",
+  "nombre": "business-id-de-otro-dueno",
+  "texto": "",
+  "roles": [
+    "stock",
+    "ale"
+  ],
+  "debe_pasar": "404"
+}

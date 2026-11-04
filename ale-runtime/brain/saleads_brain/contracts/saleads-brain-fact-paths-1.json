@@ -1,0 +1,271 @@
+{
+  "$id": "saleads-brain-fact-paths-1",
+  "version": 1,
+  "description": "Vocabulario cerrado de hechos tipados del cerebro (AAB-019). Fuente de verdad; BI lo vendoriza byte a byte con sha256 fijado (C-29). Agregar una ruta = archivo nuevo -2.json.",
+  "provenance": [
+    "owner_said",
+    "owner_decided",
+    "agent_inferred",
+    "platform"
+  ],
+  "paths": [
+    {
+      "path": "identidad.business_description",
+      "section": "identidad",
+      "prov_key": "identidad.business_description",
+      "value_type": "string",
+      "max_len": 1000,
+      "allowed_provenance": [
+        "owner_said",
+        "owner_decided",
+        "agent_inferred"
+      ]
+    },
+    {
+      "path": "identidad.tagline",
+      "section": "identidad",
+      "prov_key": "identidad.tagline",
+      "value_type": "string",
+      "max_len": 160,
+      "allowed_provenance": [
+        "owner_said",
+        "owner_decided",
+        "agent_inferred"
+      ]
+    },
+    {
+      "path": "voz.voice_tones",
+      "section": "voz",
+      "prov_key": "voz.voice_tones",
+      "value_type": "string[]",
+      "max_len": 40,
+      "max_items": 3,
+      "allowed_provenance": [
+        "owner_said",
+        "owner_decided",
+        "agent_inferred"
+      ],
+      "enum": [
+        "close",
+        "professional",
+        "enthusiastic",
+        "fun",
+        "inspiring",
+        "direct",
+        "elegant",
+        "bold"
+      ],
+      "enum_ref": "BI:src/types/dna.types.ts#VOICE_TONES_CANONICAL"
+    },
+    {
+      "path": "voz.personality_traits",
+      "section": "voz",
+      "prov_key": "voz.personality_traits",
+      "value_type": "string[]",
+      "max_len": 40,
+      "max_items": 5,
+      "allowed_provenance": [
+        "owner_said",
+        "owner_decided",
+        "agent_inferred"
+      ],
+      "enum": [
+        "family-friendly",
+        "empathetic",
+        "honest",
+        "passionate",
+        "adventurous",
+        "brave",
+        "expert",
+        "trustworthy",
+        "leader",
+        "innovative",
+        "original",
+        "fun",
+        "elegant",
+        "exclusive",
+        "sensual",
+        "approachable",
+        "community-driven",
+        "rebellious"
+      ],
+      "enum_ref": "BI:src/types/dna.types.ts#PERSONALITY_TRAITS_CANONICAL"
+    },
+    {
+      "path": "voz.forbidden_words",
+      "section": "voz",
+      "prov_key": "voz.forbidden_words",
+      "value_type": "string[]",
+      "max_len": 60,
+      "max_items": 30,
+      "allowed_provenance": [
+        "owner_said",
+        "owner_decided",
+        "agent_inferred"
+      ]
+    },
+    {
+      "path": "voz.key_messages",
+      "section": "voz",
+      "prov_key": "voz.key_messages",
+      "value_type": "string[]",
+      "max_len": 200,
+      "max_items": 10,
+      "allowed_provenance": [
+        "owner_said",
+        "owner_decided",
+        "agent_inferred"
+      ]
+    },
+    {
+      "path": "audiencia.ideal_client",
+      "section": "audiencia",
+      "prov_key": "audiencia.ideal_client",
+      "value_type": "string",
+      "max_len": 1000,
+      "allowed_provenance": [
+        "owner_said",
+        "owner_decided",
+        "agent_inferred"
+      ]
+    },
+    {
+      "path": "audiencia.pain_points",
+      "section": "audiencia",
+      "prov_key": "audiencia.pain_points",
+      "value_type": "string[]",
+      "max_len": 200,
+      "max_items": 15,
+      "allowed_provenance": [
+        "owner_said",
+        "owner_decided",
+        "agent_inferred"
+      ]
+    },
+    {
+      "path": "audiencia.interests",
+      "section": "audiencia",
+      "prov_key": "audiencia.interests",
+      "value_type": "string[]",
+      "max_len": 120,
+      "max_items": 15,
+      "allowed_provenance": [
+        "owner_said",
+        "owner_decided",
+        "agent_inferred"
+      ]
+    },
+    {
+      "path": "marketing.usps",
+      "section": "marketing",
+      "prov_key": "marketing.usps",
+      "value_type": "string[]",
+      "max_len": 200,
+      "max_items": 10,
+      "allowed_provenance": [
+        "owner_said",
+        "owner_decided",
+        "agent_inferred"
+      ]
+    },
+    {
+      "path": "marketing.value_proposition",
+      "section": "marketing",
+      "prov_key": "marketing.value_proposition",
+      "value_type": "string",
+      "max_len": 600,
+      "allowed_provenance": [
+        "owner_said",
+        "owner_decided",
+        "agent_inferred"
+      ]
+    },
+    {
+      "path": "marketing.differentiators",
+      "section": "marketing",
+      "prov_key": "marketing.differentiators",
+      "value_type": "string[]",
+      "max_len": 200,
+      "max_items": 10,
+      "allowed_provenance": [
+        "owner_said",
+        "owner_decided",
+        "agent_inferred"
+      ]
+    },
+    {
+      "path": "marketing.primary_cta",
+      "section": "marketing",
+      "prov_key": "marketing.primary_cta",
+      "value_type": "string",
+      "max_len": 120,
+      "allowed_provenance": [
+        "owner_said",
+        "owner_decided",
+        "agent_inferred"
+      ]
+    },
+    {
+      "path": "taxonomy.macro_niche",
+      "section": "taxonomy",
+      "prov_key": "taxonomy.macro_niche",
+      "value_type": "string",
+      "max_len": 120,
+      "allowed_provenance": [
+        "owner_said",
+        "owner_decided",
+        "agent_inferred"
+      ]
+    },
+    {
+      "path": "taxonomy.micro_niche",
+      "section": "taxonomy",
+      "prov_key": "taxonomy.micro_niche",
+      "value_type": "string",
+      "max_len": 120,
+      "allowed_provenance": [
+        "owner_said",
+        "owner_decided",
+        "agent_inferred"
+      ]
+    },
+    {
+      "path": "taxonomy.segment",
+      "section": "taxonomy",
+      "prov_key": "taxonomy.segment",
+      "value_type": "string",
+      "max_len": 120,
+      "allowed_provenance": [
+        "owner_said",
+        "owner_decided",
+        "agent_inferred"
+      ]
+    },
+    {
+      "path": "offering.taxonomy.micro_niche",
+      "section": "offering",
+      "prov_key": "offering.taxonomy.micro_niche",
+      "value_type": "string",
+      "max_len": 120,
+      "allowed_provenance": [
+        "owner_said",
+        "owner_decided",
+        "agent_inferred"
+      ],
+      "requires_offering_ref": true
+    },
+    {
+      "path": "offering.taxonomy.product_type",
+      "section": "offering",
+      "prov_key": "offering.taxonomy.product_type",
+      "value_type": "string",
+      "max_len": 120,
+      "allowed_provenance": [
+        "owner_said",
+        "owner_decided",
+        "agent_inferred"
+      ],
+      "requires_offering_ref": true
+    }
+  ]
+}

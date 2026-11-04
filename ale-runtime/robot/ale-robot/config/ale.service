@@ -1,0 +1,18 @@
+[Unit]
+Description=Jolly, tu compañero de emprendimiento (voz + cara + brazos)
+After=network-online.target sound.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+User=@USUARIO@
+WorkingDirectory=@ALE@/ale-robot
+Environment=PYTHONUNBUFFERED=1
+Environment=SDL_VIDEODRIVER=kmsdrm
+ExecStart=@ALE@/ale-robot/arrancar.sh
+Restart=always
+RestartSec=3
+KillMode=control-group
+
+[Install]
+WantedBy=multi-user.target

@@ -1,0 +1,3 @@
+import {algo} from '../../robot/voz-hermes/cliente';
+import {profileConfig} from '../activation/profiles';
+export const usar = [algo, profileConfig];

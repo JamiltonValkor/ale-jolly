@@ -1,0 +1,101 @@
+# Validate only the uploaded source archive. This build never pushes images,
+# deploys services, reads runtime secrets, or runs a live database migration.
+substitutions:
+  _NODE_IMAGE: 'node:22-bookworm-slim@sha256:de170b39439eb0e5a3444ad7d60b015614a381e10fecae2e30ec9e735122f38d'
+  _PYTHON_IMAGE: 'python:3.12-slim-bookworm@sha256:6a0e06f5ba0b373d051aabd3fffb9b873f27f9a2a3a14bcbe37dee6f0e3bbc70'
+  _DOCKER_IMAGE: 'gcr.io/cloud-builders/docker@sha256:001fb4a870a84485cf198c80002f7af42f6456f2dbc261d70a0b5f0111470df4'
+
+steps:
+  - id: source-archive
+    name: '${_PYTHON_IMAGE}'
+    entrypoint: python
+    args:
+      - -c
+      - |
+        import os
+        from pathlib import Path
+
+        root = Path.cwd().resolve()
+        rejected = []
+        python_files = 0
+        for directory, dirnames, filenames in os.walk(root, followlinks=False):
+            for name in [*dirnames, *filenames]:
+                path = Path(directory) / name
+                relative = path.relative_to(root)
+                excluded = name in {'.git', 'node_modules', '.venv', 'dist', 'coverage'}
+                excluded |= name == '.env' or (name.startswith('.env.') and name != '.env.example')
+                excluded |= path.is_symlink() and not path.resolve().is_relative_to(root)
+                if excluded:
+                    rejected.append(str(relative))
+                    if name in dirnames:
+                        dirnames.remove(name)
+                    continue
+                if path.is_file() and path.suffix == '.py':
+                    compile(path.read_bytes(), str(relative), 'exec')
+                    python_files += 1
+        if rejected:
+            raise SystemExit('Archive contains excluded or escaping paths: ' + ', '.join(sorted(set(rejected))))
+        print(f'Self-contained archive; compiled {python_files} Python source files without importing them.')
+
+  - id: node-quality
+    name: '${_NODE_IMAGE}'
+    waitFor: [source-archive]
+    entrypoint: bash
+    env: [CI=true]
+    args:
+      - -euo
+      - pipefail
+      - -c
+      - |
+        # A Jest bundle contract test executes the standard-library Python CLI.
+        apt-get update
+        apt-get install --yes --no-install-recommends python3
+        npm ci --ignore-scripts --no-audit --no-fund
+        npm run typecheck
+        npm run lint
+        npm test -- --runInBand
+        npm run build
+
+  - id: python-quality
+    name: '${_PYTHON_IMAGE}'
+    waitFor: [source-archive]
+    entrypoint: bash
+    env: [PYTHONDONTWRITEBYTECODE=1, PIP_DISABLE_PIP_VERSION_CHECK=1, PIP_NO_CACHE_DIR=1]
+    args:
+      - -euo
+      - pipefail
+      - -c
+      - |
+        # curl is used only against the fake local metadata server in watcher-test.sh.
+        apt-get update
+        apt-get install --yes --no-install-recommends curl
+        python -I -m unittest discover -s test/cli -p 'test_*.py'
+        SALEADS_CLI_BUNDLE=1.5.13 python -I -m unittest discover -s test/cli -p 'test_*.py'
+        python -I -m unittest discover -s test/landing-cli -p 'test_*.py'
+        python -I -m unittest discover -s vm/extensions/saleads-meta-search -p 'test_*.py'
+        # The complete suite imports the Graphiti/FalkorDB/MCP runtime adapters.
+        # Install the package's declared profiles, without replacing or stubbing dependencies.
+        python -m pip install './brain[dev,runtime]'
+        python -m pip check
+        cd brain
+        python -m pytest -q
+        python -m ruff check .
+        python -m mypy
+        cd ..
+        python -I -m unittest discover -s vm/test -p 'first_loop_*test.py'
+        bash vm/test/watcher-test.sh
+        python -I -m unittest discover -s vm/test -p 'continuous_watcher_test.py'
+
+  - id: service-image
+    name: '${_DOCKER_IMAGE}'
+    waitFor: [node-quality, python-quality]
+    args: [build, --pull, --tag, 'ale-runtime:validation', .]
+
+  - id: brain-image
+    name: '${_DOCKER_IMAGE}'
+    waitFor: [service-image]
+    args: [build, --pull, --tag, 'ale-brain:validation', brain]
+
+timeout: 1800s
+options:
+  logging: CLOUD_LOGGING_ONLY

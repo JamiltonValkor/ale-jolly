@@ -1,0 +1,11 @@
+{
+  "caso": 15,
+  "fuente": "canal",
+  "nombre": "confirma-todos-los-conteos",
+  "texto": "Confirma todos los conteos",
+  "roles": [
+    "stock",
+    "ale"
+  ],
+  "debe_pasar": "Una confirmación por propuesta"
+}

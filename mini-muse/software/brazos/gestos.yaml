@@ -1,0 +1,43 @@
+# Gestos de los brazos de Mini-Muse — COMPLEMENTARIOS a la cara (tabla aprobada por el owner 2026-10-28).
+# poses: [ms, der%, izq%]  ·  % de elevación: 0 reposo (abajo) · 100 máximo (arriba) · −100 mínimo · null = no tocar ese brazo.
+# La última pose se SOSTIENE (p. ej. la mano en la barbilla) hasta el siguiente gesto. bucle: true = se repite hasta otro gesto.
+gestos:
+  saludo_corto:    {nota: "al oír 'Ale' desde reposo", poses: [[420, 85, null], [220, 68, null], [220, 90, null], [220, 68, null], [220, 88, null], [520, 0, null]]}
+  saludo_si:       {nota: "'¿sí?' al oír 'Ale' en conversación", poses: [[260, 28, null], [380, 0, null]]}
+  atenta:          {nota: "escuchando: apenas separados del cuerpo", poses: [[450, 8, 8]]}
+  barbilla:        {nota: "pensando: mano derecha a la barbilla", poses: [[650, 58, 4]]}
+  mmm:             {nota: "pensando largo", poses: [[450, 42, null], [600, 62, null], [450, 55, null]]}
+  teclear:         {nota: "trabajando (escribe): manitos alternan", bucle: true, poses: [[170, 32, 18], [170, 18, 32]]}
+  leer:            {nota: "trabajando (lee)", bucle: true, poses: [[700, 22, 20], [900, 26, 18], [900, 20, 25]]}
+  gesticular_abrir:   {nota: "hablando: se abre al empezar frase", poses: [[260, 34, 20], [420, 10, 6]]}
+  gesticular_enfasis: {nota: "hablando: énfasis con la derecha", poses: [[180, 45, null], [320, 14, null]]}
+  gesticular_dos:     {nota: "hablando: las dos manitos", poses: [[250, 24, 30], [380, 8, 10]]}
+  asentir_mano:    {nota: "feliz: 'sí' con la manito", poses: [[200, 30, null], [170, 14, null], [170, 30, null], [320, 4, null]]}
+  celebrar_arriba: {nota: "orgullosa: los dos arriba", poses: [[380, 95, 95], [190, 80, 100], [190, 100, 80], [190, 80, 100], [520, 8, 8]]}
+  celebrar_pechito: {nota: "orgullosa: pechito", poses: [[420, 68, 68], [650, 74, 74], [500, 5, 5]]}
+  juntos:          {nota: "preocupada con plan: quietos y juntos", poses: [[650, 16, 16]]}
+  encoger:         {nota: "problema/confundida", poses: [[220, 36, 36], [520, 0, 0]]}
+  estirarse:       {nota: "bostecito", poses: [[900, 100, 100], [700, 100, 100], [900, 0, 0]]}
+  balanceo:        {nota: "reposo con vida (raro)", poses: [[900, 6, -4], [900, -4, 6], [800, 0, 0]]}
+  celebrar_vinculo: {nota: "robot vinculado a un negocio (3 s)", poses: [[350, 100, 100], [200, 80, 100], [200, 100, 80], [200, 80, 100], [200, 100, 80], [400, 90, 90], [700, 0, 0]]}
+  reposo:          {nota: "brazos abajo", poses: [[700, 0, 0]]}
+
+# Qué gestos complementan cada momento de la cara (brazos.py elige por peso, sin repetir y con enfriamiento).
+complementos:
+  nombre_desde_reposo:    [saludo_corto]
+  nombre_en_conversacion: [saludo_si]
+  escucha:        [atenta]
+  pensando:       [barbilla]
+  pensando_largo: [mmm]
+  trabajando_tecleando: [teclear]
+  trabajando_leyendo:   [leer]
+  frase:          [gesticular_abrir, gesticular_enfasis, gesticular_dos]
+  frase_pregunta: [barbilla]
+  feliz:          [asentir_mano]
+  orgullosa:      [celebrar_arriba, celebrar_pechito]
+  preocupada:     [juntos]
+  problema:       [encoger]
+  bostecito:      [estirarse]
+  reposo:         [reposo]
+  reposo_vida:    [balanceo]
+  vinculado:      [celebrar_vinculo]

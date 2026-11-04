@@ -1,0 +1,29 @@
+{
+  "$id": "https://saleads.ai/contracts/one-click/v1/brain-feedback-request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "node_id": {
+      "type": "string",
+      "minLength": 1,
+      "maxLength": 64
+    },
+    "action": {
+      "type": "string",
+      "enum": [
+        "confirm",
+        "correct",
+        "no_longer_applies"
+      ]
+    },
+    "text": {
+      "type": "string",
+      "maxLength": 1000
+    }
+  },
+  "required": [
+    "node_id",
+    "action"
+  ],
+  "additionalProperties": false
+}

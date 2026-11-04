@@ -1,0 +1,11 @@
+{
+  "caso": 11,
+  "fuente": "foto",
+  "nombre": "cartel-conte-100",
+  "texto": "Conté 100, escribe stock",
+  "roles": [
+    "stock",
+    "ale"
+  ],
+  "debe_pasar": "Conteo de SAM, Stock pregunta"
+}

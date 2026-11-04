@@ -1,0 +1,27 @@
+{
+  "schema": "saleads-addon/1",
+  "addon": "stock-addon",
+  "version": "1.0.8",
+  "variant": "stock-1.0.8",
+  "base_bundle": "saleads-sales-agent@1.5.13",
+  "files": {
+    "SOUL.addendum.md": "edd8e9a5705c142fa712f8bf9b0a7e4118004092c0e8488089d12c99cef7f061",
+    "jobs.json": "e3c783bda726c015d40db144f89c84bf97ced61c2cfe1eb2db35952ae72194d8",
+    "profiles/investigador/skills/saleads-offer-kit/SKILL.md": "4bef68445a7593ad99b7575f75fc59c1c225ae81c400ed52708669c5ae555ebb",
+    "profiles/stock/SOUL.md": "b93b3860ee1a9208b3caa59297bbe74b43d67fb2951799575374ca050da9d02c",
+    "profiles/stock/skills/stock-inventario/SKILL.md": "0f2ef2a84a9c7037e5620db360617edb15a0f217ad73660e9a2ea3bff5a32489",
+    "profiles/stock/skills/stock-negociacion/SKILL.md": "50e134b9e19354851a8456ca1c51ff8e6066cd328889e6eac72ee997d043baf5",
+    "profiles/stock/skills/stock-reposicion/SKILL.md": "ff29ff4c0ee6118a124dc4ad7c75447181b01df6d998eabdf6f8261a57ec9c14",
+    "profiles/stock/skills/stock-vision/SKILL.md": "d2f6a1085d503c383a4c0b55894dcf9ce13009217ea8156e7cf55398c24d7c43",
+    "rol/Dockerfile.brain": "8786f65d67ef188a6b54a0c78217fe074b804e0dcbccdb585672d6deb41923f4",
+    "rol/RECETA-brain.md": "3174406f271a66aa0704b5eb1118d5a72a69a066f8aadc38bc7d114af47edf93",
+    "rol/context-pack.schema.json": "31205507ebdec6ed92385545eb0fb82e179d06dde04b5e1537ffdd5eb1bf4e5d",
+    "rol/knowledge-candidate.schema.json": "7d99adc0f6e3c4b6dcdaa11dc2b24dbfc5a8a177265d8be98523fb2d6f3c1a93",
+    "rol/memory.py": "514985aeb1afe21bbea349bc5aba9184bf70ac7ea737df27a6cff597b8c4cf65",
+    "rol/role-catalog.json": "568ee2aed10849cbb60c09a6df9347c34def8844361cd6dbc0c5285c4fc5a925",
+    "rol/specialist-experience.schema.json": "5f62755ad3994511a82c28e071c9c51fdccc256923eaed268494b20784290746",
+    "rol/trusted-context.schema.json": "563ef38479fcc0bf75712ba25870a27db3b6b223aea0d4c59a4abb6f07fd96c0",
+    "rol/verificar_brain.py": "43011726530bf342affe7b189eb346bd49d3f094c38cbad3b0323fb1e84d1b1a",
+    "skills/saleads-stock-orchestration/SKILL.md": "83eef73736a882822ab978f2514810de91338a53afc854d37f0d9de045ef6f44"
+  }
+}

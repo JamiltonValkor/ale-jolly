@@ -1,0 +1,74 @@
+# Gestos de los brazos de Mini-Muse — COMPLEMENTARIOS a la cara. v2 (feedback del owner 2026-11-03: notorios, los dos
+# brazos, rango según expresividad y pool variado).
+# poses: [ms, der%, izq%]  ·  % de elevación: 0 reposo · 100 máximo · −100 mínimo · null = no tocar ese brazo.
+# espejo: true = lo hace una mano y se alternan. bucle: true = se repite hasta otro gesto.
+# La última pose se SOSTIENE hasta el siguiente gesto.
+gestos:
+  saludo_corto:     {nota: "'Jolly' desde reposo", espejo: true, poses: [[420, 90, null], [200, 65, null], [200, 95, null], [200, 65, null], [200, 95, null], [500, 0, null]]}
+  saludo_doble:     {nota: "'Jolly' desde reposo, dos manos", poses: [[420, 85, 85], [220, 65, 95], [220, 95, 65], [220, 65, 95], [500, 0, 0]]}
+  saludo_alto:      {nota: "'Jolly' desde reposo, mano alta", espejo: true, poses: [[380, 100, 10], [260, 75, 10], [260, 100, 10], [500, 0, 0]]}
+  saludo_si:        {nota: "'¿sí?' en conversación", espejo: true, poses: [[240, 50, null], [340, 10, null]]}
+  si_dos:           {nota: "'¿sí?' con las dos", poses: [[260, 45, 45], [360, 12, 12]]}
+  hola_mano:        {nota: "'¿sí?' con la manito", espejo: true, poses: [[200, 55, 15], [160, 40, 15], [160, 55, 15], [360, 10, 5]]}
+  atenta:           {nota: "escuchando", poses: [[450, 24, 24]]}
+  atenta_oreja:     {nota: "escuchando, una mano adelante", espejo: true, poses: [[450, 35, 12]]}
+  atenta_inclinada: {nota: "escuchando, se acomoda", espejo: true, poses: [[500, 28, 18], [800, 22, 24]]}
+  barbilla:         {nota: "pensando: mano a la barbilla", espejo: true, poses: [[650, 65, 8]]}
+  manos_juntas:     {nota: "pensando: manos juntas", poses: [[600, 50, 50]]}
+  rascar:           {nota: "pensando: se rasca", espejo: true, poses: [[450, 62, 8], [160, 72, 8], [160, 62, 8], [160, 72, 8], [160, 62, 8]]}
+  mirar_mano:       {nota: "pensando: mira su mano", espejo: true, poses: [[550, 55, 20], [500, 65, 30]]}
+  mmm:              {nota: "pensando largo", espejo: true, poses: [[450, 45, null], [500, 68, null], [450, 58, null]]}
+  tamborileo:       {nota: "pensando largo: tamborilea", bucle: true, poses: [[140, 55, 45], [140, 45, 55]]}
+  vaiven_pensar:    {nota: "pensando largo: vaivén", bucle: true, poses: [[700, 58, 38], [700, 38, 58]]}
+  furia:            {nota: "rodaje: remate del villano, sincronizado con remate.wav", poses: [[500, 40, 10], [400, 85, 15], [800, 85, 15], [400, 30, 30], [800, 30, 30], [300, 40, 40], [400, 15, 15], [500, 30, 30], [900, 30, 30], [450, 65, 65], [400, 65, 65], [150, 100, 100], [200, 85, 100], [200, 100, 85], [200, 100, 100], [1200, 100, 100], [400, 100, 30], [400, 30, 100], [400, 100, 100], [400, 100, 40], [400, 40, 100], [400, 100, 100], [800, 100, 100], [800, 0, 0]]}
+  teclear:          {nota: "trabajando: chico-chico-chico", bucle: true, poses: [[120, 55, 20], [120, 20, 55]]}
+  teclear_rafaga:   {nota: "trabajando: ráfagas con pausa", bucle: true, poses: [[110, 50, 25], [110, 25, 50], [110, 50, 25], [110, 25, 50], [350, 35, 35]]}
+  leer:             {nota: "trabajando: revisa", bucle: true, poses: [[420, 45, 25], [420, 55, 25], [700, 40, 40], [420, 25, 45], [420, 25, 55]]}
+  pasar_pagina:     {nota: "trabajando: pasa páginas", espejo: true, bucle: true, poses: [[350, 60, 15], [450, 20, 15], [500, 30, 30]]}
+  gesticular_abrir:   {nota: "frase: se abre", poses: [[260, 55, 35], [420, 18, 12]]}
+  gesticular_enfasis: {nota: "frase: énfasis", espejo: true, poses: [[180, 65, null], [320, 20, null]]}
+  gesticular_dos:     {nota: "frase: dos manitos", poses: [[250, 35, 55], [380, 14, 18]]}
+  gesticular_golpe:   {nota: "frase: golpes de ritmo", poses: [[170, 55, 55], [170, 30, 30], [170, 55, 55], [320, 14, 14]]}
+  gesticular_ofrecer: {nota: "frase: ofrece con la mano", espejo: true, poses: [[320, 60, 15], [420, 45, 15], [320, 14, 10]]}
+  gesticular_contar:  {nota: "frase: cuenta", espejo: true, poses: [[180, 48, null], [160, 30, null], [180, 55, null], [320, 14, null]]}
+  palmas_arriba:    {nota: "pregunta: palmas", poses: [[320, 58, 58], [550, 58, 58], [380, 14, 14]]}
+  encoger_pregunta: {nota: "pregunta: ¿sí?", poses: [[260, 45, 45], [160, 60, 60], [420, 12, 12]]}
+  asentir_mano:     {nota: "feliz: 'sí' con la manito", espejo: true, poses: [[200, 60, null], [170, 35, null], [170, 60, null], [320, 12, null]]}
+  aplauso:          {nota: "feliz: aplaude", poses: [[160, 80, 80], [120, 62, 62], [120, 80, 80], [120, 62, 62], [120, 80, 80], [380, 10, 10]]}
+  saltito_brazos:   {nota: "feliz: saltito", poses: [[220, 75, 75], [380, 20, 20]]}
+  feliz_ola:        {nota: "feliz: olita", poses: [[260, 85, 35], [260, 35, 85], [260, 85, 35], [380, 10, 10]]}
+  celebrar_arriba:  {nota: "orgullosa: arriba", poses: [[380, 100, 100], [190, 80, 100], [190, 100, 80], [190, 80, 100], [520, 8, 8]]}
+  celebrar_pechito: {nota: "orgullosa: pechito", poses: [[420, 85, 85], [650, 100, 100], [500, 5, 5]]}
+  celebrar_olas:    {nota: "orgullosa: olas", poses: [[300, 100, 60], [220, 60, 100], [220, 100, 60], [220, 60, 100], [520, 8, 8]]}
+  juntos:           {nota: "preocupada con plan", poses: [[650, 26, 26]]}
+  manos_pecho:      {nota: "preocupada: al pecho", poses: [[700, 40, 40], [700, 34, 34]]}
+  calma:            {nota: "preocupada: calma", espejo: true, poses: [[600, 38, 18], [600, 26, 18]]}
+  encoger:          {nota: "problema", poses: [[220, 50, 50], [520, 0, 0]]}
+  encoger_doble:    {nota: "problema: dos veces", poses: [[200, 55, 55], [180, 30, 30], [200, 55, 55], [450, 0, 0]]}
+  estirarse:        {nota: "bostecito de la cara", poses: [[800, 100, 100], [700, 100, 100], [800, 0, 0]]}
+  balanceo_giro:    {nota: "giro de Jolly (mismos pasos: 4,6 s)", poses: [[700, 8, -5], [1000, 0, 0], [1200, -5, 8], [1000, 0, 0], [700, 0, 0]]}
+  giro_amplio:      {nota: "giro de Jolly, más ancho", poses: [[700, 14, -8], [1000, 0, 0], [1200, -8, 14], [1000, 0, 0], [700, 0, 0]]}
+  celebrar_vinculo: {nota: "vinculado (3 s)", poses: [[350, 100, 100], [200, 80, 100], [200, 100, 80], [200, 80, 100], [200, 100, 80], [400, 90, 90], [700, 0, 0]]}
+  vinculo_saludo:   {nota: "vinculado: saluda", poses: [[350, 100, 100], [200, 70, 100], [200, 100, 70], [300, 100, 100], [700, 0, 0]]}
+  reposo:           {nota: "brazos abajo", poses: [[700, 0, 0]]}
+
+# Qué gestos complementan cada momento de la cara (brazos.py sortea sin repetir los últimos 2 del grupo).
+complementos:
+  nombre_desde_reposo:    [saludo_corto, saludo_doble, saludo_alto]
+  nombre_en_conversacion: [saludo_si, si_dos, hola_mano]
+  escucha:        [atenta, atenta_oreja, atenta_inclinada]
+  pensando:       [barbilla, manos_juntas, rascar, mirar_mano]
+  pensando_largo: [mmm, tamborileo, vaiven_pensar]
+  furia: [furia]
+  trabajando_tecleando: [teclear, teclear_rafaga]
+  trabajando_leyendo:   [teclear, teclear_rafaga, leer, pasar_pagina]
+  frase:          [gesticular_abrir, gesticular_enfasis, gesticular_dos, gesticular_golpe, gesticular_ofrecer, gesticular_contar]
+  frase_pregunta: [palmas_arriba, encoger_pregunta, barbilla]
+  feliz:          [asentir_mano, aplauso, saltito_brazos, feliz_ola]
+  orgullosa:      [celebrar_arriba, celebrar_pechito, celebrar_olas]
+  preocupada:     [juntos, manos_pecho, calma]
+  problema:       [encoger, encoger_doble]
+  bostecito:      [estirarse]
+  giro_jolly:     [balanceo_giro, giro_amplio]
+  reposo:         [reposo]
+  vinculado:      [celebrar_vinculo, vinculo_saludo]

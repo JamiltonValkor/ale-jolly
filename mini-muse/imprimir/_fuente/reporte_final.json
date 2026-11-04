@@ -1,0 +1,112 @@
+{
+ "_param": {
+  "S": 1.14,
+  "X_TOP": 0.07930999999999999,
+  "X_FIN": 0.08381,
+  "EJE": [
+   0.08721,
+   -0.00228,
+   0.164
+  ],
+  "Z_UNION": 0.19835999999999998,
+  "CARA": {
+   "cz": 0.25764,
+   "ax": 0.063,
+   "az": 0.048
+  },
+  "Y_FRENTE": -0.08,
+  "PANT": {
+   "w": 0.0855,
+   "h": 0.0606,
+   "h_pcb": 0.056,
+   "grosor": 0.006,
+   "act_w": 0.0734,
+   "act_h": 0.049,
+   "off_act": 0.0023
+  },
+  "CAM_z": 0.17099999999999999,
+  "y_pecho": -0.08988376712799076,
+  "PI_C": [
+   0.0,
+   0.00456,
+   0.11741999999999998
+  ],
+  "z_entre": 0.039602465057373026,
+  "Z_PARL": 0.0456,
+  "CAM_prof": 0.012,
+  "Z_AMP": 0.072
+ },
+ "_brazos": {
+  "P4_brazo_derecho": {
+   "x_interior_mm": 97.1,
+   "volumen_cm3": 384.8
+  },
+  "P5_brazo_izquierdo": {
+   "x_interior_mm": 97.1,
+   "volumen_cm3": 384.7
+  }
+ },
+ "P0_prueba_hombro.stl": {
+  "mm": [
+   19.4,
+   60.0,
+   65.0
+  ],
+  "cabe_cama_256": true,
+  "volumen_cm3": 17.0
+ },
+ "P1_cabeza.stl": {
+  "mm": [
+   179.1,
+   158.9,
+   145.3
+  ],
+  "cabe_cama_256": true,
+  "volumen_cm3": 189.7
+ },
+ "P2_cuerpo.stl": {
+  "mm": [
+   177.7,
+   200.1,
+   207.4
+  ],
+  "cabe_cama_256": true,
+  "volumen_cm3": 428.0
+ },
+ "P3_cara.stl": {
+  "mm": [
+   125.4,
+   43.0,
+   95.4
+  ],
+  "cabe_cama_256": true,
+  "volumen_cm3": 22.8
+ },
+ "P4_brazo_derecho.stl": {
+  "mm": [
+   67.5,
+   107.6,
+   133.8
+  ],
+  "cabe_cama_256": true,
+  "volumen_cm3": 384.8
+ },
+ "P5_brazo_izquierdo.stl": {
+  "mm": [
+   67.3,
+   107.6,
+   133.8
+  ],
+  "cabe_cama_256": true,
+  "volumen_cm3": 384.7
+ },
+ "P6_tapon_brazo_x2.stl": {
+  "mm": [
+   9.0,
+   9.0,
+   5.0
+  ],
+  "cabe_cama_256": true,
+  "volumen_cm3": 0.2
+ }
+}

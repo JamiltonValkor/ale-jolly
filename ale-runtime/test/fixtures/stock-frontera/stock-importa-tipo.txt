@@ -1,0 +1,2 @@
+import type {ProfileOptions} from '../activation/profiles';
+export type Opcion = ProfileOptions;

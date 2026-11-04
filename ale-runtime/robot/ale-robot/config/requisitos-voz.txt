@@ -1,0 +1,7 @@
+# Voz del robot (voz-hermes) en la Raspberry. Sin pipecat/piper: en la Pi la voz es Cartesia y el oído Muse.
+numpy==2.5.4
+python-dotenv==1.2.4
+pyzmq==27.2.0
+sounddevice==0.5.6
+websockets==17.3
+pytest==9.2.0

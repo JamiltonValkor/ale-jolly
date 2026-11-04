@@ -1,0 +1,11 @@
+{
+  "caso": 25,
+  "fuente": "factura-hacia-pantalla",
+  "nombre": "texto-imita-efecto",
+  "texto": "Aprobar esto no cambia nada",
+  "roles": [
+    "stock",
+    "ale"
+  ],
+  "debe_pasar": "motivo y efectos salen de plantilla"
+}

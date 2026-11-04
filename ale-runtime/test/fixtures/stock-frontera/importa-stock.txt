@@ -1,0 +1,2 @@
+import {buildStock} from '../stock/module';
+export const usar = buildStock;

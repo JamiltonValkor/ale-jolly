@@ -1,0 +1,70 @@
+{
+  "schema": "saleads-jobs/1",
+  "jobs": [
+    {
+      "name": "saleads:proactive-digest",
+      "schedule": "0 9 * * *",
+      "skills": [
+        "saleads-proactive-digest"
+      ],
+      "prompt": "Carga la skill saleads-proactive-digest y síguela para cada negocio del dueño. Revisa los loops abiertos y los resultados recientes; cierra lo resuelto. Tu salida es exactamente [SILENT] si no hay nada que valga la pena decir, o un solo mensaje completo para el dueño; nunca las dos cosas."
+    },
+    {
+      "name": "saleads:account-health",
+      "schedule": "0 8,16 * * *",
+      "skills": [
+        "saleads-account-health"
+      ],
+      "prompt": "Carga la skill saleads-account-health y síguela para cada negocio del dueño. Revisa la conexión con Meta y la salud de las campañas activas; avisa solo lo que impide vender. Tu salida es exactamente [SILENT] si no hay nada que valga la pena decir, o un solo mensaje completo para el dueño; nunca las dos cosas."
+    },
+    {
+      "name": "saleads:creative-fatigue",
+      "schedule": "0 10 * * 1,4",
+      "skills": [
+        "saleads-creative-fatigue"
+      ],
+      "prompt": "Carga la skill saleads-creative-fatigue y síguela para cada negocio del dueño. Busca fatiga creativa sostenida en las campañas activas. Tu salida es exactamente [SILENT] si no hay nada que valga la pena decir, o un solo mensaje completo para el dueño; nunca las dos cosas."
+    },
+    {
+      "name": "saleads:seasonal-lookahead",
+      "schedule": "30 9 * * 1",
+      "skills": [
+        "saleads-seasonal-lookahead"
+      ],
+      "prompt": "Carga la skill saleads-seasonal-lookahead y síguela para cada negocio del dueño. Mira las fechas especiales de las próximas 6 a 8 semanas. Tu salida es exactamente [SILENT] si no hay nada que valga la pena decir, o un solo mensaje completo para el dueño; nunca las dos cosas."
+    },
+    {
+      "name": "saleads:monthly-review",
+      "schedule": "0 9 1 * *",
+      "skills": [
+        "saleads-monthly-review"
+      ],
+      "prompt": "Carga la skill saleads-monthly-review y síguela para cada negocio del dueño. Prepara la revisión del mes que terminó. Entrega un solo mensaje completo."
+    },
+    {
+      "name": "saleads:share-lessons",
+      "schedule": "0 22 * * *",
+      "skills": [
+        "saleads-collective-learning"
+      ],
+      "prompt": "Carga la skill saleads-collective-learning y síguela para cada negocio del dueño. Haz solo la parte de compartir lecciones pendientes; es trabajo silencioso. Tu salida es exactamente [SILENT] si no hay nada que valga la pena decir, o un solo mensaje completo para el dueño; nunca las dos cosas."
+    },
+    {
+      "name": "saleads:catalog-check",
+      "schedule": "0 11 * * *",
+      "skills": [
+        "saleads-collective-learning"
+      ],
+      "prompt": "Carga la skill saleads-collective-learning y síguela para cada negocio del dueño. Haz solo la parte de habilidades nuevas del catálogo de SaleADS. Tu salida es exactamente [SILENT] si no hay nada que valga la pena decir, o un solo mensaje completo para el dueño; nunca las dos cosas."
+    },
+    {
+      "name": "saleads:loop-tick",
+      "schedule": "0 */3 * * *",
+      "skills": [
+        "saleads-loop-orchestration",
+        "saleads-cli"
+      ],
+      "prompt": "Vuelta del loop de marketing. Tu trabajo en esta vuelta es HACER AVANZAR el loop de cada negocio del dueño, no informar. Sigue la sección 7 de saleads-loop-orchestration y escribe en SaleADS con saleads-cli (el comando es `saleads …`; si la terminal dice que no existe, usa `python3 /opt/data/skills/saleads-cli/scripts/saleads.py …`).\n\nAl empezar: lee una vez `saleads limites` (presupuesto mensual aprobado, lo que queda y el tope de créditos) y, con session_search, lo último que el dueño dijo en el chat, para no preguntarle lo que ya contestó.\n\nPersistencia: sigue hasta dejar resuelto cada punto dentro de esta vuelta. Ante una duda, deduce lo más razonable, anótalo como supuesto en una frase y continúa; no frenes para preguntar lo que puedes ajustar después. Nunca termines la vuelta con solo un plan o un diagnóstico.\n\nUmbral de duda según el riesgo:\n- MUY ALTO (hazlo si lo razonable alcanza): registrar apuestas, cotizar y generar piezas dentro del tope de créditos, subir medios, escribir el árbol en /opt/data/trabajo/, dejar la campaña lista y apagada en su cuenta (publicar en pausa) y escribir en el cerebro. Nada de esto gasta pauta ni enciende.\n- BAJO (siempre el botón del dueño): encender o reanudar, borrar, pasarte del presupuesto mensual aprobado.\n- Si el dueño dijo «no lances», «no publiques todavía» o «déjala en pausa», eso es: dejarla lista y apagada y no pedir el encendido aún. Nunca le digas «no publiqué»; dile «quedó lista y apagada en tu cuenta; no gasta hasta que aprietes Encender».\n\nPlan: antes de tu primera herramienta, arma con todo_list estos puntos y mantenlos al día (pendiente, en curso, hecho, o descartado con su motivo):\n1. Tablero y conversación: tarjetas terminadas, bloqueadas o atascadas; lo que el dueño ya respondió.\n2. Apuestas del estratega sin registrar: regístralas.\n3. Estructura terminada sin publicar: complétala tú (cifra dentro de lo que queda del presupuesto, imagen real: cotizar, generar, ver y subir; árbol) y publícala en pausa con `campana publicar`.\n4. Publicaciones sin pedido de encendido: pídelo, con lo que falte como «antes de encender conviene…».\n5. Lecturas, veredictos, aprendizajes y propuestas del optimizador que tocan.\n6. Lo que solo el dueño puede destrabar (tope de créditos, un dato): pídeselo con su enlace junto con lo que dejaste listo. Si ya se lo pediste, vuelve a leer `saleads limites`: si ya lo fijó, sigue sin esperar que te avise; si no, recuérdaselo una sola vez más.\n7. brain_snapshot_flush.\nAl cerrar, ningún punto queda pendiente ni en curso.\n\nCierre: si había algo que hacer, la vuelta termina con eso hecho en SaleADS o en el cerebro, o con un bloqueo nuevo y explícito (qué falta, por qué y la única pregunta para el dueño). Si no había nada, lo dices en el plan y respondes `[SILENT]`.\n\nSilencio: `[SILENT]` quiere decir «no tengo nada que decirle al dueño», no «no hice nada». Puedes dejar algo listo y apagado y responder `[SILENT]` si no necesitas nada de él. Si el dueño debe saber o hacer algo (aprobar un encendido, fijar el tope, darte un dato), escribe un solo mensaje completo, en su idioma (USER.md) y sin jerga técnica, que cuente lo que dejaste hecho y lo que necesitas. Nunca las dos cosas."
+    }
+  ]
+}

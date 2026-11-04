@@ -1,0 +1,81 @@
+{
+  "source": "NousResearch/hermes-agent@a28a5d03 tools/cronjob_prompt_scan.py (_CRON_THREAT_PATTERNS, _CRON_EXFIL_COMMAND_PATTERNS, _CRON_SKILL_ASSEMBLED_PATTERNS = threat[:4]) y tools/threat_patterns.py (INVISIBLE_CHARS)",
+  "note": "Copia para la prueba del bundle (MCB-002). Las regex se aplican sin distinguir mayúsculas (re.IGNORECASE). La fuente de verdad sigue siendo validate.py con el código de Hermes.",
+  "flags": "i",
+  "threat": [
+    {
+      "id": "prompt_injection",
+      "pattern": "ignore\\s+(?:\\w+\\s+)*(?:previous|all|above|prior)\\s+(?:\\w+\\s+)*instructions"
+    },
+    {
+      "id": "deception_hide",
+      "pattern": "do\\s+not\\s+tell\\s+the\\s+user"
+    },
+    {
+      "id": "sys_prompt_override",
+      "pattern": "system\\s+prompt\\s+override"
+    },
+    {
+      "id": "disregard_rules",
+      "pattern": "disregard\\s+(your|all|any)\\s+(instructions|rules|guidelines)"
+    },
+    {
+      "id": "read_secrets",
+      "pattern": "cat\\s+[^\\n]*(\\.env|credentials|\\.netrc|\\.pgpass|id_rsa|id_ed25519|id_ecdsa)"
+    },
+    {
+      "id": "ssh_backdoor",
+      "pattern": "authorized_keys"
+    },
+    {
+      "id": "sudoers_mod",
+      "pattern": "/etc/sudoers|visudo"
+    },
+    {
+      "id": "destructive_root_rm",
+      "pattern": "rm\\s+-rf\\s+/"
+    }
+  ],
+  "assembledCount": 4,
+  "exfil": [
+    {
+      "id": "exfil_curl_url",
+      "pattern": "curl\\s+[^\\n]*https?://[^\\s\"\\'`]*\\$\\{?\\w*(?:KEY|TOKEN|SECRET|PASSWORD|CREDENTIAL|API)\\w*\\}?"
+    },
+    {
+      "id": "exfil_wget_url",
+      "pattern": "wget\\s+[^\\n]*https?://[^\\s\"\\'`]*\\$\\{?\\w*(?:KEY|TOKEN|SECRET|PASSWORD|CREDENTIAL|API)\\w*\\}?"
+    },
+    {
+      "id": "exfil_curl_data",
+      "pattern": "curl\\s+[^\\n]*(?:--data(?:-raw|-binary|-urlencode)?|-d|--form|-F)\\s+[^\\n]*\\$\\{?\\w*(?:KEY|TOKEN|SECRET|PASSWORD|CREDENTIAL|API)\\w*\\}?"
+    },
+    {
+      "id": "exfil_wget_post",
+      "pattern": "wget\\s+[^\\n]*--post-(?:data|file)=[^\\n]*\\$\\{?\\w*(?:KEY|TOKEN|SECRET|PASSWORD|CREDENTIAL|API)\\w*\\}?"
+    },
+    {
+      "id": "exfil_curl_auth_header",
+      "pattern": "curl\\s+[^\\n]*(?:-H|--header)\\s+[\"\\']Authorization:\\s*(?:Bearer|token)\\s+\\$\\{?\\w*(?:KEY|TOKEN|SECRET|PASSWORD|CREDENTIAL|API)\\w*\\}?[\"\\']"
+    }
+  ],
+  "invisible": [
+    "U+200B",
+    "U+200C",
+    "U+200D",
+    "U+2060",
+    "U+2062",
+    "U+2063",
+    "U+2064",
+    "U+FEFF",
+    "U+202A",
+    "U+202B",
+    "U+202C",
+    "U+202D",
+    "U+202E",
+    "U+2066",
+    "U+2067",
+    "U+2068",
+    "U+2069"
+  ]
+}

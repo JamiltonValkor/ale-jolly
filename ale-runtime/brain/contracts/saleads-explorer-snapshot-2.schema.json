@@ -1,0 +1,335 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "https://saleads.ai/contracts/brain/saleads-explorer-snapshot-2.schema.json",
+  "title": "saleads-explorer-snapshot/2",
+  "description": "Foto del cerebro del loop de marketing (MLB-014): v1 + familias bet y verdict, atributos del loop por nodo y secciones de «Mi cerebro». Sin embeddings, sin evidencia cruda ni datos personales.",
+  "type": "object",
+  "required": [
+    "schema",
+    "generated_at",
+    "businesses"
+  ],
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "saleads-explorer-snapshot/2"
+    },
+    "generated_at": {
+      "type": "string"
+    },
+    "businesses": {
+      "type": "array",
+      "maxItems": 50,
+      "items": {
+        "type": "object",
+        "required": [
+          "business_id",
+          "nodes",
+          "edges",
+          "stats",
+          "sections"
+        ],
+        "additionalProperties": false,
+        "properties": {
+          "business_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "nodes": {
+            "type": "array",
+            "maxItems": 500,
+            "items": {
+              "type": "object",
+              "required": [
+                "id",
+                "type",
+                "family",
+                "label",
+                "summary",
+                "state",
+                "provenance",
+                "mentions",
+                "created_at",
+                "type_label",
+                "stage",
+                "confidence",
+                "verification",
+                "valid_from",
+                "learned_at",
+                "superseded_by",
+                "scope",
+                "evidence_count",
+                "outcome"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "id": {
+                  "type": "string",
+                  "maxLength": 64
+                },
+                "type": {
+                  "type": "string",
+                  "maxLength": 64
+                },
+                "family": {
+                  "type": "string",
+                  "enum": [
+                    "identity",
+                    "offer",
+                    "market",
+                    "competition",
+                    "channels",
+                    "strategy",
+                    "operations",
+                    "learning",
+                    "meta",
+                    "bet",
+                    "verdict",
+                    "learned",
+                    "other"
+                  ]
+                },
+                "label": {
+                  "type": "string",
+                  "maxLength": 200
+                },
+                "summary": {
+                  "type": "string",
+                  "maxLength": 500
+                },
+                "state": {
+                  "type": "string",
+                  "enum": [
+                    "observed",
+                    "proposed",
+                    "validated",
+                    "superseded"
+                  ]
+                },
+                "provenance": {
+                  "type": "string",
+                  "maxLength": 40
+                },
+                "mentions": {
+                  "type": "integer",
+                  "minimum": 0
+                },
+                "created_at": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "type_label": {
+                  "type": "string",
+                  "maxLength": 64
+                },
+                "stage": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "maxLength": 40
+                },
+                "confidence": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "enum": [
+                    "baja",
+                    "media",
+                    "alta",
+                    null
+                  ]
+                },
+                "verification": {
+                  "type": "string",
+                  "maxLength": 40
+                },
+                "valid_from": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "maxLength": 300
+                },
+                "learned_at": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "maxLength": 300
+                },
+                "superseded_by": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "maxLength": 64
+                },
+                "scope": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "maxLength": 300
+                },
+                "evidence_count": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "minimum": 0
+                },
+                "outcome": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "maxLength": 20
+                }
+              }
+            }
+          },
+          "edges": {
+            "type": "array",
+            "maxItems": 2000,
+            "items": {
+              "type": "object",
+              "required": [
+                "source",
+                "target",
+                "type",
+                "fact",
+                "provenance",
+                "valid_at",
+                "invalid_at"
+              ],
+              "additionalProperties": false,
+              "properties": {
+                "source": {
+                  "type": "string"
+                },
+                "target": {
+                  "type": "string"
+                },
+                "type": {
+                  "type": "string",
+                  "maxLength": 64
+                },
+                "fact": {
+                  "type": "string",
+                  "maxLength": 300
+                },
+                "provenance": {
+                  "type": "string",
+                  "maxLength": 40
+                },
+                "valid_at": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "invalid_at": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                }
+              }
+            }
+          },
+          "stats": {
+            "type": "object",
+            "required": [
+              "nodes",
+              "edges"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "nodes": {
+                "type": "integer"
+              },
+              "edges": {
+                "type": "integer"
+              }
+            }
+          },
+          "sections": {
+            "type": "object",
+            "required": [
+              "my_business",
+              "active_bets",
+              "learned",
+              "did_not_work",
+              "your_corrections",
+              "to_confirm",
+              "history"
+            ],
+            "additionalProperties": false,
+            "properties": {
+              "my_business": {
+                "type": "array",
+                "maxItems": 500,
+                "items": {
+                  "type": "string",
+                  "maxLength": 64
+                }
+              },
+              "active_bets": {
+                "type": "array",
+                "maxItems": 500,
+                "items": {
+                  "type": "string",
+                  "maxLength": 64
+                }
+              },
+              "learned": {
+                "type": "array",
+                "maxItems": 500,
+                "items": {
+                  "type": "string",
+                  "maxLength": 64
+                }
+              },
+              "did_not_work": {
+                "type": "array",
+                "maxItems": 500,
+                "items": {
+                  "type": "string",
+                  "maxLength": 64
+                }
+              },
+              "your_corrections": {
+                "type": "array",
+                "maxItems": 500,
+                "items": {
+                  "type": "string",
+                  "maxLength": 64
+                }
+              },
+              "to_confirm": {
+                "type": "array",
+                "maxItems": 500,
+                "items": {
+                  "type": "string",
+                  "maxLength": 64
+                }
+              },
+              "history": {
+                "type": "array",
+                "maxItems": 500,
+                "items": {
+                  "type": "string",
+                  "maxLength": 64
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

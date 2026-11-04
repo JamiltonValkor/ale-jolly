@@ -1,0 +1,16 @@
+/Users/jamiltonquintero/robotica/mini-muse/concepto/render_concepto.py:19: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  m.use_nodes = True
+/Users/jamiltonquintero/robotica/mini-muse/concepto/render_concepto.py:74: DeprecationWarning: 'Material.use_nodes' is expected to be removed in Blender 6.0
+  mc = bpy.data.materials.new("pantalla"); mc.use_nodes = True
+/Users/jamiltonquintero/robotica/mini-muse/concepto/render_concepto.py:196: DeprecationWarning: 'World.use_nodes' is expected to be removed in Blender 6.0
+  w = bpy.data.worlds.new("w"); sc.world = w; w.use_nodes = True
+04:45.786  render           | Saved: '/Users/jamiltonquintero/robotica/mini-muse/concepto/concepto_pelo.png'
+sin GPU cpu
+RENDER_OK /Users/jamiltonquintero/robotica/mini-muse/concepto/concepto_pelo.png
+Blender 5.2.2 LTS (hash d13f752e3b9c built 2026-09-15 01:49:19)
+PLY import of 'cuerpo.ply' took 22.41 ms
+PLY import of 'cabeza.ply' took 10.05 ms
+PLY import of 'brazo_der.ply' took 4.23 ms
+PLY import of 'brazo_izq.ply' took 3.15 ms
+
+Blender quit

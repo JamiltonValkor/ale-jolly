@@ -1,0 +1,70 @@
+{
+  "schema": "saleads-jobs/1",
+  "jobs": [
+    {
+      "name": "saleads:proactive-digest",
+      "schedule": "0 9 * * *",
+      "skills": [
+        "saleads-proactive-digest"
+      ],
+      "prompt": "For the single server-bound current business only, load saleads-proactive-digest and the automatic ContextPack. Review its authorized goal, actual completed results, material pending decisions and relevant learned corrections. Retrieve evidence through scoped memory when needed. Advance an eligible permitted action or record a justified wait; do not merely count cron runs or profiles. Do not enumerate other owned businesses or fabricate owner intent. If initial discovery is not yet recorded, propose a grounded read-only analysis and create or continue the assistant-proposed goal without requiring a manual assignment. Return exactly [SILENT] if no useful owner update is due; otherwise one complete result in the user's current configured response_locale, never both. Managed delivery handles home or SaleADS fallback; do not send a second copy manually."
+    },
+    {
+      "name": "saleads:account-health",
+      "schedule": "0 8,16 * * *",
+      "skills": [
+        "saleads-account-health"
+      ],
+      "prompt": "For the single server-bound current business only, load saleads-account-health. Read its actual Meta connection and relevant active campaign health with the existing read grant. An unavailable source is unknown, not healthy or zero. Report only actual material obstacles and the next useful owner action; do not enumerate other businesses or change campaigns. Use the current configured response_locale on every owner destination. Return exactly [SILENT] if no useful update, otherwise one complete message, never both. Managed delivery handles the result."
+    },
+    {
+      "name": "saleads:creative-fatigue",
+      "schedule": "0 10 * * 1,4",
+      "skills": [
+        "saleads-creative-fatigue"
+      ],
+      "prompt": "For the single server-bound current business only, load saleads-creative-fatigue and relevant scoped evidence/experience. Look only for sustained fatigue in comparable actual campaign windows when data/time is due. No invented metrics, causal winner or budget action. Respect current read-only/proposal scope. Missing data is a specific limitation, not zero. Return exactly [SILENT] or one useful complete message in the user's configured response_locale, never both; do not manually duplicate managed delivery."
+    },
+    {
+      "name": "saleads:seasonal-lookahead",
+      "schedule": "30 9 * * 1",
+      "skills": [
+        "saleads-seasonal-lookahead"
+      ],
+      "prompt": "For the single server-bound current business only, load saleads-seasonal-lookahead and its current proposed or owner-confirmed goal. Consider relevant buying dates over the next 6–8 weeks using actual sources and genuine owner-approved offers. Delegate a bounded research question when verified business context and the proposed/existing goal make it useful; initial read-only discovery does not require an owner assignment. Do not fabricate an owner mandate or repeat unchanged research. Only investigador uses saleads_web_search with the same managed Spark. Keep research language separate from the owner's configured response_locale. Return exactly [SILENT] if no useful owner update, otherwise one complete response_locale result, never both. Managed delivery handles home or SaleADS fallback."
+    },
+    {
+      "name": "saleads:monthly-review",
+      "schedule": "0 9 1 * *",
+      "skills": [
+        "saleads-monthly-review"
+      ],
+      "prompt": "For the single server-bound current business only, load saleads-monthly-review and the automatic ContextPack. Review the previous month from actual comparable observations, useful completed work, supported learning and authentic owner decisions. Unavailable data is not zero; a proposal is not a campaign or proof of revenue. Identify one relevant next action or justified wait under the existing goal and grant. Deliver one complete useful message in the user's configured response_locale, or exactly [SILENT] when nothing useful is due. Do not enumerate other businesses or manually duplicate managed delivery."
+    },
+    {
+      "name": "saleads:share-lessons",
+      "schedule": "0 22 * * *",
+      "skills": [
+        "saleads-collective-learning"
+      ],
+      "prompt": "For the single server-bound current business only, load saleads-collective-learning. Preserve existing catalog governance: only pending validated de-identified instruction material derived from authentic owner statements/decisions is eligible for a separately authorized sharing operation. Never share business records, specialist experiences, personal information, platform metrics or derived/aggregated platform data across businesses. The hidden curator handles local consolidation; do not duplicate it or claim operator tests as owner facts. If no eligible authorized operation exists, return exactly [SILENT]. Otherwise a useful owner action is one complete message in the current configured response_locale; never combine it with [SILENT]."
+    },
+    {
+      "name": "saleads:catalog-check",
+      "schedule": "0 11 * * *",
+      "skills": [
+        "saleads-collective-learning"
+      ],
+      "prompt": "For the single server-bound current business only, load saleads-collective-learning. Review only actual new/retired catalog skills relevant to this business while preserving owner approval, managed instruction immutability, source attribution and current access. Do not edit SOUL/skills directly or turn business data into cross-business memory. Return exactly [SILENT] if no useful owner decision is needed, otherwise one complete current response_locale message, never both. The owner sees a business decision, not technical catalog internals."
+    },
+    {
+      "name": "saleads:loop-tick",
+      "schedule": "0 */3 * * *",
+      "skills": [
+        "saleads-loop-orchestration",
+        "saleads-cli"
+      ],
+      "prompt": "ADVANCE the grounded proposed or existing goal for the single server-bound current business, not every owned business. Load saleads-loop-orchestration and saleads-cli. Use trusted context and automatic ContextPack: configured response_locale/version, optional GoalState, relevant scoped knowledge/experience, and actual capabilities. Legacy first-loop work_id is optional history, not a universal kickoff gate.\n\nIf the first goal is not yet recorded, read the existing SaleADS/API/seed context, explain a useful proposed initial analysis and create or continue one assistant_proposed read-only discovery goal. Do not wait for a manual command, explicit assignment or hidden kickoff. Normal greetings/reloads resume that same work; operator/system content is never mislabeled as an owner mandate. For a recorded goal, inspect its recorded native task IDs, runs, dependency parents and actual deliverables. Missing observation/ACK is not proof of termination; reconcile the same task before retry. Keep native max_in_progress=2 including the hidden curator.\n\nChoose one eligible bounded next action or use a completed useful result. Reuse goal:stage:creation_revision idempotency for the same stage; bookkeeping-only GoalState revisions do not create new work. Apply relevant learned methods/corrections to the actual decision. No global memory/session_search, generic background_review or managed skill/SOUL edits. The hidden curator consolidates sourced results automatically.\n\nThe pilot grant is read-only: business reads, hosted-search research and local proposals are allowed, but no remote bets, paid creative generation, campaigns, publications or spending. Do not request broader scopes for a demo. Later commercial work requires its own actual grant/request and existing web approval for activation/resumption, deletion or excess monthly budget; explicit do not create/publish also forbids PAUSED creation.\n\nDeliver actual useful owner findings in the current configured response_locale, independent of prompt/research/history language. Use saleads_goal_update to persist real native_task_ids, result and active/waiting/blocked/completed state. Existing-goal updates can omit mandate; assistant_proposed discovery uses verified business evidence and never pretends to be owner intent; owner_confirmed acceptance or a genuinely owner-authored change preserves the exact authentic owner words. Learn from normal business answers without imposing a special syntax. Continue another permitted pending action when justified; otherwise record one precise condition or next_review_at. Do not repeat unchanged research, invent feedback/metrics/causal winners, or call one proposal the completed commercial lifecycle.\n\nReturn exactly [SILENT] when no useful owner notification is due; silence does not abandon authorized work. Otherwise return one complete useful response_locale message, never both. Native managed delivery sends the existing final result to the current home or SaleADS fallback without another inference turn; do not manually send a duplicate or expose internal profiles/JSON/receipts."
+    }
+  ]
+}

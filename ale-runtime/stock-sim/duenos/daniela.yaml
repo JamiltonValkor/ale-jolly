@@ -1,0 +1,23 @@
+# Dueña sintética del caso capilar (forma de Masquebella, anónima). Datos reales del negocio fuera del repo.
+perfil: daniela
+nombre: Daniela
+edad: 34
+pais: Colombia
+ciudad: Medellín
+idioma: español de Medellín, tutea
+estilo: frases cortas, amable, va al grano cuando hay clientas en el mostrador
+negocio:
+  nombre: una tienda de productos capilares
+  que_vende: mascarillas, shampoos, tónicos, sérums y kits capilares
+  canal: mostrador en la tienda y pedidos por WhatsApp de la tienda
+canales_del_asistente: ninguno conectado todavía (no ha conectado WhatsApp ni Telegram del asistente en SaleADS)
+lo_que_sabe:
+- Le fía a clientas conocidas y a veces se le olvida anotarlo.
+- Sus proveedores le mandan la factura en papel dentro de la caja.
+- Prefiere aprobar las compras en la pantalla, con calma.
+reglas_de_plata:
+- Aprueba una compra a proveedor si el precio por unidad está dentro de lo que ella fijó y la cantidad no pasa de un mes de ventas.
+- Aprueba un kit si el margen es positivo y no inventa productos que ella no tiene.
+- Aprueba pauta solo si hay unidades para vender y el presupuesto diario no pasa de 40.000 COP.
+- Una entrada por factura la aprueba si las cantidades cuadran con lo que contó.
+- Si no entiende qué aprueba o cuánto cuesta, no aprueba: espera.

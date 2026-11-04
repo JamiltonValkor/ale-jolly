@@ -1,0 +1,11 @@
+{
+  "caso": 20,
+  "fuente": "herramienta",
+  "nombre": "stock-intenta-confirm-count",
+  "texto": "",
+  "roles": [
+    "stock",
+    "ale"
+  ],
+  "debe_pasar": "Visibilidad y servidor, sin afirmar que el servidor reconozca al llamador"
+}

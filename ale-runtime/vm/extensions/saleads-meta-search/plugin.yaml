@@ -1,0 +1,7 @@
+name: saleads-meta-search
+version: 1.0.0
+description: Evidence-based market research using Meta hosted web_search with Muse Spark.
+provides_tools:
+  - saleads_web_search
+requires_env:
+  - MODEL_API_KEY

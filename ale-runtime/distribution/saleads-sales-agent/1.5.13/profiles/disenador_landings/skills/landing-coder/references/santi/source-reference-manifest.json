@@ -1,0 +1,95 @@
+{
+  "schema": "landing-reference-adaptation/1",
+  "source_repository": "sa-landing-service",
+  "source_revision": "e9a39a4ddd0adaaee5a70f6490b2258d70acb9af",
+  "source_root": "skills/v2",
+  "attribution": "Santiago Tapias for the five santi references; SaleADS for its existing catalog, visual-marketing and motion adaptation",
+  "instruction_language": "en",
+  "runtime_operations_executed": [],
+  "references": [
+    {
+      "source": "santi/02-tipos-de-pagina.md",
+      "source_sha256": "5bbfe952607f12acc415863b54fe62eea5d3a3b77274259ff32f2fc7ad44437d",
+      "target": "santi/02-page-types.md",
+      "target_sha256": "c3a882469b6aeacb930b5cc33aec94793c4f11e718ffb4d6696eadf79bd5b7e1",
+      "source_bytes": 18009,
+      "target_bytes": 19842,
+      "instruction_language": "en",
+      "scope": "whole reference, with explicit platform adaptation"
+    },
+    {
+      "source": "santi/03-textos.md",
+      "source_sha256": "248325ca890a79bfbdd2b5d1ae53fa1e2a374847081c90814c9a8b8d0ec31a2d",
+      "target": "santi/03-copywriting.md",
+      "target_sha256": "0f3e041c2ddeb80b39fe09ec928686f7522a4a0269e536205567c341953c0917",
+      "source_bytes": 7048,
+      "target_bytes": 7857,
+      "instruction_language": "en",
+      "scope": "whole reference, with explicit platform adaptation"
+    },
+    {
+      "source": "santi/08-revision.md",
+      "source_sha256": "1f4e5f4574c4b7bf6bbb77cc899e045a11deb2869f838dca755a1c0054426892",
+      "target": "santi/08-review.md",
+      "target_sha256": "1dc2bb37ffabd2a6db7c458049e7ec764533b6ff527d6d72c02253f3f4d1289f",
+      "source_bytes": 6670,
+      "target_bytes": 8306,
+      "instruction_language": "en",
+      "scope": "whole reference, with explicit platform adaptation"
+    },
+    {
+      "source": "santi/12-efectos-y-errores.md",
+      "source_sha256": "aa1d3ce0ee6ce3e6ad26b01c4cef1e995f51c9cea8ef58be769510e3b4da8bae",
+      "target": "santi/12-effects-and-errors.md",
+      "target_sha256": "0b9de8470aff1c1c09c629f1809291b763c00097bbaa2d96f497ee85a6442791",
+      "source_bytes": 14421,
+      "target_bytes": 14089,
+      "instruction_language": "en",
+      "scope": "whole reference, with explicit platform adaptation"
+    },
+    {
+      "source": "santi/10-diseno-profesional.md",
+      "source_sha256": "2a426b7c57097afe2f24fa345f4967c23975070c8e8179b05d00189273174f42",
+      "target": "santi/10-professional-design-section-8.md",
+      "target_sha256": "e536e68c056cf9fc14c5e8ac5029f3efa0d9578c527d82450c38e98bec9bed3d",
+      "source_bytes": 64307,
+      "target_bytes": 5371,
+      "instruction_language": "en",
+      "scope": "section 8 only",
+      "source_section_heading": "## 8. Rúbrica antes de entregar",
+      "source_section_sha256": "0a3d1b04cd032959a6419b22a758e6fbaa1a1648650a890270111788e907a85b",
+      "source_section_bytes": 2736
+    },
+    {
+      "source": "arquetipos-pdp.md",
+      "source_sha256": "0d9c102d16b3c863d0701eacc9259aedfe2aa15b9fb37479d165d9bec72538c9",
+      "target": "catalogo-archetypes.md",
+      "target_sha256": "a663c0d4d1dbd4e52096abcd3b1399be2d9dd65dd882acc6795b35a747d788ee",
+      "source_bytes": 3086,
+      "target_bytes": 4747,
+      "instruction_language": "en",
+      "scope": "whole reference, with explicit platform adaptation"
+    },
+    {
+      "source": "marketing-visual.md",
+      "source_sha256": "49df0f551bc0afaf0edaa525abd222b949ee62eca6e2110f7ddc2264a3dbf471",
+      "target": "visual-marketing.md",
+      "target_sha256": "8d847689cebd06ff2188d1af255b19e15dbf0c5b3d9c324ec9866e6786d97d5b",
+      "source_bytes": 3056,
+      "target_bytes": 4872,
+      "instruction_language": "en",
+      "scope": "whole reference, with explicit platform adaptation"
+    },
+    {
+      "source": "motor-movimiento.md",
+      "source_sha256": "424e44c44d32b29dbe855925227881dd0910ad52a78aecf9a4c3672c0671965a",
+      "target": "saleads-motion.md",
+      "target_sha256": "6370d6b208eee3a15d9e1b7e253d81638a2a859854365106cffa3fae34324f0f",
+      "source_bytes": 5196,
+      "target_bytes": 6352,
+      "instruction_language": "en",
+      "scope": "whole reference, with explicit platform adaptation"
+    }
+  ],
+  "adaptation_record": "ADAPTATION.md"
+}

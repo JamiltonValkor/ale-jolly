@@ -1,0 +1,26 @@
+{
+ "X_IN": 0.09290999999999999,
+ "R_EJE": 0.011,
+ "P4_brazo_derecho": {
+  "masa_g": 65.6,
+  "palanca_mm": 25.4,
+  "par_kgcm": 0.17,
+  "mm": [
+   61.8,
+   84.4,
+   123.3
+  ],
+  "volumen_ok": true
+ },
+ "P5_brazo_izquierdo": {
+  "masa_g": 64.8,
+  "palanca_mm": 25.5,
+  "par_kgcm": 0.17,
+  "mm": [
+   61.6,
+   84.5,
+   123.3
+  ],
+  "volumen_ok": true
+ }
+}

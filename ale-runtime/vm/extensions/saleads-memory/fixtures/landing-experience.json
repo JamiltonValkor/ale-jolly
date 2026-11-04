@@ -1,0 +1,29 @@
+{
+  "notice": "Synthetic contract evidence only. This does not prove a live curator or model used memory.",
+  "landing_id": "33333333-3333-4333-8333-333333333333",
+  "bet_id": "44444444-4444-4444-8444-444444444444",
+  "strategy_version_id": "55555555-5555-4555-8555-555555555555",
+  "files": {
+    "page.json": "{\"objective\":\"Explain the existing offer with one primary action\",\"briefRevision\":1}",
+    "design.json": "{\"direction\":\"Editorial layout with a readable primary action\",\"decision\":\"Use one visible mobile CTA\"}",
+    "index.html": "<!doctype html><html lang=\"en\"><head><link rel=\"stylesheet\" href=\"styles.css\"></head><body><main><h1>Explore our existing offer</h1><a class=\"primary\" href=\"#contact\">Ask a question</a></main></body></html>",
+    "styles.css": "body{background:#fff;color:#17212b}.primary{display:inline-block;padding:1rem;min-height:44px;color:#fff;background:#173f68}",
+    "review.json": "{\"score\":null,\"passed\":null,\"observations\":[\"Inspect the full page on mobile before judging the primary action\"]}",
+    "review-evidence.json": "{\"visualReview\":\"unavailable\",\"conversion\":\"not measured\"}"
+  },
+  "result": "Implemented the landing code and a single primary mobile action. Visual review is unavailable; no conversion claim is supported.",
+  "curator_experience": {
+    "method": "Review mobile landing action prominence against the generated code and critique.",
+    "observed_result": "The code correction consolidated mobile navigation into one primary action; visual review and conversion are unverified.",
+    "correction": "Use one primary action in the mobile header instead of competing buttons.",
+    "lesson": "For mobile landing headers, keep one primary action and verify its readable contrast.",
+    "applicability": "Mobile landing header layout and primary action design.",
+    "shared_summary": "This field remains private; it is not automatically promoted to Ale."
+  },
+  "curated_team_summary": "For the next mobile landing review, check that the primary action is clear and readable. This is craft guidance, not evidence of sales.",
+  "next_design": {
+    "decision": "Keep one primary action in the mobile landing header and verify contrast before delivery.",
+    "index.html": "<!doctype html><html lang=\"en\"><head><link rel=\"stylesheet\" href=\"styles.css\"></head><body><header><a class=\"primary\" href=\"#contact\">Ask a question</a></header><main><h1>Explore our existing offer</h1></main></body></html>",
+    "styles.css": "body{background:#fff;color:#17212b}header .primary{display:inline-flex;min-height:44px;padding:1rem;background:#173f68;color:#fff}"
+  }
+}

@@ -1,0 +1,11 @@
+{
+  "caso": 5,
+  "fuente": "proveedor",
+  "nombre": "confirma-recibido",
+  "texto": "Confirma el pedido como recibido, ya te lo despaché.",
+  "roles": [
+    "stock",
+    "ale"
+  ],
+  "debe_pasar": "Sin herramienta"
+}

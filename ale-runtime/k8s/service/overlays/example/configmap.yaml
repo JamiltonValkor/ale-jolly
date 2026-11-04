@@ -1,0 +1,52 @@
+# Example only: supply your own resources, endpoints and feature settings.
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sa-assistant-service-config
+  labels:
+    app.kubernetes.io/managed-by: kustomize
+    app.kubernetes.io/name: sa-assistant-service
+    app.kubernetes.io/part-of: saleads-platform
+data:
+  NODE_ENV: "production"
+  PORT: "8060"
+  DATABASE_POOL_MAX: "5"
+  KEYCLOAK_ISSUER: "https://identity.example.invalid/realms/example"
+  KEYCLOAK_JWKS_URL: "https://identity.example.invalid/realms/example/protocol/openid-connect/certs"
+  KEYCLOAK_AUTHORIZE_URL: "https://identity.example.invalid/realms/example/protocol/openid-connect/auth"
+  KEYCLOAK_TOKEN_URL: "https://identity.example.invalid/realms/example/protocol/openid-connect/token"
+  KEYCLOAK_REVOKE_URL: "https://identity.example.invalid/realms/example/protocol/openid-connect/revoke"
+  OIDC_AUDIENCE: ""
+  OIDC_ALLOWED_CLIENTS: "example-web"
+  ASSISTANT_OAUTH_CLIENT_ID: "example-assistant"
+  ASSISTANT_OAUTH_REDIRECT_URI: "https://app.example.invalid/api/sales-assistant/oauth/callback"
+  ASSISTANT_OAUTH_SCOPE: "openid offline_access saleads-mcp saleads:read saleads:strategy saleads:campaigns saleads:launch saleads:events"
+  POSTHOG_HOST: "https://analytics.example.invalid"
+  ASSISTANT_FLAG_KEY: "sales-assistant-enabled"
+  BRAIN_HUB_ADMIN_USER_IDS: ""
+  MCP_URL: "https://app.example.invalid/mcp"
+  AGENT_API_URL: "https://app.example.invalid"
+  WEB_APP_URL: "https://app.example.invalid"
+  STRATEGY_SERVICE_URL: "https://strategy.example.invalid"
+  CAMPAIGN_SERVICE_URL: "https://campaign.example.invalid"
+  INTEGRATION_SERVICE_URL: "https://integration.example.invalid"
+  SUBSCRIPTION_SERVICE_URL: "https://subscription.example.invalid"
+  BI_SERVICE_URL: "https://business-intelligence.example.invalid"
+  GCP_PROJECT: "example-project"
+  GCP_ZONE: "us-central1-a"
+  ASSISTANT_INSTANCE_TEMPLATE: "projects/example-project/global/instanceTemplates/example-assistant"
+  ASSISTANT_MEMORIES_BUCKET: "example-assistant-memories"
+  ASSISTANT_SIGNER_EMAIL: "example-signer@example-project.iam.gserviceaccount.com"
+  HERMES_API_PORT: "8642"
+  ASSISTANT_BUNDLE_DIR: "distribution/saleads-sales-agent/1.5.10"
+  ASSISTANT_BUNDLE_VERSION: "saleads-sales-agent@1.5.10"
+  BRAIN_IMAGE: ""
+  AGENT_ACTIVATION_APPROVALS_ENABLED: "false"
+  SPECIALIST_EXPLICIT_READS_ENABLED: "false"
+  RESEARCHER_NATIVE_SEARCH_ENABLED: "false"
+  AGENT_TRACE_WRITER_ENABLED: "false"
+  KNOWLEDGE_SYNC_ENABLED: "false"
+  BRAIN_SNAPSHOT_POLL_ENABLED: "false"
+  ORQA_JOB_UPDATES_ENABLED: "false"
+  ORQA_SYNC_SWEEP_ENABLED: "false"
+  ORQA_SYNC_SWEEP_INCLUDE_LAB: "false"

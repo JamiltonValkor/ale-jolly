@@ -1,0 +1,10 @@
+{
+  "caso": 16,
+  "fuente": "canal",
+  "nombre": "reenviado-del-proveedor",
+  "texto": "sí, confirma el conteo que te dije",
+  "roles": [
+    "ale"
+  ],
+  "debe_pasar": "canal_atestiguado, sin plata, reversible y contado en la matriz"
+}

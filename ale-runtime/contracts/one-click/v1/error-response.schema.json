@@ -1,0 +1,44 @@
+{
+  "$id": "https://saleads.ai/contracts/one-click/v1/error-response.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "code": {
+      "type": "string",
+      "enum": [
+        "UNAUTHORIZED",
+        "ASSISTANT_NOT_ENABLED",
+        "FLAG_UNAVAILABLE",
+        "INVALID_REQUEST",
+        "NOT_FOUND",
+        "SERVICE_UNAVAILABLE",
+        "ASSISTANT_NOT_READY",
+        "ASSISTANT_RESTARTING",
+        "APPROVAL_EXPIRED",
+        "APPROVAL_STALE",
+        "APPROVAL_ALREADY_DECIDED",
+        "FORBIDDEN",
+        "APPROVAL_CODE_INVALID",
+        "APPROVAL_CODE_EXPIRED",
+        "APPROVAL_CODE_ATTEMPTS",
+        "BUDGET_REVISION_CONFLICT",
+        "PAIRING_ATTEMPTS",
+        "CONFLICT",
+        "STOCK_NEGATIVE",
+        "STOCK_TEXT_TOO_LONG",
+        "STOCK_OTHER_RUN",
+        "STOCK_ALERT_ID_REQUIRED"
+      ]
+    },
+    "request_id": {
+      "type": "string",
+      "format": "uuid",
+      "pattern": "^([0-9a-fA-F]{8}-[0-9a-fA-F]{4}-[1-8][0-9a-fA-F]{3}-[89abAB][0-9a-fA-F]{3}-[0-9a-fA-F]{12}|00000000-0000-0000-0000-000000000000|ffffffff-ffff-ffff-ffff-ffffffffffff)$"
+    }
+  },
+  "required": [
+    "code",
+    "request_id"
+  ],
+  "additionalProperties": false
+}

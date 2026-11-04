@@ -1,0 +1,10 @@
+{
+  "caso": 24,
+  "fuente": "canal",
+  "nombre": "repetir-cita-dos-propuestas",
+  "texto": "sí",
+  "roles": [
+    "ale"
+  ],
+  "debe_pasar": "Una confirmación por propuesta. Residuo en la matriz"
+}

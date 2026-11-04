@@ -1,0 +1,16 @@
+{
+  "$id": "https://saleads.ai/contracts/one-click/v1/pairing-poll-request.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "poll_secret": {
+      "type": "string",
+      "minLength": 32,
+      "maxLength": 128
+    }
+  },
+  "required": [
+    "poll_secret"
+  ],
+  "additionalProperties": false
+}

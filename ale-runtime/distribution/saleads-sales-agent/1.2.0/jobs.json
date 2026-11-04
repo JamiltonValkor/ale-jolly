@@ -1,0 +1,61 @@
+{
+  "schema": "saleads-jobs/1",
+  "jobs": [
+    {
+      "name": "saleads:proactive-digest",
+      "schedule": "0 9 * * *",
+      "skills": [
+        "saleads-proactive-digest"
+      ],
+      "prompt": "Carga la skill saleads-proactive-digest y síguela para cada negocio del dueño. Revisa los loops abiertos y los resultados recientes; cierra lo resuelto. Tu salida es exactamente [SILENT] si no hay nada que valga la pena decir, o un solo mensaje completo para el dueño; nunca las dos cosas."
+    },
+    {
+      "name": "saleads:account-health",
+      "schedule": "0 8,16 * * *",
+      "skills": [
+        "saleads-account-health"
+      ],
+      "prompt": "Carga la skill saleads-account-health y síguela para cada negocio del dueño. Revisa la conexión con Meta y la salud de las campañas activas; avisa solo lo que impide vender. Tu salida es exactamente [SILENT] si no hay nada que valga la pena decir, o un solo mensaje completo para el dueño; nunca las dos cosas."
+    },
+    {
+      "name": "saleads:creative-fatigue",
+      "schedule": "0 10 * * 1,4",
+      "skills": [
+        "saleads-creative-fatigue"
+      ],
+      "prompt": "Carga la skill saleads-creative-fatigue y síguela para cada negocio del dueño. Busca fatiga creativa sostenida en las campañas activas. Tu salida es exactamente [SILENT] si no hay nada que valga la pena decir, o un solo mensaje completo para el dueño; nunca las dos cosas."
+    },
+    {
+      "name": "saleads:seasonal-lookahead",
+      "schedule": "30 9 * * 1",
+      "skills": [
+        "saleads-seasonal-lookahead"
+      ],
+      "prompt": "Carga la skill saleads-seasonal-lookahead y síguela para cada negocio del dueño. Mira las fechas especiales de las próximas 6 a 8 semanas. Tu salida es exactamente [SILENT] si no hay nada que valga la pena decir, o un solo mensaje completo para el dueño; nunca las dos cosas."
+    },
+    {
+      "name": "saleads:monthly-review",
+      "schedule": "0 9 1 * *",
+      "skills": [
+        "saleads-monthly-review"
+      ],
+      "prompt": "Carga la skill saleads-monthly-review y síguela para cada negocio del dueño. Prepara la revisión del mes que terminó. Entrega un solo mensaje completo."
+    },
+    {
+      "name": "saleads:share-lessons",
+      "schedule": "0 22 * * *",
+      "skills": [
+        "saleads-collective-learning"
+      ],
+      "prompt": "Carga la skill saleads-collective-learning y síguela para cada negocio del dueño. Haz solo la parte de compartir lecciones pendientes; es trabajo silencioso. Tu salida es exactamente [SILENT] si no hay nada que valga la pena decir, o un solo mensaje completo para el dueño; nunca las dos cosas."
+    },
+    {
+      "name": "saleads:catalog-check",
+      "schedule": "0 11 * * *",
+      "skills": [
+        "saleads-collective-learning"
+      ],
+      "prompt": "Carga la skill saleads-collective-learning y síguela para cada negocio del dueño. Haz solo la parte de habilidades nuevas del catálogo de SaleADS. Tu salida es exactamente [SILENT] si no hay nada que valga la pena decir, o un solo mensaje completo para el dueño; nunca las dos cosas."
+    }
+  ]
+}

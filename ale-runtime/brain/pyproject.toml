@@ -1,0 +1,58 @@
+[project]
+name = "saleads-brain"
+version = "0.1.0"
+description = "Cerebro del negocio de SaleADS: ontología, gobernanza y grafo en la VM del usuario"
+requires-python = ">=3.12"
+dependencies = [
+  "pydantic==2.11.7",
+  "pyyaml==6.0.2",
+  "defusedxml==0.7.1",
+  "jsonschema==4.25.1",
+]
+
+[project.scripts]
+saleads-brain = "saleads_brain.cli:main"
+
+[project.optional-dependencies]
+# Runtime de la VM (imagen saleads-brain). Las pruebas unitarias no lo necesitan.
+runtime = ["graphiti-core[falkordb]==0.31.1", "mcp==1.30.0", "openai==3.31.0", "httpx2==2.13.1", "falkordb==1.8.0"]
+dev = ["pytest==8.4.2", "pytest-asyncio==1.2.0", "ruff==0.13.3", "mypy==1.18.2", "types-PyYAML==6.0.12.20250915", "types-defusedxml==0.7.0.20260504"]
+
+[build-system]
+requires = ["setuptools>=75"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+include = ["saleads_brain*"]
+
+[tool.setuptools.package-data]
+"saleads_brain.ontology" = ["*.yaml"]
+# AAB-019: vocabulario de hechos (copia byte a byte de brain/contracts, prueba de paridad).
+"saleads_brain" = ["contracts/*.json", "contracts/mcl/*.json"]
+
+[tool.ruff]
+line-length = 120
+target-version = "py312"
+
+[tool.ruff.lint]
+select = ["E", "F", "I", "B", "UP", "SIM"]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["E501"]
+
+[tool.mypy]
+python_version = "3.12"
+strict = true
+packages = ["saleads_brain"]
+plugins = ["pydantic.mypy"]
+
+[[tool.mypy.overrides]]
+module = ["falkordb", "falkordb.*", "graphiti_core.*", "jsonschema", "jsonschema.*"]
+ignore_missing_imports = true
+
+[[tool.mypy.overrides]]
+module = ["saleads_brain.server", "saleads_brain.continuous_server"]
+disallow_untyped_decorators = false
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]

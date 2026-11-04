@@ -1,0 +1,157 @@
+{
+ "componentes": [
+  {
+   "nombre": "Raspberry Pi 5 + disipador activo",
+   "centro": [
+    0,
+    0.004,
+    0.103
+   ],
+   "mm": [
+    85,
+    56,
+    25
+   ],
+   "nota": "acostada en la panza; aire entra por abajo"
+  },
+  {
+   "nombre": "Parlante 40 mm 3 W",
+   "centro": [
+    0,
+    -0.006,
+    0.073
+   ],
+   "mm": [
+    40,
+    40,
+    20
+   ],
+   "nota": "mirando hacia abajo, sale entre las patitas"
+  },
+  {
+   "nombre": "Pantalla 3.5\" DSI 640x480 (V)",
+   "centro": [
+    0,
+    -0.045,
+    0.228
+   ],
+   "mm": [
+    85,
+    7,
+    56
+   ],
+   "nota": "pegada detrás de la cara (placa traslúcida)"
+  },
+  {
+   "nombre": "Cámara Pi v3 Wide",
+   "centro": [
+    0,
+    -0.035,
+    0.266
+   ],
+   "mm": [
+    25,
+    12,
+    24
+   ],
+   "nota": "detrás de la pantalla; lente asoma en la frente de la cara"
+  },
+  {
+   "nombre": "Micrófonos XVF3800 (V)",
+   "centro": [
+    0,
+    0.01,
+    0.262
+   ],
+   "mm": [
+    86,
+    35,
+    10
+   ],
+   "nota": "acostada arriba en la cabeza; agujeritos arriba"
+  },
+  {
+   "nombre": "SG90 brazo der",
+   "centro": [
+    0.06185,
+    -0.002,
+    0.1492
+   ],
+   "mm": [
+    22.5,
+    12.2,
+    32.3
+   ],
+   "nota": "eje sale por el costado"
+  },
+  {
+   "nombre": "SG90 brazo izq",
+   "centro": [
+    -0.06185,
+    -0.002,
+    0.1492
+   ],
+   "mm": [
+    22.5,
+    12.2,
+    32.3
+   ],
+   "nota": ""
+  },
+  {
+   "nombre": "Lastre pie der (acero)",
+   "centro": [
+    0.033,
+    -0.006,
+    0.02
+   ],
+   "mm": [
+    26,
+    34,
+    14
+   ],
+   "nota": "~95 g de perdigones de acero con resina"
+  },
+  {
+   "nombre": "Lastre pie izq (acero)",
+   "centro": [
+    -0.033,
+    -0.006,
+    0.02
+   ],
+   "mm": [
+    26,
+    34,
+    14
+   ],
+   "nota": ""
+  },
+  {
+   "nombre": "Bornera 5 V + interruptor",
+   "centro": [
+    0,
+    0.055,
+    0.075
+   ],
+   "mm": [
+    30,
+    15,
+    15
+   ],
+   "nota": "entrada de la fuente atrás, abajo"
+  }
+ ],
+ "margenes": {
+  "Raspberry Pi 5 + disipador activo": 25.5,
+  "Parlante 40 mm 3 W": 21.1,
+  "Pantalla 3.5\" DSI 640x480 (V)": 2.0,
+  "Cámara Pi v3 Wide": 11.0,
+  "Micrófonos XVF3800 (V)": 10.0,
+  "SG90 brazo der": 6.0,
+  "SG90 brazo izq": 6.2,
+  "Lastre pie der (acero)": 2.6,
+  "Lastre pie izq (acero)": 2.6,
+  "Bornera 5 V + interruptor": 7.0
+ },
+ "choques": []
+}

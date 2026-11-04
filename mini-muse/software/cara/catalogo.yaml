@@ -1,0 +1,111 @@
+# Catálogo de expresiones de Ale (CV-007). Contenido de diseño: se itera con el owner viendo la galería.
+# Cada variante: expr (parámetros sobre la cara neutra; ver parametros.py), dur (s de transición), peso,
+# enfriamiento (s sin poder repetirse) y opcional gesto: [[dur, {expr}], …] que se reproduce encima y vuelve.
+# Regla D5 (optimismo): boca.sonrisa ≥ 0 siempre y ojos.sup_ang ≥ −20 (más bajo se lee triste).
+
+momentos:
+  reposo:
+    - {nombre: tranquila, expr: {}, dur: 0.6, peso: 3, enfriamiento: 0}
+    - {nombre: sonrisita, expr: {boca.sonrisa: 1.12, rubor: 1.15}, dur: 0.8, peso: 2, enfriamiento: 8}
+    - {nombre: mirando_suave, expr: {mirada_x: 0.3, mirada_y: 0.1}, dur: 0.7, peso: 1, enfriamiento: 10}
+
+  escucha:
+    - {nombre: atenta, expr: {ojos.escala: 1.06, boca.sonrisa: 0.9}, dur: 0.18, peso: 3, enfriamiento: 0}
+    - {nombre: curiosa_ladeada, expr: {ladeo: 7, ojos.escala: 1.05, boca.sonrisa: 0.8}, dur: 0.25, peso: 2, enfriamiento: 6}
+    - nombre: asintiendo
+      expr: {ojos.escala: 1.04, boca.sonrisa: 0.95}
+      dur: 0.2
+      peso: 2
+      enfriamiento: 8
+      gesto: [[0.18, {subir: -5}], [0.18, {subir: 2}], [0.18, {subir: -4}], [0.2, {subir: 1}]]
+    - {nombre: brillo_nombre, expr: {ojos.escala: 1.12, rubor: 1.3, boca.sonrisa: 1.2}, dur: 0.12, peso: 0, enfriamiento: 0}
+
+  pensando:
+    - {nombre: arriba_izq, expr: {mirada_x: -0.75, mirada_y: -0.85, ojos.sup: 0.08, boca.sonrisa: 0.4, boca.lado: -0.3, boca.ancho: 0.8}, dur: 0.35, peso: 2, enfriamiento: 5}
+    - {nombre: arriba_der, expr: {mirada_x: 0.75, mirada_y: -0.85, ojos.sup: 0.08, boca.sonrisa: 0.4, boca.lado: 0.3, boca.ancho: 0.8}, dur: 0.35, peso: 2, enfriamiento: 5}
+    - {nombre: entrecerrar, expr: {ojos.sup: 0.4, ojos.sup_curva: -0.2, mirada_x: 0.3, mirada_y: -0.35, boca.sonrisa: 0.3, boca.ancho: 0.75}, dur: 0.4, peso: 2, enfriamiento: 6}
+    - {nombre: mmm_boca_lado, expr: {mirada_x: 0.65, mirada_y: -0.7, boca.lado: 0.6, boca.sonrisa: 0.2, boca.ancho: 0.6, boca.tilt: -8}, dur: 0.35, peso: 2, enfriamiento: 6}
+    - nombre: ojos_que_leen
+      expr: {mirada_y: 0.45, ojos.sup: 0.18, boca.sonrisa: 0.5}
+      dur: 0.35
+      peso: 1
+      enfriamiento: 8
+      gesto: [[0.35, {mirada_x: -0.6}], [0.5, {mirada_x: 0.6}], [0.35, {mirada_x: -0.6}], [0.5, {mirada_x: 0.6}], [0.3, {mirada_x: 0}]]
+
+  pensando_largo:
+    - {nombre: ya_casi, expr: {ojos.sup: 0.25, mirada_x: 0.4, mirada_y: -0.6, boca.sonrisa: 0.55}, dur: 0.4, peso: 1, enfriamiento: 0}
+    - {nombre: concentrada, expr: {ojos.sup: 0.32, ojos.sup_ang: 6, mirada_y: -0.2, boca.sonrisa: 0.35, boca.ancho: 0.7}, dur: 0.4, peso: 1, enfriamiento: 0}
+
+  trabajando:
+    - nombre: leyendo
+      expr: {mirada_y: 0.8, ojos.sup: 0.3, boca.sonrisa: 0.55, boca.ancho: 0.85}
+      dur: 0.3
+      peso: 1
+      enfriamiento: 0
+      gesto: [[0.4, {mirada_x: -0.7}], [0.9, {mirada_x: 0.7}], [0.4, {mirada_x: -0.7}], [0.9, {mirada_x: 0.7}], [0.3, {mirada_x: 0}]]
+    - nombre: tecleando
+      expr: {mirada_y: 0.9, ojos.sup: 0.35, boca.sonrisa: 0.6, boca.ancho: 0.8}
+      dur: 0.3
+      peso: 1
+      enfriamiento: 0
+      gesto: [[0.09, {subir: -2}], [0.09, {subir: 0}], [0.09, {subir: -2}], [0.09, {subir: 0}], [0.09, {subir: -2}], [0.09, {subir: 0}], [0.09, {subir: -2}], [0.12, {subir: 0}]]
+
+  hablando:                         # v2: cálida por defecto (Ale es positiva), no neutral plana
+    - {nombre: calida, expr: {boca.sonrisa: 1.12, rubor: 1.18, ojos.escala: 1.03}, dur: 0.2, peso: 2, enfriamiento: 0}
+    - {nombre: animada, expr: {boca.sonrisa: 1.15, rubor: 1.2, ojos.escala: 1.05, ojos.inf: 0.12, ojos.inf_curva: 0.4}, dur: 0.2, peso: 1, enfriamiento: 0}
+
+  problema:
+    - {nombre: confundida, expr: {ladeo: -8, oi.escala: 1.1, od.escala: 0.92, boca.sonrisa: 0.25, boca.lado: 0.3, boca.ancho: 0.8}, dur: 0.35, peso: 1, enfriamiento: 0}
+    - {nombre: confundida_2, expr: {ladeo: 6, ojos.sup: 0.12, mirada_x: -0.3, boca.sonrisa: 0.3, boca.tilt: 6, boca.ancho: 0.75}, dur: 0.35, peso: 1, enfriamiento: 0}
+
+# Gestos breves al empezar cada frase mientras habla (v2, para que no hable "congelada").
+gestos_habla:
+  - {nombre: asentir_corto, peso: 3, gesto: [[0.14, {subir: -4}], [0.16, {subir: 1}], [0.14, {}]]}
+  - {nombre: ladeo_breve, peso: 2, gesto: [[0.25, {ladeo: 5}], [0.6, {}], [0.3, {ladeo: 0}]]}
+  - {nombre: mirar_y_volver, peso: 2, gesto: [[0.18, {mirada_x: 0.5, mirada_y: -0.3}], [0.45, {}], [0.2, {mirada_x: 0, mirada_y: 0}]]}
+  - {nombre: enfasis, peso: 2, gesto: [[0.12, {ojos.escala: 1.12, subir: 3}], [0.35, {}], [0.2, {ojos.escala: 1.0, subir: 0}]]}
+  - {nombre: ladeo_pregunta, peso: 1, pregunta: true, gesto: [[0.3, {ladeo: 8, ojos.escala: 1.08}], [0.9, {}], [0.3, {ladeo: 0, ojos.escala: 1.0}]]}
+
+# Gestos sueltos del reposo (cada 6–15 s, por peso). bostecito solo tras ≥ 45 s sin nadie (D13).
+micro_gestos:
+  - nombre: parpadeo_doble
+    peso: 3
+    parpadeo_doble: true
+  - nombre: mirar_alrededor
+    peso: 3
+    gesto: [[0.25, {mirada_x: -0.8}], [0.9, {}], [0.3, {mirada_x: 0.8}], [0.9, {}], [0.3, {mirada_x: 0}]]
+  - nombre: giro_jolly
+    peso: 2
+    gesto: [[0.7, {giro: 0.7, mirada_x: 0.5}], [1.0, {}], [1.2, {giro: -0.7, mirada_x: -0.5}], [1.0, {}], [0.7, {giro: 0, mirada_x: 0}]]
+  - nombre: bostecito
+    peso: 1
+    tras_inactividad: 45
+    gesto: [[0.5, {ojos.sup: 0.5, boca.apertura: 0.35, boca.sonrisa: 0.3, boca.ancho: 0.7, subir: 3}], [0.9, {ojos.sup: 0.65, boca.apertura: 0.55}], [0.5, {ojos.sup: 0.2, boca.apertura: 0}], [0.4, {}]]
+
+emociones:
+  neutral:
+    - {nombre: neutral, expr: {}, dur: 0.3, peso: 1, enfriamiento: 0}
+  feliz:
+    - {nombre: sonrisa_grande, expr: {boca.sonrisa: 1.25, rubor: 1.25}, dur: 0.25, peso: 2, enfriamiento: 4}
+    - {nombre: ojitos_felices, expr: {ojos.inf: 0.45, ojos.inf_curva: 1.0, boca.sonrisa: 1.3, rubor: 1.4}, dur: 0.25, peso: 2, enfriamiento: 4}
+    - nombre: saltito
+      expr: {ojos.escala: 1.05, boca.sonrisa: 1.2, rubor: 1.2}
+      dur: 0.2
+      peso: 1
+      enfriamiento: 8
+      gesto: [[0.12, {subir: 6}], [0.18, {subir: 0}]]
+  orgullosa:
+    - {nombre: pechito, expr: {ojos.inf: 0.35, ojos.inf_curva: 0.8, ojos.sup: 0.15, boca.sonrisa: 1.35, rubor: 1.5, subir: 4}, dur: 0.3, peso: 2, enfriamiento: 4}
+    - {nombre: satisfecha, expr: {ladeo: -4, ojos.sup: 0.2, boca.sonrisa: 1.3, rubor: 1.4}, dur: 0.3, peso: 2, enfriamiento: 4}
+  curiosa:
+    - {nombre: ladeada, expr: {ladeo: 7, ojos.escala: 1.07, boca.sonrisa: 0.8}, dur: 0.25, peso: 2, enfriamiento: 4}
+    - {nombre: un_ojo_grande, expr: {ladeo: -6, oi.escala: 1.08, boca.sonrisa: 0.9}, dur: 0.25, peso: 1, enfriamiento: 6}
+  pensativa:
+    - {nombre: mirada_arriba, expr: {mirada_x: 0.5, mirada_y: -0.5, ojos.sup: 0.2, boca.sonrisa: 0.5}, dur: 0.3, peso: 2, enfriamiento: 4}
+    - {nombre: boca_lado, expr: {mirada_x: -0.4, mirada_y: -0.4, boca.lado: -0.4, boca.sonrisa: 0.4, boca.ancho: 0.75}, dur: 0.3, peso: 1, enfriamiento: 6}
+  preocupada:
+    - {nombre: con_plan, expr: {ojos.sup: 0.18, ojos.sup_ang: -14, boca.sonrisa: 0.3, boca.ancho: 0.85, rubor: 0.8}, dur: 0.3, peso: 2, enfriamiento: 4}
+    - {nombre: atenta_seria, expr: {ojos.sup: 0.12, ojos.sup_ang: -10, mirada_y: 0.2, boca.sonrisa: 0.45}, dur: 0.3, peso: 1, enfriamiento: 4}
+  confundida:
+    - {nombre: ladeo_ojo, expr: {ladeo: -8, oi.escala: 1.1, od.escala: 0.92, boca.sonrisa: 0.25, boca.lado: 0.3, boca.ancho: 0.8}, dur: 0.3, peso: 2, enfriamiento: 4}
+    - {nombre: hmm, expr: {ladeo: 6, ojos.sup: 0.12, mirada_x: -0.3, boca.sonrisa: 0.3, boca.tilt: 6, boca.ancho: 0.75}, dur: 0.3, peso: 1, enfriamiento: 4}

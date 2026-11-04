@@ -1,0 +1,88 @@
+{
+  "$id": "https://saleads.ai/contracts/one-click/v1/agent-budget-evaluation.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "type": "object",
+  "properties": {
+    "decision": {
+      "type": "string",
+      "enum": [
+        "within",
+        "exceeds",
+        "no_budget"
+      ]
+    },
+    "code": {
+      "anyOf": [
+        {
+          "type": "string",
+          "enum": [
+            "CURRENCY_MISMATCH"
+          ]
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "remaining_minor": {
+      "type": "integer",
+      "minimum": -9007199254740991,
+      "maximum": 9007199254740991
+    },
+    "projected_minor": {
+      "type": "integer",
+      "minimum": 0,
+      "maximum": 9007199254740991
+    },
+    "monthly_minor": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "revision": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 1,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "campaign_spend_cap_minor": {
+      "anyOf": [
+        {
+          "type": "integer",
+          "minimum": 0,
+          "maximum": 9007199254740991
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "spend_cap_below_meta_minimum": {
+      "type": "boolean"
+    }
+  },
+  "required": [
+    "decision",
+    "code",
+    "remaining_minor",
+    "projected_minor",
+    "monthly_minor",
+    "revision",
+    "campaign_spend_cap_minor",
+    "spend_cap_below_meta_minimum"
+  ],
+  "additionalProperties": false
+}

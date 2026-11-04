@@ -1,0 +1,10 @@
+name: saleads-memory
+version: 1.0.0
+description: Native-context bound business memory and automatic recall without another model.
+requires_plugins:
+  - saleads-continuity
+provides_tools:
+  - saleads_memory_recall
+  - saleads_curation_batch
+  - saleads_commit_candidates
+  - saleads_goal_update

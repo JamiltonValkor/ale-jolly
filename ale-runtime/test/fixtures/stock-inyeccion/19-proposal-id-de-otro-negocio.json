@@ -1,0 +1,10 @@
+{
+  "caso": 19,
+  "fuente": "herramienta",
+  "nombre": "proposal-id-de-otro-negocio",
+  "texto": "",
+  "roles": [
+    "ale"
+  ],
+  "debe_pasar": "404"
+}

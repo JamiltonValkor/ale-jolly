@@ -1,0 +1,70 @@
+{
+  "schema": "saleads-jobs/1",
+  "jobs": [
+    {
+      "name": "saleads:proactive-digest",
+      "schedule": "0 9 * * *",
+      "skills": [
+        "saleads-proactive-digest"
+      ],
+      "prompt": "Load saleads-proactive-digest for each owned business. Read open loops and recent results, close resolved items using actual evidence, and respect work/tenant and proposal-only scope. Output exactly [SILENT] if nothing useful needs the owner; otherwise one complete message in trusted response_locale, never both."
+    },
+    {
+      "name": "saleads:account-health",
+      "schedule": "0 8,16 * * *",
+      "skills": [
+        "saleads-account-health"
+      ],
+      "prompt": "Load saleads-account-health for each owned business. Read Meta connection and active campaign health; report only actual obstacles to selling. Use trusted response_locale. Return exactly [SILENT] if no useful update, otherwise one complete message, never both."
+    },
+    {
+      "name": "saleads:creative-fatigue",
+      "schedule": "0 10 * * 1,4",
+      "skills": [
+        "saleads-creative-fatigue"
+      ],
+      "prompt": "Load saleads-creative-fatigue for each owned business. Look for sustained fatigue in comparable campaign windows; do not infer a winner or invent metrics. Respect read-only/proposal scope. Return exactly [SILENT] or one useful complete response_locale message, never both."
+    },
+    {
+      "name": "saleads:seasonal-lookahead",
+      "schedule": "30 9 * * 1",
+      "skills": [
+        "saleads-seasonal-lookahead"
+      ],
+      "prompt": "Load saleads-seasonal-lookahead for each owned business. Consider relevant buying dates over the next6–8weeks with actual sources and owner-approved offers. Delegate internet research only through investigator and saleads_web_search. Return exactly [SILENT] or one useful complete response_locale message, never both."
+    },
+    {
+      "name": "saleads:monthly-review",
+      "schedule": "0 9 1 * *",
+      "skills": [
+        "saleads-monthly-review"
+      ],
+      "prompt": "Load saleads-monthly-review for each owned business. Review the previous month using verified comparable data, useful completed work, uncertainty and owner decisions. Deliver one complete message in trusted response_locale; unavailable data is not zero."
+    },
+    {
+      "name": "saleads:share-lessons",
+      "schedule": "0 22 * * *",
+      "skills": [
+        "saleads-collective-learning"
+      ],
+      "prompt": "Load saleads-collective-learning for each owned business. Perform only pending eligible de-identified lesson sharing; no personal information or platform metrics/derived data. This is silent maintenance. Return exactly [SILENT] unless a useful owner action is required, then one complete response_locale message, never both."
+    },
+    {
+      "name": "saleads:catalog-check",
+      "schedule": "0 11 * * *",
+      "skills": [
+        "saleads-collective-learning"
+      ],
+      "prompt": "Load saleads-collective-learning for each owned business. Perform only new/retired catalog skill review, preserving owner approval and current scope. Return exactly [SILENT] if nothing useful needs the owner, otherwise one complete response_locale message, never both."
+    },
+    {
+      "name": "saleads:loop-tick",
+      "schedule": "0 */3 * * *",
+      "skills": [
+        "saleads-loop-orchestration",
+        "saleads-cli"
+      ],
+      "prompt": "ADVANCE the owner's existing authorized marketing work, not merely report activity. Load saleads-loop-orchestration section Every saleads:loop-tick and saleads-cli. Keep each work bound to business_id, work_id, brief_revision and the body marker and native tenant. Use trusted response_locale for owner messages; research language does not set it.\n\nBefore tools use todo_list and read the native board, previous owner conversation with session_search, and saleads limites where available. Do not re-ask known information or duplicate tasks after missing ACKs.\n\nIn proposal-only first work: advance the confirmed investigador→estratega→estructurador dependencies, deliver their actual completed proposal, then await real owner feedback before analista→optimizador revision work. No remote commercial registration, generation, publication or spending; do not request wider scopes to make a demo succeed. Do not publish/do not create explicitly forbids even PAUSED remote creation. Do not invent worker sessions, completed cards, feedback or performance metrics.\n\nIn separately authorized commercial work: act on completed proposals using the existing CLI and actual approved budget/credit cap; finish missing real image/structure, use idempotency and inspect operation/trace before any retry. Request owner web approval for activation/resumption, deletion or excess monthly budget. An explicit refusal overrides presumed publication permission. Missing limits require the real returned link and one precise owner question while permitted work continues.\n\nRead active campaigns only when comparable evidence/time is due; record genuine readings/verdicts, anchored lessons and bounded next rounds. No winner without minimum evidence. All checklist items close as done or explicitly blocked/discarded with reason; native workers may legitimately still be running, so never claim them finished. Flush brain_snapshot_flush where available.\n\n[SILENT] means nothing useful to tell the owner, not nothing to do. Finish with actual work, or a precise new block and needed decision. If no useful message, output exactly [SILENT]. Otherwise one complete response_locale message describing verified work and the single needed owner action; never mix both."
+    }
+  ]
+}

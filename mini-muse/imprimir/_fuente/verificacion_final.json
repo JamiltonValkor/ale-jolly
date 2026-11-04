@@ -1,0 +1,148 @@
+{
+ "componentes": {
+  "SG90 der": {
+   "P1_cabeza": 0.0,
+   "P2_cuerpo": 0.0,
+   "P3_cara": 0.0,
+   "P4_brazo_derecho": 0.0,
+   "P5_brazo_izquierdo": 0.0
+  },
+  "SG90 der orejas": {
+   "P1_cabeza": 0.0,
+   "P2_cuerpo": 0.0,
+   "P3_cara": 0.0,
+   "P4_brazo_derecho": 0.0,
+   "P5_brazo_izquierdo": 0.0
+  },
+  "SG90 izq": {
+   "P1_cabeza": 0.0,
+   "P2_cuerpo": 0.0,
+   "P3_cara": 0.0,
+   "P4_brazo_derecho": 0.0,
+   "P5_brazo_izquierdo": 0.0
+  },
+  "SG90 izq orejas": {
+   "P1_cabeza": 0.0,
+   "P2_cuerpo": -0.0,
+   "P3_cara": 0.0,
+   "P4_brazo_derecho": 0.0,
+   "P5_brazo_izquierdo": 0.0
+  },
+  "Pantalla: placa 85.5×56": {
+   "P1_cabeza": 0.0,
+   "P2_cuerpo": 0.0,
+   "P3_cara": 0.0,
+   "P4_brazo_derecho": 0.0,
+   "P5_brazo_izquierdo": 0.0
+  },
+  "Pantalla: conectores USB/HDMI/jack (abajo)": {
+   "P1_cabeza": 0.0,
+   "P2_cuerpo": 0.0,
+   "P3_cara": 0.0,
+   "P4_brazo_derecho": 0.0,
+   "P5_brazo_izquierdo": 0.0
+  },
+  "Pantalla: conector 26 pines (atrás arriba)": {
+   "P1_cabeza": 0.0,
+   "P2_cuerpo": 0.0,
+   "P3_cara": 0.0,
+   "P4_brazo_derecho": 0.0,
+   "P5_brazo_izquierdo": 0.0
+  },
+  "Raspberry Pi 5 + cooler": {
+   "P1_cabeza": 0.0,
+   "P2_cuerpo": 0.0,
+   "P3_cara": 0.0,
+   "P4_brazo_derecho": 0.0,
+   "P5_brazo_izquierdo": 0.0
+  },
+  "Parlante Gikfun 40 mm (redondo)": {
+   "P1_cabeza": 0.0,
+   "P2_cuerpo": 0.0,
+   "P3_cara": 0.0,
+   "P4_brazo_derecho": 0.0,
+   "P5_brazo_izquierdo": 0.0
+  },
+  "Amplificador (≤44×34×12)": {
+   "P1_cabeza": 0.0,
+   "P2_cuerpo": 0.0,
+   "P3_cara": 0.0,
+   "P4_brazo_derecho": 0.0,
+   "P5_brazo_izquierdo": 0.0
+  },
+  "Cámara USB 38×38": {
+   "P1_cabeza": 0.0,
+   "P2_cuerpo": 0.0,
+   "P3_cara": 0.0,
+   "P4_brazo_derecho": 0.0,
+   "P5_brazo_izquierdo": 0.0
+  },
+  "Lastre pie der": {
+   "P1_cabeza": 0.0,
+   "P2_cuerpo": 0.0,
+   "P3_cara": 0.0,
+   "P4_brazo_derecho": 0.0,
+   "P5_brazo_izquierdo": 0.0
+  },
+  "Lastre pie izq": {
+   "P1_cabeza": 0.0,
+   "P2_cuerpo": 0.0,
+   "P3_cara": 0.0,
+   "P4_brazo_derecho": 0.0,
+   "P5_brazo_izquierdo": 0.0
+  },
+  "Pi 5 (modelo oficial)": {
+   "P1_cabeza": 0.0,
+   "P2_cuerpo": 0.0,
+   "P3_cara": 0.0,
+   "P4_brazo_derecho": 0.0,
+   "P5_brazo_izquierdo": 0.0
+  }
+ },
+ "piezas": {
+  "P1_cabeza x P2_cuerpo": -0.0,
+  "P1_cabeza x P3_cara": 0.0,
+  "P1_cabeza x P4_brazo_derecho": 0.0,
+  "P1_cabeza x P5_brazo_izquierdo": 0.0,
+  "P2_cuerpo x P3_cara": 0.0,
+  "P2_cuerpo x P4_brazo_derecho": 0.0,
+  "P2_cuerpo x P5_brazo_izquierdo": 0.0,
+  "P3_cara x P4_brazo_derecho": 0.0,
+  "P3_cara x P5_brazo_izquierdo": 0.0,
+  "P4_brazo_derecho x P5_brazo_izquierdo": 0.0
+ },
+ "barrido": {
+  "P4_brazo_derecho 0": 0.0,
+  "P4_brazo_derecho 10": 0.0,
+  "P4_brazo_derecho 20": 0.0,
+  "P4_brazo_derecho 30": 0.0,
+  "P4_brazo_derecho 40": 0.0,
+  "P4_brazo_derecho 50": 0.0,
+  "P4_brazo_derecho 60": 0.0,
+  "P4_brazo_derecho 70": 0.0,
+  "P4_brazo_derecho 80": 0.0,
+  "P4_brazo_derecho 90": 0.0,
+  "P4_brazo_derecho 100": 0.0,
+  "P4_brazo_derecho 110": 0.0,
+  "P4_brazo_derecho 120": 0.0,
+  "P4_brazo_derecho 130": 0.0,
+  "P4_brazo_derecho 140": 0.0,
+  "P4_brazo_derecho 150": 0.0,
+  "P5_brazo_izquierdo 0": 0.0,
+  "P5_brazo_izquierdo 10": 0.0,
+  "P5_brazo_izquierdo 20": 0.0,
+  "P5_brazo_izquierdo 30": 0.0,
+  "P5_brazo_izquierdo 40": 0.0,
+  "P5_brazo_izquierdo 50": 0.0,
+  "P5_brazo_izquierdo 60": 0.0,
+  "P5_brazo_izquierdo 70": 0.0,
+  "P5_brazo_izquierdo 80": 0.0,
+  "P5_brazo_izquierdo 90": 0.0,
+  "P5_brazo_izquierdo 100": 0.0,
+  "P5_brazo_izquierdo 110": 0.0,
+  "P5_brazo_izquierdo 120": 0.0,
+  "P5_brazo_izquierdo 130": 0.0,
+  "P5_brazo_izquierdo 140": 0.0,
+  "P5_brazo_izquierdo 150": 0.0
+ }
+}
