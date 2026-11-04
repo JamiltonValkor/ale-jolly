@@ -7,7 +7,7 @@
 set -u
 cd "$(dirname "$0")/.."
 [ $# -eq 0 ] && set -- jolly-sim evidence
-PUBLICOS='a6b8e93d-386f-4141-96ff-4b49e137728a|00000000-0000-4000-a000-000000000001'   # negocio y usuario de demo (CONTRATO-LOCAL.md)
+PUBLICOS='a6b8e93d-386f-4141-96ff-4b49e137728a|00000000-0000-4000-a000-000000000001|00000000-0000-4000-8000-000000000001'   # negocio y usuario de demo (CONTRATO-LOCAL.md) y el id de prueba de ale_falso
 REGLAS=(
   'token de dispositivo|ale_dev_[A-Za-z0-9_-]{20,}'
   'llave sk-|sk-[A-Za-z0-9_-]{16,}'
