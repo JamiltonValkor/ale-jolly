@@ -62,11 +62,25 @@ async function demoToken(): Promise<CachedToken | null> {
   return token
 }
 
+/** El nombre que trae el JWT de saleads-sim («… (simulado)»), si viene. */
+function tokenName(accessToken: string): string {
+  try {
+    const payload = JSON.parse(
+      Buffer.from(accessToken.split('.')[1] ?? '', 'base64url').toString('utf8')
+    ) as { name?: unknown }
+    if (typeof payload.name === 'string' && payload.name.trim())
+      return payload.name.trim()
+  } catch {
+    // Token opaco (LOCAL_SESSION_ACCESS_TOKEN): se usa el nombre demo.
+  }
+  return DEMO_USER.name
+}
+
 export async function getSession(): Promise<ExtendedSession | null> {
   const token = await demoToken()
   if (!token) return null
   return {
-    user: { ...DEMO_USER, roles: ['user'] },
+    user: { ...DEMO_USER, name: tokenName(token.accessToken), roles: ['user'] },
     expires: new Date(token.expiresAt).toISOString(),
     expiresAt: token.expiresAt,
     accessToken: token.accessToken,
