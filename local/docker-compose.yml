@@ -65,7 +65,11 @@ services:
       - "8443:443"
 
   ale-runtime:
-    build: ${ALE_RUNTIME_SRC:?ALE_RUNTIME_SRC}
+    build:
+      context: ${ALE_RUNTIME_SRC:?ALE_RUNTIME_SRC}
+      args:
+        # Nativo en el equipo del evaluador (demo.sh lo detecta); producción usa linux/amd64.
+        BUILD_PLATFORM: ${BUILD_PLATFORM:-linux/amd64}
     image: ale-jolly/ale-runtime:local
     restart: unless-stopped
     ports:
@@ -82,7 +86,8 @@ services:
       KEYCLOAK_REVOKE_URL: http://saleads-sim:8090/realms/sale-ads/protocol/openid-connect/revoke
       KEYCLOAK_AUTHORIZE_URL: https://saleads.local/realms/sale-ads/protocol/openid-connect/auth
       OIDC_ALLOWED_CLIENTS: front
-      ASSISTANT_OAUTH_CLIENT_ID: mcp-saleads-assistant-dev
+      # Cliente dedicado de Meta Assistant: el BFF del front solo acepta este client_id.
+      ASSISTANT_OAUTH_CLIENT_ID: mcp-saleads-meta-assistant-dev
       ASSISTANT_OAUTH_REDIRECT_URI: http://localhost:${FRONT_PORT:-3000}/api/meta-assistant/oauth/callback
       MCP_URL: https://saleads.local/mcp
       AGENT_API_URL: https://saleads.local

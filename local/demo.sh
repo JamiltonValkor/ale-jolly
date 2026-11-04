@@ -10,6 +10,8 @@ cd "$(dirname "$0")"
 : "${ALE_RUNTIME_SRC:=$(cd .. && pwd)/vendor/ale-runtime}"
 export ALE_RUNTIME_SRC
 export ALE_CA_CERT="$PWD/certs/ca.crt"
+case "$(uname -m)" in arm64|aarch64) : "${BUILD_PLATFORM:=linux/arm64}" ;; *) : "${BUILD_PLATFORM:=linux/amd64}" ;; esac
+export BUILD_PLATFORM
 COMPOSE=(docker compose -p ale-jolly -f docker-compose.yml)
 
 ok() { printf '  \033[32m✓\033[0m %s\n' "$1"; }

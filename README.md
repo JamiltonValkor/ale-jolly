@@ -2,6 +2,10 @@
 
 An AI marketing team with a body, built on Meta models. Work in progress for the Meta Hackathon 2026: this README is completed at the end.
 
+## Run it
+
+Easiest: open this repo with your AI coding agent (Claude Code, Codex, Cursor…) and ask it to follow [`AGENTS.md`](AGENTS.md). By hand: `cd local && ./demo.sh up`, then open `http://localhost:3000`. You only need Docker and a Meta API key.
+
 ## Layout
 
 | Folder | What lives there |
