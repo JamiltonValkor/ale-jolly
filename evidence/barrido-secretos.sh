@@ -34,10 +34,11 @@ for regla in "${REGLAS[@]}"; do
   done < <(if [ "$nombre" = UUID ]; then DATOS=(--include='*.json' --include='*.jsonl' --include='*.md' --include='*.txt' --include='*.log' --include='*.tsv'); else DATOS=(); fi
            grep -rIlE "${EXCLUIR[@]}" ${DATOS[@]+"${DATOS[@]}"} "$patron" "$@" 2>/dev/null)
 done
-# Ningún .env, .tgz ni credencial versionada en las rutas revisadas.
+# Ningún .env, .tgz ni credencial que git pueda versionar en las rutas revisadas (los ignorados, como el .env del robot, no cuentan).
 while IFS= read -r archivo; do
   echo "❌ archivo prohibido: $archivo"; hallazgos=$((hallazgos + 1))
-done < <(find "$@" \( -name '*.env' -o -name '.env' -o -name '*.tgz' -o -name '*credencial*' \) -not -path '*/.venv/*' 2>/dev/null)
+done < <(find "$@" \( -name '*.env' -o -name '.env' -o -name '*.tgz' -o -name '*credencial*' \) -not -path '*/.venv/*' 2>/dev/null |
+         while IFS= read -r f; do git check-ignore -q "$f" 2>/dev/null || echo "$f"; done)
 IFS=: read -ra REALES <<< "${JOLLY_ENV_REALES:-}"
 for env in "${REALES[@]:-}"; do
   [ -f "$env" ] || continue
