@@ -1,0 +1,36 @@
+{"tema": "oido/evento", "t": 10539.162895583, "t_pub": 10539.162895583, "seq": 2, "tipo": "habla_inicio", "turno": "aecb62-0", "t_rec": 10539.163993}
+{"tema": "oido/evento", "t": 10539.988241875, "t_pub": 10539.988241875, "seq": 4, "tipo": "nombre_detectado", "turno": "aecb62-0", "texto": "Jolly,", "t_rec": 10539.989008166}
+{"tema": "oido/evento", "t": 10541.570412875, "t_pub": 10541.570412875, "seq": 8, "tipo": "habla_fin", "turno": "aecb62-0", "t_rec": 10541.57134275}
+{"tema": "oido/evento", "t": 10541.57067175, "t_pub": 10541.57067175, "seq": 9, "tipo": "aceptada", "turno": "aecb62-0", "instruccion": "cuántas ventas llevo hoy?", "en_conversacion": false, "t_rec": 10541.571366916}
+{"tema": "ale/evento", "t": 10541.572263916, "t_pub": 10541.572263916, "seq": 10, "tipo": "pregunta", "texto": "cuántas ventas llevo hoy?", "turno": "aecb62-0", "t_rec": 10541.572730583}
+{"tema": "ale/evento", "t": 10541.977330041, "t_pub": 10541.977330041, "seq": 11, "tipo": "herramienta_inicio", "nombre": "saleads_get_account_overview", "turno": "aecb62-0", "t_rec": 10541.977953833}
+{"tema": "ale/evento", "t": 10542.287310333, "t_pub": 10542.287310333, "seq": 12, "tipo": "herramienta_fin", "nombre": "saleads_get_account_overview", "ok": true, "turno": "aecb62-0", "t_rec": 10542.287899125}
+{"tema": "ale/evento", "t": 10543.09754275, "t_pub": 10543.09754275, "seq": 13, "tipo": "primer_token", "turno": "aecb62-0", "t_rec": 10543.098286041}
+{"tema": "voz/turno_inicio", "t": 10543.6995515, "t_pub": 10543.681945083, "seq": 15, "turno": "aecb62-0", "contexto": "turno-ec6001d37c6a", "idioma": "es", "t_rec": 10543.682668791}
+{"tema": "voz/frase", "t": 10543.8079265, "t_pub": 10543.682003916, "seq": 16, "texto": "Te ayudo a vender más con anuncios en Meta.", "es_relleno": false, "idioma": "es", "turno": "aecb62-0", "contexto": "turno-ec6001d37c6a", "fuente": "timestamps", "t_rec": 10543.682688458}
+{"tema": "ale/evento", "t": 10544.240793041, "t_pub": 10544.240793041, "seq": 34, "tipo": "fin", "turno": "aecb62-0", "t_rec": 10544.24115625}
+{"tema": "voz/frase", "t": 10547.074176750013, "t_pub": 10544.337016708, "seq": 39, "texto": "Reviso tus campañas cada día y te aviso qué mejorar.", "es_relleno": false, "idioma": "es", "turno": "aecb62-0", "contexto": "turno-ec6001d37c6a", "fuente": "timestamps", "t_rec": 10544.337439416}
+{"tema": "voz/frase", "t": 10551.068010083358, "t_pub": 10544.917559041, "seq": 60, "texto": "Así tu negocio crece sin que pierdas tiempo.", "es_relleno": false, "idioma": "es", "turno": "aecb62-0", "contexto": "turno-ec6001d37c6a", "fuente": "timestamps", "t_rec": 10544.918063916}
+{"tema": "voz/turno_fin", "t": 10553.312635083365, "t_pub": 10545.232028666, "seq": 73, "turno": "aecb62-0", "contexto": "turno-ec6001d37c6a", "con_timestamps": true, "t_rec": 10545.232486}
+{"tema": "oido/evento", "t": 10553.369140208, "t_pub": 10553.369140208, "seq": 74, "tipo": "ventana", "abierta_hasta": 10573.369128166, "turno": "aecb62-0", "t_rec": 10553.369874166}
+{"tema": "ale/evento", "t": 10554.952567666, "t_pub": 10554.952567666, "seq": 75, "tipo": "aviso", "id": 100, "texto": "¿Te llegaron 22 o 24?", "pregunta": true, "turno": "aviso-100", "t_rec": 10554.9536355}
+{"tema": "voz/turno_inicio", "t": 10555.189535540998, "t_pub": 10555.177316541, "seq": 77, "turno": "aviso-100", "contexto": "turno-0613afb4e0fd", "idioma": "es", "t_rec": 10555.17809975}
+{"tema": "voz/frase", "t": 10555.266952207665, "t_pub": 10555.177363791, "seq": 78, "texto": "¿Te llegaron 22 o 24?", "es_relleno": false, "idioma": "es", "turno": "aviso-100", "contexto": "turno-0613afb4e0fd", "fuente": "timestamps", "t_rec": 10555.178119875}
+{"tema": "voz/turno_fin", "t": 10557.232907041005, "t_pub": 10555.476237458, "seq": 90, "turno": "aviso-100", "contexto": "turno-0613afb4e0fd", "con_timestamps": true, "t_rec": 10555.476657833}
+{"tema": "oido/evento", "t": 10557.282210083, "t_pub": 10557.282210083, "seq": 91, "tipo": "ventana", "abierta_hasta": 10577.282183875, "turno": "aviso-100", "t_rec": 10557.28326175}
+{"tema": "oido/evento", "t": 10558.781337958, "t_pub": 10558.781337958, "seq": 92, "tipo": "habla_inicio", "turno": "aecb62-1", "t_rec": 10558.781927708}
+{"tema": "oido/evento", "t": 10560.077470708, "t_pub": 10560.077470708, "seq": 95, "tipo": "habla_fin", "turno": "aecb62-1", "t_rec": 10560.077978958}
+{"tema": "oido/evento", "t": 10560.07761175, "t_pub": 10560.07761175, "seq": 96, "tipo": "aceptada", "turno": "aecb62-1", "instruccion": "Llegaron veintidós.", "en_conversacion": true, "t_rec": 10560.0781565}
+{"tema": "ale/evento", "t": 10560.078443375, "t_pub": 10560.078443375, "seq": 97, "tipo": "relleno", "clase": "inicio", "frase": "Va, ya lo miro.", "turno": "aecb62-1", "t_rec": 10560.078892333}
+{"tema": "ale/evento", "t": 10560.080269541, "t_pub": 10560.080269541, "seq": 98, "tipo": "pregunta", "texto": "Llegaron veintidós.", "turno": "aecb62-1", "t_rec": 10560.0816685}
+{"tema": "voz/frase", "t": 10560.089523041, "t_pub": 10560.081342875, "seq": 100, "texto": "Va, ya lo miro.", "es_relleno": true, "idioma": "es", "turno": "aecb62-1", "contexto": null, "fuente": "relleno", "t_rec": 10560.0817625}
+{"tema": "ale/evento", "t": 10560.486572916, "t_pub": 10560.486572916, "seq": 101, "tipo": "herramienta_inicio", "nombre": "saleads_get_account_overview", "turno": "aecb62-1", "t_rec": 10560.4871385}
+{"tema": "ale/evento", "t": 10560.793958625, "t_pub": 10560.793958625, "seq": 102, "tipo": "herramienta_fin", "nombre": "saleads_get_account_overview", "ok": true, "turno": "aecb62-1", "t_rec": 10560.794621583}
+{"tema": "ale/evento", "t": 10561.601983541, "t_pub": 10561.601983541, "seq": 103, "tipo": "primer_token", "turno": "aecb62-1", "t_rec": 10561.602630958}
+{"tema": "voz/turno_inicio", "t": 10562.179524499, "t_pub": 10562.164190458, "seq": 105, "turno": "aecb62-1", "contexto": "turno-f014a5cc921c", "idioma": "es", "t_rec": 10562.1645165}
+{"tema": "voz/frase", "t": 10562.845147332004, "t_pub": 10562.336798125, "seq": 110, "texto": "Te ayudo a vender más con anuncios en Meta.", "es_relleno": false, "idioma": "es", "turno": "aecb62-1", "contexto": "turno-f014a5cc921c", "fuente": "timestamps", "t_rec": 10562.336983875}
+{"tema": "ale/evento", "t": 10562.739162875, "t_pub": 10562.739162875, "seq": 125, "tipo": "fin", "turno": "aecb62-1", "t_rec": 10562.739725958}
+{"tema": "voz/frase", "t": 10566.095938998682, "t_pub": 10562.930296333, "seq": 133, "texto": "Reviso tus campañas cada día y te aviso qué mejorar.", "es_relleno": false, "idioma": "es", "turno": "aecb62-1", "contexto": "turno-f014a5cc921c", "fuente": "timestamps", "t_rec": 10562.930827875}
+{"tema": "voz/frase", "t": 10570.786397332029, "t_pub": 10563.592007625, "seq": 157, "texto": "Así tu negocio crece sin que pierdas tiempo.", "es_relleno": false, "idioma": "es", "turno": "aecb62-1", "contexto": "turno-f014a5cc921c", "fuente": "timestamps", "t_rec": 10563.592664833}
+{"tema": "voz/turno_fin", "t": 10573.743063998707, "t_pub": 10564.070950083, "seq": 174, "turno": "aecb62-1", "contexto": "turno-f014a5cc921c", "con_timestamps": true, "t_rec": 10564.071398041}
+{"tema": "oido/evento", "t": 10573.751866958, "t_pub": 10573.751866958, "seq": 175, "tipo": "ventana", "abierta_hasta": 10593.751854291, "turno": "aecb62-1", "t_rec": 10573.75269625}
