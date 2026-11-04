@@ -6,6 +6,8 @@ An AI marketing team with a body, built on Meta models. Work in progress for the
 
 Why this is a slim version of what runs in production, what is real and what is simulated, and where the robot and its 3D design live: [`docs/SLIM-VERSION.md`](docs/SLIM-VERSION.md).
 
+Step-by-step test of the whole product, for a person or an AI agent: [`docs/E2E-GUIDE.md`](docs/E2E-GUIDE.md).
+
 Easiest: open this repo with your AI coding agent (Claude Code, Codex, Cursor…) and ask it to follow [`AGENTS.md`](AGENTS.md). By hand: `cd local && ./demo.sh up`, then open `http://localhost:3000`. You only need Docker and a Meta API key.
 
 ## Layout

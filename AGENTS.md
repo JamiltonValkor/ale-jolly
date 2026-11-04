@@ -30,6 +30,8 @@ Anything simulated is labeled «simulated» or «recorded from the real robot» 
 | 7 | Optional, Jolly: `../jolly-sim/start.sh` | Jolly's face opens and shows a pairing code. In the web app, **Compañero físico** → enter the code. Jolly then listens, counts products with SAM and talks |
 | 8 | Optional, no hardware: `../jolly-sim/start.sh --replay` | Jolly replays a recorded trace, labeled as such |
 
+After step 6, walk the person through the full product with [`docs/E2E-GUIDE.md`](docs/E2E-GUIDE.md): it has what to do, what to see and how to check each step.
+
 ## If something fails
 
 | Symptom | Cause | Fix |
