@@ -306,6 +306,8 @@ class CurationQueue:
         for item in [*candidates, *experiences]:
             if not set(item.get("source_event_ids") or []) <= allowed:
                 raise MemoryError("candidate_source_outside_batch")
+        for item in candidates:  # validate the whole batch before the first write (see check_candidate)
+            self.memory.check_candidate(context, item)
         committed_ids = []
         for item in candidates:
             committed_ids.append(self.memory.candidate(context, item)["record_id"])

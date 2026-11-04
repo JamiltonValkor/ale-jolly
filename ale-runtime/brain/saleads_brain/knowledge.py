@@ -191,6 +191,18 @@ class MemoryWriter:
         return excluded
 
     def candidate(self, context: MemoryContext, candidate: dict[str, Any]) -> dict[str, Any]:
+        admitted, sources, provenance, verification = self._admit(context, candidate)
+        return self._commit(context, admitted, candidate["candidate_id"], sources, provenance, verification)
+
+    def check_candidate(self, context: MemoryContext, candidate: dict[str, Any]) -> None:
+        """Every validation of candidate() without writing. A curation batch checks all items first, so one bad
+        item rejects the batch before any record exists and the curator can fix and resend it with the same ids.
+        A derived_from_ref may point to an item of the same batch, so that relation is checked on write."""
+        self._admit(context, candidate, relations=False)
+
+    def _admit(
+        self, context: MemoryContext, candidate: dict[str, Any], *, relations: bool = True,
+    ) -> tuple[dict[str, Any], list[dict[str, Any]], str, str]:
         validate_contract("knowledge-candidate", candidate)
         _bound(context, candidate)
         if candidate["extractor_id"] != context.actor_id:
@@ -213,7 +225,7 @@ class MemoryWriter:
                 base().field_kind(candidate["entity_type"], candidate["attributes"]["field"])
             except KeyError as error:
                 raise MemoryError("unknown_ontology_field") from error
-        if candidate["attributes"].get("derived_from_ref"):
+        if relations and candidate["attributes"].get("derived_from_ref"):
             target = self.get(context, candidate["attributes"]["derived_from_ref"])
             target_type = (
                 "SpecialistExperience"
@@ -226,7 +238,7 @@ class MemoryWriter:
         sources = self._sources(context, candidate["source_event_ids"])
         state, provenance, verification = self._admission(candidate, sources)
         admitted = {**candidate, "validation_state": state, "source_event_ids": [s["event_id"] for s in sources]}
-        return self._commit(context, admitted, candidate["candidate_id"], sources, provenance, verification)
+        return admitted, sources, provenance, verification
 
     @staticmethod
     def _validity(payload: dict[str, Any]) -> None:

@@ -8,9 +8,9 @@ What is real and what is simulated is explained in [`SLIM-VERSION.md`](SLIM-VERS
 
 - Docker Desktop (or Docker Engine with Compose v2) running, and `openssl`.
 - A **Meta API key**. It is the only credential needed.
-- Optional, for Jolly live: macOS or Linux, Python 3.12 or `uv`, and a microphone. A Cartesia key is optional too; without it Jolly uses your computer's voice.
+- Optional, for Jolly live: Python 3.12 or `uv`, and a microphone, on macOS, Linux or Windows. A Cartesia key is optional too; without it Jolly speaks with your computer's own voice (`say` on macOS, the built-in Windows voice, espeak on Linux).
 - Free ports: 3000 (or set `FRONT_PORT`), 8060 and 8443.
-- **Windows:** run the commands in **Git Bash** (comes with Git for Windows) with Docker Desktop. Clone with `-c core.longpaths=true` as shown below. Jolly live (`jolly-sim/`) runs on macOS or Linux; on Windows use WSL, or skip to the replay in step 9b, which runs in Git Bash with Python 3.12 (`py -3.12`) or `uv`. Stock's inventory does not need Jolly live: see step 8.
+- **Windows:** run the commands in **Git Bash** (comes with Git for Windows) with Docker Desktop. Clone with `-c core.longpaths=true` as shown below. Jolly (`jolly-sim/`) runs in Git Bash too, with Python 3.12 from python.org (`py -3.12`) or `uv`. Stock's inventory does not need Jolly live: see step 8.
 
 The web app is in Spanish, as for the real users. Button names below are quoted as they appear on screen.
 
@@ -29,6 +29,14 @@ cd ale-jolly/local
 
 **You should see:** `Listo: abre http://localhost:3000`.
 **Check:** `docker compose -p ale-jolly ps` shows every service running (`migrate` and `cloud-sim-vm` exit with code 0 by design).
+
+**Check your Meta key** against every model the product uses:
+
+```bash
+./demo.sh meta-check
+```
+
+One real call to each: Muse Spark (Ale and its team), Muse Spark with web search (the researcher), Muse Voice Transcribe (Jolly's ears), Muse Image (the shelf photos) and SAM 3.1 (the count). You should see five ✅, and SAM counting 22 jars in the example photo.
 
 ### 2. Open the web app
 
@@ -78,7 +86,7 @@ curl -sk --resolve saleads.local:8443:127.0.0.1 https://saleads.local:8443/sim/c
 
 ### 6. Cerebro, Límites and Actividad
 
-- **Cerebro:** what Ale has learned about the business (ideas, bets, learnings).
+- **Cerebro:** what Ale has learned about the business, stored in the business ontology (products, offers, research, the owner's notes, decisions, learnings). It starts with what Ale read from SaleADS at activation. After each conversation, the team's **curator** (also on Muse Spark) turns what was said and found into ontology entries; locally it runs every 5 minutes (every 3 hours in production), so chat in **Conversar**, wait a few minutes and reload **Cerebro**. Then ask Ale «¿Qué has aprendido de mi negocio?»: it answers from that memory.
 - **Límites:** what Ale may do on its own and what needs the owner's approval, such as budget caps.
 - **Actividad:** everything Ale and its team did, step by step.
 

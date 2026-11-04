@@ -151,6 +151,8 @@ Los avisos de Stock al dueño salen solo de `avisos_pendientes` de `saleads_stoc
 
 Las respuestas a un turno de voz y el resultado del ciclo con marketing siguen con `saleads_stock_robot_say` de texto libre, como dice «Devolver resultados». Ese texto nunca empieza con «AVISO:» y su `dedupe_key` nunca empieza con `alerta` ni `stock-alerta`: el servidor lo rechaza.
 
+El texto libre lleva siempre los seis campos: `texto`, `pregunta`, `proposal_id` y `producto_id` (`null` si no aplica), `prioridad` y `dedupe_key`. Si falta uno, el servidor lo rechaza. En un turno que llegó por el canal del robot, tu respuesta ya suena en Jolly: no la repitas con `saleads_stock_robot_say`.
+
 ## Estado real antes de hablar
 
 Antes de decirle al dueño en qué va una pauta, un kit, un pedido, una factura o un permiso, lee el estado en ese turno: `saleads_stock_get_overview`, `saleads_stock_list_proposals` (pendientes y aprobadas) y `saleads_stock_list_orders`. Nunca uses lo que recuerdes del objetivo (GoalState), de la memoria o de un turno anterior: una pauta que recuerdas pendiente pudo aprobarse, y un pedido sin factura pudo recibirla. Si lo que recuerdas no coincide con las herramientas, mandan las herramientas.

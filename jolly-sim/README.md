@@ -1,18 +1,20 @@
 # jolly-sim: Jolly on your computer
 
-Jolly is Ale's body: a small robot with a face, ears, a voice and an eye that counts what is on a shelf. On the hackathon bench it runs on a Raspberry Pi 5. Here the same code runs on your Mac or Linux laptop:
+Jolly is Ale's body: a small robot with a face, ears, a voice and an eye that counts what is on a shelf. On the hackathon bench it runs on a Raspberry Pi 5. Here the same code runs on your Mac, Windows or Linux laptop:
 
 - **Face**: a window instead of the robot's screen.
 - **Ears**: your microphone, transcribed by **Muse Voice Transcribe** (`muse-voice-transcribe-1.0`).
 - **Eye**: example shelf photos (or your webcam), counted by **SAM 3.1** (`sam-3.1`), called from the robot.
-- **Voice**: Cartesia `sonic-3` if you have a key; otherwise `say` on macOS, or espeak on Linux.
+- **Voice**: Cartesia `sonic-3` if you have a key; otherwise your system's voice: `say` on macOS, the built-in Windows voice (Sabina, es-MX, when installed), or espeak on Linux. With none, Jolly still runs and shows its answers on the face.
 - **Brain**: Ale in the backend, on **Muse Spark**. Jolly only sends text, through the robot channel of ale-runtime.
 
 There are no arms here. Everything else is the robot's code, copied unchanged into `robot/`.
 
 ## Quick start
 
-You need macOS or Linux, and `uv` or Python 3.12. `start.sh` creates the Python environment and installs the pinned requirements the first time (a minute or two). On Windows, the replay (`./start.sh --replay`) runs from Git Bash with Python 3.12 from python.org (`py -3.12`) or `uv`; without espeak it plays silently, with the face and the subtitles.
+You need `uv` or Python 3.12 on macOS, Linux or Windows (in Git Bash, with Python 3.12 from python.org, `py -3.12`). `start.sh` creates the Python environment and installs the pinned requirements the first time (a minute or two).
+
+To check that your Meta key works with every model the product uses (Muse Spark, its web search, Muse Voice Transcribe, Muse Image and SAM 3.1), run `./jolly-sim/start.sh meta-check`: one real call to each, ✅ or ❌ per model.
 
 **Without a backend or key: watch a replay of the real robot.**
 
@@ -45,13 +47,13 @@ To see the eye work, ask about stock, for example «Jolly, ¿cuántos frascos ha
 
 It checks, in this order: Python 3.12 and packages, the bus ports, the output voice, PortAudio and the microphone (it records half a second), ffmpeg and the camera (it takes one picture), the key (a handshake with Muse Voice Transcribe, no audio sent) and ale-runtime. It never prints your key. A shorter version, without network or recording, runs on every start.
 
-| What | macOS | Linux (Debian/Ubuntu) |
-|---|---|---|
-| Python 3.12 | `uv` downloads it ([install uv](https://docs.astral.sh/uv/)) or `brew install python@3.12` | `uv`, or `sudo apt install python3.12-venv` |
-| PortAudio | included in the `sounddevice` wheel | `sudo apt install libportaudio2` |
-| ffmpeg (webcam only) | `brew install ffmpeg` | `sudo apt install ffmpeg` |
-| Voice without Cartesia | `say`, built in | `sudo apt install espeak-ng` (or `speech-dispatcher` for `spd-say`) |
-| Permissions | Allow the terminal to use the **microphone** (and the **camera** for a webcam) in System Settings → Privacy & Security | Your user must be able to open the audio and video devices |
+| What | macOS | Linux (Debian/Ubuntu) | Windows (Git Bash) |
+|---|---|---|---|
+| Python 3.12 | `uv` downloads it ([install uv](https://docs.astral.sh/uv/)) or `brew install python@3.12` | `uv`, or `sudo apt install python3.12-venv` | python.org installer (`py -3.12`) or `uv` |
+| PortAudio | included in the `sounddevice` wheel | `sudo apt install libportaudio2` | included in the `sounddevice` wheel |
+| ffmpeg (webcam only) | `brew install ffmpeg` | `sudo apt install ffmpeg` | ffmpeg in the PATH |
+| Voice without Cartesia | `say`, built in | `sudo apt install espeak-ng` (or `speech-dispatcher` for `spd-say`) | built in (System.Speech through PowerShell); add a Spanish voice in Settings → Time & language → Speech for a Spanish accent |
+| Permissions | Allow the terminal to use the **microphone** (and the **camera** for a webcam) in System Settings → Privacy & Security | Your user must be able to open the audio and video devices | Settings → Privacy → Microphone: allow desktop apps |
 
 ## Options
 
@@ -60,6 +62,7 @@ It checks, in this order: Python 3.12 and packages, the bus ports, the output vo
 | `./start.sh` | Live: face, voice and eye against `ALE_RUNTIME_URL` (default `http://localhost:8060`) |
 | `./start.sh --replay` | Replay of a real trace, no backend, key or microphone. `JOLLY_TRAZA=/path/trace.jsonl` plays another one |
 | `./start.sh doctor` | The checks above |
+| `./start.sh meta-check` | One real call to each Meta model the product uses, with your key: Muse Spark, its web search, Muse Voice Transcribe, Muse Image and SAM 3.1 |
 | `./start.sh --camara avfoundation:0` | Your Mac's webcam (`ffmpeg -f avfoundation -list_devices true -i ""` lists them) |
 | `./start.sh --camara v4l2:/dev/video0` | A webcam on Linux |
 | `./start.sh --camara carpeta:/path/manifiesto.json` | Your own photos, with a manifest like `fotos-ejemplo/manifiesto.json` |
@@ -97,7 +100,7 @@ More recordings and how they were made: [`../evidence/`](../evidence/).
 
 ## What changed from the robot's code
 
-`robot/` is a copy of the robot folder of the Ale runtime (voice, face, eye and the eye's restart loop), with the SAM fixtures its tests use. One change, additive and in the plan's closed list: `LocutorEspeak` in `robot/voz-hermes/voz_salida.py`, the Linux fallback voice with espeak-ng, espeak or spd-say, which `voz_hermes.py` picks on Linux when there is no Cartesia key. On macOS nothing changes.
+`robot/` is a copy of the robot folder of the Ale runtime (voice, face, eye and the eye's restart loop), with the SAM fixtures its tests use. One change, additive: the fallback voices in `robot/voz-hermes/voz_salida.py` for when there is no Cartesia key. `LocutorEspeak` speaks with espeak-ng, espeak or spd-say on Linux, and `LocutorWindows` with the built-in Windows voice through one long-lived PowerShell; `locutor_del_sistema()` picks one per OS. On macOS nothing changes.
 
 Packaging differs from the Pi: one Python environment for the three processes instead of one each, a window instead of full screen, no arms and no touch panel.
 
@@ -119,3 +122,4 @@ Two face tests (`test_catalogo_cumple_la_regla_de_optimismo`, `test_catalogo_tie
 - **«ale-runtime no responde»**: start the backend (`./local/demo.sh up`) or use `--replay`.
 - **The code never gets paired**: the code expires after a few minutes and the face shows a new one; type the one on screen.
 - **No voice on Linux**: install `espeak-ng`, or set `CARTESIA_API_KEY`.
+- **No voice on Windows**: Jolly says «La voz de Windows no arrancó» when PowerShell is missing or blocked; it keeps running with the answers on the face. Set `CARTESIA_API_KEY` for Cartesia.

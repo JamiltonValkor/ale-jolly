@@ -303,6 +303,23 @@ def test_failed_validation_can_repair_an_open_batch_without_claiming_a_receipt(t
     assert queue.commit(CTX, batch["batch_id"], candidates=[candidate()], experiences=[])["state"] == "committed"
 
 
+def test_one_invalid_candidate_rejects_the_batch_before_any_write_so_the_fixed_retry_keeps_its_ids(tmp_path):
+    # E2E 4-nov: the 1st item was written, the 2nd failed with owner_quote_not_in_registered_source, and the fixed
+    # retry hit candidate_idempotency_conflict on the 1st. The whole batch is validated before the first write.
+    memory, queue = ready(tmp_path)
+    memory.register_source(CTX, source())
+    batch = running(queue, queue.create(CTX))
+    good = candidate("candidate-1", attributes={"field": "price", "subject_ref": "offer-1", "value": "100"})
+    unquoted = candidate("candidate-2", text="The owner ships worldwide.", attributes={})
+    with pytest.raises(MemoryError, match="owner_quote_not_in_registered_source"):
+        queue.commit(CTX, batch["batch_id"], candidates=[good, unquoted], experiences=[])
+    with memory.ledger.connect() as db:
+        assert db.execute("SELECT COUNT(*) FROM memory_knowledge_aliases").fetchone()[0] == 0
+    fixed = {**good, "content": "The price is 100.", "validation_state": "confirmed"}
+    inferred = {**unquoted, "epistemic": "inferred", "validation_state": "proposed"}
+    assert queue.commit(CTX, batch["batch_id"], candidates=[fixed, inferred], experiences=[])["state"] == "committed"
+
+
 def test_legacy_terminal_receipt_stays_readable_without_inventing_its_request(tmp_path):
     memory, queue = ready(tmp_path)
     memory.register_source(CTX, source())
