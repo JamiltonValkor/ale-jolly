@@ -5,7 +5,7 @@
 #   ./start.sh doctor                revisa Python, PortAudio, micrófono, ffmpeg, cámara, llave, voz y backend
 #   ./start.sh --camara avfoundation:0 | v4l2:/dev/video0 | carpeta:/ruta/manifiesto.json
 #   ./start.sh --desvincular         borra la credencial del robot: vuelve a mostrar un código
-#   ./start.sh --sembrar             siembra el inventario demo de Stock (en vivo y local lo hace solo al vincular)
+#   ./start.sh --sembrar             vincula a Jolly en la terminal si hace falta y siembra el inventario demo de Stock
 #   ./start.sh --grabar              además graba el bus en jolly-sim/grabaciones/
 # Llaves: META_API_KEY (obligatoria en vivo) y CARTESIA_API_KEY (opcional; sin ella, say en macOS o espeak en Linux).
 # Se leen del entorno, o de local/.env o .env en la raíz del repo. Ctrl+C cierra todo.
@@ -17,7 +17,9 @@ PY="$VENV/bin/python"
 [ -x "$VENV/Scripts/python.exe" ] && PY="$VENV/Scripts/python.exe"   # Windows
 ENV_ROBOT="$ROBOT/voz-hermes/.env"
 
-MODO=vivo; CAMARA="${ALE_CAMARA:-carpeta:$AQUI/fotos-ejemplo/manifiesto.json}"; GRABAR=0; DESVINCULAR=0
+# Git Bash en Windows: `pwd -W` da C:/… (el Python de Windows no entiende /c/…); en macOS y Linux no existe y queda $AQUI.
+AQUI_NATIVO="$(cd "$AQUI" && pwd -W 2>/dev/null || echo "$AQUI")"
+MODO=vivo; CAMARA="${ALE_CAMARA:-carpeta:$AQUI_NATIVO/fotos-ejemplo/manifiesto.json}"; GRABAR=0; DESVINCULAR=0
 while [ $# -gt 0 ]; do
   case "$1" in
     doctor) MODO=doctor ;;
@@ -118,7 +120,7 @@ case "$MODO" in
     exec "$PY" "$AQUI/doctor.py" ;;
 
   sembrar)
-    exec "$PY" "$AQUI/sembrar.py" ;;
+    exec "$PY" "$AQUI/sembrar.py" --vincular ;;
 
   replay)
     "$PY" "$AQUI/doctor.py" --rapido --replay || exit 1

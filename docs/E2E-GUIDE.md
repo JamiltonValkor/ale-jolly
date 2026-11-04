@@ -10,7 +10,7 @@ What is real and what is simulated is explained in [`SLIM-VERSION.md`](SLIM-VERS
 - A **Meta API key**. It is the only credential needed.
 - Optional, for Jolly live: macOS or Linux, Python 3.12 or `uv`, and a microphone. A Cartesia key is optional too; without it Jolly uses your computer's voice.
 - Free ports: 3000 (or set `FRONT_PORT`), 8060 and 8443.
-- **Windows:** run the commands in **Git Bash** (comes with Git for Windows) with Docker Desktop. Clone with `-c core.longpaths=true` as shown below. Jolly live (`jolly-sim/`) runs on macOS or Linux; on Windows use WSL, or skip to the replay in step 9b, which runs in Git Bash with Python 3.12 (`py -3.12`) or `uv`.
+- **Windows:** run the commands in **Git Bash** (comes with Git for Windows) with Docker Desktop. Clone with `-c core.longpaths=true` as shown below. Jolly live (`jolly-sim/`) runs on macOS or Linux; on Windows use WSL, or skip to the replay in step 9b, which runs in Git Bash with Python 3.12 (`py -3.12`) or `uv`. Stock's inventory does not need Jolly live: see step 8.
 
 The web app is in Spanish, as for the real users. Button names below are quoted as they appear on screen.
 
@@ -94,7 +94,13 @@ Open **Stock**.
 
 **You should see:** «Aún no hay productos». That is expected: the shop's inventory arrives with Jolly. As soon as you pair it (step 10), `jolly-sim` seeds Masquebella's inventory through the robot's device channel, with the same `bench_seed` the bench uses on the real robot: catalog, suppliers, costs, the initial count and eight weeks of simulated sales, all through Stock's real rules. Stock is the agent that watches inventory: it notices differences and stuck products and brings them to the owner for approval.
 
-You come back to this tab in step 10.
+You come back to this tab in step 10. **Without Jolly live** (Windows, or no microphone), fill it now from a second terminal at the repo root:
+
+```bash
+./jolly-sim/start.sh --sembrar
+```
+
+It prints a pairing code; on **Hoy**, go to **«Compañero físico»** → **«Vincular»** and type it. The terminal prints `✓ Jolly vinculado` and then `✓ Stock listo`; reload **Stock** and continue with what step 10 describes after pairing.
 
 ## Part 4. Jolly, the robot
 

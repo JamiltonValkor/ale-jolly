@@ -64,7 +64,7 @@ It checks, in this order: Python 3.12 and packages, the bus ports, the output vo
 | `./start.sh --camara v4l2:/dev/video0` | A webcam on Linux |
 | `./start.sh --camara carpeta:/path/manifiesto.json` | Your own photos, with a manifest like `fotos-ejemplo/manifiesto.json` |
 | `./start.sh --desvincular` | Forgets the pairing: the face shows a new code |
-| `./start.sh --sembrar` | Seeds the demo Stock inventory by hand (needs a paired Jolly and the local backend) |
+| `./start.sh --sembrar` | Seeds the demo Stock inventory against the local backend; if Jolly is not paired, pairs it in the terminal first (no face, microphone or voice, so it works on Windows) |
 | `./start.sh --grabar` | Also records the bus to `jolly-sim/grabaciones/` |
 
 Keys and settings are read from the environment, then from `local/.env` or `.env` at the repo root:

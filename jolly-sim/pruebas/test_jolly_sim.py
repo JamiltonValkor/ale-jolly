@@ -122,3 +122,34 @@ def test_doctor_no_se_cae_con_la_consola_cp1252():
     r = subprocess.run([sys.executable, "-c", "import sys; sys.argv=['doctor']; sys.path.insert(0, %r); import doctor; doctor.ok('listo ✓')"
                         % str(AQUI)], env=env, capture_output=True)
     assert r.returncode == 0, r.stderr.decode(errors="replace")
+
+
+def test_sembrar_vincula_en_la_terminal_y_guarda_solo_la_credencial(tmp_path, monkeypatch, capsys):
+    import http.server, threading
+    sys.path.insert(0, str(AQUI))
+    import sembrar
+    sondeos = []
+
+    class Servidor(http.server.BaseHTTPRequestHandler):
+        def log_message(self, *a): pass
+        def do_POST(self):
+            cuerpo = json.loads(self.rfile.read(int(self.headers["Content-Length"])))
+            if self.path == "/devices/pairing":
+                resp = {"pairing_id": "p1", "code": "K7QM-3XPA", "poll_secret": "s", "expires_at": "2099-01-01T00:00:00Z"}
+            else:
+                assert self.path == "/devices/pairing/p1/poll" and cuerpo == {"poll_secret": "s"}
+                sondeos.append(1)
+                resp = {"status": "paired", "device_token": "ale_dev_nuevo", "device_id": "d1"} if len(sondeos) > 1 else {"status": "pending"}
+            datos = json.dumps(resp).encode()
+            self.send_response(200); self.send_header("Content-Length", str(len(datos))); self.end_headers(); self.wfile.write(datos)
+
+    srv = http.server.HTTPServer(("127.0.0.1", 0), Servidor)
+    threading.Thread(target=srv.serve_forever, daemon=True).start()
+    env = tmp_path / ".env"
+    env.write_text("ALE_RUNTIME_URL=x\nALE_DEVICE_TOKEN=ale_dev_viejo\nALE_ROBOT_NAME=Jolly\n")
+    monkeypatch.setattr(sembrar, "ENV_ROBOT", env)
+    monkeypatch.setattr(sembrar.time, "sleep", lambda s: None)
+    sembrar.vincular(f"http://127.0.0.1:{srv.server_address[1]}")
+    srv.shutdown()
+    assert "K7QM-3XPA" in capsys.readouterr().out
+    assert env.read_text().splitlines() == ["ALE_RUNTIME_URL=x", "ALE_ROBOT_NAME=Jolly", "ALE_DEVICE_TOKEN=ale_dev_nuevo", "ALE_DEVICE_ID=d1"]
