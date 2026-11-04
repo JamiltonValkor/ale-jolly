@@ -1,0 +1,441 @@
+{"tema": "_meta", "fecha": "2026-11-02", "descripcion": "Corrida oficial E2E del 2-nov-2026, paso P2: Jolly cuenta 22 frascos con SAM, Ale avisa la diferencia (esperaba 24) y pregunta la causa.", "mensajes": 440, "duracion_s": 93.1}
+{"tema": "cuerpo/latido", "t": 0.0266, "t_pub": 0.0266, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 0.0266, "t_pub": 0.0267, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 1.0283, "t_pub": 1.0283, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 1.0283, "t_pub": 1.0283, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "ojo/orden", "t": 2.0, "t_pub": 2.0, "solicitud_id": "foto-1", "concepto": "jar", "etiqueta": "repisa", "foto_id": null}
+{"tema": "ojo/estado", "t": 2.0007, "t_pub": 2.0007, "solicitud_id": "foto-1", "estado": "recibida"}
+{"tema": "ojo/estado", "t": 2.0017, "t_pub": 2.0017, "solicitud_id": "foto-1", "estado": "capturando"}
+{"tema": "cuerpo/latido", "t": 2.0502, "t_pub": 2.0502, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 2.0502, "t_pub": 2.0503, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "ojo/estado", "t": 2.1026, "t_pub": 2.1026, "solicitud_id": "foto-1", "estado": "contando"}
+{"tema": "cuerpo/latido", "t": 3.0519, "t_pub": 3.0519, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 3.0519, "t_pub": 3.052, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "ojo/conteo", "t": 3.6391, "t_pub": 3.6391, "solicitud_id": "foto-1", "estado": "mostrando", "ruta_pantalla": "pantalla-foto-1.png", "total": 22, "expira": 18.6391}
+{"tema": "cuerpo/latido", "t": 4.0535, "t_pub": 4.0535, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 4.0535, "t_pub": 4.0536, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "ojo/conteo", "t": 4.4045, "t_pub": 4.4045, "solicitud_id": "foto-1", "estado": "mostrando", "ruta_pantalla": "pantalla-foto-1.png", "total": 22, "expira": 18.6391}
+{"tema": "cuerpo/latido", "t": 5.0552, "t_pub": 5.0552, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 5.0552, "t_pub": 5.0552, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "ojo/conteo", "t": 6.0067, "t_pub": 6.0067, "solicitud_id": "foto-1", "estado": "mostrando", "ruta_pantalla": "pantalla-foto-1.png", "total": 22, "expira": 18.6391}
+{"tema": "cuerpo/latido", "t": 6.0567, "t_pub": 6.0567, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 6.0567, "t_pub": 6.0568, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 7.0582, "t_pub": 7.0582, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 7.0582, "t_pub": 7.0584, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "ojo/conteo", "t": 7.6091, "t_pub": 7.6091, "solicitud_id": "foto-1", "estado": "mostrando", "ruta_pantalla": "pantalla-foto-1.png", "total": 22, "expira": 18.6391}
+{"tema": "cuerpo/latido", "t": 8.0599, "t_pub": 8.0599, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 8.0599, "t_pub": 8.0599, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 9.0615, "t_pub": 9.0615, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 9.0615, "t_pub": 9.0615, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "ojo/conteo", "t": 9.2114, "t_pub": 9.2114, "solicitud_id": "foto-1", "estado": "mostrando", "ruta_pantalla": "pantalla-foto-1.png", "total": 22, "expira": 18.6391}
+{"tema": "cuerpo/latido", "t": 10.0628, "t_pub": 10.0628, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 10.0628, "t_pub": 10.0629, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "ojo/conteo", "t": 10.8136, "t_pub": 10.8136, "solicitud_id": "foto-1", "estado": "mostrando", "ruta_pantalla": "pantalla-foto-1.png", "total": 22, "expira": 18.6391}
+{"tema": "cuerpo/latido", "t": 11.0721, "t_pub": 11.0721, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 11.0721, "t_pub": 11.0721, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 12.1107, "t_pub": 12.1107, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 12.1107, "t_pub": 12.1107, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "ojo/conteo", "t": 12.4158, "t_pub": 12.4158, "solicitud_id": "foto-1", "estado": "mostrando", "ruta_pantalla": "pantalla-foto-1.png", "total": 22, "expira": 18.6391}
+{"tema": "cuerpo/latido", "t": 13.1122, "t_pub": 13.1123, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 13.1122, "t_pub": 13.1124, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "ojo/conteo", "t": 14.0182, "t_pub": 14.0182, "solicitud_id": "foto-1", "estado": "mostrando", "ruta_pantalla": "pantalla-foto-1.png", "total": 22, "expira": 18.6391}
+{"tema": "cuerpo/latido", "t": 14.1249, "t_pub": 14.1249, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 14.1249, "t_pub": 14.125, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 15.158, "t_pub": 15.158, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 15.158, "t_pub": 15.158, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "ojo/conteo", "t": 15.6206, "t_pub": 15.6206, "solicitud_id": "foto-1", "estado": "mostrando", "ruta_pantalla": "pantalla-foto-1.png", "total": 22, "expira": 18.6391}
+{"tema": "cuerpo/latido", "t": 16.1595, "t_pub": 16.1595, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 16.1595, "t_pub": 16.1595, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 17.161, "t_pub": 17.161, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 17.161, "t_pub": 17.1611, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "ojo/conteo", "t": 17.2231, "t_pub": 17.2231, "solicitud_id": "foto-1", "estado": "mostrando", "ruta_pantalla": "pantalla-foto-1.png", "total": 22, "expira": 18.6391}
+{"tema": "cuerpo/latido", "t": 18.1626, "t_pub": 18.1626, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 18.1626, "t_pub": 18.1627, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 19.1642, "t_pub": 19.1642, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 19.1642, "t_pub": 19.1643, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 20.166, "t_pub": 20.166, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 20.166, "t_pub": 20.166, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 21.1676, "t_pub": 21.1676, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 21.1676, "t_pub": 21.1676, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 22.1691, "t_pub": 22.1691, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 22.1691, "t_pub": 22.1692, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 23.892, "t_pub": 23.892, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 23.892, "t_pub": 23.8921, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 24.8936, "t_pub": 24.8936, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 24.8936, "t_pub": 24.8936, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "ojo/estado", "t": 25.6391, "t_pub": 25.6391, "solicitud_id": "foto-1", "estado": "subida", "tiempos": {"captura": 101, "sam": 1347, "numerar": 1638, "subida": 27659}}
+{"tema": "cuerpo/latido", "t": 25.9355, "t_pub": 25.9355, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 25.9355, "t_pub": 25.9355, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 26.9671, "t_pub": 26.9671, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 26.9671, "t_pub": 26.9671, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 28.0032, "t_pub": 28.0032, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 28.0032, "t_pub": 28.0033, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 29.0395, "t_pub": 29.0395, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 29.0395, "t_pub": 29.0395, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 30.9419, "t_pub": 30.9419, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 30.9419, "t_pub": 30.942, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 31.9434, "t_pub": 31.9434, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 31.9434, "t_pub": 31.9434, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "ale/evento", "t": 32.6391, "t_pub": 32.6391, "tipo": "aviso", "id": 48, "texto": "Conteo simulado: 22 frascos en repisa en 2 filas. Esos 22 son Bio Mascarilla 500 gramos", "pregunta": true, "turno": "turno-2"}
+{"tema": "voz/volumen", "t": 32.8784, "t_pub": 32.8577, "t0": 32.8784, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/turno_inicio", "t": 32.8784, "t_pub": 32.8577, "turno": "turno-2", "contexto": "contexto-1", "idioma": "es"}
+{"tema": "cuerpo/momento", "t": 32.8784, "t_pub": 32.8578, "momento": "hablando", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "voz/volumen", "t": 33.0114, "t_pub": 32.8869, "t0": 33.0114, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 33.2114, "t_pub": 32.8872, "t0": 33.2114, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "cuerpo/latido", "t": 32.9874, "t_pub": 32.9874, "momento": "hablando", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 32.9874, "t_pub": 32.9874, "momento": "hablando", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "voz/volumen", "t": 33.2937, "t_pub": 33.018, "t0": 33.2937, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 33.4937, "t_pub": 33.0229, "t0": 33.4937, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 33.6937, "t_pub": 33.0232, "t0": 33.6937, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.331], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 33.8937, "t_pub": 33.0285, "t0": 33.8937, "dt": 0.01, "niveles": [0.174, 0.211, 0.241, 0.684, 0.787, 0.815, 0.818, 0.783, 0.788, 0.827, 0.845, 0.831, 0.755, 0.616, 0.4, 0.33, 0.338, 0.594, 0.751, 0.787], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/frase", "t": 33.8273, "t_pub": 33.0286, "texto": "Conteo simulado:", "es_relleno": false, "idioma": "es", "turno": "turno-2", "contexto": "contexto-1", "fuente": "timestamps"}
+{"tema": "cuerpo/gesto", "t": 33.8273, "t_pub": 33.0287, "pregunta": false, "turno": "turno-1", "intencion": null}
+{"tema": "voz/volumen", "t": 34.0937, "t_pub": 33.029, "t0": 34.0937, "dt": 0.01, "niveles": [0.773, 0.765, 0.761, 0.778, 0.796, 0.795, 0.786, 0.79], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 34.1664, "t_pub": 33.0906, "t0": 34.1664, "dt": 0.01, "niveles": [0.793, 0.78, 0.721, 0.593, 0.473, 0.469, 0.48, 0.468, 0.46, 0.422, 0.289, 0.577, 0.682, 0.72, 0.735, 0.733, 0.732, 0.759, 0.804, 0.84], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 34.3664, "t_pub": 33.099, "t0": 34.3664, "dt": 0.01, "niveles": [0.843, 0.83, 0.806, 0.787, 0.795, 0.791, 0.762, 0.741, 0.726, 0.741, 0.761, 0.822, 0.893, 0.92, 0.931, 0.949, 0.955, 0.956, 0.957, 0.952], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 34.5664, "t_pub": 33.1, "t0": 34.5664, "dt": 0.01, "niveles": [0.904, 0.881, 0.833, 0.797, 0.726, 0.535, 0.306, 0.484, 0.649, 0.702, 0.689, 0.673, 0.669, 0.662, 0.646, 0.604, 0.611], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 34.731, "t_pub": 33.1217, "t0": 34.731, "dt": 0.01, "niveles": [0.612, 0.622, 0.625, 0.615, 0.603, 0.586, 0.59, 0.619, 0.65, 0.652, 0.633, 0.59, 0.501, 0.396, 0.25], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 34.88, "t_pub": 33.2878, "t0": 34.88, "dt": 0.01, "niveles": [0.049, 0.019, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 35.08, "t_pub": 33.2899, "t0": 35.08, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 35.28, "t_pub": 33.2921, "t0": 35.28, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.412, 0.511, 0.53, 0.526, 0.488, 0.391, 0.293, 0.653, 0.815, 0.851, 0.825], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 35.4318, "t_pub": 33.3686, "t0": 35.4318, "dt": 0.01, "niveles": [0.837, 0.837, 0.834, 0.832, 0.842, 0.846, 0.858, 0.876, 0.89, 0.889, 0.838, 0.713, 0.536, 0.449, 0.401, 0.233, 0.601, 0.714, 0.747, 0.747], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 35.6318, "t_pub": 33.3768, "t0": 35.6318, "dt": 0.01, "niveles": [0.748, 0.743, 0.722, 0.671, 0.636, 0.697, 0.799, 0.824, 0.789, 0.792, 0.807, 0.805, 0.828, 0.831, 0.803, 0.796, 0.777, 0.731, 0.655, 0.503], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/frase", "t": 35.2824, "t_pub": 33.3769, "texto": "22 frascos en repisa en 2 filas.", "es_relleno": false, "idioma": "es", "turno": "turno-2", "contexto": "contexto-1", "fuente": "timestamps"}
+{"tema": "cuerpo/gesto", "t": 35.2824, "t_pub": 33.3772, "pregunta": false, "turno": "turno-1", "intencion": null}
+{"tema": "voz/volumen", "t": 35.8318, "t_pub": 33.3778, "t0": 35.8318, "dt": 0.01, "niveles": [0.398, 0.394, 0.393, 0.371, 0.332, 0.288, 0.175, 0.041, 0.041, 0.007, 0.0, 0.005, 0.002, 0.624, 0.709, 0.727], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 35.9836, "t_pub": 33.461, "t0": 35.9836, "dt": 0.01, "niveles": [0.738, 0.745, 0.767, 0.799, 0.834, 0.86, 0.874, 0.871, 0.838, 0.783, 0.709, 0.594, 0.466, 0.303, 0.284, 0.294, 0.321, 0.272, 0.169, 0.091], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 36.1836, "t_pub": 33.4629, "t0": 36.1836, "dt": 0.01, "niveles": [0.0, 0.0, 0.202, 0.259, 0.234, 0.64, 0.736, 0.761, 0.785, 0.799, 0.789, 0.753, 0.671, 0.514, 0.463, 0.488, 0.463, 0.398, 0.288, 0.09], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 36.3836, "t_pub": 33.4659, "t0": 36.3836, "dt": 0.01, "niveles": [0.636, 0.684, 0.719, 0.716, 0.714, 0.682, 0.698, 0.754, 0.759, 0.731, 0.661, 0.515, 0.371, 0.388, 0.455, 0.549], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 36.5355, "t_pub": 33.5279, "t0": 36.5355, "dt": 0.01, "niveles": [0.672, 0.687, 0.686, 0.672, 0.677, 0.681, 0.645, 0.547, 0.406, 0.128, 0.0, 0.0, 0.0, 0.0, 0.267, 0.413, 0.392, 0.218, 0.495, 0.672], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 36.7355, "t_pub": 33.5309, "t0": 36.7355, "dt": 0.01, "niveles": [0.703, 0.694, 0.693, 0.698, 0.67, 0.572, 0.372, 0.328, 0.356, 0.404, 0.431, 0.401, 0.318, 0.165, 0.536, 0.686, 0.76, 0.787, 0.808, 0.825], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 36.9355, "t_pub": 33.5356, "t0": 36.9355, "dt": 0.01, "niveles": [0.816, 0.834, 0.83, 0.79, 0.75, 0.678, 0.583, 0.559, 0.573, 0.602, 0.608, 0.618, 0.637, 0.626, 0.642, 0.668, 0.669], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 37.1001, "t_pub": 33.6264, "t0": 37.1001, "dt": 0.01, "niveles": [0.657, 0.651, 0.635, 0.613, 0.566, 0.474, 0.327, 0.278, 0.47, 0.632, 0.703, 0.708, 0.692, 0.68, 0.678, 0.681, 0.657, 0.584, 0.461, 0.333], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 37.3001, "t_pub": 33.6298, "t0": 37.3001, "dt": 0.01, "niveles": [0.304, 0.305, 0.301, 0.305, 0.28, 0.253, 0.236, 0.139, 0.0, 0.0, 0.0, 0.0, 0.0, 0.416, 0.473, 0.468, 0.5, 0.512, 0.516, 0.51], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 37.5001, "t_pub": 33.6329, "t0": 37.5001, "dt": 0.01, "niveles": [0.464, 0.425, 0.314, 0.291, 0.343, 0.314, 0.389, 0.395, 0.359, 0.323, 0.0, 0.261, 0.263, 0.128, 0.38, 0.444], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 37.652, "t_pub": 33.6679, "t0": 37.652, "dt": 0.01, "niveles": [0.218, 0.286, 0.288, 0.161, 0.006, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 37.852, "t_pub": 33.6705, "t0": 37.852, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 37.945, "t_pub": 33.9896, "t0": 37.945, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "cuerpo/latido", "t": 33.9897, "t_pub": 33.9897, "momento": "hablando", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 33.9897, "t_pub": 33.9897, "momento": "hablando", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "voz/volumen", "t": 38.1247, "t_pub": 33.9942, "t0": 38.1247, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 38.3247, "t_pub": 33.9971, "t0": 38.3247, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 38.5247, "t_pub": 33.9972, "t0": 38.5247, "dt": 0.01, "niveles": [0.0, 0.0], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 38.5353, "t_pub": 34.0175, "t0": 38.5353, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 38.7353, "t_pub": 34.0264, "t0": 38.7353, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 38.9353, "t_pub": 34.0272, "t0": 38.9353, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.436], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 39.1, "t_pub": 34.1044, "t0": 39.1, "dt": 0.01, "niveles": [0.824, 0.838, 0.902, 0.944, 0.951, 0.911, 0.8, 0.661, 0.536, 0.539, 0.538, 0.463, 0.346, 0.691, 0.782, 0.797, 0.794, 0.779, 0.776, 0.759], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/frase", "t": 39.0595, "t_pub": 34.1046, "texto": "Esos 22 son Bio Mascarilla 500 gramos", "es_relleno": false, "idioma": "es", "turno": "turno-2", "contexto": "contexto-1", "fuente": "timestamps"}
+{"tema": "cuerpo/gesto", "t": 39.0595, "t_pub": 34.1049, "pregunta": false, "turno": "turno-1", "intencion": null}
+{"tema": "voz/volumen", "t": 39.3, "t_pub": 34.1109, "t0": 39.3, "dt": 0.01, "niveles": [0.602, 0.557, 0.486, 0.482, 0.401, 0.112, 0.0, 0.349, 0.567, 0.639, 0.642, 0.648, 0.854, 0.974, 0.993, 0.974, 0.947, 0.902, 0.873, 0.862], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 39.5, "t_pub": 34.1115, "t0": 39.5, "dt": 0.01, "niveles": [0.864, 0.84, 0.828, 0.853, 0.836, 0.743, 0.563, 0.417, 0.353, 0.279, 0.623, 0.775, 0.803, 0.78, 0.791, 0.803], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 39.6518, "t_pub": 34.1946, "t0": 39.6518, "dt": 0.01, "niveles": [0.81, 0.791, 0.721, 0.626, 0.609, 0.732, 0.817, 0.84, 0.859, 0.888, 0.901, 0.905, 0.895, 0.87, 0.871, 0.864, 0.845, 0.828, 0.804, 0.771], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 39.8518, "t_pub": 34.1981, "t0": 39.8518, "dt": 0.01, "niveles": [0.657, 0.595, 0.425, 0.421, 0.465, 0.478, 0.47, 0.466, 0.474, 0.467, 0.433, 0.345, 0.597, 0.76, 0.822, 0.856, 0.858, 0.831, 0.801, 0.747], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 40.0518, "t_pub": 34.1987, "t0": 40.0518, "dt": 0.01, "niveles": [0.784, 0.817, 0.836, 0.833, 0.834, 0.822, 0.782, 0.694, 0.542, 0.349, 0.309, 0.56, 0.704, 0.735, 0.724, 0.724], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 40.2037, "t_pub": 34.2788, "t0": 40.2037, "dt": 0.01, "niveles": [0.757, 0.781, 0.788, 0.76, 0.751, 0.755, 0.724, 0.66, 0.654, 0.684, 0.703, 0.705, 0.724, 0.805, 0.851, 0.848, 0.843, 0.834, 0.768, 0.647], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 40.4037, "t_pub": 34.2805, "t0": 40.4037, "dt": 0.01, "niveles": [0.407, 0.412, 0.428, 0.416, 0.356, 0.292, 0.244, 0.142, 0.0, 0.0, 0.266, 0.343, 0.622, 0.691, 0.68, 0.668, 0.618, 0.536, 0.517, 0.555], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 40.6037, "t_pub": 34.2841, "t0": 40.6037, "dt": 0.01, "niveles": [0.643, 0.663, 0.686, 0.688, 0.671, 0.641, 0.62, 0.624, 0.647, 0.674, 0.679, 0.671, 0.699, 0.705, 0.687, 0.707, 0.727], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 40.7683, "t_pub": 34.3874, "t0": 40.7683, "dt": 0.01, "niveles": [0.746, 0.745, 0.738, 0.722, 0.709, 0.687, 0.646, 0.601, 0.533, 0.388, 0.073, 0.0, 0.0, 0.0, 0.0, 0.0, 0.215, 0.247, 0.195, 0.182], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 40.9683, "t_pub": 34.3945, "t0": 40.9683, "dt": 0.01, "niveles": [0.244, 0.188, 0.106, 0.625, 0.741, 0.779, 0.779, 0.762, 0.756, 0.745, 0.718, 0.689, 0.665, 0.653, 0.658, 0.666, 0.664, 0.644, 0.595, 0.545], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 41.1683, "t_pub": 34.3953, "t0": 41.1683, "dt": 0.01, "niveles": [0.522, 0.471, 0.308, 0.094, 0.055, 0.099, 0.203, 0.349, 0.567, 0.622, 0.597, 0.582, 0.562, 0.502, 0.4, 0.314], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 41.3202, "t_pub": 34.4549, "t0": 41.3202, "dt": 0.01, "niveles": [0.291, 0.302, 0.289, 0.235, 0.188, 0.102, 0.0, 0.202, 0.288, 0.48, 0.653, 0.698, 0.694, 0.706, 0.697, 0.714, 0.741, 0.712, 0.674, 0.617], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 41.5202, "t_pub": 34.4613, "t0": 41.5202, "dt": 0.01, "niveles": [0.325, 0.352, 0.354, 0.351, 0.414, 0.398, 0.388, 0.393, 0.377, 0.413, 0.399, 0.357, 0.389, 0.386, 0.403, 0.435, 0.366, 0.196, 0.0, 0.0], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 41.7202, "t_pub": 34.462, "t0": 41.7202, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.002, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/volumen", "t": 41.8848, "t_pub": 34.4798, "t0": 41.8848, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-2", "contexto": "contexto-1"}
+{"tema": "voz/turno_fin", "t": 41.9388, "t_pub": 34.4889, "turno": "turno-2", "contexto": "contexto-1", "con_timestamps": true}
+{"tema": "cuerpo/momento", "t": 41.9388, "t_pub": 34.489, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/momento", "t": 34.489, "t_pub": 34.4891, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 34.9898, "t_pub": 34.9898, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 34.9898, "t_pub": 34.9898, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 35.9913, "t_pub": 35.9913, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 35.9913, "t_pub": 35.9914, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 36.9929, "t_pub": 36.9929, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 36.9929, "t_pub": 36.993, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 37.9944, "t_pub": 37.9944, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 37.9944, "t_pub": 37.9945, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 38.9959, "t_pub": 38.9959, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 38.9959, "t_pub": 38.9959, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 39.9974, "t_pub": 39.9975, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 39.9974, "t_pub": 39.9975, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 40.9989, "t_pub": 40.999, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 40.9989, "t_pub": 40.999, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/momento", "t": 41.9522, "t_pub": 41.9525, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 42.0026, "t_pub": 42.0026, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 42.0026, "t_pub": 42.0026, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 43.0043, "t_pub": 43.0044, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 43.0043, "t_pub": 43.0044, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 44.0062, "t_pub": 44.0062, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 44.0062, "t_pub": 44.0063, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 46.1997, "t_pub": 46.1997, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 46.1997, "t_pub": 46.1998, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 47.2012, "t_pub": 47.2012, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 47.2012, "t_pub": 47.2013, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "ale/evento", "t": 47.3677, "t_pub": 47.3677, "tipo": "aviso", "id": 49, "texto": "Diferencia de 2, esperabamos 24 y contamos 22 simulado. Fue venta, fiado, movimiento u otra", "pregunta": true, "turno": "turno-3"}
+{"tema": "cuerpo/latido", "t": 48.2198, "t_pub": 48.2198, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 48.2198, "t_pub": 48.2198, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 49.2214, "t_pub": 49.2214, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 49.2214, "t_pub": 49.2215, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 50.2228, "t_pub": 50.2229, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 50.2228, "t_pub": 50.2229, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 51.2244, "t_pub": 51.2244, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 51.2244, "t_pub": 51.2245, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 52.2606, "t_pub": 52.2606, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 52.2606, "t_pub": 52.2607, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "voz/volumen", "t": 52.7406, "t_pub": 52.7173, "t0": 52.7406, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/turno_inicio", "t": 52.7406, "t_pub": 52.7174, "turno": "turno-3", "contexto": "contexto-2", "idioma": "es"}
+{"tema": "cuerpo/momento", "t": 52.7406, "t_pub": 52.7175, "momento": "hablando", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "voz/volumen", "t": 52.8683, "t_pub": 52.8261, "t0": 52.8683, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.307, 0.538, 0.753, 0.831, 0.854, 0.858, 0.822, 0.722, 0.526, 0.354, 0.304, 0.303, 0.58], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 53.0683, "t_pub": 52.8264, "t0": 53.0683, "dt": 0.01, "niveles": [0.884, 0.886, 0.877, 0.805, 0.728, 0.84, 0.909, 0.911, 0.899], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 53.1506, "t_pub": 52.8902, "t0": 53.1506, "dt": 0.01, "niveles": [0.882, 0.882, 0.869, 0.851, 0.864, 0.884, 0.9, 0.884, 0.802, 0.69, 0.6, 0.476, 0.41, 0.363, 0.335, 0.303, 0.368, 0.69, 0.781, 0.81], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/frase", "t": 52.9284, "t_pub": 52.923, "texto": "Diferencia de 2, esperabamos 24 y contamos 22 simulado.", "es_relleno": false, "idioma": "es", "turno": "turno-3", "contexto": "contexto-2", "fuente": "timestamps"}
+{"tema": "cuerpo/gesto", "t": 52.9284, "t_pub": 52.9233, "pregunta": false, "turno": "turno-1", "intencion": null}
+{"tema": "voz/volumen", "t": 53.3506, "t_pub": 52.9268, "t0": 53.3506, "dt": 0.01, "niveles": [0.843, 0.872, 0.881, 0.858, 0.865, 0.891, 0.919, 0.943, 0.942, 0.903, 0.833, 0.723, 0.534, 0.451, 0.617, 0.7, 0.712, 0.713, 0.712, 0.712], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 53.5506, "t_pub": 52.9272, "t0": 53.5506, "dt": 0.01, "niveles": [0.716, 0.711, 0.682, 0.61, 0.506, 0.399, 0.27], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 53.6126, "t_pub": 52.9909, "t0": 53.6126, "dt": 0.01, "niveles": [0.016, 0.209, 0.449, 0.707, 0.802, 0.863, 0.892, 0.936, 0.971, 0.961, 0.96, 0.987, 1.0, 1.0, 0.986, 0.931, 0.888, 0.875, 0.869, 0.858], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 53.8126, "t_pub": 52.9971, "t0": 53.8126, "dt": 0.01, "niveles": [0.819, 0.809, 0.797, 0.808, 0.803, 0.756, 0.658, 0.47, 0.278, 0.285, 0.335, 0.364, 0.346, 0.323, 0.362, 0.367, 0.339, 0.344, 0.325, 0.298], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 54.0126, "t_pub": 52.9975, "t0": 54.0126, "dt": 0.01, "niveles": [0.301, 0.281, 0.228, 0.143, 0.054, 0.08, 0.093], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 54.0746, "t_pub": 53.0635, "t0": 54.0746, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.38, 0.648, 0.747, 0.787, 0.755, 0.608], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 54.2746, "t_pub": 53.0753, "t0": 54.2746, "dt": 0.01, "niveles": [0.347, 0.384, 0.377, 0.27, 0.087, 0.0, 0.0, 0.039, 0.326, 0.425, 0.734, 0.797, 0.786, 0.72, 0.55, 0.724, 0.853, 0.906, 0.917, 0.918], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 54.4746, "t_pub": 53.0804, "t0": 54.4746, "dt": 0.01, "niveles": [0.909, 0.91, 0.898, 0.839, 0.704, 0.576, 0.607, 0.669, 0.753, 0.856, 0.902, 0.907, 0.908, 0.891, 0.841, 0.744, 0.652], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 54.6393, "t_pub": 53.1359, "t0": 54.6393, "dt": 0.01, "niveles": [0.706, 0.738, 0.776, 0.789, 0.782, 0.772, 0.778, 0.802, 0.822, 0.815, 0.784, 0.75, 0.73], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 54.7676, "t_pub": 53.1849, "t0": 54.7676, "dt": 0.01, "niveles": [0.653, 0.601, 0.45, 0.327, 0.285, 0.217, 0.095, 0.0, 0.0, 0.0, 0.361, 0.579, 0.683, 0.707, 0.695, 0.692, 0.693, 0.683, 0.648, 0.603], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 54.9676, "t_pub": 53.1867, "t0": 54.9676, "dt": 0.01, "niveles": [0.633, 0.639, 0.614, 0.501, 0.225, 0.056, 0.27, 0.341, 0.314], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "cuerpo/latido", "t": 53.2869, "t_pub": 53.2869, "momento": "hablando", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 53.2869, "t_pub": 53.287, "momento": "hablando", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "voz/volumen", "t": 55.0499, "t_pub": 53.2889, "t0": 55.0499, "dt": 0.01, "niveles": [0.107, 0.49, 0.544, 0.575, 0.589, 0.525, 0.412, 0.08, 0.0, 0.0, 0.0, 0.033, 0.238, 0.255, 0.234, 0.265, 0.225, 0.147, 0.478, 0.791], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 55.2499, "t_pub": 53.2924, "t0": 55.2499, "dt": 0.01, "niveles": [0.922, 0.961, 1.0, 1.0, 0.989, 0.98, 0.999, 0.989, 0.955, 0.895, 0.724, 0.367, 0.148, 0.0, 0.0, 0.0, 0.101, 0.296, 0.299, 0.133], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 55.4499, "t_pub": 53.2955, "t0": 55.4499, "dt": 0.01, "niveles": [0.065, 0.191, 0.66, 0.746, 0.782, 0.803, 0.818, 0.832, 0.835, 0.85, 0.848, 0.835, 0.822, 0.777, 0.736, 0.713, 0.68], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 55.6146, "t_pub": 53.3865, "t0": 55.6146, "dt": 0.01, "niveles": [0.625, 0.593, 0.495, 0.325, 0.124, 0.0, 0.0, 0.0, 0.005, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 55.8146, "t_pub": 53.3967, "t0": 55.8146, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.448, 0.61, 0.711, 0.777, 0.749, 0.586, 0.336, 0.19], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 56.0146, "t_pub": 53.3976, "t0": 56.0146, "dt": 0.01, "niveles": [0.229, 0.256, 0.32, 0.341, 0.556, 0.781, 0.846, 0.854, 0.864, 0.854, 0.866, 0.893, 0.904, 0.901, 0.854, 0.786], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 56.1664, "t_pub": 53.4784, "t0": 56.1664, "dt": 0.01, "niveles": [0.508, 0.463, 0.453, 0.449, 0.496, 0.68, 0.759, 0.8, 0.849, 0.907, 0.924, 0.896, 0.861, 0.828, 0.815, 0.815, 0.803, 0.788, 0.784, 0.816], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 56.3664, "t_pub": 53.487, "t0": 56.3664, "dt": 0.01, "niveles": [0.825, 0.812, 0.789, 0.773, 0.746, 0.692, 0.617, 0.515, 0.382, 0.134, 0.0, 0.0, 0.0, 0.306, 0.531, 0.698, 0.744, 0.73, 0.726, 0.719], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 56.5664, "t_pub": 53.4876, "t0": 56.5664, "dt": 0.01, "niveles": [0.713, 0.695, 0.697, 0.71, 0.668, 0.548, 0.287, 0.24, 0.333, 0.332, 0.245, 0.183, 0.56, 0.665, 0.692, 0.707], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 56.7183, "t_pub": 53.5346, "t0": 56.7183, "dt": 0.01, "niveles": [0.691, 0.706, 0.731, 0.74, 0.731, 0.709, 0.677, 0.632, 0.538, 0.338, 0.229, 0.282, 0.31, 0.28, 0.262, 0.283, 0.242, 0.13, 0.103, 0.598], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 56.9183, "t_pub": 53.5348, "t0": 56.9183, "dt": 0.01, "niveles": [0.65, 0.619, 0.58, 0.589], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 56.9493, "t_pub": 53.631, "t0": 56.9493, "dt": 0.01, "niveles": [0.632, 0.631, 0.617, 0.595, 0.579, 0.544, 0.526, 0.55, 0.558, 0.539, 0.546, 0.573, 0.577, 0.579, 0.617, 0.659, 0.648, 0.653, 0.648, 0.645], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 57.1493, "t_pub": 53.6377, "t0": 57.1493, "dt": 0.01, "niveles": [0.628, 0.63, 0.644, 0.621, 0.547, 0.514, 0.467, 0.394, 0.412, 0.428, 0.446, 0.422, 0.412, 0.42, 0.398, 0.427, 0.49, 0.525, 0.551, 0.588], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 57.3493, "t_pub": 53.6383, "t0": 57.3493, "dt": 0.01, "niveles": [0.507, 0.437, 0.159, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 57.3839, "t_pub": 53.7415, "t0": 57.3839, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 57.5839, "t_pub": 53.7417, "t0": 57.5839, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 57.6534, "t_pub": 53.8376, "t0": 57.6534, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 57.8534, "t_pub": 53.8409, "t0": 57.8534, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.099, 0.121, 0.113, 0.614, 0.783, 0.843], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/frase", "t": 57.9102, "t_pub": 53.841, "texto": "Fue venta, fiado, movimiento u otra", "es_relleno": false, "idioma": "es", "turno": "turno-3", "contexto": "contexto-2", "fuente": "timestamps"}
+{"tema": "cuerpo/gesto", "t": 57.9102, "t_pub": 53.8412, "pregunta": false, "turno": "turno-1", "intencion": null}
+{"tema": "voz/volumen", "t": 58.0534, "t_pub": 53.8448, "t0": 58.0534, "dt": 0.01, "niveles": [0.872, 0.869, 0.871, 0.872, 0.872, 0.866, 0.853, 0.864, 0.867, 0.862, 0.885, 0.894, 0.903, 0.93, 0.926, 0.919], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 58.2053, "t_pub": 53.936, "t0": 58.2053, "dt": 0.01, "niveles": [0.914, 0.911, 0.879, 0.813, 0.758, 0.695, 0.606, 0.52, 0.372, 0.228, 0.095, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 58.4053, "t_pub": 53.9376, "t0": 58.4053, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.307, 0.401, 0.408, 0.372, 0.264, 0.336, 0.62, 0.751, 0.82, 0.843], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 58.6053, "t_pub": 53.9453, "t0": 58.6053, "dt": 0.01, "niveles": [0.838, 0.845, 0.835, 0.816, 0.792, 0.756, 0.793, 0.856, 0.893, 0.898, 0.873, 0.8, 0.648, 0.435, 0.184, 0.158, 0.335], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 58.7699, "t_pub": 53.969, "t0": 58.7699, "dt": 0.01, "niveles": [0.445, 0.605, 0.797, 0.884, 0.916, 0.921, 0.928, 0.922, 0.899, 0.887, 0.852, 0.8, 0.771, 0.736, 0.7], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 58.9111, "t_pub": 54.0662, "t0": 58.9111, "dt": 0.01, "niveles": [0.655, 0.643, 0.587, 0.457, 0.252, 0.011, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 59.1111, "t_pub": 54.0705, "t0": 59.1111, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.027, 0.081, 0.082, 0.069, 0.059, 0.095, 0.202, 0.618], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 59.3111, "t_pub": 54.0715, "t0": 59.3111, "dt": 0.01, "niveles": [0.694, 0.701, 0.7, 0.715, 0.72, 0.725, 0.781, 0.824, 0.861, 0.891, 0.91, 0.928, 0.931, 0.919, 0.906, 0.884], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 59.4629, "t_pub": 54.1574, "t0": 59.4629, "dt": 0.01, "niveles": [0.867, 0.838, 0.734, 0.549, 0.513, 0.657, 0.761, 0.79, 0.771, 0.745, 0.74, 0.745, 0.734, 0.714, 0.721, 0.702, 0.631, 0.562, 0.496, 0.448], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 59.6629, "t_pub": 54.1581, "t0": 59.6629, "dt": 0.01, "niveles": [0.355, 0.302, 0.132, 0.0, 0.0, 0.0, 0.0, 0.075, 0.358, 0.618, 0.734, 0.794, 0.826, 0.846, 0.85, 0.846, 0.862, 0.866, 0.844, 0.825], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 59.8629, "t_pub": 54.1643, "t0": 59.8629, "dt": 0.01, "niveles": [0.802, 0.807, 0.792, 0.767, 0.774, 0.798, 0.818, 0.826, 0.829, 0.835, 0.831, 0.819, 0.814, 0.813, 0.824, 0.833], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 60.0148, "t_pub": 54.2503, "t0": 60.0148, "dt": 0.01, "niveles": [0.833, 0.827, 0.814, 0.809, 0.798, 0.782, 0.773, 0.755, 0.747, 0.758, 0.765, 0.764, 0.76, 0.752, 0.781, 0.801, 0.795, 0.762, 0.661, 0.47], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 60.2148, "t_pub": 54.2515, "t0": 60.2148, "dt": 0.01, "niveles": [0.187, 0.277, 0.314, 0.242, 0.399, 0.665, 0.721, 0.73, 0.756, 0.769, 0.772, 0.76, 0.738, 0.724, 0.719, 0.709, 0.689, 0.659, 0.632, 0.603], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 60.4148, "t_pub": 54.2534, "t0": 60.4148, "dt": 0.01, "niveles": [0.541, 0.515, 0.479, 0.449, 0.46, 0.513, 0.538, 0.556, 0.574, 0.591, 0.599, 0.602, 0.615, 0.633, 0.628, 0.612, 0.592], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "cuerpo/latido", "t": 54.3035, "t_pub": 54.3036, "momento": "hablando", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 54.3035, "t_pub": 54.3036, "momento": "hablando", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "voz/volumen", "t": 60.5794, "t_pub": 54.3212, "t0": 60.5794, "dt": 0.01, "niveles": [0.601, 0.595, 0.578, 0.6, 0.552, 0.436, 0.459, 0.418, 0.351, 0.0, 0.0, 0.0, 0.0, 0.193, 0.222, 0.181, 0.219, 0.182, 0.194, 0.395], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/volumen", "t": 60.7794, "t_pub": 54.322, "t0": 60.7794, "dt": 0.01, "niveles": [0.235, 0.377, 0.388, 0.423, 0.442, 0.385, 0.382, 0.375, 0.363, 0.361, 0.402, 0.461, 0.499, 0.46, 0.31, 0.096, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-2"}
+{"tema": "voz/turno_fin", "t": 60.9598, "t_pub": 54.322, "turno": "turno-3", "contexto": "contexto-2", "con_timestamps": true}
+{"tema": "cuerpo/momento", "t": 60.9598, "t_pub": 54.3221, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/momento", "t": 54.3221, "t_pub": 54.3221, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 55.3236, "t_pub": 55.3236, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 55.3236, "t_pub": 55.3237, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 56.3251, "t_pub": 56.3251, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 56.3251, "t_pub": 56.3252, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 57.3266, "t_pub": 57.3266, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 57.3266, "t_pub": 57.3267, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 58.3283, "t_pub": 58.3283, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 58.3283, "t_pub": 58.3283, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 59.3298, "t_pub": 59.3299, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 59.3298, "t_pub": 59.33, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 60.3315, "t_pub": 60.3315, "momento": "reposo", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 60.3315, "t_pub": 60.3316, "momento": "reposo", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/momento", "t": 60.9911, "t_pub": 60.9914, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 61.3419, "t_pub": 61.342, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 61.3419, "t_pub": 61.342, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 62.3448, "t_pub": 62.3449, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 62.3448, "t_pub": 62.3449, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "ale/evento", "t": 62.4922, "t_pub": 62.4922, "tipo": "aviso", "id": 49, "texto": "Perdona, no te escuché. Diferencia de 2, esperabamos 24 y contamos 22 simulado. Fue venta, fiado, movimiento u otra", "pregunta": true, "turno": "turno-3"}
+{"tema": "voz/volumen", "t": 62.7406, "t_pub": 62.7162, "t0": 62.7406, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/turno_inicio", "t": 62.7406, "t_pub": 62.7162, "turno": "turno-3", "contexto": "contexto-3", "idioma": "es"}
+{"tema": "cuerpo/momento", "t": 62.7406, "t_pub": 62.7163, "momento": "hablando", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "voz/volumen", "t": 62.8683, "t_pub": 62.7523, "t0": 62.8683, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 63.0507, "t_pub": 62.8465, "t0": 63.0507, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 63.2507, "t_pub": 62.8534, "t0": 63.2507, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.35, 0.59, 0.757, 0.823, 0.83], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 63.4507, "t_pub": 62.8547, "t0": 63.4507, "dt": 0.01, "niveles": [0.835, 0.84, 0.821, 0.736, 0.623, 0.589, 0.523, 0.703, 0.87, 0.938, 0.948, 0.941, 0.936, 0.967, 0.978, 0.955, 0.945], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/frase", "t": 63.3619, "t_pub": 62.9215, "texto": "Perdona, no te escuché.", "es_relleno": false, "idioma": "es", "turno": "turno-3", "contexto": "contexto-3", "fuente": "timestamps"}
+{"tema": "cuerpo/gesto", "t": 63.3619, "t_pub": 62.9217, "pregunta": false, "turno": "turno-1", "intencion": null}
+{"tema": "voz/volumen", "t": 63.6153, "t_pub": 62.9259, "t0": 63.6153, "dt": 0.01, "niveles": [0.816, 0.815, 0.819, 0.819, 0.793, 0.765, 0.734, 0.695, 0.673, 0.624, 0.576, 0.561, 0.575, 0.567, 0.575, 0.546, 0.399, 0.208, 0.045, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 63.8153, "t_pub": 62.9355, "t0": 63.8153, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.003, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 64.0153, "t_pub": 62.9374, "t0": 64.0153, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 64.1672, "t_pub": 63.1117, "t0": 64.1672, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 64.3672, "t_pub": 63.1785, "t0": 64.3672, "dt": 0.01, "niveles": [0.0, 0.552, 0.752, 0.833, 0.861, 0.874, 0.905, 0.934, 0.947, 0.949, 0.927, 0.872, 0.8, 0.699, 0.507, 0.23, 0.026, 0.0, 0.0, 0.265], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 64.5672, "t_pub": 63.1792, "t0": 64.5672, "dt": 0.01, "niveles": [0.359, 0.64, 0.703, 0.681, 0.667, 0.661, 0.662, 0.673, 0.673, 0.63, 0.522, 0.361, 0.326, 0.329, 0.294, 0.244, 0.232], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 64.7318, "t_pub": 63.1851, "t0": 64.7318, "dt": 0.01, "niveles": [0.0, 0.0, 0.092, 0.238, 0.234, 0.092, 0.418, 0.583, 0.621, 0.563, 0.428, 0.248, 0.134, 0.345, 0.443, 0.468, 0.417, 0.271, 0.192, 0.594], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 64.9318, "t_pub": 63.188, "t0": 64.9318, "dt": 0.01, "niveles": [0.64, 0.629, 0.604, 0.574, 0.571, 0.56, 0.526, 0.508, 0.476, 0.435, 0.5, 0.542, 0.499, 0.432], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "cuerpo/latido", "t": 63.3884, "t_pub": 63.3884, "momento": "hablando", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 63.3884, "t_pub": 63.3885, "momento": "hablando", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "voz/volumen", "t": 65.0647, "t_pub": 63.4038, "t0": 65.0647, "dt": 0.01, "niveles": [0.19, 0.16, 0.059, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 65.2647, "t_pub": 63.4041, "t0": 65.2647, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 65.4647, "t_pub": 63.4057, "t0": 65.4647, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 65.6165, "t_pub": 63.4882, "t0": 65.6165, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 65.8165, "t_pub": 63.491, "t0": 65.8165, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 66.0165, "t_pub": 63.4941, "t0": 66.0165, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 66.1683, "t_pub": 63.5699, "t0": 66.1683, "dt": 0.01, "niveles": [0.0, 0.0, 0.128, 0.67, 0.818, 0.876, 0.919, 0.921, 0.853, 0.711, 0.433, 0.334, 0.35, 0.335, 0.854, 0.964, 0.93, 0.768, 0.7, 0.781], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 66.3683, "t_pub": 63.5725, "t0": 66.3683, "dt": 0.01, "niveles": [0.951, 0.951, 0.949, 0.953, 0.945, 0.913, 0.856, 0.804, 0.836, 0.86, 0.854, 0.802, 0.671, 0.501, 0.495, 0.464, 0.361, 0.336, 0.724, 0.789], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/frase", "t": 66.1482, "t_pub": 63.5727, "texto": "Diferencia de 2, esperabamos 24 y contamos 22 simulado.", "es_relleno": false, "idioma": "es", "turno": "turno-3", "contexto": "contexto-3", "fuente": "timestamps"}
+{"tema": "cuerpo/gesto", "t": 66.1482, "t_pub": 63.5728, "pregunta": false, "turno": "turno-1", "intencion": null}
+{"tema": "voz/volumen", "t": 66.5683, "t_pub": 63.577, "t0": 66.5683, "dt": 0.01, "niveles": [0.788, 0.824, 0.888, 0.924, 0.917, 0.852, 0.725, 0.66, 0.631, 0.592, 0.662, 0.738, 0.768, 0.763, 0.741, 0.721], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 66.7202, "t_pub": 63.6642, "t0": 66.7202, "dt": 0.01, "niveles": [0.708, 0.704, 0.664, 0.57, 0.493, 0.445, 0.38, 0.431, 0.635, 0.757, 0.79, 0.78, 0.797, 0.827, 0.84, 0.848, 0.891, 0.908, 0.87, 0.817], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 66.9202, "t_pub": 63.6683, "t0": 66.9202, "dt": 0.01, "niveles": [0.788, 0.803, 0.818, 0.802, 0.739, 0.62, 0.472, 0.283, 0.113, 0.105, 0.15, 0.171, 0.18, 0.173, 0.134, 0.109, 0.147, 0.153, 0.133, 0.138], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 67.1202, "t_pub": 63.6739, "t0": 67.1202, "dt": 0.01, "niveles": [0.121, 0.113, 0.078, 0.012, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 67.2848, "t_pub": 63.7651, "t0": 67.2848, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.052, 0.582, 0.773, 0.805, 0.721, 0.563, 0.469, 0.461], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 67.4848, "t_pub": 63.7705, "t0": 67.4848, "dt": 0.01, "niveles": [0.273, 0.202, 0.0, 0.0, 0.373, 0.681, 0.847, 0.855, 0.74, 0.664, 0.772, 0.926, 0.968, 0.956, 0.955, 0.941, 0.881, 0.733, 0.565, 0.545], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 67.6848, "t_pub": 63.7712, "t0": 67.6848, "dt": 0.01, "niveles": [0.792, 0.898, 0.973, 0.994, 0.999, 0.998, 0.994, 0.984, 0.925, 0.782, 0.727, 0.787, 0.81, 0.812, 0.815, 0.829], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 67.8367, "t_pub": 63.8355, "t0": 67.8367, "dt": 0.01, "niveles": [0.792, 0.785, 0.764, 0.716, 0.617, 0.442, 0.351, 0.323, 0.201, 0.0, 0.0, 0.0, 0.484, 0.687, 0.744, 0.737, 0.724, 0.714, 0.704, 0.657], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 68.0367, "t_pub": 63.8397, "t0": 68.0367, "dt": 0.01, "niveles": [0.659, 0.654, 0.611, 0.486, 0.327, 0.347, 0.3, 0.145, 0.545, 0.596, 0.516, 0.437, 0.359, 0.165, 0.0, 0.11, 0.194, 0.181, 0.262, 0.306], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 68.2367, "t_pub": 63.8453, "t0": 68.2367, "dt": 0.01, "niveles": [0.279, 0.722, 0.825, 0.84, 0.842, 0.871, 0.889, 0.893, 0.888, 0.852, 0.777, 0.632, 0.256, 0.031, 0.0, 0.048, 0.134], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 68.4013, "t_pub": 63.9159, "t0": 68.4013, "dt": 0.01, "niveles": [0.175, 0.366, 0.521, 0.495, 0.34, 0.575, 0.711, 0.769, 0.792, 0.8, 0.776, 0.732, 0.691, 0.664, 0.659, 0.644, 0.613, 0.556, 0.488, 0.428], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 68.6013, "t_pub": 63.9204, "t0": 68.6013, "dt": 0.01, "niveles": [0.23, 0.164, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 68.8013, "t_pub": 63.9256, "t0": 68.8013, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.57, 0.671], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 68.9532, "t_pub": 64.0111, "t0": 68.9532, "dt": 0.01, "niveles": [0.808, 0.814, 0.801, 0.72, 0.531, 0.313, 0.206, 0.351, 0.436, 0.398, 0.558, 0.739, 0.809, 0.841, 0.842, 0.809, 0.814, 0.85, 0.863, 0.84], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 69.1532, "t_pub": 64.0136, "t0": 69.1532, "dt": 0.01, "niveles": [0.65, 0.586, 0.435, 0.402, 0.334, 0.334, 0.67, 0.864, 0.941, 0.962, 0.97, 0.957, 0.925, 0.905, 0.854, 0.795, 0.808, 0.823, 0.834, 0.842], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 69.3532, "t_pub": 64.0149, "t0": 69.3532, "dt": 0.01, "niveles": [0.809, 0.804, 0.781, 0.708, 0.551, 0.367, 0.316, 0.281, 0.183, 0.0, 0.0, 0.0, 0.0, 0.325, 0.648, 0.743, 0.759], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 69.5178, "t_pub": 64.0862, "t0": 69.5178, "dt": 0.01, "niveles": [0.758, 0.759, 0.761, 0.76, 0.758, 0.733, 0.704, 0.742, 0.746, 0.643, 0.358, 0.313, 0.309, 0.202, 0.18, 0.626, 0.699, 0.71, 0.731, 0.712], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 69.7178, "t_pub": 64.094, "t0": 69.7178, "dt": 0.01, "niveles": [0.53, 0.517, 0.511, 0.639, 0.724, 0.763, 0.774, 0.766, 0.757, 0.744, 0.726, 0.711, 0.67, 0.554, 0.365, 0.272, 0.31, 0.337, 0.346, 0.323], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 69.9178, "t_pub": 64.0943, "t0": 69.9178, "dt": 0.01, "niveles": [0.251, 0.252, 0.22, 0.52, 0.667, 0.688, 0.655, 0.648, 0.651, 0.651, 0.662], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 70.0183, "t_pub": 64.1592, "t0": 70.0183, "dt": 0.01, "niveles": [0.65, 0.65, 0.651, 0.653, 0.647, 0.639, 0.634, 0.63, 0.621, 0.611, 0.606, 0.588, 0.632, 0.702, 0.736, 0.77, 0.792, 0.784, 0.772, 0.777], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 70.2183, "t_pub": 64.1601, "t0": 70.2183, "dt": 0.01, "niveles": [0.747, 0.728, 0.691, 0.657, 0.617, 0.525, 0.361, 0.311, 0.399, 0.554, 0.583, 0.54, 0.504, 0.516, 0.519, 0.508, 0.527, 0.53, 0.519], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 70.4052, "t_pub": 64.2816, "t0": 70.4052, "dt": 0.01, "niveles": [0.49, 0.458, 0.381, 0.278, 0.105, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.106, 0.216, 0.525, 0.758, 0.823], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/frase", "t": 70.4672, "t_pub": 64.2817, "texto": "Fue venta, fiado, movimiento u otra", "es_relleno": false, "idioma": "es", "turno": "turno-3", "contexto": "contexto-3", "fuente": "timestamps"}
+{"tema": "cuerpo/gesto", "t": 70.4672, "t_pub": 64.2819, "pregunta": false, "turno": "turno-1", "intencion": null}
+{"tema": "voz/volumen", "t": 70.6052, "t_pub": 64.2849, "t0": 70.6052, "dt": 0.01, "niveles": [0.824, 0.815, 0.801, 0.803, 0.816, 0.84, 0.822, 0.727, 0.605, 0.554, 0.608, 0.755, 0.852, 0.897, 0.917, 0.925, 0.927, 0.926, 0.921, 0.876], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 70.8052, "t_pub": 64.2864, "t0": 70.8052, "dt": 0.01, "niveles": [0.81, 0.813, 0.827, 0.845, 0.827, 0.737, 0.554, 0.345, 0.376, 0.382, 0.261, 0.284, 0.743, 0.845, 0.861, 0.863], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 70.9571, "t_pub": 64.358, "t0": 70.9571, "dt": 0.01, "niveles": [0.846, 0.843, 0.817, 0.786, 0.753, 0.701, 0.656, 0.59, 0.493, 0.328, 0.167, 0.063, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 71.1571, "t_pub": 64.3617, "t0": 71.1571, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 71.3571, "t_pub": 64.3664, "t0": 71.3571, "dt": 0.01, "niveles": [0.0, 0.029, 0.151, 0.203, 0.654, 0.76, 0.787, 0.832, 0.868, 0.865, 0.902, 0.939, 0.944, 0.949, 0.956, 0.978], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "cuerpo/latido", "t": 64.4166, "t_pub": 64.4166, "momento": "hablando", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 64.4166, "t_pub": 64.4166, "momento": "hablando", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "voz/volumen", "t": 71.5089, "t_pub": 64.4432, "t0": 71.5089, "dt": 0.01, "niveles": [0.959, 0.958, 0.956, 0.959, 0.949, 0.91, 0.825, 0.654, 0.515, 0.551, 0.728, 0.789, 0.785, 0.792, 0.788, 0.781, 0.77, 0.752, 0.736, 0.711], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 71.7089, "t_pub": 64.4481, "t0": 71.7089, "dt": 0.01, "niveles": [0.626, 0.607, 0.532, 0.379, 0.211, 0.05, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.073, 0.182, 0.537, 0.697], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 71.9089, "t_pub": 64.4489, "t0": 71.9089, "dt": 0.01, "niveles": [0.805, 0.814, 0.835, 0.835, 0.815, 0.797, 0.764, 0.715, 0.661, 0.606, 0.568, 0.581, 0.662, 0.721, 0.749, 0.74], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 72.0607, "t_pub": 64.5324, "t0": 72.0607, "dt": 0.01, "niveles": [0.761, 0.755, 0.737, 0.704, 0.714, 0.758, 0.785, 0.789, 0.766, 0.741, 0.728, 0.718, 0.721, 0.74, 0.746, 0.728, 0.742, 0.769, 0.735, 0.605], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 72.2607, "t_pub": 64.5353, "t0": 72.2607, "dt": 0.01, "niveles": [0.0, 0.0, 0.321, 0.355, 0.22, 0.566, 0.665, 0.676, 0.672, 0.667, 0.66, 0.639, 0.638, 0.666, 0.664, 0.664, 0.679, 0.665, 0.688, 0.73], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 72.4607, "t_pub": 64.5362, "t0": 72.4607, "dt": 0.01, "niveles": [0.644, 0.596, 0.539, 0.508, 0.343, 0.042, 0.0, 0.0, 0.0, 0.296, 0.387, 0.345, 0.33, 0.357, 0.481, 0.494, 0.535], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/volumen", "t": 72.6254, "t_pub": 64.5606, "t0": 72.6254, "dt": 0.01, "niveles": [0.499, 0.503, 0.467, 0.532, 0.517, 0.519, 0.566, 0.522, 0.529, 0.521, 0.445, 0.293, 0.089, 0.007, 0.0], "es_relleno": false, "turno": "turno-3", "contexto": "contexto-3"}
+{"tema": "voz/turno_fin", "t": 72.7737, "t_pub": 64.561, "turno": "turno-3", "contexto": "contexto-3", "con_timestamps": true}
+{"tema": "cuerpo/momento", "t": 72.7737, "t_pub": 64.5611, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 65.4625, "t_pub": 65.4625, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 72.7737, "t_pub": 65.4626, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 66.4644, "t_pub": 66.4644, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 72.7737, "t_pub": 66.4644, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 67.4659, "t_pub": 67.4659, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 72.7737, "t_pub": 67.466, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 68.4675, "t_pub": 68.4675, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 72.7737, "t_pub": 68.4676, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 69.4691, "t_pub": 69.4691, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 72.7737, "t_pub": 69.4692, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 70.4706, "t_pub": 70.4706, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 72.7737, "t_pub": 70.4707, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 71.4723, "t_pub": 71.4723, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 72.7737, "t_pub": 71.4724, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 72.4738, "t_pub": 72.4739, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 72.7737, "t_pub": 72.4739, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 73.5073, "t_pub": 73.5073, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 73.5073, "t_pub": 73.5073, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 74.509, "t_pub": 74.509, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 74.509, "t_pub": 74.5091, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 75.5271, "t_pub": 75.5271, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 75.5271, "t_pub": 75.5272, "momento": "escucha", "pista": null, "turno": "turno-1", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 77.925, "t_pub": 77.925, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 77.925, "t_pub": 77.9251, "momento": "escucha", "pista": null, "turno": "turno-4", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 78.9268, "t_pub": 78.9268, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 78.9268, "t_pub": 78.9268, "momento": "escucha", "pista": null, "turno": "turno-4", "herramienta": null}
+{"tema": "ale/evento", "t": 78.9866, "t_pub": 78.9866, "tipo": "aviso", "id": 50, "texto": "Anote fiado de 2 simulado, pero no pude confirmarlo por voz. Revisalo en pantalla para dejarlo listo", "pregunta": false, "turno": "turno-5"}
+{"tema": "cuerpo/latido", "t": 79.939, "t_pub": 79.939, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 79.939, "t_pub": 79.9391, "momento": "escucha", "pista": null, "turno": "turno-4", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 80.9405, "t_pub": 80.9406, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 80.9405, "t_pub": 80.9407, "momento": "escucha", "pista": null, "turno": "turno-4", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 81.9422, "t_pub": 81.9422, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 81.9422, "t_pub": 81.9422, "momento": "escucha", "pista": null, "turno": "turno-4", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 82.9438, "t_pub": 82.9438, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 82.9438, "t_pub": 82.9439, "momento": "escucha", "pista": null, "turno": "turno-4", "herramienta": null}
+{"tema": "voz/volumen", "t": 83.0701, "t_pub": 83.0509, "t0": 83.0701, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/turno_inicio", "t": 83.0701, "t_pub": 83.051, "turno": "turno-5", "contexto": "contexto-4", "idioma": "es"}
+{"tema": "cuerpo/momento", "t": 83.0701, "t_pub": 83.0511, "momento": "hablando", "pista": null, "turno": "turno-4", "herramienta": null}
+{"tema": "voz/volumen", "t": 83.1984, "t_pub": 83.0558, "t0": 83.1984, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 83.3984, "t_pub": 83.0602, "t0": 83.3984, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 83.5984, "t_pub": 83.0604, "t0": 83.5984, "dt": 0.01, "niveles": [0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 83.6219, "t_pub": 83.0649, "t0": 83.6219, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 83.8219, "t_pub": 83.0681, "t0": 83.8219, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 84.0219, "t_pub": 83.0717, "t0": 84.0219, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 84.2219, "t_pub": 83.0751, "t0": 84.2219, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 84.3534, "t_pub": 83.0781, "t0": 84.3534, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 84.5534, "t_pub": 83.0955, "t0": 84.5534, "dt": 0.01, "niveles": [0.0, 0.703, 0.856, 0.92, 0.953, 0.939, 0.878, 0.88, 0.901, 0.901, 0.921, 0.928, 0.921, 0.909, 0.919, 0.935, 0.933, 0.946, 0.956, 0.961], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/frase", "t": 84.4942, "t_pub": 83.0956, "texto": "Anote fiado de 2 simulado, pero no pude confirmarlo por voz.", "es_relleno": false, "idioma": "es", "turno": "turno-5", "contexto": "contexto-4", "fuente": "timestamps"}
+{"tema": "cuerpo/gesto", "t": 84.4942, "t_pub": 83.0959, "pregunta": false, "turno": "turno-4", "intencion": null}
+{"tema": "voz/volumen", "t": 84.7534, "t_pub": 83.0963, "t0": 84.7534, "dt": 0.01, "niveles": [0.946, 0.912, 0.798, 0.577, 0.406, 0.242, 0.166, 0.389, 0.699, 0.879, 0.916, 0.885, 0.88, 0.879, 0.856, 0.834, 0.813], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 84.9181, "t_pub": 83.1108, "t0": 84.9181, "dt": 0.01, "niveles": [0.548, 0.476, 0.258, 0.243, 0.212, 0.172, 0.144, 0.155, 0.198, 0.234, 0.481, 0.69, 0.761, 0.816, 0.884, 0.895, 0.908, 0.952, 0.968, 0.974], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 85.1181, "t_pub": 83.116, "t0": 85.1181, "dt": 0.01, "niveles": [0.972, 0.979, 0.993, 0.99, 0.979, 0.945, 0.828, 0.632, 0.604, 0.674, 0.828, 0.882, 0.869, 0.864, 0.867, 0.848, 0.806, 0.74, 0.665, 0.6], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 85.3181, "t_pub": 83.1208, "t0": 85.3181, "dt": 0.01, "niveles": [0.557, 0.603, 0.737, 0.844, 0.903, 0.906, 0.888, 0.875, 0.849, 0.771, 0.608, 0.577, 0.489, 0.425, 0.529, 0.602], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 85.4699, "t_pub": 83.1246, "t0": 85.4699, "dt": 0.01, "niveles": [0.795, 0.796, 0.811, 0.82, 0.818, 0.815, 0.808, 0.795, 0.781, 0.745, 0.681, 0.595, 0.449, 0.507, 0.542, 0.507, 0.451, 0.456, 0.483, 0.487], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 85.6699, "t_pub": 83.1387, "t0": 85.6699, "dt": 0.01, "niveles": [0.465, 0.427, 0.298, 0.584, 0.729, 0.779, 0.766, 0.729, 0.717, 0.724, 0.745, 0.76, 0.756, 0.753, 0.729, 0.672, 0.646, 0.635, 0.626, 0.622], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 85.8699, "t_pub": 83.1395, "t0": 85.8699, "dt": 0.01, "niveles": [0.619, 0.613, 0.613, 0.645, 0.695, 0.732, 0.757, 0.766, 0.762, 0.774, 0.786, 0.783, 0.756, 0.721, 0.712, 0.696, 0.676], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 86.0346, "t_pub": 83.1463, "t0": 86.0346, "dt": 0.01, "niveles": [0.612, 0.598, 0.569, 0.572, 0.589, 0.601, 0.606, 0.598, 0.589, 0.584, 0.575, 0.573, 0.573, 0.562, 0.536, 0.451, 0.309, 0.118, 0.0, 0.0], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 86.2346, "t_pub": 83.1502, "t0": 86.2346, "dt": 0.01, "niveles": [0.0, 0.0, 0.002, 0.002, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 86.4346, "t_pub": 83.1535, "t0": 86.4346, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.381, 0.466], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 86.5864, "t_pub": 83.1563, "t0": 86.5864, "dt": 0.01, "niveles": [0.329, 0.287, 0.227, 0.637, 0.766, 0.805, 0.829, 0.825, 0.8, 0.82, 0.884, 0.924, 0.944, 0.941, 0.931, 0.924, 0.923, 0.921, 0.904, 0.88], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 86.7864, "t_pub": 83.1677, "t0": 86.7864, "dt": 0.01, "niveles": [0.886, 0.9, 0.91, 0.899, 0.899, 0.903, 0.895, 0.92, 0.935, 0.931, 0.957, 0.958, 0.919, 0.824, 0.606, 0.557, 0.469, 0.325, 0.183, 0.385], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 86.9864, "t_pub": 83.1698, "t0": 86.9864, "dt": 0.01, "niveles": [0.197, 0.223, 0.223, 0.181, 0.133, 0.248, 0.733, 0.817, 0.804, 0.783, 0.785, 0.786, 0.823, 0.903, 0.945, 0.943, 0.921], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 87.1511, "t_pub": 83.2032, "t0": 87.1511, "dt": 0.01, "niveles": [0.885, 0.865, 0.807, 0.7, 0.51, 0.334, 0.102, 0.03, 0.089, 0.133, 0.208, 0.28, 0.265, 0.403, 0.771, 0.838, 0.827, 0.832, 0.815, 0.792], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 87.3511, "t_pub": 83.2082, "t0": 87.3511, "dt": 0.01, "niveles": [0.804, 0.762, 0.631, 0.4, 0.244, 0.268, 0.256, 0.267, 0.683, 0.746, 0.719, 0.703, 0.696, 0.701, 0.697, 0.689, 0.704, 0.716, 0.714, 0.715], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 87.5511, "t_pub": 83.2092, "t0": 87.5511, "dt": 0.01, "niveles": [0.73, 0.758, 0.797, 0.816, 0.826, 0.836, 0.839, 0.826, 0.799, 0.77, 0.749, 0.731, 0.708, 0.688, 0.686, 0.69], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 87.7029, "t_pub": 83.2153, "t0": 87.7029, "dt": 0.01, "niveles": [0.735, 0.746, 0.758, 0.753, 0.723, 0.639, 0.498, 0.368, 0.151, 0.0, 0.0, 0.269, 0.396, 0.384, 0.28, 0.391, 0.618, 0.638, 0.569, 0.587], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 87.9029, "t_pub": 83.2212, "t0": 87.9029, "dt": 0.01, "niveles": [0.57, 0.584, 0.568, 0.507, 0.463, 0.427, 0.398, 0.383, 0.446, 0.486, 0.518, 0.542, 0.554, 0.555, 0.534, 0.51, 0.483, 0.425, 0.421, 0.394], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 88.1029, "t_pub": 83.2222, "t0": 88.1029, "dt": 0.01, "niveles": [0.469, 0.43, 0.45, 0.458, 0.359, 0.235, 0.074, 0.106, 0.128, 0.124, 0.121, 0.115, 0.115, 0.087, 0.054, 0.054], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 88.2547, "t_pub": 83.2227, "t0": 88.2547, "dt": 0.01, "niveles": [0.025, 0.042, 0.02, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 88.3642, "t_pub": 83.2262, "t0": 88.3642, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 88.5642, "t_pub": 83.2317, "t0": 88.5642, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 88.7642, "t_pub": 83.2335, "t0": 88.7642, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.472, 0.715, 0.824, 0.886, 0.912, 0.916, 0.927], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 88.9161, "t_pub": 83.2402, "t0": 88.9161, "dt": 0.01, "niveles": [0.922, 0.892, 0.807, 0.739, 0.745, 0.783, 0.849, 0.892, 0.883, 0.844, 0.775, 0.616, 0.555, 0.562, 0.581, 0.561, 0.495, 0.429, 0.755, 0.918], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/frase", "t": 88.7976, "t_pub": 83.2404, "texto": "Revisalo en pantalla para dejarlo listo", "es_relleno": false, "idioma": "es", "turno": "turno-5", "contexto": "contexto-4", "fuente": "timestamps"}
+{"tema": "cuerpo/gesto", "t": 88.7976, "t_pub": 83.2406, "pregunta": false, "turno": "turno-4", "intencion": null}
+{"tema": "cuerpo/emocion", "t": 88.7976, "t_pub": 83.2406, "emocion": "feliz", "intensidad": 0.75, "texto": "Revisalo en pantalla para dejarlo listo", "turno": "turno-4"}
+{"tema": "voz/volumen", "t": 89.1161, "t_pub": 83.2435, "t0": 89.1161, "dt": 0.01, "niveles": [0.994, 0.992, 0.997, 1.0, 0.973, 0.926, 0.895, 0.895, 0.913, 0.934, 0.947, 0.947, 0.943, 0.934, 0.922, 0.9, 0.865, 0.838, 0.817, 0.803], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 89.3161, "t_pub": 83.2463, "t0": 89.3161, "dt": 0.01, "niveles": [0.785, 0.798, 0.792, 0.728, 0.588, 0.317, 0.381, 0.419, 0.326, 0.245, 0.469, 0.727, 0.809, 0.824, 0.81, 0.804], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 89.4679, "t_pub": 83.2572, "t0": 89.4679, "dt": 0.01, "niveles": [0.736, 0.785, 0.831, 0.851, 0.853, 0.822, 0.739, 0.594, 0.451, 0.449, 0.588, 0.762, 0.83, 0.847, 0.848, 0.849, 0.868, 0.871, 0.85, 0.833], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 89.6679, "t_pub": 83.2618, "t0": 89.6679, "dt": 0.01, "niveles": [0.806, 0.789, 0.767, 0.747, 0.722, 0.721, 0.727, 0.755, 0.782, 0.803, 0.818, 0.818, 0.824, 0.833, 0.817, 0.789, 0.782, 0.786, 0.788, 0.756], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 89.8679, "t_pub": 83.2656, "t0": 89.8679, "dt": 0.01, "niveles": [0.666, 0.635, 0.556, 0.432, 0.158, 0.0, 0.0, 0.034, 0.032, 0.03, 0.069, 0.0, 0.0, 0.041, 0.024, 0.0], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 90.0197, "t_pub": 83.2774, "t0": 90.0197, "dt": 0.01, "niveles": [0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.0, 0.447, 0.483, 0.654, 0.806, 0.865], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 90.2197, "t_pub": 83.2807, "t0": 90.2197, "dt": 0.01, "niveles": [0.853, 0.798, 0.658, 0.643, 0.701, 0.752, 0.777, 0.802, 0.804, 0.772, 0.709, 0.595, 0.547, 0.529, 0.602, 0.707, 0.734, 0.725, 0.703, 0.644], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 90.4197, "t_pub": 83.2816, "t0": 90.4197, "dt": 0.01, "niveles": [0.503, 0.458, 0.384, 0.439, 0.493, 0.604, 0.708, 0.763, 0.784, 0.786, 0.774, 0.757, 0.755, 0.735, 0.682, 0.64, 0.61], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 90.5844, "t_pub": 83.2868, "t0": 90.5844, "dt": 0.01, "niveles": [0.613, 0.613, 0.615, 0.639, 0.67, 0.688, 0.684, 0.66, 0.635, 0.624, 0.608, 0.582, 0.573, 0.565, 0.557, 0.54, 0.493, 0.503, 0.586, 0.61], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 90.7844, "t_pub": 83.2889, "t0": 90.7844, "dt": 0.01, "niveles": [0.538, 0.528, 0.523, 0.528, 0.51, 0.442, 0.312, 0.275, 0.331, 0.33, 0.301, 0.303, 0.308, 0.285, 0.265, 0.243, 0.173, 0.069, 0.013, 0.142], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 90.9844, "t_pub": 83.2915, "t0": 90.9844, "dt": 0.01, "niveles": [0.515, 0.475, 0.519, 0.551, 0.508, 0.504, 0.503, 0.486, 0.477, 0.463, 0.433, 0.424, 0.476, 0.503, 0.498, 0.484], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/volumen", "t": 91.1362, "t_pub": 83.2917, "t0": 91.1362, "dt": 0.01, "niveles": [0.4, 0.367], "es_relleno": false, "turno": "turno-5", "contexto": "contexto-4"}
+{"tema": "voz/turno_fin", "t": 91.1506, "t_pub": 83.2919, "turno": "turno-5", "contexto": "contexto-4", "con_timestamps": true}
+{"tema": "cuerpo/momento", "t": 91.1506, "t_pub": 83.292, "momento": "escucha", "pista": null, "turno": "turno-4", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 83.993, "t_pub": 83.9931, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 91.1506, "t_pub": 83.9931, "momento": "escucha", "pista": null, "turno": "turno-4", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 84.9947, "t_pub": 84.9947, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 91.1506, "t_pub": 84.9948, "momento": "escucha", "pista": null, "turno": "turno-4", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 85.9965, "t_pub": 85.9965, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 91.1506, "t_pub": 85.9966, "momento": "escucha", "pista": null, "turno": "turno-4", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 86.9979, "t_pub": 86.998, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 91.1506, "t_pub": 86.998, "momento": "escucha", "pista": null, "turno": "turno-4", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 87.9995, "t_pub": 87.9996, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 91.1506, "t_pub": 87.9996, "momento": "escucha", "pista": null, "turno": "turno-4", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 89.0011, "t_pub": 89.0011, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 91.1506, "t_pub": 89.0012, "momento": "escucha", "pista": null, "turno": "turno-4", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 90.0027, "t_pub": 90.0027, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 91.1506, "t_pub": 90.0027, "momento": "escucha", "pista": null, "turno": "turno-4", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 91.0042, "t_pub": 91.0042, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 91.1506, "t_pub": 91.0043, "momento": "escucha", "pista": null, "turno": "turno-4", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 92.0056, "t_pub": 92.0056, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 92.0056, "t_pub": 92.0057, "momento": "escucha", "pista": null, "turno": "turno-4", "herramienta": null}
+{"tema": "cuerpo/latido", "t": 93.0072, "t_pub": 93.0072, "momento": "escucha", "emocion": "neutral"}
+{"tema": "cuerpo/momento", "t": 93.0072, "t_pub": 93.0073, "momento": "escucha", "pista": null, "turno": "turno-4", "herramienta": null}
