@@ -29,7 +29,7 @@ Diagnóstico: `/healthz`, `/sim` (resumen), `/sim/landings` y `/sim/calls` (últ
 
 - `authorize` exige PKCE S256 y acepta `prompt=none`. La sesión SSO es siempre la del usuario demo
   (`00000000-0000-4000-a000-000000000001`); no hay pantalla de login.
-- `token`: `authorization_code` y `refresh_token`. Responde `access_token`, `refresh_token`, `token_type=bearer`,
+- `token`: `authorization_code`, `refresh_token` y `password` (solo cliente `front` y usuario `demo-owner`, contraseña sin validar: la usa el front, D7). Responde `access_token`, `refresh_token`, `token_type=bearer`,
   `expires_in`, `scope` (más `id_token`, `refresh_expires_in` y `session_state`, como Keycloak).
 - Token del asistente: `iss`, `aud = MCP_URL`, `azp = mcp-saleads-assistant-dev`, `typ = Bearer`, `sub`, `scope`.
   Dura 5 min (`SIM_ACCESS_TOKEN_TTL_S`), así Hermes renueva de verdad.

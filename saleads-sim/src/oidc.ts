@@ -70,7 +70,7 @@ export class Oidc {
       end_session_endpoint: `${oidc}/logout`,
       jwks_uri: `${oidc}/certs`,
       revocation_endpoint: `${oidc}/revoke`,
-      grant_types_supported: ['authorization_code', 'refresh_token'],
+      grant_types_supported: ['authorization_code', 'refresh_token', 'password'],
       response_types_supported: ['code'],
       response_modes_supported: ['query'],
       subject_types_supported: ['public'],
@@ -231,6 +231,15 @@ export class Oidc {
       const asked = form.get('scope');
       const scope = asked ? asked.split(' ').filter((s) => original.includes(s)).join(' ') : original.join(' ');
       sendJson(res, 200, await this.issue(clientId!, String(claims.sub), scope, sid, null));
+      return;
+    }
+    if (grant === 'password') {
+      // Login directo del front (D7): solo el cliente `front` y solo el usuario demo; la contraseña no se valida (demo).
+      if (clientId !== this.config.webClientId) return oauthError(res, 400, 'unauthorized_client', 'Client not allowed for direct access grants');
+      if (!['demo-owner', this.config.demoUserEmail, this.config.demoUserId].includes(form.get('username') ?? '')) {
+        return oauthError(res, 401, 'invalid_grant', 'Invalid user credentials');
+      }
+      sendJson(res, 200, await this.issue(clientId!, this.config.demoUserId, this.grantedScope(form.get('scope')), randomUUID(), null));
       return;
     }
     oauthError(res, 400, 'unsupported_grant_type', 'Unsupported grant_type');

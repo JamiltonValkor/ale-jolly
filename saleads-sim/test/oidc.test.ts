@@ -97,6 +97,18 @@ describe('OIDC simulado', () => {
     assert.equal((await form(h, 'revoke', {token: 'basura', client_id: 'mcp-saleads-assistant-dev'})).status, 200);
   });
 
+  it('password grant del front (D7): solo cliente front y usuario demo', async () => {
+    const ok = await form(h, 'token', {grant_type: 'password', client_id: 'front', username: 'demo-owner', password: 'demo', scope: 'openid'});
+    assert.equal(ok.status, 200);
+    const body = await ok.json() as Record<string, any>;
+    assert.equal(body.token_type, 'bearer');
+    const payload = await aleRuntimeVerify(h, body.access_token, {audience: '', clients: ['front']});
+    assert.equal(payload.sub, '00000000-0000-4000-a000-000000000001');
+    assert.equal(payload.name, 'Dueña demo (simulado)');
+    assert.equal((await form(h, 'token', {grant_type: 'password', client_id: 'mcp-saleads-assistant-dev', username: 'demo-owner', password: 'demo'})).status, 400);
+    assert.equal((await form(h, 'token', {grant_type: 'password', client_id: 'front', username: 'otra', password: 'demo'})).status, 401);
+  });
+
   it('emite la sesión demo (D7) con un token web que ale-runtime acepta', async () => {
     const session = await (await fetch(`${h.base}/sim/session`)).json() as Record<string, any>;
     assert.equal(session.simulated, true);
