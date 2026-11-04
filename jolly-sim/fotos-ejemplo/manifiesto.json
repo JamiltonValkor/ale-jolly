@@ -1,0 +1,36 @@
+{
+ "version": 1,
+ "nota": "Example shelf photos for ALE_CAMARA=carpeta:. GENERATED with Muse Image (muse-image-1.0), not real camera photos. The ojo process marks them fuente: simulada.",
+ "imagenes": [
+  {
+   "id": "S2-a",
+   "archivo": "S2-a.jpg",
+   "sha256": "0f8d36bf0d7e23248350c397b50dfa5eb4f84e425929761ff49f092f3a1793fe",
+   "origen": "generada",
+   "modelo": "muse-image-1.0",
+   "conteo_a_ojo": 22,
+   "concepto": "jar",
+   "prompt": "Realistic photo of a white store shelf with exactly 22 identical white cosmetic jars with green lids, arranged in one row of 11 on top of another row of 11 on two shelf levels, front view, all fully visible and not overlapping, soft indoor light."
+  },
+  {
+   "id": "S5-a",
+   "archivo": "S5-a.jpg",
+   "sha256": "1e05edfc10fc304f99c0894abc666ef865d14cb4d481da697f17efc7c8c89880",
+   "origen": "generada",
+   "modelo": "muse-image-1.0",
+   "conteo_a_ojo": 16,
+   "concepto": "jar",
+   "prompt": "Realistic photo of a white store shelf with 16 identical white cosmetic jars with green lids, two rows of 8, front view, each jar fully visible with small gaps, soft light."
+  },
+  {
+   "id": "P-07",
+   "archivo": "P-07.jpg",
+   "sha256": "a11fc14a16594644d51fa2df15cf60878d4651913d92e73397deb474e4de179d",
+   "origen": "generada",
+   "modelo": "muse-image-1.0",
+   "conteo_a_ojo": 7,
+   "concepto": "bottle",
+   "prompt": "Realistic photo of 7 identical purple shampoo pump bottles in a line on a small shop shelf, spaced apart, front view."
+  }
+ ]
+}
