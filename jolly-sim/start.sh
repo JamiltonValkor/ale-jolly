@@ -1,5 +1,5 @@
 #!/usr/bin/env bash
-# Jolly en este computador (macOS o Linux): cara (ventana), voz por el canal robot y ojo (fotos + SAM). Sin brazos.
+# Jolly en este computador (macOS, Linux o Windows con Git Bash): cara (ventana), voz por el canal robot y ojo (fotos + SAM). Sin brazos.
 #   ./start.sh                       Jolly en vivo contra ale-runtime (ALE_RUNTIME_URL, por defecto http://localhost:8060)
 #   ./start.sh --replay              repetición de una traza real del robot, sin backend, sin llave y sin micrófono
 #   ./start.sh doctor                revisa Python, PortAudio, micrófono, ffmpeg, cámara, llave, voz y backend
@@ -14,6 +14,7 @@ AQUI="$(cd "$(dirname "$0")" && pwd)"
 ROBOT="$AQUI/robot"
 VENV="$AQUI/.venv"
 PY="$VENV/bin/python"
+[ -x "$VENV/Scripts/python.exe" ] && PY="$VENV/Scripts/python.exe"   # Windows
 ENV_ROBOT="$ROBOT/voz-hermes/.env"
 
 MODO=vivo; CAMARA="${ALE_CAMARA:-carpeta:$AQUI/fotos-ejemplo/manifiesto.json}"; GRABAR=0; DESVINCULAR=0
@@ -32,17 +33,26 @@ while [ $# -gt 0 ]; do
 done
 
 # --- Python 3.12 y requisitos fijados, en un solo entorno ---------------------------------------------------------
+python312() {   # imprime la orden que da Python 3.12, o nada
+  local c
+  for c in python3.12 "py -3.12" python3 python; do
+    $c -c 'import sys; sys.exit(sys.version_info[:2] != (3, 12))' >/dev/null 2>&1 && { echo "$c"; return; }
+  done
+}
+
 preparar_python() {
   if [ ! -x "$PY" ]; then
+    local base
     if command -v uv >/dev/null 2>&1; then
       uv venv --quiet --python 3.12 "$VENV" || exit 1
-    elif command -v python3.12 >/dev/null 2>&1; then
-      python3.12 -m venv "$VENV" || exit 1
+    elif base="$(python312)" && [ -n "$base" ]; then
+      $base -m venv "$VENV" || exit 1
     else
       echo "❌ Falta Python 3.12. Instala uv (https://docs.astral.sh/uv/: curl -LsSf https://astral.sh/uv/install.sh | sh)"
-      echo "   o Python 3.12 (macOS: brew install python@3.12 · Ubuntu: sudo apt install python3.12-venv)."
+      echo "   o Python 3.12 (macOS: brew install python@3.12 · Ubuntu: sudo apt install python3.12-venv · Windows: python.org, con el lanzador py)."
       exit 1
     fi
+    [ -x "$VENV/Scripts/python.exe" ] && PY="$VENV/Scripts/python.exe"
   fi
   local sello="$VENV/.requisitos.ok"
   if [ ! -f "$sello" ] || ! cmp -s "$AQUI/requisitos.txt" "$sello"; then
@@ -96,6 +106,7 @@ limpiar() {
 trap limpiar EXIT INT TERM
 
 preparar_python
+export PYTHONUTF8=1 PYTHONIOENCODING=utf-8   # la consola de Windows (cp1252) no imprime los emojis de los mensajes
 export META_API_KEY="$(leer_llave META_API_KEY)"
 export CARTESIA_API_KEY="$(leer_llave CARTESIA_API_KEY)"
 export ALE_RUNTIME_URL="${ALE_RUNTIME_URL:-http://localhost:8060}"

@@ -10,7 +10,7 @@ What is real and what is simulated is explained in [`SLIM-VERSION.md`](SLIM-VERS
 - A **Meta API key**. It is the only credential needed.
 - Optional, for Jolly live: macOS or Linux, Python 3.12 or `uv`, and a microphone. A Cartesia key is optional too; without it Jolly uses your computer's voice.
 - Free ports: 3000 (or set `FRONT_PORT`), 8060 and 8443.
-- **Windows:** run the commands in **Git Bash** (comes with Git for Windows) with Docker Desktop. Clone with `-c core.longpaths=true` as shown below. Jolly live (`jolly-sim/`) runs on macOS or Linux; on Windows use WSL, or skip to the replay in step 9b.
+- **Windows:** run the commands in **Git Bash** (comes with Git for Windows) with Docker Desktop. Clone with `-c core.longpaths=true` as shown below. Jolly live (`jolly-sim/`) runs on macOS or Linux; on Windows use WSL, or skip to the replay in step 9b, which runs in Git Bash with Python 3.12 (`py -3.12`) or `uv`.
 
 The web app is in Spanish, as for the real users. Button names below are quoted as they appear on screen.
 

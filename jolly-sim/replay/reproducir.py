@@ -45,11 +45,13 @@ def etiqueta(meta: dict) -> str:
 
 
 def locutor_local():
-    if sys.platform.startswith("linux"):
-        from voz_salida import LocutorEspeak
-        return LocutorEspeak()
-    from voz_salida import Locutor
-    return Locutor("Paulina")
+    """say en macOS; espeak o spd-say en Linux y Windows. Sin ninguno, la repetición sigue muda (None)."""
+    if sys.platform == "darwin":
+        from voz_salida import Locutor
+        return Locutor("Paulina")
+    from voz_salida import LocutorEspeak
+    locutor = LocutorEspeak()
+    return locutor if locutor.motor else None
 
 
 class Bus:

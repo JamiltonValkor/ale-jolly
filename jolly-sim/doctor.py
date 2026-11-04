@@ -8,6 +8,11 @@ import argparse, asyncio, json, os, platform, shutil, socket, sys, urllib.reques
 from pathlib import Path
 
 os.environ.setdefault("PYGAME_HIDE_SUPPORT_PROMPT", "1")
+for _flujo in (sys.stdout, sys.stderr):   # consola de Windows (cp1252): que los emojis no tumben el doctor
+    try:
+        _flujo.reconfigure(encoding="utf-8", errors="replace")
+    except (AttributeError, ValueError):
+        pass
 AQUI = Path(__file__).resolve().parent
 ROBOT = AQUI / "robot"
 sys.path.insert(0, str(ROBOT / "ojo"))
@@ -24,6 +29,8 @@ def mal(t, arreglo=""):
 
 
 def instalar(paquete_mac: str, paquete_linux: str) -> str:
+    if sys.platform == "win32":
+        return f"instala {paquete_linux} para Windows y deja su carpeta en el PATH"
     return f"brew install {paquete_mac}" if sys.platform == "darwin" else f"sudo apt install {paquete_linux}"
 
 
@@ -132,13 +139,15 @@ def llave(probar: bool):
         mal("Meta rechazó META_API_KEY", "revisa la llave en https://dev.meta.ai")
 
 
-def voz():
+def voz(obligatoria: bool = True):
     if os.environ.get("CARTESIA_API_KEY"):
         ok("voz: Cartesia (CARTESIA_API_KEY)")
     elif sys.platform == "darwin" and shutil.which("say"):
         ok("voz: say de macOS (sin CARTESIA_API_KEY)")
     elif any(shutil.which(m) for m in ("espeak-ng", "espeak", "spd-say")):
         ok("voz: espeak/spd-say (sin CARTESIA_API_KEY)")
+    elif not obligatoria:
+        aviso("sin voz local: la repetición se ve completa pero sin leer las frases en voz alta")
     else:
         mal("sin voz de salida: ni CARTESIA_API_KEY ni espeak", instalar("espeak-ng", "espeak-ng"))
 
@@ -178,7 +187,7 @@ def main():
     print(f"🩺 Jolly · {platform.system()} {platform.machine()}", flush=True)
     python_y_paquetes()
     puertos()
-    voz()
+    voz(obligatoria=not a.replay)
     if not a.replay:
         audio(escuchar=not a.rapido)
         camara(probar=not a.rapido)

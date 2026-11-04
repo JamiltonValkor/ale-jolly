@@ -12,7 +12,7 @@ There are no arms here. Everything else is the robot's code, copied unchanged in
 
 ## Quick start
 
-You need macOS or Linux, and `uv` or Python 3.12. `start.sh` creates the Python environment and installs the pinned requirements the first time (a minute or two).
+You need macOS or Linux, and `uv` or Python 3.12. `start.sh` creates the Python environment and installs the pinned requirements the first time (a minute or two). On Windows, the replay (`./start.sh --replay`) runs from Git Bash with Python 3.12 from python.org (`py -3.12`) or `uv`; without espeak it plays silently, with the face and the subtitles.
 
 **Without a backend or key: watch a replay of the real robot.**
 

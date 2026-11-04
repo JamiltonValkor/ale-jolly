@@ -89,3 +89,36 @@ def test_sembrar_sin_vincular_explica_que_falta(tmp_path, monkeypatch):
     monkeypatch.setattr(sys, "argv", ["sembrar.py"])
     with pytest.raises(SystemExit, match="no está vinculado"):
         sembrar.main()
+
+
+# ---- Windows: replay sin voz local y consola cp1252 ---------------------------------------------------------------
+
+def test_replay_sin_voz_local_sigue_mudo_en_windows(monkeypatch):
+    import shutil
+    monkeypatch.setattr(sys, "platform", "win32")
+    monkeypatch.setattr(shutil, "which", lambda m: None)
+    assert reproducir.locutor_local() is None
+
+
+def test_doctor_no_exige_voz_en_replay(monkeypatch, capsys):
+    import shutil
+    sys.path.insert(0, str(AQUI))
+    import doctor
+    monkeypatch.setattr(sys, "platform", "win32")
+    monkeypatch.setattr(shutil, "which", lambda m: None)
+    monkeypatch.delenv("CARTESIA_API_KEY", raising=False)
+    monkeypatch.setattr(doctor, "fallos", [])
+    doctor.voz(obligatoria=False)
+    assert doctor.fallos == [] and "sin voz local" in capsys.readouterr().out
+    doctor.voz()
+    assert doctor.fallos
+
+
+def test_doctor_no_se_cae_con_la_consola_cp1252():
+    import os
+    env = {**os.environ, "PYTHONIOENCODING": "cp1252", "PYTHONUTF8": "0"}
+    r = subprocess.run([sys.executable, str(AQUI / "doctor.py"), "--help"], env=env, capture_output=True)
+    assert r.returncode == 0, r.stderr.decode(errors="replace")
+    r = subprocess.run([sys.executable, "-c", "import sys; sys.argv=['doctor']; sys.path.insert(0, %r); import doctor; doctor.ok('listo ✓')"
+                        % str(AQUI)], env=env, capture_output=True)
+    assert r.returncode == 0, r.stderr.decode(errors="replace")
