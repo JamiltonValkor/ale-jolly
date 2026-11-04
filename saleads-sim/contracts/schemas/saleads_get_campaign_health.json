@@ -1,0 +1,219 @@
+{
+  "name": "saleads_get_campaign_health",
+  "title": "Salud de una campaña",
+  "description": "Diagnóstico de una campaña lanzada: semáforo de SaleADS (monitor de 4 capas), estado real en Meta (revisión, rechazo, entrega), día del ciclo y métricas clave. Resume en healthy, attention, critical o paused con motivos en lenguaje simple y la siguiente acción. Es descriptivo: no atribuyas causas ni declares ganadores, y no propongas cambiar presupuesto, puja ni audiencia desde el chat.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Salud de una campaña",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/campaigns/:id (propiedad, P20)",
+    "GET /api/campaigns/:id/monitor (in-cluster /campaigns/:id/monitor)",
+    "GET /api/integration/meta/campaigns/:metaCampaignId/status (x-business-id verificado; best-effort)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "campaign_id": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "description": "ID de campaña en SaleADS (no el ID de Meta)."
+      }
+    },
+    "required": [
+      "campaign_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "campaign_id": {
+        "type": "string"
+      },
+      "business_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "healthy",
+          "attention",
+          "critical",
+          "paused"
+        ],
+        "description": "Resumen: healthy = va bien o está aprendiendo; attention = revisar; critical = no está funcionando o Meta la rechazó; paused = pausada."
+      },
+      "learning": {
+        "type": "boolean",
+        "description": "Primeros días: Meta aún está aprendiendo y los números son inestables."
+      },
+      "campaign_status": {
+        "type": "string",
+        "description": "Estado de la campaña en SaleADS."
+      },
+      "semaphore": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "enum": [
+          "green",
+          "yellow",
+          "red",
+          "blue",
+          null
+        ],
+        "description": "Semáforo del monitor de SaleADS."
+      },
+      "day_of_cycle": {
+        "type": [
+          "integer",
+          "null"
+        ]
+      },
+      "total_days": {
+        "type": [
+          "integer",
+          "null"
+        ]
+      },
+      "meta": {
+        "type": "object",
+        "properties": {
+          "checked": {
+            "type": "boolean",
+            "description": "Se pudo consultar el estado en Meta."
+          },
+          "status": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "effective_status": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "issues": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "code": {
+                  "type": [
+                    "string",
+                    "integer",
+                    "null"
+                  ]
+                },
+                "message": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "message"
+              ],
+              "additionalProperties": false
+            },
+            "description": "Problemas reportados por Meta (texto de Meta, no confiable)."
+          }
+        },
+        "required": [
+          "checked"
+        ],
+        "additionalProperties": false
+      },
+      "key_metrics": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string"
+            },
+            "label": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "value": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "unit": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "is_primary": {
+              "type": "boolean"
+            },
+            "change_pct": {
+              "type": [
+                "number",
+                "null"
+              ],
+              "description": "Cambio frente al periodo anterior (descriptivo)."
+            },
+            "direction": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "key"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "milestone": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Hito del ciclo según SaleADS."
+      },
+      "reasons": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        },
+        "description": "Motivos en lenguaje simple."
+      },
+      "next_action": {
+        "type": "string",
+        "description": "Qué hacer después."
+      },
+      "monitor_available": {
+        "type": "boolean",
+        "description": "false si el monitor de SaleADS no respondió (diagnóstico parcial)."
+      }
+    },
+    "required": [
+      "campaign_id",
+      "status",
+      "learning",
+      "reasons",
+      "next_action"
+    ],
+    "additionalProperties": false
+  }
+}

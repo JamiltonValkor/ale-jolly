@@ -1,0 +1,156 @@
+{
+  "name": "saleads_get_help",
+  "title": "Ayuda de SaleADS",
+  "description": "Conocimiento curado y versionado de SaleADS: flujo, acceso contratado y cupos, créditos, requisitos de Meta, lanzamiento, gasto y resultados. Pide un topic o una question; devuelve secciones breves con su fuente. Los datos de la cuenta salen de saleads_get_account_overview. No presenta ofertas de suscripción ni enlaces de compra o upgrade.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Ayuda de SaleADS",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "(interno MCP) contenido versionado src/knowledge (curado de sa-documentation)",
+    "GET /api/business-intelligence/internal/businesses/:id/owner (solo con business_id)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "topic": {
+        "type": "string",
+        "enum": [
+          "que-es-saleads",
+          "flujo",
+          "planes-y-cupos",
+          "creditos",
+          "meta-requisitos",
+          "lanzamiento-y-gasto",
+          "resultados",
+          "faq"
+        ],
+        "description": "Tema. Sin topic ni question devuelve el índice de temas."
+      },
+      "question": {
+        "type": "string",
+        "minLength": 3,
+        "maxLength": 300,
+        "description": "Pregunta en lenguaje natural; se devuelven las secciones más relevantes."
+      },
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Opcional: verifica que el negocio pertenezca a la cuenta conectada antes de responder. No crea handoffs de compra."
+      }
+    },
+    "required": [],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "knowledge_version": {
+        "type": "string",
+        "description": "Versión del contenido."
+      },
+      "topic": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "description": "Tema devuelto (null para índice o búsqueda en varios temas)."
+      },
+      "sections": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "topic": {
+              "type": "string"
+            },
+            "heading": {
+              "type": "string"
+            },
+            "body": {
+              "type": "string",
+              "description": "Markdown breve."
+            },
+            "source_refs": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              },
+              "description": "Documentos de origen."
+            }
+          },
+          "required": [
+            "topic",
+            "heading",
+            "body",
+            "source_refs"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "topics": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "topic": {
+              "type": "string"
+            },
+            "title": {
+              "type": "string"
+            }
+          },
+          "required": [
+            "topic",
+            "title"
+          ],
+          "additionalProperties": false
+        },
+        "description": "Temas disponibles."
+      },
+      "live_data": {
+        "type": "string",
+        "description": "Dónde consultar datos vivos (precios, cupos, créditos)."
+      },
+      "actions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "intent": {
+              "type": "string",
+              "enum": [
+                "upgrade-plan",
+                "buy-credits"
+              ]
+            },
+            "action_url": {
+              "type": "string",
+              "format": "uri"
+            }
+          },
+          "required": [
+            "intent",
+            "action_url"
+          ],
+          "additionalProperties": false
+        },
+        "description": "Campo legacy opcional, retenido por compatibilidad. La versión pública actual no devuelve acciones de compra o upgrade."
+      }
+    },
+    "required": [
+      "knowledge_version",
+      "sections",
+      "topics",
+      "live_data"
+    ],
+    "additionalProperties": false
+  }
+}

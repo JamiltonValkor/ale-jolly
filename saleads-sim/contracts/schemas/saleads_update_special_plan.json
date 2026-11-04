@@ -1,0 +1,406 @@
+{
+  "name": "saleads_update_special_plan",
+  "title": "Editar plan especial",
+  "description": "Cambia ciudades, idiomas, fechas, presupuesto, oferta real o quién escribe los textos de cada fase, mientras SaleADS lo permita. Ciudades y presupuesto se congelan al generar la comunicación; fechas y oferta, cuando la persona prepara. Confirma los cambios con el usuario; la oferta siempre va en par (precio regular y de oferta) y nunca como porcentaje.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Editar plan especial",
+    "readOnlyHint": false,
+    "destructiveHint": true,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/strategy/seasonal-plans/:planId (revisión para If-Match y expected_revision)",
+    "PATCH /api/strategy/seasonal-plans/:planId/settings (If-Match: \"<plan.revision>\")",
+    "PUT /api/strategy/seasonal-plans/:planId/event-schedule (expected_revision en el body)",
+    "PATCH /api/strategy/seasonal-plans/:planId/budget (If-Match: \"<plan.revision>\")",
+    "PUT /api/strategy/seasonal-plans/:planId/offer-terms",
+    "PUT /api/strategy/seasonal-plans/:planId/copy-authoring (Idempotency-Key derivada; set_by del cliente OAuth)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "special_plan_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "ID del plan especial (de saleads_list_special_plans o saleads_create_special_plan). No es un strategy_plan_id: no lo pases a saleads_get_plan, saleads_update_plan ni a otras tools del plan estratégico normal."
+      },
+      "locations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "description": "Clave de saleads_search_locations.",
+              "minLength": 1
+            },
+            "name": {
+              "type": "string",
+              "description": "Nombre."
+            },
+            "type": {
+              "type": "string",
+              "description": "Tipo (city, region, country...)."
+            },
+            "country_code": {
+              "type": "string",
+              "description": "País ISO-3166 alfa-2."
+            }
+          },
+          "required": [
+            "key",
+            "name"
+          ],
+          "additionalProperties": false
+        },
+        "description": "Ubicaciones confirmadas por el usuario, tomadas de saleads_search_locations.",
+        "minItems": 1,
+        "maxItems": 50
+      },
+      "accepted_language": {
+        "type": "string",
+        "description": "Idioma de la estrategia y de la comunicación.",
+        "enum": [
+          "es",
+          "en"
+        ]
+      },
+      "creatives_language": {
+        "type": "string",
+        "description": "Idioma de los creativos.",
+        "enum": [
+          "es",
+          "en",
+          "pt"
+        ]
+      },
+      "monthly_budget": {
+        "type": "number",
+        "exclusiveMinimum": 0,
+        "description": "Presupuesto de pauta del plan especial confirmado por el usuario, en unidades mayores de currency. El MCP no calcula mínimos: los aplica SaleADS."
+      },
+      "currency": {
+        "type": "string",
+        "description": "Moneda de monthly_budget; obligatoria con monthly_budget y debe ser la del plan.",
+        "pattern": "^[A-Z]{3}$"
+      },
+      "event_dates": {
+        "type": "object",
+        "description": "Fechas del evento confirmadas por el usuario: una entrada por ancla requerida (required_event_anchors de saleads_list_special_dates), hora local 'YYYY-MM-DDTHH:MM:SS'. Las anclas omitidas las completa SaleADS con los valores por defecto del catálogo. Nunca inventes fechas.",
+        "minProperties": 1,
+        "maxProperties": 50,
+        "propertyNames": {
+          "pattern": "^[a-zA-Z0-9_-]{1,120}$"
+        },
+        "additionalProperties": {
+          "type": "string",
+          "pattern": "^\\d{4}-\\d{2}-\\d{2}T\\d{2}:\\d{2}:\\d{2}$"
+        }
+      },
+      "capture_days": {
+        "type": "integer",
+        "description": "Opcional. Días de la fase de captación (dentro de capture.min_days..max_days de saleads_get_special_plan).",
+        "minimum": 1,
+        "maximum": 365
+      },
+      "timezone": {
+        "type": "string",
+        "description": "Opcional. Zona horaria IANA de las fechas (p. ej. America/Bogota). Sin ella SaleADS usa la de la ubicación objetivo.",
+        "minLength": 3,
+        "maxLength": 64,
+        "pattern": "^[A-Za-z_]+(?:/[A-Za-z0-9_+-]+)*$"
+      },
+      "regular_price": {
+        "type": "number",
+        "exclusiveMinimum": 0,
+        "multipleOf": 0.01,
+        "description": "Precio regular REAL dado por el usuario (máximo 2 decimales). Nunca lo inventes ni lo estimes."
+      },
+      "offer_price": {
+        "type": "number",
+        "exclusiveMinimum": 0,
+        "multipleOf": 0.01,
+        "description": "Precio de oferta REAL dado por el usuario, menor que regular_price. SaleADS calcula el descuento; no envíes un porcentaje."
+      },
+      "offer_currency": {
+        "type": "string",
+        "description": "Opcional. Moneda de los precios (por defecto la del plan).",
+        "pattern": "^[A-Z]{3}$"
+      },
+      "offer_includes": {
+        "type": "string",
+        "description": "Opcional. Qué incluye la oferta, en palabras del usuario (máximo 200 caracteres). Sin testimonios, métricas ni garantías.",
+        "minLength": 1,
+        "maxLength": 200
+      },
+      "copy_authoring": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "phase_key": {
+              "type": "string",
+              "description": "Clave de fase del catálogo seasonal (en Black Friday: captacion, expectativa, venta, cierre). Sale del catálogo; no es una lista fija.",
+              "pattern": "^[a-z0-9_]{1,64}$"
+            },
+            "mode": {
+              "type": "string",
+              "description": "saleads_ai (por defecto: SaleADS escribe los textos) o external_agent (los escribes tú y SaleADS no los genera).",
+              "enum": [
+                "saleads_ai",
+                "external_agent"
+              ]
+            }
+          },
+          "required": [
+            "phase_key",
+            "mode"
+          ],
+          "additionalProperties": false
+        },
+        "description": "Opcional. Quién escribe los textos de cada fase, ANTES de que la persona prepare la fase en SaleADS. Solo fases autopilot (en Black Friday: expectativa y cierre). Ausente = no se cambia nada.",
+        "minItems": 1,
+        "maxItems": 20
+      }
+    },
+    "required": [
+      "special_plan_id"
+    ],
+    "additionalProperties": false,
+    "minProperties": 2,
+    "dependentRequired": {
+      "monthly_budget": [
+        "currency"
+      ],
+      "currency": [
+        "monthly_budget"
+      ],
+      "regular_price": [
+        "offer_price"
+      ],
+      "offer_price": [
+        "regular_price"
+      ],
+      "offer_currency": [
+        "regular_price",
+        "offer_price"
+      ],
+      "offer_includes": [
+        "regular_price",
+        "offer_price"
+      ],
+      "capture_days": [
+        "event_dates"
+      ]
+    }
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "special_plan_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "ID del plan especial (de saleads_list_special_plans o saleads_create_special_plan). No es un strategy_plan_id: no lo pases a saleads_get_plan, saleads_update_plan ni a otras tools del plan estratégico normal."
+      },
+      "applied": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "field": {
+              "type": "string",
+              "description": "Grupo cambiado.",
+              "enum": [
+                "settings",
+                "event_schedule",
+                "budget",
+                "offer_terms",
+                "copy_authoring"
+              ]
+            },
+            "status": {
+              "type": "string",
+              "description": "Resultado.",
+              "enum": [
+                "applied",
+                "unchanged",
+                "failed"
+              ]
+            },
+            "error_code": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Código MCP-E-* si falló (solo copy_authoring falla sin cortar la llamada)."
+            },
+            "phase_key": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Solo copy_authoring: fase."
+            }
+          },
+          "required": [
+            "field",
+            "status"
+          ],
+          "additionalProperties": false
+        },
+        "description": "Resultado por grupo, en el orden settings → event_schedule → budget → offer_terms → copy_authoring."
+      },
+      "monthly_budget": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "amount": {
+            "type": "number",
+            "description": "Monto en unidades mayores (p. ej. 120.5).",
+            "minimum": 0
+          },
+          "currency": {
+            "type": "string",
+            "description": "Moneda ISO-4217.",
+            "pattern": "^[A-Z]{3}$"
+          }
+        },
+        "required": [
+          "amount",
+          "currency"
+        ],
+        "additionalProperties": false,
+        "description": "Presupuesto vigente."
+      },
+      "discount_pct": {
+        "type": [
+          "integer",
+          "null"
+        ],
+        "minimum": 0,
+        "maximum": 100,
+        "description": "Descuento vigente calculado por SaleADS."
+      },
+      "pending_actions": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "kind": {
+              "type": "string",
+              "description": "Tipo de pendiente.",
+              "enum": [
+                "complete_configuration",
+                "generate_communication",
+                "approve_communication",
+                "review_catalog",
+                "prepare_phase",
+                "review_pieces",
+                "submit_agent_copies",
+                "approve_copies",
+                "activate_phase",
+                "retry_audiences",
+                "resolve_connections"
+              ]
+            },
+            "actor": {
+              "type": "string",
+              "description": "Quién lo resuelve: human (una persona en SaleADS, con action_url), agent (tú, con una tool) o agent_with_user_confirmation (tú, con OK explícito del usuario).",
+              "enum": [
+                "human",
+                "agent",
+                "agent_with_user_confirmation"
+              ]
+            },
+            "phase_key": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Fase a la que aplica, o null si es del plan."
+            },
+            "phase_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid",
+              "description": "ID de la fase, o null."
+            },
+            "days": {
+              "type": [
+                "integer",
+                "null"
+              ],
+              "minimum": 0,
+              "description": "Solo submit_agent_copies: días que esperan tus textos."
+            },
+            "spends_money": {
+              "type": "boolean",
+              "description": "true solo para activate_phase: activar empieza a gastar."
+            },
+            "consumes_credits": {
+              "type": "boolean",
+              "description": "true solo para prepare_phase: preparar genera piezas y consume créditos."
+            },
+            "tool": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Tool del MCP que lo resuelve cuando actor no es human (p. ej. saleads_submit_special_plan_copies)."
+            },
+            "action_url": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uri",
+              "description": "Link de handoff a SaleADS (contracts/handoff-intents.md) o null."
+            },
+            "reason": {
+              "type": "string",
+              "description": "Por qué está pendiente, en lenguaje simple."
+            }
+          },
+          "required": [
+            "kind",
+            "actor",
+            "phase_key",
+            "spends_money",
+            "consumes_credits",
+            "action_url",
+            "reason"
+          ],
+          "additionalProperties": false
+        },
+        "description": "Pendientes del plan. Los humanos llevan action_url; submit_agent_copies nunca lleva action_url."
+      },
+      "action_url": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uri",
+        "description": "Link de handoff a SaleADS (contracts/handoff-intents.md) o null."
+      },
+      "next_step": {
+        "type": "string",
+        "description": "Siguiente acción sugerida, en lenguaje simple."
+      }
+    },
+    "required": [
+      "special_plan_id",
+      "applied"
+    ],
+    "additionalProperties": false
+  },
+  "notes": "Un fallo en settings, event_schedule, budget u offer_terms corta la llamada con su error y details.applied (lo ya aplicado queda). Los errores de copy_authoring no cortan: van en applied[] (MBF-020)."
+}

@@ -1,0 +1,89 @@
+{
+  "name": "saleads_approve_campaign",
+  "title": "Aprobar campaña",
+  "description": "Valida que la campaña esté lista (imágenes, textos, presupuesto, Meta) y la marca como configurada dentro del plan. No la lanza ni gasta dinero.",
+  "requiredScope": "saleads:campaigns",
+  "annotations": {
+    "title": "Aprobar campaña",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/draft-campaign/drafts/:id/launch-readiness",
+    "POST /api/draft-campaign/drafts/:id/approve",
+    "GET /api/strategy/plan/:planId (espera a configured)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "strategy_plan_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "item_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "draft_id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "strategy_plan_id",
+      "item_id",
+      "draft_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "item_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "status": {
+        "type": "string",
+        "description": "Resultado.",
+        "enum": [
+          "configured",
+          "launched",
+          "not_ready",
+          "pending_configuration"
+        ]
+      },
+      "failed_checks": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Código."
+            },
+            "next_action": {
+              "type": "string",
+              "description": "Qué hacer."
+            }
+          },
+          "required": [
+            "code",
+            "next_action"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "item_id",
+      "status"
+    ],
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,106 @@
+{
+  "name": "saleads_get_strategy",
+  "title": "Ver estrategia",
+  "description": "Devuelve la estrategia para revisarla con el usuario: diagnóstico, posicionamiento, audiencia prioritaria, hipótesis y mensajes, evidencia y vacíos. Muéstrala al usuario antes de aprobar.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Ver estrategia",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/strategy/v1/communication-strategies/:sid/versions/:vid"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "communication_strategy_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "communication_strategy_version_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "detail": {
+        "type": "string",
+        "description": "Nivel de detalle.",
+        "enum": [
+          "concise",
+          "full"
+        ],
+        "default": "concise"
+      }
+    },
+    "required": [
+      "communication_strategy_id",
+      "communication_strategy_version_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "communication_strategy_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "communication_strategy_version_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "status": {
+        "type": "string",
+        "description": "draft|approved|superseded"
+      },
+      "revision": {
+        "type": "integer",
+        "description": "Revisión."
+      },
+      "diagnosis": {
+        "type": "string",
+        "description": "Diagnóstico."
+      },
+      "positioning": {
+        "type": "object"
+      },
+      "priority_audience": {
+        "type": "object"
+      },
+      "hypotheses": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        },
+        "description": "Hipótesis con tensión, promesa, prueba y variantes de mensaje; con detail=full, también su tesis de persuasión (persuasion_thesis)."
+      },
+      "quality_summary": {
+        "type": "object"
+      },
+      "unknowns": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "description": "Dato desconocido."
+        }
+      },
+      "conflicts": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "description": "Contradicción."
+        }
+      }
+    },
+    "required": [
+      "status",
+      "hypotheses"
+    ],
+    "additionalProperties": false
+  }
+}

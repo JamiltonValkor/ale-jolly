@@ -1,0 +1,141 @@
+{
+  "name": "saleads_regenerate_strategy",
+  "title": "Regenerar estrategia",
+  "description": "Crea una nueva versión de la estrategia (borrador) a partir de la actual. Úsala si el usuario no está conforme o si la aprobación falló por calidad.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Regenerar estrategia",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": false
+  },
+  "async": true,
+  "downstream": [
+    "POST /api/strategy/v1/communication-strategies/:sid/versions/:vid/regenerate (If-Match revision:N; no idempotente)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "communication_strategy_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "communication_strategy_version_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "client_request_id": {
+        "type": "string",
+        "description": "Opcional. Identificador estable de este intento para que un reintento no duplique trabajo.",
+        "minLength": 8,
+        "maxLength": 100
+      }
+    },
+    "required": [
+      "communication_strategy_id",
+      "communication_strategy_version_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "communication_strategy_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "communication_strategy_version_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "source_version_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "communication_strategy_id",
+          "communication_strategy_version_id"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "operation_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID de la operación. Consultar con saleads_get_operation."
+          },
+          "status": {
+            "type": "string",
+            "description": "Estado.",
+            "enum": [
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "poll_after_s": {
+            "type": "integer",
+            "description": "Segundos sugeridos antes de volver a consultar.",
+            "minimum": 1
+          },
+          "result": {
+            "type": "object",
+            "description": "Resultado final cuando status = succeeded (forma de la tool original)."
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Código MCP-E-*."
+              },
+              "message": {
+                "type": "string",
+                "description": "Mensaje."
+              },
+              "next_action": {
+                "type": "string",
+                "description": "Qué hacer."
+              },
+              "retryable": {
+                "type": "boolean",
+                "description": "Reintentable."
+              },
+              "details": {
+                "type": "object"
+              },
+              "action_url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "operation_id",
+          "status"
+        ],
+        "additionalProperties": false,
+        "description": "Envoltorio de operación asíncrona. Si el cliente soporta la extensión Tasks se usa la task nativa."
+      }
+    ]
+  }
+}

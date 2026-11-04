@@ -1,0 +1,206 @@
+{
+  "name": "saleads_list_special_plans",
+  "title": "Listar planes especiales",
+  "description": "Lista los planes especiales del negocio (Black Friday u otras fechas) con su estado resumido, del más reciente al más antiguo. Úsala para retomar un plan especial sin pedir IDs; luego usa saleads_get_special_plan.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Listar planes especiales",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/strategy/seasonal-plans"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio sobre el que se actúa. El MCP verifica que pertenezca al usuario autenticado."
+      },
+      "limit": {
+        "type": "integer",
+        "description": "Opcional. Máximo de planes (1..50, por defecto 20).",
+        "minimum": 1,
+        "maximum": 50
+      }
+    },
+    "required": [
+      "business_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "plans": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "special_plan_id": {
+              "type": "string",
+              "format": "uuid",
+              "description": "ID del plan especial (de saleads_list_special_plans o saleads_create_special_plan). No es un strategy_plan_id: no lo pases a saleads_get_plan, saleads_update_plan ni a otras tools del plan estratégico normal."
+            },
+            "name": {
+              "type": "object",
+              "properties": {
+                "es": {
+                  "type": "string",
+                  "description": "Texto en español."
+                },
+                "en": {
+                  "type": "string",
+                  "description": "Texto en inglés."
+                }
+              },
+              "required": [
+                "es"
+              ],
+              "additionalProperties": false,
+              "description": "Texto localizado del catálogo."
+            },
+            "catalog_version_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "created_at": {
+              "type": "string",
+              "description": "Creación (ISO 8601 UTC).",
+              "format": "date-time"
+            },
+            "communication_state": {
+              "type": "string",
+              "description": "Estado de la comunicación del plan (Strategy seasonal-plan.v1 communication.state).",
+              "enum": [
+                "not_required",
+                "required",
+                "generating",
+                "review_required",
+                "in_review",
+                "approved"
+              ]
+            },
+            "audiences_status": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Estado de las audiencias BF tal como lo reporta Strategy (SeasonalAudienceStatusSchema).",
+              "enum": [
+                "not_required",
+                "not_started",
+                "queued",
+                "discovering",
+                "provisioning",
+                "verifying",
+                "waiting_retry",
+                "succeeded",
+                "failed",
+                "unknown",
+                null
+              ]
+            },
+            "monthly_budget": {
+              "type": [
+                "object",
+                "null"
+              ],
+              "properties": {
+                "amount": {
+                  "type": "number",
+                  "description": "Monto en unidades mayores (p. ej. 120.5).",
+                  "minimum": 0
+                },
+                "currency": {
+                  "type": "string",
+                  "description": "Moneda ISO-4217.",
+                  "pattern": "^[A-Z]{3}$"
+                }
+              },
+              "required": [
+                "amount",
+                "currency"
+              ],
+              "additionalProperties": false,
+              "description": "Presupuesto confirmado del plan."
+            },
+            "phases": {
+              "type": "array",
+              "items": {
+                "type": "object",
+                "properties": {
+                  "phase_key": {
+                    "type": "string",
+                    "description": "Clave de fase del catálogo seasonal (en Black Friday: captacion, expectativa, venta, cierre). Sale del catálogo; no es una lista fija.",
+                    "pattern": "^[a-z0-9_]{1,64}$"
+                  },
+                  "phase_id": {
+                    "type": "string",
+                    "format": "uuid"
+                  },
+                  "state": {
+                    "type": "string",
+                    "description": "Estado de la fase (Strategy SeasonalPhaseDto.state).",
+                    "enum": [
+                      "not_prepared",
+                      "preparing",
+                      "ready",
+                      "publishing",
+                      "partial",
+                      "launched",
+                      "attention"
+                    ]
+                  }
+                },
+                "required": [
+                  "phase_key",
+                  "phase_id",
+                  "state"
+                ],
+                "additionalProperties": false
+              }
+            },
+            "action_url": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uri",
+              "description": "Link de handoff a SaleADS (contracts/handoff-intents.md) o null."
+            }
+          },
+          "required": [
+            "special_plan_id",
+            "name",
+            "catalog_version_id",
+            "created_at",
+            "communication_state",
+            "phases"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "next_step": {
+        "type": "string",
+        "description": "Siguiente acción sugerida, en lenguaje simple."
+      }
+    },
+    "required": [
+      "business_id",
+      "plans"
+    ],
+    "additionalProperties": false
+  }
+}

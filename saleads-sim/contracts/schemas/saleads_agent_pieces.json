@@ -1,0 +1,45 @@
+{
+  "name": "saleads_agent_pieces",
+  "title": "Ver piezas",
+  "description": "Lee una pieza generada (estado, imágenes con URL firmada y créditos: cotizados, reservados, liquidados, reembolsados) por job_id, o el linaje de una maestra (sus variaciones con qué cambia y qué se mantiene) por master_output_id.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Ver piezas",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/gen-image/jobs/:jobId (AAB-017)",
+    "GET /api/gen-image/agent-briefs/masters/:masterId/lineage (AAB-016)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "job_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "master_output_id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "business_id"
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object"
+  }
+}

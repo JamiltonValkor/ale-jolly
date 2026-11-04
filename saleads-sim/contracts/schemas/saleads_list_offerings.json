@@ -1,0 +1,95 @@
+{
+  "name": "saleads_list_offerings",
+  "title": "Listar ofertas",
+  "description": "Lista los productos y servicios del negocio. El plan estratégico se hace sobre una oferta.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Listar ofertas",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/business-intelligence/products",
+    "GET /api/business-intelligence/services/businesses/:id"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio sobre el que se actúa. El MCP verifica que pertenezca al usuario autenticado."
+      },
+      "cursor": {
+        "type": "string",
+        "description": "Cursor de paginación."
+      }
+    },
+    "required": [
+      "business_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "offerings": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "type": {
+              "type": "string",
+              "description": "product|service",
+              "enum": [
+                "product",
+                "service"
+              ]
+            },
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": {
+              "type": "string",
+              "description": "Nombre."
+            },
+            "price": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "currency": {
+              "type": [
+                "string",
+                "null"
+              ]
+            }
+          },
+          "required": [
+            "type",
+            "id",
+            "name"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "next_cursor": {
+        "type": [
+          "string",
+          "null"
+        ]
+      }
+    },
+    "required": [
+      "offerings"
+    ],
+    "additionalProperties": false
+  }
+}

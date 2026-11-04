@@ -1,0 +1,109 @@
+{
+  "name": "saleads_stock_document_register",
+  "title": "Registrar un documento",
+  "description": "Registra una factura o pantallazo y entrega la URL de subida. La misma huella devuelve el documento que ya existía.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Registrar un documento",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "POST /internal/stock/businesses/:businessId/documents"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "idempotency_key": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_-]{8,128}$"
+      },
+      "tipo": {
+        "type": "string",
+        "enum": [
+          "factura",
+          "pantallazo"
+        ]
+      },
+      "content_type": {
+        "type": "string",
+        "enum": [
+          "application/pdf",
+          "image/jpeg",
+          "image/png",
+          "image/webp"
+        ]
+      },
+      "tamano": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 15728640
+      },
+      "sha256": {
+        "type": "string",
+        "pattern": "^[a-f0-9]{64}$"
+      },
+      "canal": {
+        "type": "string",
+        "enum": [
+          "whatsapp",
+          "telegram",
+          "banco"
+        ]
+      }
+    },
+    "required": [
+      "business_id",
+      "idempotency_key",
+      "tipo",
+      "content_type",
+      "tamano",
+      "sha256",
+      "canal"
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "document_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "url": {
+        "anyOf": [
+          {
+            "type": "string",
+            "format": "uri"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "content_type": {
+        "type": "string"
+      },
+      "ya_existia": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "document_id",
+      "url",
+      "content_type",
+      "ya_existia"
+    ],
+    "additionalProperties": false
+  }
+}

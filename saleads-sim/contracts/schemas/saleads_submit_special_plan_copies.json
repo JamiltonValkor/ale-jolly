@@ -1,0 +1,376 @@
+{
+  "name": "saleads_submit_special_plan_copies",
+  "title": "Enviar textos del plan especial",
+  "description": "Envía los textos que TÚ escribiste para un día de una fase preparada (en Black Friday: expectativa o cierre). SaleADS los valida con sus reglas y los guarda como borrador pendiente de aprobación de la persona en SaleADS. Si vuelven violaciones bloqueantes, corrige y reenvía con la nueva expected_revision. Nunca inventes descuentos, precios, testimonios, métricas ni garantías: usa solo los claims aprobados y el descuento del plan.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Enviar textos del plan especial",
+    "readOnlyHint": false,
+    "destructiveHint": true,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/strategy/seasonal-plans/:planId (fase autopilot del render y propiedad)",
+    "GET /api/strategy/seasonal-plans/:planId/creative-revisions/:revisionId/copies/:renderVariantId (actions.edit y context_current)",
+    "POST /api/strategy/seasonal-plans/:planId/creative-revisions/:revisionId/copies/:renderVariantId/edit (Idempotency-Key derivada; provenance {source: agent, client_app_id} puesto por el MCP)",
+    "(interno MCP) handoff approve-special-copies"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "special_plan_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "ID del plan especial (de saleads_list_special_plans o saleads_create_special_plan). No es un strategy_plan_id: no lo pases a saleads_get_plan, saleads_update_plan ni a otras tools del plan estratégico normal."
+      },
+      "creative_revision_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "creative_revision_id de saleads_get_special_plan_copies."
+      },
+      "render_variant_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "render_variant_id (pieza ancla) del día, de saleads_get_special_plan_copies."
+      },
+      "expected_revision": {
+        "type": "integer",
+        "description": "revision del día leída en saleads_get_special_plan_copies (0 en el primer envío de un día awaiting_external_copy).",
+        "minimum": 0
+      },
+      "copy": {
+        "type": "object",
+        "properties": {
+          "title": {
+            "type": "string",
+            "description": "Título (Meta recomienda ≤ 40 caracteres).",
+            "minLength": 1,
+            "maxLength": 1000
+          },
+          "body": {
+            "type": "string",
+            "description": "Texto principal (Meta ≤ 2200 caracteres).",
+            "minLength": 1,
+            "maxLength": 10000
+          },
+          "description": {
+            "type": "string",
+            "description": "Descripción (Meta ≤ 27 caracteres).",
+            "minLength": 1,
+            "maxLength": 1000
+          }
+        },
+        "required": [
+          "title",
+          "body",
+          "description"
+        ],
+        "additionalProperties": false,
+        "description": "Un texto: reemplaza el de copy_index (o el de esta pieza). Usa copy o copies, no ambos."
+      },
+      "copy_index": {
+        "type": "integer",
+        "description": "Solo con copy: posición del texto a reemplazar (0..4).",
+        "minimum": 0,
+        "maximum": 4
+      },
+      "copies": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "title": {
+              "type": "string",
+              "description": "Título (Meta recomienda ≤ 40 caracteres).",
+              "minLength": 1,
+              "maxLength": 1000
+            },
+            "body": {
+              "type": "string",
+              "description": "Texto principal (Meta ≤ 2200 caracteres).",
+              "minLength": 1,
+              "maxLength": 10000
+            },
+            "description": {
+              "type": "string",
+              "description": "Descripción (Meta ≤ 27 caracteres).",
+              "minLength": 1,
+              "maxLength": 1000
+            }
+          },
+          "required": [
+            "title",
+            "body",
+            "description"
+          ],
+          "additionalProperties": false,
+          "description": "Un texto escrito por ti."
+        },
+        "description": "1 a 5 textos que reemplazan todos los textos del día. Usa copy o copies, no ambos.",
+        "minItems": 1,
+        "maxItems": 5
+      },
+      "client_request_id": {
+        "type": "string",
+        "description": "Opcional. Identificador estable de este intento para que un reintento no duplique trabajo.",
+        "minLength": 8,
+        "maxLength": 100
+      }
+    },
+    "required": [
+      "special_plan_id",
+      "creative_revision_id",
+      "render_variant_id",
+      "expected_revision"
+    ],
+    "additionalProperties": false,
+    "oneOf": [
+      {
+        "properties": {
+          "copy": true
+        },
+        "required": [
+          "copy"
+        ]
+      },
+      {
+        "properties": {
+          "copies": true
+        },
+        "required": [
+          "copies"
+        ]
+      }
+    ],
+    "dependentRequired": {
+      "copy_index": [
+        "copy"
+      ]
+    }
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "special_plan_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "ID del plan especial (de saleads_list_special_plans o saleads_create_special_plan). No es un strategy_plan_id: no lo pases a saleads_get_plan, saleads_update_plan ni a otras tools del plan estratégico normal."
+      },
+      "creative_revision_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "render_variant_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "copy_set_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid",
+        "description": "Conjunto de textos del día."
+      },
+      "revision": {
+        "type": "integer",
+        "description": "Nueva revisión: úsala como expected_revision si vuelves a enviar.",
+        "minimum": 1
+      },
+      "status": {
+        "type": "string",
+        "description": "review_required (sin bloqueantes) o needs_action (con bloqueantes).",
+        "enum": [
+          "review_required",
+          "needs_action"
+        ]
+      },
+      "copies": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "copy_index": {
+              "type": "integer",
+              "description": "Posición del texto en el día (0..4).",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "title": {
+              "type": "string",
+              "description": "Título."
+            },
+            "body": {
+              "type": "string",
+              "description": "Texto principal."
+            },
+            "description": {
+              "type": "string",
+              "description": "Descripción."
+            },
+            "status": {
+              "type": "string",
+              "description": "Estado del texto.",
+              "enum": [
+                "review_required",
+                "needs_action"
+              ]
+            }
+          },
+          "required": [
+            "copy_index",
+            "title",
+            "body",
+            "description"
+          ],
+          "additionalProperties": false
+        },
+        "description": "Eco mínimo de los textos guardados."
+      },
+      "blocking_violations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "copy_index": {
+              "type": "integer",
+              "description": "Texto al que aplica.",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "code": {
+              "type": "string",
+              "description": "Código de Draft tal cual (p. ej. COPY_LENGTH_EXCEEDED, UNSUPPORTED_FACTUAL_CLAIM, CLAIM_NOT_APPROVED)."
+            },
+            "field": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Campo cuando se puede inferir del código.",
+              "enum": [
+                "title",
+                "body",
+                "description",
+                null
+              ]
+            }
+          },
+          "required": [
+            "copy_index",
+            "code",
+            "field"
+          ],
+          "additionalProperties": false
+        },
+        "description": "Violaciones que bloquean la aprobación (códigos de Draft tal cual)."
+      },
+      "advisories": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "copy_index": {
+              "type": "integer",
+              "description": "Texto al que aplica.",
+              "minimum": 0,
+              "maximum": 4
+            },
+            "code": {
+              "type": "string",
+              "description": "Código de Draft tal cual (p. ej. COPY_LENGTH_EXCEEDED, UNSUPPORTED_FACTUAL_CLAIM, CLAIM_NOT_APPROVED)."
+            },
+            "field": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Campo cuando se puede inferir del código.",
+              "enum": [
+                "title",
+                "body",
+                "description",
+                null
+              ]
+            }
+          },
+          "required": [
+            "copy_index",
+            "code",
+            "field"
+          ],
+          "additionalProperties": false
+        },
+        "description": "Avisos que no bloquean (revisión factual y, en dev, todos los hallazgos)."
+      },
+      "provenance": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "properties": {
+          "source": {
+            "type": "string",
+            "description": "Origen del texto.",
+            "enum": [
+              "agent"
+            ]
+          },
+          "client_app_id": {
+            "type": "string",
+            "description": "ID de la app cliente OAuth que envió el texto (lo pone el MCP)."
+          },
+          "recorded_at": {
+            "type": [
+              "string",
+              "null"
+            ],
+            "description": "Cuándo lo registró SaleADS (ISO 8601 UTC).",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "source",
+          "client_app_id"
+        ],
+        "additionalProperties": false,
+        "description": "Procedencia de la revisión vigente (MBF-015); null si no la escribió un agente."
+      },
+      "pending_approval": {
+        "type": "boolean",
+        "const": true,
+        "description": "Siempre true: la aprobación final la hace la persona en SaleADS."
+      },
+      "action_url": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uri",
+        "description": "approve-special-copies de la fase cuando ningún día espera tus textos; si no, null."
+      },
+      "next_step": {
+        "type": "string",
+        "description": "Siguiente acción sugerida, en lenguaje simple."
+      }
+    },
+    "required": [
+      "special_plan_id",
+      "creative_revision_id",
+      "render_variant_id",
+      "revision",
+      "status",
+      "copies",
+      "blocking_violations",
+      "advisories",
+      "pending_approval",
+      "action_url"
+    ],
+    "additionalProperties": false
+  },
+  "notes": "Sin campo de procedencia en la entrada: el MCP pone provenance {source: agent, client_app_id} desde el token validado. Con blocking_violations no vacío la tool responde MCP-E-SPECIAL-COPIES-INVALID (details con revision, status, blocking_violations y advisories; el borrador quedó guardado, no aprobado). Con DRAFT_TEMPORAL_COPY_KEEP_ALL_TEXTS_ENABLED=true (dev hoy) todo llega como advisory."
+}

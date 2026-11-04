@@ -1,0 +1,419 @@
+{
+  "name": "saleads_get_special_plan_status",
+  "title": "Estado del plan especial",
+  "description": "Vista liviana para seguir un plan especial sin eventos: estado por fase, operaciones en curso, campañas por día lanzadas o fallidas, audiencias y pendientes con su link. Pasa since_digest con el status_digest anterior: si nada cambió responde changed=false. Respeta poll_after_s.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Estado del plan especial",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/strategy/seasonal-plans/:planId",
+    "GET /api/strategy/seasonal-plans/:planId/operations/:operationId (solo operaciones activas que reporta el plan)",
+    "GET /api/strategy/seasonal-plans/:planId/creative-operations/:operationId (solo operaciones creativas activas)",
+    "GET /api/strategy/seasonal-plans/:planId/copy-authoring (solo con el flag de MBF-018)",
+    "(interno MCP) handoffs de pendientes"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "special_plan_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "ID del plan especial (de saleads_list_special_plans o saleads_create_special_plan). No es un strategy_plan_id: no lo pases a saleads_get_plan, saleads_update_plan ni a otras tools del plan estratégico normal."
+      },
+      "since_digest": {
+        "type": "string",
+        "description": "Opcional. status_digest de la consulta anterior.",
+        "pattern": "^[a-f0-9]{32}$"
+      }
+    },
+    "required": [
+      "special_plan_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "special_plan_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID del plan especial (de saleads_list_special_plans o saleads_create_special_plan). No es un strategy_plan_id: no lo pases a saleads_get_plan, saleads_update_plan ni a otras tools del plan estratégico normal."
+          },
+          "changed": {
+            "type": "boolean",
+            "const": false,
+            "description": "Nada cambió desde since_digest."
+          },
+          "status_digest": {
+            "type": "string",
+            "description": "Hash estable del estado visible (sin tiempos).",
+            "pattern": "^[a-f0-9]{32}$"
+          },
+          "poll_after_s": {
+            "type": "integer",
+            "description": "Segundos sugeridos antes de volver a consultar. No consultes más seguido.",
+            "minimum": 10,
+            "maximum": 3600
+          }
+        },
+        "required": [
+          "special_plan_id",
+          "changed",
+          "status_digest",
+          "poll_after_s"
+        ],
+        "additionalProperties": false,
+        "description": "Respuesta mínima: since_digest coincide."
+      },
+      {
+        "type": "object",
+        "properties": {
+          "special_plan_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID del plan especial (de saleads_list_special_plans o saleads_create_special_plan). No es un strategy_plan_id: no lo pases a saleads_get_plan, saleads_update_plan ni a otras tools del plan estratégico normal."
+          },
+          "changed": {
+            "type": "boolean",
+            "const": true,
+            "description": "Estado completo (primera consulta o algo cambió)."
+          },
+          "status_digest": {
+            "type": "string",
+            "description": "Hash estable del estado visible (sin tiempos).",
+            "pattern": "^[a-f0-9]{32}$"
+          },
+          "poll_after_s": {
+            "type": "integer",
+            "description": "Segundos sugeridos antes de volver a consultar. No consultes más seguido.",
+            "minimum": 10,
+            "maximum": 3600
+          },
+          "communication_state": {
+            "type": "string",
+            "description": "Estado de la comunicación del plan (Strategy seasonal-plan.v1 communication.state).",
+            "enum": [
+              "not_required",
+              "required",
+              "generating",
+              "review_required",
+              "in_review",
+              "approved"
+            ]
+          },
+          "audiences": {
+            "type": [
+              "object",
+              "null"
+            ],
+            "properties": {
+              "status": {
+                "type": "string",
+                "description": "Estado de las audiencias BF tal como lo reporta Strategy (SeasonalAudienceStatusSchema).",
+                "enum": [
+                  "not_required",
+                  "not_started",
+                  "queued",
+                  "discovering",
+                  "provisioning",
+                  "verifying",
+                  "waiting_retry",
+                  "succeeded",
+                  "failed",
+                  "unknown"
+                ]
+              },
+              "retry_available": {
+                "type": "boolean",
+                "description": "true solo en failed."
+              }
+            },
+            "required": [
+              "status",
+              "retry_available"
+            ],
+            "additionalProperties": false
+          },
+          "phases": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "phase_id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "phase_key": {
+                  "type": "string",
+                  "description": "Clave de fase del catálogo seasonal (en Black Friday: captacion, expectativa, venta, cierre). Sale del catálogo; no es una lista fija.",
+                  "pattern": "^[a-z0-9_]{1,64}$"
+                },
+                "state": {
+                  "type": "string",
+                  "description": "Estado de la fase (Strategy SeasonalPhaseDto.state).",
+                  "enum": [
+                    "not_prepared",
+                    "preparing",
+                    "ready",
+                    "publishing",
+                    "partial",
+                    "launched",
+                    "attention"
+                  ]
+                },
+                "can_prepare": {
+                  "type": "boolean",
+                  "description": "Preparable (en SaleADS)."
+                },
+                "can_launch": {
+                  "type": "boolean",
+                  "description": "Activable (en SaleADS)."
+                },
+                "copy_authoring": {
+                  "type": "string",
+                  "description": "Quién escribe los textos de la fase.",
+                  "enum": [
+                    "saleads_ai",
+                    "external_agent"
+                  ]
+                },
+                "awaiting_agent_copies": {
+                  "type": "integer",
+                  "description": "Días que esperan tus textos.",
+                  "minimum": 0
+                },
+                "days": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "properties": {
+                    "total": {
+                      "type": "integer",
+                      "description": "Días (campañas por día) de la fase.",
+                      "minimum": 0
+                    },
+                    "not_launched": {
+                      "type": "integer",
+                      "description": "Sin lanzar.",
+                      "minimum": 0
+                    },
+                    "in_progress": {
+                      "type": "integer",
+                      "description": "Lanzándose.",
+                      "minimum": 0
+                    },
+                    "succeeded": {
+                      "type": "integer",
+                      "description": "Lanzados.",
+                      "minimum": 0
+                    },
+                    "failed": {
+                      "type": "integer",
+                      "description": "Fallidos.",
+                      "minimum": 0
+                    },
+                    "unknown": {
+                      "type": "integer",
+                      "description": "Estado desconocido.",
+                      "minimum": 0
+                    },
+                    "window_missed": {
+                      "type": "integer",
+                      "description": "Ventana perdida.",
+                      "minimum": 0
+                    },
+                    "skipped": {
+                      "type": "integer",
+                      "description": "Omitidos al activar.",
+                      "minimum": 0
+                    }
+                  },
+                  "required": [
+                    "total",
+                    "not_launched",
+                    "in_progress",
+                    "succeeded",
+                    "failed"
+                  ],
+                  "additionalProperties": false,
+                  "description": "Conteo de campañas por día (window_summary de Strategy)."
+                }
+              },
+              "required": [
+                "phase_id",
+                "phase_key",
+                "state",
+                "can_prepare",
+                "can_launch",
+                "copy_authoring",
+                "awaiting_agent_copies",
+                "days"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "active_operations": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "operation_id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "kind": {
+                  "type": "string",
+                  "description": "Tipo de operación (prepare, launch, retry, creative...)."
+                },
+                "state": {
+                  "type": "string",
+                  "description": "Estado de la operación en Strategy."
+                },
+                "phase_key": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "Fase, si aplica."
+                }
+              },
+              "required": [
+                "operation_id",
+                "kind",
+                "state",
+                "phase_key"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "pending_actions": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "kind": {
+                  "type": "string",
+                  "description": "Tipo de pendiente.",
+                  "enum": [
+                    "complete_configuration",
+                    "generate_communication",
+                    "approve_communication",
+                    "review_catalog",
+                    "prepare_phase",
+                    "review_pieces",
+                    "submit_agent_copies",
+                    "approve_copies",
+                    "activate_phase",
+                    "retry_audiences",
+                    "resolve_connections"
+                  ]
+                },
+                "actor": {
+                  "type": "string",
+                  "description": "Quién lo resuelve: human (una persona en SaleADS, con action_url), agent (tú, con una tool) o agent_with_user_confirmation (tú, con OK explícito del usuario).",
+                  "enum": [
+                    "human",
+                    "agent",
+                    "agent_with_user_confirmation"
+                  ]
+                },
+                "phase_key": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "Fase a la que aplica, o null si es del plan."
+                },
+                "phase_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "uuid",
+                  "description": "ID de la fase, o null."
+                },
+                "days": {
+                  "type": [
+                    "integer",
+                    "null"
+                  ],
+                  "minimum": 0,
+                  "description": "Solo submit_agent_copies: días que esperan tus textos."
+                },
+                "spends_money": {
+                  "type": "boolean",
+                  "description": "true solo para activate_phase: activar empieza a gastar."
+                },
+                "consumes_credits": {
+                  "type": "boolean",
+                  "description": "true solo para prepare_phase: preparar genera piezas y consume créditos."
+                },
+                "tool": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "description": "Tool del MCP que lo resuelve cuando actor no es human (p. ej. saleads_submit_special_plan_copies)."
+                },
+                "action_url": {
+                  "type": [
+                    "string",
+                    "null"
+                  ],
+                  "format": "uri",
+                  "description": "Link de handoff a SaleADS (contracts/handoff-intents.md) o null."
+                },
+                "reason": {
+                  "type": "string",
+                  "description": "Por qué está pendiente, en lenguaje simple."
+                }
+              },
+              "required": [
+                "kind",
+                "actor",
+                "phase_key",
+                "spends_money",
+                "consumes_credits",
+                "action_url",
+                "reason"
+              ],
+              "additionalProperties": false
+            },
+            "description": "Pendientes del plan. Los humanos llevan action_url; submit_agent_copies nunca lleva action_url."
+          },
+          "checked_at": {
+            "type": "string",
+            "description": "Momento de la lectura (ISO 8601 UTC).",
+            "format": "date-time"
+          }
+        },
+        "required": [
+          "special_plan_id",
+          "changed",
+          "status_digest",
+          "poll_after_s",
+          "communication_state",
+          "audiences",
+          "phases",
+          "active_operations",
+          "pending_actions",
+          "checked_at"
+        ],
+        "additionalProperties": false,
+        "description": "Estado completo."
+      }
+    ]
+  },
+  "notes": "Reglas de polling en contracts/README.md §Polling. Una lectura del plan por llamada; operaciones solo si están activas."
+}

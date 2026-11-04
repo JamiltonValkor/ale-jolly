@@ -1,0 +1,51 @@
+{
+  "name": "saleads_select_business",
+  "title": "Seleccionar negocio",
+  "description": "Marca un negocio como seleccionado para el usuario (también cambia el negocio activo en la web).",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Seleccionar negocio",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "POST /api/businesses/:id/select"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio sobre el que se actúa. El MCP verifica que pertenezca al usuario autenticado."
+      }
+    },
+    "required": [
+      "business_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "selected": {
+        "type": "boolean",
+        "description": "true si quedó seleccionado."
+      }
+    },
+    "required": [
+      "business_id",
+      "selected"
+    ],
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,128 @@
+{
+  "name": "saleads_get_box_metrics",
+  "title": "Métricas por caja",
+  "description": "Métricas acumuladas de una campaña lanzada por caja (conjunto de anuncios) y por anuncio, leídas de Meta en vivo. Úsala para leer cómo le va a cada caja: la ventana de una caja es la diferencia entre dos lecturas, así que guarda cada lectura con su fecha. Si Meta limita, espera el tiempo indicado; si las métricas están desactualizadas, vuelve más tarde. Puede tardar hasta 75 s.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Métricas por caja",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/business-intelligence/internal/businesses/:id/owner (guard de propiedad)",
+    "GET /api/campaigns/:id (propiedad, P20)",
+    "GET /campaigns/internal/:campaignId/optimization-context (x-internal-api-token, 75 s, sin reintentos)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "campaign_id": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 128,
+        "description": "ID de campaña en SaleADS (no el de Meta)."
+      },
+      "period": {
+        "type": "string",
+        "enum": [
+          "7d",
+          "14d",
+          "30d",
+          "60d",
+          "90d"
+        ],
+        "description": "Periodo acumulado (por defecto 30d)."
+      }
+    },
+    "required": [
+      "business_id",
+      "campaign_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "campaign_id": {
+        "type": "string"
+      },
+      "period": {
+        "type": "string"
+      },
+      "campaign_metrics": {
+        "type": "object",
+        "additionalProperties": {
+          "type": "number"
+        },
+        "description": "Métricas numéricas (gasto, compras, leads, CPA, CTR…)."
+      },
+      "data_through": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "observed_at": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "entities": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "entity_type": {
+              "type": "string",
+              "enum": [
+                "ad",
+                "ad_set"
+              ]
+            },
+            "meta_id": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "metrics": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "number"
+              },
+              "description": "Métricas numéricas (gasto, compras, leads, CPA, CTR…)."
+            }
+          },
+          "required": [
+            "entity_type",
+            "meta_id",
+            "metrics"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "entities_unavailable": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "campaign_id",
+      "period",
+      "campaign_metrics",
+      "entities",
+      "entities_unavailable"
+    ],
+    "additionalProperties": false
+  }
+}

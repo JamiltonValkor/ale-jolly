@@ -1,0 +1,29 @@
+{
+  "name": "saleads-sim",
+  "version": "0.1.0",
+  "private": true,
+  "description": "Imitador local de SaleADS (Keycloak, MCP, Agent API, landings, gateway mínimo y PostHog) para la demo del hackathon.",
+  "type": "module",
+  "engines": {
+    "node": ">=22"
+  },
+  "scripts": {
+    "start": "tsx src/main.ts",
+    "dev": "tsx src/main.ts",
+    "test": "tsx --test test/*.test.ts",
+    "typecheck": "tsc -p tsconfig.json --noEmit"
+  },
+  "dependencies": {
+    "@modelcontextprotocol/core": "2.2.0",
+    "@modelcontextprotocol/node": "2.1.0",
+    "@modelcontextprotocol/server": "2.2.0",
+    "ajv": "8.20.0",
+    "ajv-formats": "3.0.1",
+    "jose": "5.10.0",
+    "tsx": "4.20.6"
+  },
+  "devDependencies": {
+    "@types/node": "22.20.4",
+    "typescript": "5.9.3"
+  }
+}

@@ -1,0 +1,41 @@
+{
+  "name": "saleads_share_learning",
+  "title": "Compartir una lección con el Cerebro SaleADS",
+  "description": "Envía al Cerebro SaleADS una lección abstracta sobre marketing o ventas, sacada SOLO de lo que el dueño dijo o decidió (provenance owner_said u owner_decided). Antes de llamarla, quita nombres, teléfonos, correos, precios, ofertas y cualquier dato que identifique al negocio o a sus clientes. Nunca envíes métricas ni conclusiones sacadas de Meta, Google o TikTok: se rechazan. Si el dueño desactivó compartir, devuelve accepted=false y no pasa nada más.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Compartir una lección con el Cerebro SaleADS",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": false,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/business-intelligence/internal/businesses/:id/owner (guard de propiedad)",
+    "GET /api/business-intelligence/businesses/:id/wizard-state (categoría → industria)",
+    "POST /internal/brain-hub/lessons (sa-assistant-service, política exacta ASSISTANT_INTERNAL_ROUTE_POLICY, x-internal-api-token + x-user-id)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": { "type": "string", "format": "uuid" },
+      "text": { "type": "string", "minLength": 20, "maxLength": 1000, "description": "Lección general, sin datos personales ni del negocio." },
+      "provenance": { "type": "string", "enum": ["owner_said", "owner_decided"], "description": "De dónde sale: lo que el dueño dijo o lo que decidió." }
+    },
+    "required": ["business_id", "text", "provenance"],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "accepted": { "type": "boolean" },
+      "lesson_id": { "type": ["string", "null"], "format": "uuid" },
+      "reason": { "type": ["string", "null"], "enum": ["received", "sharing_off", "industry_unknown", null] }
+    },
+    "required": ["accepted", "lesson_id", "reason"],
+    "additionalProperties": false
+  }
+}

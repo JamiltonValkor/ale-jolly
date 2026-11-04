@@ -1,0 +1,203 @@
+{
+  "name": "saleads_stock_take_photo",
+  "title": "Tomar foto de conteo",
+  "description": "Pide al robot una foto y cuenta los objetos de un concepto. Puede tardar hasta cuatro minutos. Si responde pending, consulta saleads_stock_get_photo.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Tomar foto de conteo",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "POST /internal/stock/businesses/:businessId/photos"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "idempotency_key": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_-]{8,128}$"
+      },
+      "concepto": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 80
+      },
+      "etiqueta": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 40
+      },
+      "photo_id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "business_id",
+      "idempotency_key",
+      "concepto",
+      "etiqueta"
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "ok"
+          },
+          "photo_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "total": {
+            "type": "integer"
+          },
+          "objetos": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "n": {
+                  "type": "integer"
+                },
+                "caja": {
+                  "type": "array",
+                  "prefixItems": [
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    },
+                    {
+                      "type": "number"
+                    }
+                  ],
+                  "items": false,
+                  "minItems": 4,
+                  "maxItems": 4
+                },
+                "confianza": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                }
+              },
+              "required": [
+                "n",
+                "caja",
+                "confianza"
+              ],
+              "additionalProperties": false
+            }
+          },
+          "image_url": {
+            "type": "string",
+            "format": "uri"
+          },
+          "image_expires_in": {
+            "type": "integer"
+          },
+          "fuente": {
+            "type": "string"
+          },
+          "simulado": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "status",
+          "photo_id",
+          "total",
+          "objetos",
+          "image_url",
+          "image_expires_in",
+          "fuente",
+          "simulado"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "pending"
+          },
+          "photo_id": {
+            "type": "string",
+            "format": "uuid"
+          }
+        },
+        "required": [
+          "status",
+          "photo_id"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "robot_offline"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "tope_diario"
+          }
+        },
+        "required": [
+          "status"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "const": "fallida"
+          },
+          "motivo": {
+            "type": "string"
+          }
+        },
+        "required": [
+          "status",
+          "motivo"
+        ],
+        "additionalProperties": false
+      }
+    ],
+    "type": "object"
+  }
+}

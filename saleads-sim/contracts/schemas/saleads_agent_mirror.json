@@ -1,0 +1,70 @@
+{
+  "name": "saleads_agent_mirror",
+  "title": "Operación del espejo",
+  "description": "Ejecuta una operación de Graph de la lista blanca sobre objetos del agente (pausar, mover presupuesto dentro de lo aprobado, leer). Lo que pide aprobación vuelve con MCP-E-AGENT-APPROVAL-REQUIRED y no toca Meta.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Operación del espejo",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "POST /api/integration/internal/agentic/v1/meta/graph (AAB-006)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "client_request_id": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_.:-]{8,128}$",
+        "description": "Id del pedido que genera el CLI; repetirlo devuelve el mismo resultado."
+      },
+      "method": {
+        "enum": [
+          "GET",
+          "POST",
+          "DELETE"
+        ]
+      },
+      "path": {
+        "type": "string",
+        "maxLength": 200
+      },
+      "params": {
+        "type": "object"
+      },
+      "approval_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "es",
+          "en"
+        ],
+        "description": "Idioma del dueño para el enlace de Límites de un rechazo de presupuesto (no cambia la operación ni su idempotencia)."
+      }
+    },
+    "required": [
+      "business_id",
+      "client_request_id",
+      "method",
+      "path"
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object"
+  }
+}

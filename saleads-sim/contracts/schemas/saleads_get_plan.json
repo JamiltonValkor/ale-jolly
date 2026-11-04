@@ -1,0 +1,177 @@
+{
+  "name": "saleads_get_plan",
+  "title": "Ver plan estratégico",
+  "description": "Devuelve el plan estratégico: estado, presupuesto, ubicaciones, idioma y cada campaña con su estado, inversión y creativos requeridos. Indica el siguiente paso. Si el plan está cancelado, lo dice y, si se conoce, indica el plan que lo reemplazó (replaced_by_plan_id).",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Ver plan estratégico",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/strategy/plan/:planId",
+    "GET /api/strategy/plan/:planId/launch-readiness (solo si todas las campañas activas están configured)",
+    "(interno MCP) mcp.slot_media",
+    "GET /api/strategy/plan/business/:businessId (solo si el plan está cancelado, para hallar su reemplazo)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "strategy_plan_id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "strategy_plan_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "strategy_plan_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "business_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "status": {
+        "type": "string",
+        "description": "Estado del plan (draft|active|completed|paused|cancelled…). Un plan cancelled no se usa."
+      },
+      "replaced_by_plan_id": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uuid",
+        "description": "Solo si el plan está cancelado: plan vigente que lo reemplazó, o null si no se pudo determinar."
+      },
+      "monthly_budget": {
+        "type": "number",
+        "description": "Presupuesto mensual."
+      },
+      "currency": {
+        "type": "string",
+        "description": "Moneda."
+      },
+      "locations": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "language": {
+        "type": "string",
+        "description": "Idioma."
+      },
+      "campaigns": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "item_id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "name": {
+              "type": "string",
+              "description": "Nombre."
+            },
+            "status": {
+              "type": "string",
+              "description": "available|pending|configured|locked|launched|failed|skipped"
+            },
+            "role": {
+              "type": "string",
+              "description": "Rol de la campaña en el plan."
+            },
+            "hypothesis_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid",
+              "description": "Hipótesis principal de comunicación (linaje)."
+            },
+            "hypothesis_summary": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Resumen de la hipótesis/mensaje que debe expresar el creativo."
+            },
+            "monthly_investment": {
+              "type": "number",
+              "description": "Inversión mensual asignada."
+            },
+            "daily_budget": {
+              "type": "number",
+              "description": "Presupuesto diario."
+            },
+            "creatives": {
+              "type": "object",
+              "properties": {
+                "type": {
+                  "type": "string",
+                  "description": "IMAGE|VIDEO|MIXED"
+                },
+                "count": {
+                  "type": "integer",
+                  "description": "Cantidad requerida."
+                },
+                "ratios": {
+                  "type": "array",
+                  "items": {
+                    "type": "string",
+                    "description": "Ratio aceptado."
+                  }
+                }
+              },
+              "required": [],
+              "additionalProperties": false
+            },
+            "draft_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uuid"
+            },
+            "images_ready": {
+              "type": "boolean",
+              "description": "Tiene imágenes asignadas."
+            }
+          },
+          "required": [
+            "item_id",
+            "status"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "ready_to_launch": {
+        "type": "boolean",
+        "description": "Todas las campañas configuradas."
+      },
+      "next_step": {
+        "type": "string",
+        "description": "Siguiente acción sugerida."
+      }
+    },
+    "required": [
+      "strategy_plan_id",
+      "campaigns",
+      "ready_to_launch"
+    ],
+    "additionalProperties": false
+  }
+}

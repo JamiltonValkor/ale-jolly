@@ -1,0 +1,281 @@
+{
+  "name": "saleads_get_business_bootstrap",
+  "title": "Paquete de arranque del negocio",
+  "description": "Todo lo que SaleADS ya sabe de un negocio, en un solo paquete de solo lectura, para sembrar el cerebro del negocio del asistente: contexto de negocio y oferta (BI), audiencia y buyer fit, plan activo con el resumen de comunicación de cada campaña, campañas lanzadas recientes con sus métricas y planes especiales. Excluye datos personales (email, ciudad, fragmentos de conversaciones) y textos crudos de terceros. Úsalo al activar el asistente o al detectar un negocio nuevo; no lo uses para conversar. Versión 2: trae la tesis de persuasión de cada campaña del plan y las métricas por caja de las 5 campañas lanzadas más recientes (si no alcanza el tiempo, warnings incluye box_metrics_partial).",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Paquete de arranque del negocio",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/business-intelligence/internal/businesses/:id/owner (guard de propiedad)",
+    "GET /api/business-intelligence/internal/businesses/:businessId/strategy-context?schema_version=2&offering_type=business (lectura interna, x-internal-token)",
+    "GET /api/strategy/plan/business/:businessId (404 = sin plan)",
+    "GET /api/campaigns/business/:businessId (in-cluster /campaigns/business/:businessId)",
+    "GET /api/campaigns/:id/metrics?period=Nd (in-cluster /campaigns/:id/metrics)",
+    "GET /api/campaigns/business/:businessId/metrics?period=Nd (in-cluster)",
+    "GET /api/strategy/seasonal-plans (solo con MCP_SPECIAL_PLAN_TOOLS_ENABLED)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño (de saleads_get_account_overview)."
+      },
+      "metrics_days": {
+        "type": "integer",
+        "enum": [
+          7,
+          14,
+          30,
+          60,
+          90
+        ],
+        "default": 90,
+        "description": "Ventana de métricas en días."
+      },
+      "campaign_limit": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 50,
+        "default": 20,
+        "description": "Máximo de campañas con métricas."
+      }
+    },
+    "required": [
+      "business_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "schema_version": {
+        "const": "saleads-business-bootstrap/2"
+      },
+      "business_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "generated_at": {
+        "type": "string",
+        "format": "date-time"
+      },
+      "context": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "description": "Hechos de BI (negocio, marca, audiencia, marketing, productos, servicios), buyer fit sin fragmentos de conversación y evidencia sin textos.",
+        "properties": {
+          "context_hash": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "readiness": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "facts": {
+            "type": "object"
+          },
+          "buyer_fit": {
+            "type": [
+              "object",
+              "null"
+            ]
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "object"
+            }
+          },
+          "unknowns": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        },
+        "required": [
+          "facts",
+          "evidence",
+          "unknowns"
+        ]
+      },
+      "plan": {
+        "type": [
+          "object",
+          "null"
+        ],
+        "description": "Plan activo con el resumen de comunicación por campaña (null si no hay plan).",
+        "properties": {
+          "plan_id": {
+            "type": "string"
+          },
+          "status": {
+            "type": "string"
+          },
+          "currency": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "monthly_investment": {
+            "type": [
+              "number",
+              "null"
+            ]
+          },
+          "communication_strategy_version_id": {
+            "type": [
+              "string",
+              "null"
+            ]
+          },
+          "campaigns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "item_id": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "status": {
+                  "type": "string"
+                },
+                "hypothesis_id": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "communication_summary": {
+                  "type": [
+                    "object",
+                    "null"
+                  ]
+                },
+                "persuasion_thesis": {
+                  "type": [
+                    "object",
+                    "null"
+                  ],
+                  "description": "Tesis de persuasión de la hipótesis (avatar, ángulo, promesa, objeción, conciencia, variable de prueba, gancho); null si no está disponible."
+                }
+              },
+              "required": [
+                "item_id",
+                "status"
+              ]
+            }
+          }
+        },
+        "required": [
+          "plan_id",
+          "status",
+          "campaigns"
+        ]
+      },
+      "campaigns": {
+        "type": "array",
+        "description": "Campañas del negocio (más recientes primero) con sus métricas en la ventana.",
+        "items": {
+          "type": "object",
+          "properties": {
+            "campaign_id": {
+              "type": "string"
+            },
+            "name": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "status": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "platform": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "metrics": {
+              "type": [
+                "object",
+                "null"
+              ]
+            },
+            "boxes": {
+              "type": [
+                "array",
+                "null"
+              ],
+              "description": "Métricas por caja y anuncio (solo las 5 campañas lanzadas más recientes; null si no se alcanzó a leer).",
+              "items": {
+                "type": "object"
+              }
+            }
+          },
+          "required": [
+            "campaign_id"
+          ]
+        }
+      },
+      "business_metrics": {
+        "type": [
+          "object",
+          "null"
+        ]
+      },
+      "seasonal": {
+        "type": "array",
+        "items": {
+          "type": "object"
+        }
+      },
+      "warnings": {
+        "type": "array",
+        "items": {
+          "type": "string"
+        }
+      }
+    },
+    "required": [
+      "schema_version",
+      "business_id",
+      "generated_at",
+      "context",
+      "plan",
+      "campaigns",
+      "business_metrics",
+      "seasonal",
+      "warnings"
+    ],
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,90 @@
+{
+  "name": "saleads_get_business_profile",
+  "title": "Perfil del negocio",
+  "description": "Devuelve el perfil del negocio (identidad, voz, audiencia, marketing), sus ofertas y qué le falta para generar una buena estrategia.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Perfil del negocio",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/businesses",
+    "GET /api/business-intelligence/businesses/:id/dna",
+    "GET /api/business-intelligence/businesses/:id/wizard-state",
+    "GET /api/business-intelligence/products",
+    "GET /api/business-intelligence/services/businesses/:id"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio sobre el que se actúa. El MCP verifica que pertenezca al usuario autenticado."
+      },
+      "detail": {
+        "type": "string",
+        "description": "Nivel de detalle.",
+        "enum": [
+          "concise",
+          "full"
+        ],
+        "default": "concise"
+      }
+    },
+    "required": [
+      "business_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "name": {
+        "type": "string",
+        "description": "Nombre."
+      },
+      "offering_type": {
+        "type": "string",
+        "description": "Tipo."
+      },
+      "website_url": {
+        "type": [
+          "string",
+          "null"
+        ]
+      },
+      "profile": {
+        "type": "object",
+        "description": "Secciones del perfil (resumidas en modo concise)."
+      },
+      "offerings_count": {
+        "type": "integer",
+        "description": "Cantidad de productos/servicios."
+      },
+      "missing": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "description": "Qué falta (p. ej. 'descripcion', 'ofertas', 'meta')."
+        }
+      }
+    },
+    "required": [
+      "business_id",
+      "name",
+      "missing"
+    ],
+    "additionalProperties": false
+  }
+}

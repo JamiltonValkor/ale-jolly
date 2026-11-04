@@ -1,0 +1,144 @@
+{
+  "name": "saleads_request_plan_launch",
+  "title": "Solicitar lanzamiento del plan",
+  "description": "Verifica que el plan esté listo (campañas activas configuradas; las bloqueadas de fases posteriores no cuentan), calcula el gasto y devuelve approval_url. El lanzamiento SIEMPRE lo confirma el usuario en SaleADS (botón 'Activar'): las campañas se crean activas y empiezan a gastar. Esta tool no lanza nada.",
+  "requiredScope": "saleads:launch",
+  "annotations": {
+    "title": "Solicitar lanzamiento del plan",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/strategy/plan/:planId",
+    "GET /api/draft-campaign/drafts/:id/launch-readiness (por borrador)",
+    "readiness Meta (blockers con handoff específico, ver saleads_get_meta_status)",
+    "cuota de suscripción",
+    "(interno MCP) handoff launch-plan"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "strategy_plan_id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "strategy_plan_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "strategy_plan_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "ready": {
+        "type": "boolean",
+        "description": "Listo para lanzar."
+      },
+      "approval_url": {
+        "type": [
+          "string",
+          "null"
+        ],
+        "format": "uri"
+      },
+      "spend_summary": {
+        "type": "object",
+        "properties": {
+          "currency": {
+            "type": "string",
+            "description": "Moneda."
+          },
+          "daily_total": {
+            "type": "number",
+            "description": "Gasto diario total."
+          },
+          "monthly_total": {
+            "type": "number",
+            "description": "Gasto mensual total."
+          },
+          "campaigns": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "properties": {
+                "item_id": {
+                  "type": "string",
+                  "format": "uuid"
+                },
+                "name": {
+                  "type": "string",
+                  "description": "Nombre."
+                },
+                "daily_budget": {
+                  "type": "number",
+                  "description": "Diario."
+                },
+                "monthly_budget": {
+                  "type": "number",
+                  "description": "Mensual."
+                }
+              },
+              "required": [
+                "item_id",
+                "daily_budget"
+              ],
+              "additionalProperties": false
+            }
+          }
+        },
+        "required": [],
+        "additionalProperties": false
+      },
+      "blockers": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "code": {
+              "type": "string",
+              "description": "Código."
+            },
+            "next_action": {
+              "type": "string",
+              "description": "Qué hacer."
+            },
+            "action_url": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "format": "uri",
+              "description": "Handoff para resolver un bloqueo operativo en SaleADS, o null. Bloqueos de suscripción y cupo no generan enlaces transaccionales."
+            }
+          },
+          "required": [
+            "code",
+            "next_action"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "expires_at": {
+        "type": "string",
+        "description": "Expiración del link.",
+        "format": "date-time"
+      }
+    },
+    "required": [
+      "strategy_plan_id",
+      "ready",
+      "blockers"
+    ],
+    "additionalProperties": false
+  }
+}

@@ -1,0 +1,67 @@
+{
+  "name": "saleads_agent_bet_state",
+  "title": "Cambiar estado de una apuesta",
+  "description": "Activa, pausa o retira una apuesta con la razón del agente (transiciones válidas; nunca 'ganadora').",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Cambiar estado de una apuesta",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "POST /api/strategy/internal/agent-authored/bets/:id/states (AAB-014)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "client_request_id": {
+        "type": "string",
+        "pattern": "^[A-Za-z0-9_.:-]{8,128}$",
+        "description": "Id del pedido que genera el CLI; repetirlo devuelve el mismo resultado."
+      },
+      "bet_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "state": {
+        "enum": [
+          "active",
+          "paused",
+          "retired"
+        ]
+      },
+      "reason": {
+        "type": "string",
+        "maxLength": 500
+      },
+      "campaign_refs": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "maxLength": 64
+        },
+        "maxItems": 50
+      }
+    },
+    "required": [
+      "business_id",
+      "client_request_id",
+      "bet_id",
+      "state"
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object"
+  }
+}

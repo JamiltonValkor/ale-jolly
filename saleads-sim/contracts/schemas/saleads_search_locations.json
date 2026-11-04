@@ -1,0 +1,98 @@
+{
+  "name": "saleads_search_locations",
+  "title": "Buscar ubicaciones",
+  "description": "Busca países, regiones o ciudades válidos para segmentar en Meta. Usa el resultado en saleads_update_plan.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Buscar ubicaciones",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/integration/meta/targeting/search"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio sobre el que se actúa. El MCP verifica que pertenezca al usuario autenticado."
+      },
+      "query": {
+        "type": "string",
+        "description": "Texto a buscar (p. ej. 'Bogotá').",
+        "minLength": 2
+      },
+      "types": {
+        "type": "array",
+        "items": {
+          "type": "string",
+          "description": "Tipo.",
+          "enum": [
+            "country",
+            "region",
+            "city",
+            "zip"
+          ]
+        }
+      },
+      "limit": {
+        "type": "integer",
+        "description": "Máximo.",
+        "minimum": 1,
+        "maximum": 20,
+        "default": 8
+      }
+    },
+    "required": [
+      "business_id",
+      "query"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "locations": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "key": {
+              "type": "string",
+              "description": "Clave Meta."
+            },
+            "name": {
+              "type": "string",
+              "description": "Nombre."
+            },
+            "type": {
+              "type": "string",
+              "description": "Tipo."
+            },
+            "country_code": {
+              "type": "string",
+              "description": "País."
+            }
+          },
+          "required": [
+            "key",
+            "name",
+            "type"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "locations"
+    ],
+    "additionalProperties": false
+  }
+}

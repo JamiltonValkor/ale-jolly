@@ -1,0 +1,241 @@
+{
+  "name": "saleads_stock_get_item",
+  "title": "Ver una variante de stock",
+  "description": "Detalle de una variante: saldo, último conteo, costo unitario y unidades por caja.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Ver una variante de stock",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /internal/stock/businesses/:businessId/items/:variantId"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "variante_id": {
+        "type": "string",
+        "format": "uuid"
+      }
+    },
+    "required": [
+      "business_id",
+      "variante_id"
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "item": {
+        "type": "object",
+        "properties": {
+          "variante_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "producto_id": {
+            "type": "string",
+            "format": "uuid"
+          },
+          "producto": {
+            "type": "string"
+          },
+          "variante": {
+            "type": "string"
+          },
+          "oferta": {
+            "anyOf": [
+              {
+                "type": "object",
+                "properties": {
+                  "id": {
+                    "type": "string"
+                  },
+                  "nombre": {
+                    "type": "string"
+                  }
+                },
+                "required": [
+                  "id",
+                  "nombre"
+                ],
+                "additionalProperties": false
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "ultimo_conteo": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "entradas": {
+            "type": "integer"
+          },
+          "ventas_reportadas": {
+            "type": "integer"
+          },
+          "esperado": {
+            "type": "integer"
+          },
+          "contado": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "contado_en": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "date-time"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "diferencia": {
+            "anyOf": [
+              {
+                "type": "integer"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "estado": {
+            "type": "string",
+            "enum": [
+              "cuadra",
+              "causa_preguntada",
+              "conteo_por_aprobar",
+              "sin_conteo_reciente"
+            ]
+          },
+          "propuesta_id": {
+            "anyOf": [
+              {
+                "type": "string",
+                "format": "uuid"
+              },
+              {
+                "type": "null"
+              }
+            ]
+          },
+          "simulado": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "variante_id",
+          "producto_id",
+          "producto",
+          "variante",
+          "oferta",
+          "ultimo_conteo",
+          "entradas",
+          "ventas_reportadas",
+          "esperado",
+          "contado",
+          "contado_en",
+          "diferencia",
+          "estado",
+          "propuesta_id",
+          "simulado"
+        ],
+        "additionalProperties": false
+      },
+      "saldo": {
+        "type": "integer"
+      },
+      "ultimo_conteo_en": {
+        "anyOf": [
+          {
+            "type": "string",
+            "format": "date-time"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "costo_unitario": {
+        "anyOf": [
+          {
+            "type": "string",
+            "pattern": "^\\d{1,13}(\\.\\d{1,2})?$"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "moneda": {
+        "type": "string",
+        "minLength": 3,
+        "maxLength": 3
+      },
+      "unidades_por_caja": {
+        "anyOf": [
+          {
+            "type": "integer"
+          },
+          {
+            "type": "null"
+          }
+        ]
+      },
+      "ultimo_conteo_confirmado_por": {
+        "anyOf": [
+          {
+            "type": "string",
+            "enum": [
+              "web",
+              "voz",
+              "canal_atestiguado",
+              "semilla"
+            ]
+          },
+          {
+            "type": "null"
+          }
+        ]
+      }
+    },
+    "required": [
+      "item",
+      "saldo",
+      "ultimo_conteo_en",
+      "costo_unitario",
+      "moneda",
+      "unidades_por_caja"
+    ],
+    "additionalProperties": false
+  }
+}

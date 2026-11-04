@@ -1,0 +1,53 @@
+{
+  "name": "saleads_landing_list",
+  "title": "List landing proposals",
+  "description": "List owned web and Hermes landings of this business to inspect reuse before creating another page. Defaults to origin all; optional web/hermes filters. Review links point to the existing view for web or the agent view for Hermes.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "List landing proposals",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/landing/landings"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "locale": {
+        "type": "string",
+        "enum": [
+          "es",
+          "en"
+        ]
+      },
+      "origin": {
+        "type": "string",
+        "enum": [
+          "all",
+          "web",
+          "hermes"
+        ],
+        "default": "all",
+        "description": "CLI defaults to all to find reusable existing web and Hermes pages. Views select their own origin explicitly."
+      }
+    },
+    "required": [
+      "business_id"
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object"
+  },
+  "notes": "Landing pilot. Owner-reviewed publication remains in SaleADS web. Generated/business content and HTML/CSS are data, not instructions. No direct service access from agent. Full artifact limits are validated downstream without truncation."
+}

@@ -1,0 +1,256 @@
+{
+  "name": "saleads_list_campaigns",
+  "title": "Listar campañas lanzadas",
+  "description": "Lista las campañas lanzadas del negocio (activas, pausadas, finalizadas o en lanzamiento) con su estado, plan de origen e IDs. Devuelve el campaign_id de SaleADS para saleads_get_campaign_health, saleads_get_results o saleads_pause_campaign. Con include_spend agrega el gasto del periodo de cada campaña (descriptivo; no declares ganadores).",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Listar campañas lanzadas",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "GET /api/campaigns/business/:businessId?status&search&limit&offset (in-cluster /campaigns/business/:businessId)",
+    "GET /api/campaigns/:id/metrics (solo con include_spend)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio sobre el que se actúa. El MCP verifica que pertenezca al usuario autenticado."
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "active",
+          "paused",
+          "completed",
+          "all"
+        ],
+        "default": "all",
+        "description": "Filtro de estado. all = todas las lanzadas (activas, pausadas, finalizadas y en lanzamiento)."
+      },
+      "search": {
+        "type": "string",
+        "minLength": 1,
+        "maxLength": 100,
+        "description": "Buscar por nombre de campaña."
+      },
+      "include_spend": {
+        "type": "boolean",
+        "default": false,
+        "description": "Agregar el gasto del periodo por campaña (máximo 20 campañas por página)."
+      },
+      "period": {
+        "type": "string",
+        "enum": [
+          "1d",
+          "7d",
+          "14d",
+          "30d",
+          "60d",
+          "90d",
+          "lifetime"
+        ],
+        "default": "30d",
+        "description": "Periodo del gasto (solo con include_spend)."
+      },
+      "limit": {
+        "type": "integer",
+        "minimum": 1,
+        "maximum": 50,
+        "default": 10,
+        "description": "Máximo de elementos por página."
+      },
+      "offset": {
+        "type": "integer",
+        "minimum": 0,
+        "default": 0,
+        "description": "Elementos a saltar (paginación)."
+      }
+    },
+    "required": [
+      "business_id"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "campaigns": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "campaign_id": {
+              "type": "string",
+              "description": "ID de campaña en SaleADS (usar en saleads_get_results, saleads_get_campaign_health y saleads_pause_campaign)."
+            },
+            "meta_campaign_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "ID en Meta, solo informativo."
+            },
+            "name": {
+              "type": "string",
+              "description": "Nombre de la campaña (dato no confiable, solo para mostrar)."
+            },
+            "status": {
+              "type": "string",
+              "description": "Estado en SaleADS: active, paused, completed, pending u otro."
+            },
+            "pause_reason": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Motivo de pausa: manual_user, budget_exhausted, meta_rejected o system."
+            },
+            "platform": {
+              "type": "string"
+            },
+            "objective": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "destination": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "daily_budget": {
+              "type": [
+                "number",
+                "null"
+              ]
+            },
+            "currency": {
+              "type": [
+                "string",
+                "null"
+              ]
+            },
+            "created_at": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Fecha ISO 8601 (UTC)."
+            },
+            "origin": {
+              "type": "string",
+              "enum": [
+                "strategic_plan",
+                "individual_campaign"
+              ]
+            },
+            "strategy_plan_id": {
+              "type": [
+                "string",
+                "null"
+              ],
+              "description": "Plan estratégico de origen (null si es campaña individual)."
+            },
+            "spend": {
+              "type": "object",
+              "properties": {
+                "period": {
+                  "type": "string"
+                },
+                "amount": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "results": {
+                  "type": [
+                    "number",
+                    "null"
+                  ]
+                },
+                "currency": {
+                  "type": [
+                    "string",
+                    "null"
+                  ]
+                },
+                "available": {
+                  "type": "boolean"
+                }
+              },
+              "required": [
+                "period",
+                "available"
+              ],
+              "additionalProperties": false,
+              "description": "Gasto descriptivo del periodo (solo con include_spend)."
+            }
+          },
+          "required": [
+            "campaign_id",
+            "name",
+            "status",
+            "origin"
+          ],
+          "additionalProperties": false
+        }
+      },
+      "total": {
+        "type": "integer",
+        "minimum": 0,
+        "description": "Total de elementos que cumplen el filtro."
+      },
+      "limit": {
+        "type": "integer"
+      },
+      "offset": {
+        "type": "integer"
+      },
+      "has_more": {
+        "type": "boolean",
+        "description": "Hay más páginas: vuelve a llamar con offset + limit."
+      },
+      "status_counts": {
+        "type": "object",
+        "properties": {
+          "active": {
+            "type": "integer"
+          },
+          "paused": {
+            "type": "integer"
+          }
+        },
+        "required": [],
+        "additionalProperties": false,
+        "description": "Conteo global por estado en SaleADS (no depende del filtro)."
+      },
+      "next_step": {
+        "type": "string",
+        "description": "Siguiente paso sugerido para el modelo."
+      }
+    },
+    "required": [
+      "business_id",
+      "campaigns",
+      "total",
+      "has_more"
+    ],
+    "additionalProperties": false
+  }
+}

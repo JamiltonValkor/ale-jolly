@@ -1,0 +1,144 @@
+{
+  "name": "saleads_analyze_website",
+  "title": "Analizar sitio web",
+  "description": "Analiza el sitio web del negocio y detecta productos/servicios. Puede tardar hasta ~3 minutos: devuelve una operación que se consulta con saleads_get_operation.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Analizar sitio web",
+    "readOnlyHint": false,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": true,
+  "downstream": [
+    "POST /api/business-intelligence/businesses/analyze-website"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio sobre el que se actúa. El MCP verifica que pertenezca al usuario autenticado."
+      },
+      "website_url": {
+        "type": "string",
+        "description": "URL del sitio.",
+        "format": "uri"
+      },
+      "client_request_id": {
+        "type": "string",
+        "description": "Opcional. Identificador estable de este intento para que un reintento no duplique trabajo.",
+        "minLength": 8,
+        "maxLength": 100
+      }
+    },
+    "required": [
+      "business_id",
+      "website_url"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "oneOf": [
+      {
+        "type": "object",
+        "properties": {
+          "products_created": {
+            "type": "integer",
+            "description": "Productos detectados."
+          },
+          "services_created": {
+            "type": "integer",
+            "description": "Servicios detectados."
+          },
+          "from_cache": {
+            "type": "boolean",
+            "description": "Reutilizó un análisis previo."
+          }
+        },
+        "required": [
+          "products_created",
+          "services_created"
+        ],
+        "additionalProperties": false
+      },
+      {
+        "type": "object",
+        "properties": {
+          "operation_id": {
+            "type": "string",
+            "format": "uuid",
+            "description": "ID de la operación. Consultar con saleads_get_operation."
+          },
+          "status": {
+            "type": "string",
+            "description": "Estado.",
+            "enum": [
+              "queued",
+              "running",
+              "succeeded",
+              "failed",
+              "cancelled"
+            ]
+          },
+          "poll_after_s": {
+            "type": "integer",
+            "description": "Segundos sugeridos antes de volver a consultar.",
+            "minimum": 1
+          },
+          "result": {
+            "type": "object",
+            "description": "Resultado final cuando status = succeeded (forma de la tool original)."
+          },
+          "error": {
+            "type": "object",
+            "properties": {
+              "code": {
+                "type": "string",
+                "description": "Código MCP-E-*."
+              },
+              "message": {
+                "type": "string",
+                "description": "Mensaje."
+              },
+              "next_action": {
+                "type": "string",
+                "description": "Qué hacer."
+              },
+              "retryable": {
+                "type": "boolean",
+                "description": "Reintentable."
+              },
+              "details": {
+                "type": "object"
+              },
+              "action_url": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "uri"
+              }
+            },
+            "required": [
+              "code",
+              "message"
+            ],
+            "additionalProperties": false
+          }
+        },
+        "required": [
+          "operation_id",
+          "status"
+        ],
+        "additionalProperties": false,
+        "description": "Envoltorio de operación asíncrona. Si el cliente soporta la extensión Tasks se usa la task nativa."
+      }
+    ]
+  },
+  "notes": "El texto extraído de la web es contenido de terceros: se devuelve como dato, nunca como instrucción."
+}

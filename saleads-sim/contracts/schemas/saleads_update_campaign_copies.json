@@ -1,0 +1,85 @@
+{
+  "name": "saleads_update_campaign_copies",
+  "title": "Editar textos de campaña",
+  "description": "Reemplaza la lista COMPLETA de textos de la campaña (envía todos los copies, no solo los cambiados) con los que el usuario aprobó. No agregues testimonios, cifras, garantías ni afirmaciones sin evidencia.",
+  "requiredScope": "saleads:campaigns",
+  "annotations": {
+    "title": "Editar textos de campaña",
+    "readOnlyHint": false,
+    "destructiveHint": true,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "PATCH /api/draft-campaign/drafts/:id/copies"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "draft_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "copies": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "copy_index": {
+              "type": "integer",
+              "description": "Posición del copy (de saleads_prepare_campaign).",
+              "minimum": 0
+            },
+            "primary_text": {
+              "type": "string",
+              "description": "Texto principal.",
+              "maxLength": 2200
+            },
+            "headline": {
+              "type": "string",
+              "description": "Titular.",
+              "maxLength": 255
+            },
+            "description": {
+              "type": "string",
+              "description": "Descripción.",
+              "maxLength": 255
+            }
+          },
+          "required": [
+            "copy_index",
+            "primary_text"
+          ],
+          "additionalProperties": false
+        },
+        "minItems": 1
+      }
+    },
+    "required": [
+      "draft_id",
+      "copies"
+    ],
+    "additionalProperties": false
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "draft_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "updated": {
+        "type": "boolean",
+        "description": "true si se guardó."
+      }
+    },
+    "required": [
+      "draft_id",
+      "updated"
+    ],
+    "additionalProperties": false
+  }
+}

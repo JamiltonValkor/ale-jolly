@@ -1,0 +1,167 @@
+{
+  "name": "saleads_stock_list_orders",
+  "title": "Listar pedidos a proveedor",
+  "description": "Pedidos del negocio por estado o con novedad.",
+  "requiredScope": "saleads:read",
+  "annotations": {
+    "title": "Listar pedidos a proveedor",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": false
+  },
+  "async": false,
+  "downstream": [
+    "GET /internal/stock/businesses/:businessId/orders"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "status": {
+        "type": "string",
+        "enum": [
+          "aprobado",
+          "negociando",
+          "acordado",
+          "en_camino",
+          "recibido",
+          "cancelado"
+        ]
+      },
+      "con_novedad": {
+        "type": "boolean"
+      }
+    },
+    "required": [
+      "business_id"
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "properties": {
+      "pedidos": {
+        "type": "array",
+        "items": {
+          "type": "object",
+          "properties": {
+            "id": {
+              "type": "string",
+              "format": "uuid"
+            },
+            "producto": {
+              "type": "string"
+            },
+            "cantidad": {
+              "type": "integer"
+            },
+            "proveedor": {
+              "type": "string"
+            },
+            "costo": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^\\d{1,13}(\\.\\d{1,2})?$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "costo_tipo": {
+              "type": "string",
+              "enum": [
+                "esperado",
+                "acordado"
+              ]
+            },
+            "moneda": {
+              "type": "string",
+              "minLength": 3,
+              "maxLength": 3
+            },
+            "estado": {
+              "type": "string",
+              "enum": [
+                "aprobado",
+                "negociando",
+                "acordado",
+                "en_camino",
+                "recibido",
+                "cancelado"
+              ]
+            },
+            "novedad": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "enum": [
+                    "respuesta_proveedor"
+                  ]
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "pedido_cantidad": {
+              "type": "integer"
+            },
+            "recibido_cantidad": {
+              "anyOf": [
+                {
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "ahorro_confirmado": {
+              "anyOf": [
+                {
+                  "type": "string",
+                  "pattern": "^\\d{1,13}(\\.\\d{1,2})?$"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "simulado": {
+              "type": "boolean"
+            }
+          },
+          "required": [
+            "id",
+            "producto",
+            "cantidad",
+            "proveedor",
+            "costo",
+            "costo_tipo",
+            "moneda",
+            "estado",
+            "novedad",
+            "pedido_cantidad",
+            "recibido_cantidad",
+            "ahorro_confirmado",
+            "simulado"
+          ],
+          "additionalProperties": false
+        }
+      }
+    },
+    "required": [
+      "pedidos"
+    ],
+    "additionalProperties": false
+  }
+}

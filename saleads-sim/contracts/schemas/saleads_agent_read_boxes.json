@@ -1,0 +1,58 @@
+{
+  "name": "saleads_agent_read_boxes",
+  "title": "Leer cajas y anuncios",
+  "description": "Lee gasto, resultados, leads y costo por caja o anuncio, día por día, en una ventana (≤ 90 días), con totales, frescura y la calidad de leads reportada.",
+  "requiredScope": "saleads:strategy",
+  "annotations": {
+    "title": "Leer cajas y anuncios",
+    "readOnlyHint": true,
+    "destructiveHint": false,
+    "idempotentHint": true,
+    "openWorldHint": true
+  },
+  "async": false,
+  "downstream": [
+    "GET /campaigns/internal/agent-metrics/v1/campaigns/:id/entity-metrics (AAB-011)"
+  ],
+  "inputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object",
+    "additionalProperties": false,
+    "properties": {
+      "business_id": {
+        "type": "string",
+        "format": "uuid",
+        "description": "Negocio del dueño."
+      },
+      "campaign_id": {
+        "type": "string",
+        "format": "uuid"
+      },
+      "level": {
+        "enum": [
+          "adset",
+          "ad"
+        ]
+      },
+      "since": {
+        "type": "string",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+      },
+      "until": {
+        "type": "string",
+        "pattern": "^\\d{4}-\\d{2}-\\d{2}$"
+      }
+    },
+    "required": [
+      "business_id",
+      "campaign_id",
+      "level",
+      "since",
+      "until"
+    ]
+  },
+  "outputSchema": {
+    "$schema": "https://json-schema.org/draft/2020-12/schema",
+    "type": "object"
+  }
+}
