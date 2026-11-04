@@ -24,6 +24,9 @@ chmod 0700 "$ROOT" "$ROOT/bin"
 if curl -fsS --max-time 10 "$CLOUD_SIM_URL/vm/ca.crt" -o "$CA.tmp"; then
   mv "$CA.tmp" "$CA"
   update-ca-certificates >/dev/null 2>&1 || cat "$CA" >>/etc/ssl/certs/ca-certificates.crt
+  # dockerd también confía en ella para el Artifact Registry imitado (saleads-brain).
+  mkdir -p /etc/docker/certs.d/us-central1-docker.pkg.dev
+  cp "$CA" /etc/docker/certs.d/us-central1-docker.pkg.dev/ca.crt
   log "local CA trusted"
 else
   rm -f "$CA.tmp"

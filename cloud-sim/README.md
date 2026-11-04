@@ -15,6 +15,7 @@
 | Cloud Storage JSON API | `/storage/v1/b/<b>/o…`, `/upload/storage/v1/b/<b>/o` | ale-runtime | Existe (`fields=name,size`), sube (`uploadType=media`), baja (`alt=media`) y lista (`prefix`, `pageToken`) |
 | URLs firmadas V4 (`https://storage.googleapis.com/<b>/<o>?X-Goog-…`) | `/<b>/<o>` con Host `storage.googleapis.com` | el watcher de la VM (archivo, restauración, fotos) | PUT y GET. Respeta el vencimiento; **no valida la firma** |
 | Metadata server de cada VM (`metadata.google.internal`) | `/vm/<instancia>/computeMetadata/v1/…` | `vm/startup-script.sh watch` | Atributos, long poll `wait_for_change` con ETag y guest attributes por PUT |
+| Artifact Registry (`us-central1-docker.pkg.dev`) | `cloud-sim-ar` (registry:2) detrás de Caddy con la CA local | el watcher (`saleads-brain` por digest) | Lo llena `cloud-sim/brain-image.sh`: construye `$ALE_RUNTIME_SRC/brain` para la plataforma del motor Docker, lo sube por `127.0.0.1:5055` y fija `BRAIN_IMAGE`/`STOCK_BRAIN_IMAGE` en `local/.env` |
 | Una VM de Compute (COS) | un contenedor `vm-<instancia>` (`docker:dind`) | — | Ver abajo |
 
 ### Semántica de Compute que se respeta
@@ -114,5 +115,5 @@ Y luego el volumen `cloud-sim-data` para olvidar las instancias.
 ## Lo que no imita
 
 Firmas (no se validan), IAM y permisos (cualquier `Bearer` sirve), cuotas,
-regiones, discos, redes y firewalls de GCP, y Artifact Registry (el cerebro
-queda apagado en fase 1: `BRAIN_IMAGE=''`, D3).
+regiones, discos, redes y firewalls de GCP. El Artifact Registry imitado no pide
+credenciales (en la VM `HERMES_DOCKER_CRED=true`).

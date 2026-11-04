@@ -9,6 +9,8 @@
 # - ALE_RUNTIME_SRC apunta al checkout fijado de ale-runtime (D0): de ahí sale
 #   el `startup-script` de la plantilla, byte a byte.
 # - ALE_CA_CERT es la raíz de la CA local (D1); cloud-sim la sirve a cada VM.
+# - Caddy tiene el alias `us-central1-docker.pkg.dev` → cloud-sim-ar:5000: es el
+#   Artifact Registry imitado de donde la VM baja saleads-brain por digest.
 #
 # Variables de ale-runtime que apuntan aquí:
 #   COMPUTE_API_BASE=http://cloud-sim:8070/compute/v1
@@ -20,7 +22,7 @@
 #   ASSISTANT_INSTANCE_TEMPLATE=projects/ale-local/global/instanceTemplates/sa-assistant-local
 #   ASSISTANT_MEMORIES_BUCKET=ale-local-assistant-memories
 #   ASSISTANT_SIGNER_EMAIL=sa-assistant-service@ale-local.iam.gserviceaccount.com
-#   BRAIN_IMAGE=   (vacío en fase 1, D3)
+#   BRAIN_IMAGE y STOCK_BRAIN_IMAGE: los escribe cloud-sim/brain-image.sh en local/.env
 
 services:
   cloud-sim:
@@ -63,7 +65,21 @@ services:
       - cloud-sim-registry:/var/lib/registry
     networks: [ale]
 
+  # Artifact Registry imitado (us-central1-docker.pkg.dev vía Caddy). Sin espejo:
+  # solo guarda lo que sube cloud-sim/brain-image.sh, que publica por 127.0.0.1.
+  cloud-sim-ar:
+    image: registry:2.8.3
+    restart: unless-stopped
+    environment:
+      REGISTRY_HTTP_RELATIVEURLS: "true"
+    ports:
+      - "127.0.0.1:${CLOUD_SIM_AR_PORT:-5055}:5000"
+    volumes:
+      - cloud-sim-ar:/var/lib/registry
+    networks: [ale]
+
 volumes:
+  cloud-sim-ar:
   cloud-sim-data:
   cloud-sim-registry:
 
