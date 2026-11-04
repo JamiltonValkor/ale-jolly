@@ -13,6 +13,19 @@ interface BusinessStore {
   getBusinessId: () => string | null
 }
 
+// El cliente de gateway lee el negocio de `localStorage['business-store']` (la
+// forma de `zustand/persist` del store real) para el header `X-Business-Id`.
+if (typeof window !== 'undefined') {
+  try {
+    window.localStorage.setItem(
+      'business-store',
+      JSON.stringify({ state: { selectedBusiness: DEMO_BUSINESS }, version: 0 })
+    )
+  } catch {
+    // Sin almacenamiento: las llamadas salen sin X-Business-Id.
+  }
+}
+
 export const useBusinessStore = create<BusinessStore>()(() => ({
   selectedBusiness: DEMO_BUSINESS,
   setSelectedBusiness: () => {},
