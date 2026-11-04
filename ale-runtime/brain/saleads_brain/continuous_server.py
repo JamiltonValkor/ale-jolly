@@ -226,6 +226,8 @@ def install_continuous_routes(mcp: FastMCP, brain: Brain, exporter: SnapshotDebo
         status = 409 if reason in {
             "curation_commit_payload_conflict", "curation_commit_receipt_unverifiable",
         } else 503 if reason == "native_task_source_unavailable" else 400
+        # Solo el código (nunca el cuerpo ni datos del negocio): sin esto un 400 no dice qué validación falló (E2E 4-nov).
+        logger.warning("Continuous memory request rejected status=%s reason=%s", status, reason)
         return JSONResponse({"accepted": False, "reason": reason}, status_code=status)
 
     @mcp.custom_route("/continuous/ready", methods=["POST"])
