@@ -42,6 +42,8 @@ Sin backend, la página real muestra «Esperando la sesión demo». Para revisar
 | `NODE_EXTRA_CA_CERTS` | `/certs/ca.crt` | CA local de Caddy (D1) |
 | `NEXT_PUBLIC_GATEWAY_URL` | `/__gw` (build) | El navegador llega al gateway por el rewrite |
 
+| `LOCAL_OAUTH_INTERNAL` | `true` | Cambio 4: el BFF resuelve el acceso OAuth del asistente dentro de la red (ver abajo) |
+
 Opcionales: `LOCAL_SESSION_CLIENT_ID` (`front`), `LOCAL_SESSION_USERNAME` (`demo-owner`), `LOCAL_SESSION_PASSWORD` (`demo`), `LOCAL_SESSION_ACCESS_TOKEN` (token fijo, solo depuración) y `NEXT_PUBLIC_DEMO_*` (usuario y negocio demo).
 
 Lo que el front pide a `saleads-sim` (token y gateway) está detallado en la nota compartida `front-gateway.md` de las sesiones.
@@ -83,6 +85,15 @@ Reescritos mínimos (mismos exports): `src/app/layout.tsx`, `src/app/[locale]/la
 Nuevo del modo local: `src/lib/local/*` y `src/app/api/auth/session/route.ts` (equivalente a la ruta de Auth.js).
 
 **Cambio 2 (§4):** `src/features/sales-assistant/server/meta-assistant-service.ts` acepta `http://ale-runtime` como origen interno del servicio.
+
+**Cambio 4, activación sin salto en el navegador (`LOCAL_OAUTH_INTERNAL=true`):** lo aprobó el owner para que el evaluador active con un solo clic. En SaleADS, `POST /api/meta-assistant/activation` devuelve un `authorize_url` y el navegador va a Keycloak y vuelve por `/api/meta-assistant/oauth/callback`. En local, ese `authorize_url` apunta a `https://saleads.local`, que solo existe dentro de la red `ale` y usa la CA local. Con la variable encendida, `src/lib/local/local-oauth-internal.ts` envuelve la ruta de activación y hace ese salto dentro de la red:
+
+1. Pide el authorize a saleads-sim (`prompt=none`, sesión SSO demo).
+2. Toma `code` y `state` del redirect.
+3. Llama el mismo `handleMetaOAuthCallback` con la cookie del flujo, que hace `POST /assistants/oauth/callback` en ale-runtime.
+4. Devuelve al cliente el estado de `/me`.
+
+El navegador solo ve «Activando…» y luego el progreso. Si algo falla, devuelve la URL del panel para recargarlo, y el polling de `/me` muestra el estado real. Sin la variable, la ruta es la de SaleADS. Para que el BFF acepte el flujo, ale-runtime y saleads-sim usan el cliente dedicado `mcp-saleads-meta-assistant-dev` (`ASSISTANT_OAUTH_CLIENT_ID` y `SIM_ASSISTANT_CLIENT_ID`). Con otro cliente, `metaRelaunchCookie` rechaza el `authorize_url` y la activación respondía 503.
 
 ## Docker
 
