@@ -16,6 +16,8 @@ const HTTP_HOSTS = new Set([
   '[::1]',
   'sa-meta-assistant-service',
   'sa-meta-assistant-service.saleads.svc.cluster.local',
+  // Modo local (ale-jolly, cambio 2 permitido del plan §4): ale-runtime en la red `ale`.
+  'ale-runtime',
 ])
 const DEV_CONTROL_BASE = 'https://gateway-dev.saleads.ai/api/meta-assistant'
 
