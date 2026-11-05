@@ -201,6 +201,7 @@ More evidence from the real robot and the real cloud deployment: [`../evidence/`
 | Stock tab or Stock answers missing | The team setup is still running: wait for `orqa synced` in `./demo.sh logs ale-runtime` |
 | Jolly's eye: «subida original falló (HTTP 403)» | The eye was started by hand without `start.sh`: start Jolly with `./jolly-sim/start.sh`, which sends photo uploads to the local Storage |
 | Jolly's processes stay open after Ctrl+C | macOS/Linux: `pkill -f jolly-sim`. Windows: close the Python windows, or `taskkill //F //IM python.exe` in Git Bash |
+| The count card stays blocked or never shows up | In **Conversar** write «reintenta el conteo con una foto nueva», with Jolly's terminal open |
 | Jolly never hears you | `./jolly-sim/start.sh doctor`; give the terminal microphone permission and restart it |
 | Jolly: «ale-runtime no responde» | The stack is not up: `cd local && ./demo.sh up`, or use `--replay` |
 | The pairing code expired | Jolly shows a new one after a few minutes; type the one on screen |

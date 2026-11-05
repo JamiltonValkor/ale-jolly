@@ -109,6 +109,12 @@ limpiar() {
 }
 trap limpiar EXIT INT TERM
 
+if [ "$DESVINCULAR" = 1 ]; then   # olvida la credencial antes de arrancar: la cara mostrará un código nuevo
+  rm -f "$ENV_ROBOT" "$ENV_ROBOT.tmp" "$(dirname "$ENV_ROBOT")/.eventos-cursor" && rm -rf "$AQUI/.banco" || {
+    echo "❌ No pude borrar la credencial de Jolly: cierra las ventanas de Jolly (o los python.exe que queden) y repite."; exit 1; }
+  echo "✓ Jolly olvidó su vinculación. En la web, «Compañero físico» → desvincúlalo si aún aparece «Sincronizado»."
+fi
+
 preparar_python
 export PYTHONUTF8=1 PYTHONIOENCODING=utf-8   # la consola de Windows (cp1252) no imprime los emojis de los mensajes
 export META_API_KEY="$(leer_llave META_API_KEY)"

@@ -9,7 +9,7 @@ SAM cuenta y ubica. Tú interpretas qué es cada cosa y si el total tiene sentid
 
 ## Pedir la foto
 
-1. `saleads_stock_take_photo` con `idempotency_key`, `concepto` y `etiqueta`. Si la tarjeta trae `producto` o `variante_id`, la `etiqueta` es ese producto, hasta 40 caracteres, nunca un lugar como «repisa» o «estante». Si la tarjeta no nombra producto, la `etiqueta` es `por identificar <8 primeros caracteres de tarjeta.id>`: el tope de 3 fotos se cuenta por etiqueta, así que cada conteo sin nombre lleva la suya. El `concepto` va en inglés simple, por ejemplo `jar`, `bottle`, `box` o `lid`. Una foto nueva va sin `photo_id`: ese campo solo sirve para reintentar sobre una foto que ya existe.
+1. `saleads_stock_take_photo` con `idempotency_key`, `concepto` y `etiqueta`. Si la tarjeta trae `producto` o `variante_id`, la `etiqueta` es ese producto, hasta 40 caracteres, nunca un lugar como «repisa» o «estante». Si la tarjeta no nombra producto, la `etiqueta` es `por identificar <8 primeros caracteres de tarjeta.id>`: el tope de 3 fotos se cuenta por etiqueta, así que cada conteo sin nombre lleva la suya. El `concepto` va en inglés simple, por ejemplo `jar`, `bottle`, `box` o `lid`. Una foto nueva va sin `photo_id`: ese campo solo sirve para reintentar sobre una foto que ya existe. Nunca inventes ni copies un `photo_id`: usa solo el que te devolvió `saleads_stock_take_photo` en esta tarjeta. Si el servidor rechaza el `photo_id`, pide una foto nueva sin él y con otra `idempotency_key`; no bloquees la tarjeta por eso.
 2. Según `status`:
    - Resultado: trae conteo, cajas, confianza, `image_url` firmada y `photo_id`.
    - `pending`: guarda el `photo_id` y usa `kanban_block`. Al volver, usa `saleads_stock_get_photo`.

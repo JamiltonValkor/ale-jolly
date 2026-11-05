@@ -104,6 +104,7 @@ Open **Cerebro** once the team's first research is done, and ask Ale in **Conver
 | A port is busy | `FRONT_PORT=3100 ./demo.sh up`, then open `http://localhost:3100` |
 | Activation stays on «Encendiendo su inteligencia» or the logs show `managed_watcher_upgrade_required` | The first VM is still downloading. Wait; it retries on its own |
 | Your chat message doesn't go out | Ale is still writing: wait for «pensando» to go away |
+| The count card stays blocked or never shows up | In **Conversar** write «reintenta el conteo con una foto nueva» (Jolly's terminal must be open) |
 | Stock says «robot apagado» | Jolly's terminal was closed. Start `./jolly-sim/start.sh` again and ask again |
 | Cerebro is empty | Normal for the first 20–30 minutes |
 | Anything else | `./demo.sh logs ale-runtime`, then `./demo.sh reset && ./demo.sh up`. More in [`docs/E2E-GUIDE.md`](docs/E2E-GUIDE.md) |
@@ -133,4 +134,5 @@ Open **Cerebro** once the team's first research is done, and ask Ale in **Conver
 - A count that Stock blocked because Jolly was closed doesn't resume by itself when Jolly comes back: ask Jolly again.
 - Locally, Stock's vision check can't open the shelf photo (the model runs at Meta and can't reach your computer); SAM's count and the card are not affected.
 - The first ideas in **Cerebro** show up 20–30 minutes after activation, once the researcher's first study is done.
+- Stock's expected and counted numbers for the demo shop don't always add up, because the seeded history and the shelf photo are separate simulations. Approving a count still works.
 - Publishing a landing and the full goal → campaign cycle depend on SaleADS services that `saleads-sim` only imitates in part.
