@@ -2,6 +2,8 @@
 
 An AI marketing team with a body, built on Meta models. **Ale** is a marketing partner for small businesses: it reads the business, researches the market, proposes and measures campaigns, and learns with every conversation, with a team of agents behind it. **Jolly** is Ale's body: a small robot with a face, ears, a voice and an eye that counts products on a shelf.
 
+**Want to try it right away?** Go to [Run it](#run-it). You only need Docker and a Meta API key.
+
 ## Why this repo is a slim version
 
 The full, productive solution is **[`ale-runtime/`](ale-runtime/)**. It runs on our own environments: SaleADS (`dev.saleads.ai`), a one-click deploy that creates a cloud VM with Hermes for each user, and Jolly, the physical robot on a Raspberry Pi 5. The demo video was recorded there.
@@ -32,18 +34,79 @@ Jolly's voice is the one exception allowed by the organizers: Cartesia if you ad
 
 ## Run it
 
-You need Docker and a Meta API key. On Windows, use Git Bash.
+Step by step, with what you should see at each step. Every step also works for an AI coding agent: open this repo and ask it to follow [`AGENTS.md`](AGENTS.md). The full tour of the product is in [`docs/E2E-GUIDE.md`](docs/E2E-GUIDE.md).
+
+### Before you start
+
+- **Docker Desktop** (or Docker Engine with Compose v2), running.
+- A **Meta API key** from [dev.meta.ai](https://dev.meta.ai). It is the only credential needed.
+- **Windows:** run every command in **Git Bash** (it comes with Git for Windows), never in PowerShell or CMD.
+- Free ports: 3000, 8060, 8443, 8071 and 5055. If 3000 is taken, put `FRONT_PORT=3100` before `./demo.sh up` and open that port instead.
+- Only for Jolly, the robot: Python 3.12 or [`uv`](https://docs.astral.sh/uv/) (Windows: Python 3.12 from python.org, `py -3.12`), and a microphone.
+
+### 1. Clone and start (about 10 minutes the first time)
 
 ```bash
-git clone -c core.longpaths=true <this repo> ale-jolly
+git clone -c core.longpaths=true https://github.com/JamiltonValkor/ale-jolly.git
 cd ale-jolly/local
-./demo.sh up            # asks for your Meta key once; first run takes several minutes
-./demo.sh meta-check    # optional: one real call to each Meta model above
+./demo.sh up
 ```
 
-Open `http://localhost:3000` and click «Activar mi asistente». Then follow the end-to-end guide: [`docs/E2E-GUIDE.md`](docs/E2E-GUIDE.md).
+`up` asks for your Meta key once, saves it only in `local/.env` and builds everything.
+**You should see:** `Listo: abre http://localhost:3000`.
 
-With an AI coding agent (Claude Code, Codex, Cursor…): open this repo and ask it to follow [`AGENTS.md`](AGENTS.md).
+Optional, to check your key against the five Meta models: `./demo.sh meta-check`. **You should see:** five ✅ and SAM counting 22 jars.
+
+### 2. Activate the assistant (about 7 minutes the first time)
+
+Open `http://localhost:3000` and click «Activar mi asistente». The first time, the local "VM" downloads Hermes. Keep the page open.
+**You should see:** the assistant's home, marked «Activo».
+
+### 3. Talk to Ale
+
+Open **Conversar**. Ale writes a greeting first: **wait until it finishes** (the «pensando» indicator goes away), then write, for example «¿Cómo va mi negocio?», and press send.
+**You should see:** Ale answering with the demo shop's products and numbers.
+
+### 4. Start Jolly and pair it (optional, needs a microphone)
+
+Open a **second terminal** at the repo root and leave it open the whole time:
+
+```bash
+./jolly-sim/start.sh
+```
+
+A window with Jolly's face shows a code such as `K7QM-3XPA`. In the web, on **Hoy**: «Compañero físico» → «Sincronizar» → «Escribir el código», and type it.
+**You should see:** `✓ Jolly vinculado` and `✓ Stock listo` in the terminal; the **Stock** tab now has products.
+
+No microphone? `./jolly-sim/start.sh --replay` plays a recording of the real robot, with no backend or key.
+
+### 5. Count the shelf
+
+Say: «Jolly, ¿cuántos frascos hay en la repisa?». If you're asked which product, say «Bio Mascarilla 500 g».
+**You should see:** Jolly answers out loud. A minute or two later, in **Stock** → «Por aprobar», a count card with the shelf photo and SAM's 22 jars waits for your approval.
+
+### 6. See what Ale learned (20–30 minutes after activation)
+
+Open **Cerebro** once the team's first research is done, and ask Ale in **Conversar** «¿Qué has aprendido de mi negocio?».
+
+### Stop or start over
+
+```bash
+./demo.sh down     # stop everything, keeping the data
+./demo.sh reset    # delete everything and start from zero
+```
+
+### If something goes wrong
+
+| What you see | What to do |
+|---|---|
+| `doctor` shows ✗ «falta META_API_KEY» on a fresh clone | Expected: `./demo.sh up` asks for it |
+| A port is busy | `FRONT_PORT=3100 ./demo.sh up`, then open `http://localhost:3100` |
+| Activation stays on «Encendiendo su inteligencia» or the logs show `managed_watcher_upgrade_required` | The first VM is still downloading. Wait; it retries on its own |
+| Your chat message doesn't go out | Ale is still writing: wait for «pensando» to go away |
+| Stock says «robot apagado» | Jolly's terminal was closed. Start `./jolly-sim/start.sh` again and ask again |
+| Cerebro is empty | Normal for the first 20–30 minutes |
+| Anything else | `./demo.sh logs ale-runtime`, then `./demo.sh reset && ./demo.sh up`. More in [`docs/E2E-GUIDE.md`](docs/E2E-GUIDE.md) |
 
 ## Reading order
 

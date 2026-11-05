@@ -9,7 +9,7 @@ What is real and what is simulated is explained in [`SLIM-VERSION.md`](SLIM-VERS
 - Docker Desktop (or Docker Engine with Compose v2) running, and `openssl`.
 - A **Meta API key**. It is the only credential needed.
 - Optional, for Jolly live: Python 3.12 or `uv`, and a microphone, on macOS, Linux or Windows. A Cartesia key is optional too; without it Jolly speaks with your computer's own voice (`say` on macOS, the built-in Windows voice, espeak on Linux).
-- Free ports: 3000 (or set `FRONT_PORT`), 8060, 8443 and 5055.
+- Free ports: 3000 (or set `FRONT_PORT`), 8060, 8443, 8071 and 5055.
 - **Windows:** run the commands in **Git Bash** (comes with Git for Windows) with Docker Desktop. Clone with `-c core.longpaths=true` as shown below. Jolly (`jolly-sim/`) runs in Git Bash too, with Python 3.12 from python.org (`py -3.12`) or `uv`. Stock's inventory does not need Jolly live: see step 8.
 
 The web app is in Spanish, as for the real users. Button names below are quoted as they appear on screen.
