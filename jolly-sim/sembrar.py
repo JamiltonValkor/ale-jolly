@@ -79,7 +79,7 @@ def vincular(base: str, nombre: str = "Jolly") -> None:
         if estado != 200:
             raise SystemExit(f"no pude pedir el código de vinculación (HTTP {estado}): ¿está arriba ./local/demo.sh up?")
         print("\n" + "=" * 46, flush=True)
-        print(f"  Vincula a Jolly en la web (Hoy → Compañero físico → Vincular) con el código:\n\n        {p['code']}\n", flush=True)
+        print(f"  Vincula a Jolly en la web (Hoy → Compañero físico → Sincronizar) con el código:\n\n        {p['code']}\n", flush=True)
         print("=" * 46 + "\n", flush=True)
         while True:
             time.sleep(2)

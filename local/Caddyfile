@@ -22,6 +22,13 @@ storage.googleapis.com {
 	}
 }
 
+# Fotos de Stock que abre el navegador (STOCK_PHOTO_WEB_BASE): http en localhost, sin CA, hacia el mismo Storage imitado.
+:8071 {
+	reverse_proxy cloud-sim:8070 {
+		header_up Host storage.googleapis.com
+	}
+}
+
 # Artifact Registry imitado: la VM baja saleads-brain fijado por digest (D3, fase 2).
 us-central1-docker.pkg.dev {
 	tls /certs/local.crt /certs/local.key

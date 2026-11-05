@@ -126,3 +126,12 @@ def test_dormido_sobrevive_al_reinicio(tmp_path):
     assert Sueno(m).dormido
     s.aplicar("despertar")
     assert not Sueno(m).dormido
+
+
+def test_en_windows_sin_sigusr_escucha_igual(monkeypatch):
+    """Windows no tiene SIGUSR1/2: escuchar() no debe tumbar a Jolly (E2E Windows 4-nov)."""
+    monkeypatch.delattr(signal, "SIGUSR1")
+    monkeypatch.delattr(signal, "SIGUSR2")
+    s = Sueno(MARCA)
+    s.escuchar()
+    assert not s.dormido

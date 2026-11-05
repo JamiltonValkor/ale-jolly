@@ -73,6 +73,8 @@ The assistant's home has a bar with **Hoy · Conversar · Cerebro · Límites ·
 
 ### 5. Conversar
 
+Right after activation Ale writes its greeting. **Wait until it finishes** (the «pensando» indicator goes away) before writing: a message sent while it is thinking is not sent.
+
 Open **Conversar** and write, for example:
 
 - «¿Cómo va mi negocio?»
@@ -88,9 +90,9 @@ curl -sk --resolve saleads.local:8443:127.0.0.1 https://saleads.local:8443/sim/c
 
 ### 6. Cerebro, Límites and Actividad
 
-- **Cerebro:** what Ale has learned about the business, stored in the business ontology (products, offers, research, the owner's notes, decisions, learnings). It starts with what Ale read from SaleADS at activation. After each conversation, the team's **curator** (also on Muse Spark) turns what was said and found into ontology entries; locally it runs every 5 minutes (every 3 hours in production), so chat in **Conversar**, wait a few minutes and reload **Cerebro**. Then ask Ale «¿Qué has aprendido de mi negocio?»: it answers from that memory.
+- **Cerebro:** what Ale has learned about the business, stored in the business ontology (products, offers, research, the owner's notes, decisions, learnings). It starts with what Ale read from SaleADS at activation. After each conversation, the team's **curator** (also on Muse Spark) turns what was said and found into ontology entries; locally it runs every 5 minutes (every 3 hours in production), so chat in **Conversar** and reload **Cerebro** later. The first ideas show up **20–30 minutes after activation**, once the researcher's first study is done; an empty Cerebro before that is expected. Then ask Ale «¿Qué has aprendido de mi negocio?»: it answers from that memory.
 - **Límites:** what Ale may do on its own and what needs the owner's approval, such as budget caps.
-- **Actividad:** everything Ale and its team did, step by step.
+- **Actividad:** the changes you make to your assistant (limits, permissions, approvals). What the team is working on is in the team office (step 7).
 
 ### 7. The team office
 
@@ -152,7 +154,11 @@ Say, starting with its name:
 2. Ale (Muse Spark) decides whether to count.
 3. The eye takes the shelf photo (by default an example shelf **generated with Muse Image**, labeled as such) and **SAM 3.1** counts it: 22 jars.
 4. The numbered photo shows on Jolly's face for 15 s and Jolly says the count.
-5. In the web's **Stock** tab, a card with the count and both photos waits for your approval. Approve it.
+5. In the web's **Stock** tab, a card with the count and both photos waits for your approval. Approve it once both photos have loaded.
+
+If Ale or Stock asks which product it is, answer «Bio Mascarilla 500 g»: that is what the example shelf shows. Keep Jolly's window open while Stock works: if Jolly is closed, Stock sees the robot as off («robot apagado») and the count waits; ask again once Jolly is back.
+
+Locally, Stock's own vision check can't open the photo (the model runs at Meta and can't reach your computer). SAM's count and the card are not affected.
 
 After each answer you have 20 seconds to keep talking without saying «Jolly».
 
@@ -170,7 +176,7 @@ To use your webcam instead: `./jolly-sim/start.sh --camara avfoundation:0` (macO
 
 ```bash
 ./jolly-sim/start.sh --desvincular   # optional: forget the pairing
-cd local && ./demo.sh down           # stop, keeping the data
+cd local && ./demo.sh down           # stop everything, the assistant VM included, keeping the data
 ./demo.sh reset                      # or: delete everything, the assistant VM included, and start from zero
 ```
 
@@ -194,6 +200,7 @@ More evidence from the real robot and the real cloud deployment: [`../evidence/`
 | Stock says «Aún no hay productos» after pairing | Run `./jolly-sim/start.sh --sembrar` and read its message |
 | Stock tab or Stock answers missing | The team setup is still running: wait for `orqa synced` in `./demo.sh logs ale-runtime` |
 | Jolly's eye: «subida original falló (HTTP 403)» | The eye was started by hand without `start.sh`: start Jolly with `./jolly-sim/start.sh`, which sends photo uploads to the local Storage |
+| Jolly's processes stay open after Ctrl+C | macOS/Linux: `pkill -f jolly-sim`. Windows: close the Python windows, or `taskkill //F //IM python.exe` in Git Bash |
 | Jolly never hears you | `./jolly-sim/start.sh doctor`; give the terminal microphone permission and restart it |
 | Jolly: «ale-runtime no responde» | The stack is not up: `cd local && ./demo.sh up`, or use `--replay` |
 | The pairing code expired | Jolly shows a new one after a few minutes; type the one on screen |

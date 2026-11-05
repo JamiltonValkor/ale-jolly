@@ -63,6 +63,7 @@ services:
     ports:
       # Para que el navegador del evaluador abra las landings y la revisión de saleads-sim.
       - "8443:443"
+      - "127.0.0.1:8071:8071"   # fotos de Stock para el navegador
 
   ale-runtime:
     build:
@@ -104,6 +105,7 @@ services:
       GCP_METADATA_TOKEN_URL: http://cloud-sim:8070/token
       IAM_CREDENTIALS_API_BASE: http://cloud-sim:8070/v1
       STORAGE_API_BASE: http://cloud-sim:8070
+      STOCK_PHOTO_WEB_BASE: http://localhost:8071
       GCP_PROJECT: ale-local
       GCP_ZONE: local-sim1-a
       ASSISTANT_INSTANCE_TEMPLATE: projects/ale-local/global/instanceTemplates/sa-assistant-local

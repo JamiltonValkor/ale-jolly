@@ -33,8 +33,10 @@ const photoUrl = z
   .url()
   .refine(value => {
     const url = new URL(value)
+    // También el Storage imitado de la versión local (STOCK_PHOTO_WEB_BASE en ale-runtime).
     return (
-      url.protocol === 'https:' && url.hostname === 'storage.googleapis.com'
+      (url.protocol === 'https:' && url.hostname === 'storage.googleapis.com') ||
+      (url.protocol === 'http:' && url.host === 'localhost:8071')
     )
   })
   .nullable()

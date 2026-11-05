@@ -45,8 +45,9 @@ class Sueno:
     def escuchar(self):
         sub = bus.Suscriptor(("cara/toque",), bus.DIRECCION_CARA)
         threading.Thread(target=self._atender, args=(sub,), daemon=True, name="sueno").start()
-        signal.signal(signal.SIGUSR1, lambda *_: self.pedir("dormir"))
-        signal.signal(signal.SIGUSR2, lambda *_: self.pedir("despertar"))
+        if hasattr(signal, "SIGUSR1"):                   # Windows no tiene SIGUSR1/2: ahí se duerme solo con la cara
+            signal.signal(signal.SIGUSR1, lambda *_: self.pedir("dormir"))
+            signal.signal(signal.SIGUSR2, lambda *_: self.pedir("despertar"))
 
     def esperar_despierto(self):
         while self.dormido:

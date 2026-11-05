@@ -197,6 +197,8 @@ const schema = z.object({
   ASSISTANT_SIGNER_EMAIL: z.string().regex(/^[a-z][-a-z0-9]{4,28}[a-z0-9]@[a-z][-a-z0-9]{4,28}[a-z0-9]\.iam\.gserviceaccount\.com$/)
     .default('sa-assistant-service@saleads-dev.iam.gserviceaccount.com'),
   STORAGE_API_BASE: url(['https:', 'http:']).default('https://storage.googleapis.com'),
+  // Solo entornos locales: la foto de una propuesta que ve el navegador sale por esta base en vez de storage.googleapis.com.
+  STOCK_PHOTO_WEB_BASE: url(['https:', 'http:']).optional(),
   IAM_CREDENTIALS_API_BASE: url(['https:', 'http:']).default('https://iamcredentials.googleapis.com/v1'),
   ARCHIVE_URL_TTL_SECONDS: z.coerce.number().int().min(300).max(3600).default(900),
   // GET firmado del último archivo para la VM nueva (D50): cubre el arranque y los reintentos del

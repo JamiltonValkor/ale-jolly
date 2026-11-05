@@ -64,3 +64,10 @@ With an AI coding agent (Claude Code, Codex, Cursor…): open this repo and ask 
 | `jolly-sim/` | Jolly on your computer (face, voice, eye), plus replays of traces from the real robot |
 | `mini-muse/` | Jolly's 3D-printable body, to print and assemble it |
 | `evidence/` | Recorded traces, photos and logs from the real robot and the real cloud deployment |
+
+## Known limitations of the local version
+
+- A count that Stock blocked because Jolly was closed doesn't resume by itself when Jolly comes back: ask Jolly again.
+- Locally, Stock's vision check can't open the shelf photo (the model runs at Meta and can't reach your computer); SAM's count and the card are not affected.
+- The first ideas in **Cerebro** show up 20–30 minutes after activation, once the researcher's first study is done.
+- Publishing a landing and the full goal → campaign cycle depend on SaleADS services that `saleads-sim` only imitates in part.

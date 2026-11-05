@@ -75,7 +75,8 @@ const untrusted = z.string().describe(UNTRUSTED);
 /** Solo `http(s)` y sin credenciales: `proposals.ts` descarta lo demás antes de responder. */
 const webUrl = z.url({protocol: /^https?$/}).refine(value => !new URL(value).username && !new URL(value).password).describe(UNTRUSTED);
 /** URL GET firmada del bucket, de 15 minutos. Solo en lecturas de la web; al modelo le llega nula. */
-const signedPhotoUrl = z.url({protocol: /^https$/}).nullable();
+// https siempre; http solo hacia localhost (STOCK_PHOTO_WEB_BASE de la versión local).
+const signedPhotoUrl = z.url({protocol: /^https?$/}).refine(u => u.startsWith('https://') || /^http:\/\/(localhost|127\.0\.0\.1)[:/]/.test(u)).nullable();
 const iso = z.iso.datetime({offset: true});
 const common = {
   id: uuid, titulo: z.string().min(1), motivo: z.string().min(1), creada_en: iso, estado: StockProposalStatusV1, simulado: z.boolean(),

@@ -250,3 +250,15 @@ describe('propuesta de conteo con foto y kit con fuentes', () => {
     });
   });
 });
+
+describe('foto de la propuesta en un entorno local', () => {
+  it('con STOCK_PHOTO_WEB_BASE el navegador recibe la URL firmada por esa base; sin ella, la de Storage', async () => {
+    const signer = {email: 'sa@x.iam.gserviceaccount.com', sign: async () => Buffer.from('firma')};
+    const now = new Date('2026-11-04T12:00:00Z');
+    const signed = await gcsPhotoStore('fotos', signer).signGet('a/b.jpg', 600, now);
+    expect(signed.startsWith('https://storage.googleapis.com/fotos/a/b.jpg?')).toBe(true);
+    expect(gcsPhotoStore('fotos', signer).webUrl).toBeUndefined();
+    const local = gcsPhotoStore('fotos', signer, 'http://localhost:8071/');
+    expect(local.webUrl!(signed)).toBe(signed.replace('https://storage.googleapis.com', 'http://localhost:8071'));
+  });
+});

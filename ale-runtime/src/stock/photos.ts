@@ -20,12 +20,15 @@ type PhotoRow = {
 export interface PhotoStore {
   signPut(object: string, contentType: string, ttlSeconds: number, now: Date): Promise<string>;
   signGet(object: string, ttlSeconds: number, now: Date): Promise<string>;
+  /** Solo local: la URL firmada que abre el navegador, por una base que él sí alcanza. */
+  webUrl?(signed: string): string;
 }
 
-export function gcsPhotoStore(bucket: string, signer: BlobSigner): PhotoStore {
+export function gcsPhotoStore(bucket: string, signer: BlobSigner, webBase?: string): PhotoStore {
   return {
     signPut: async (object, contentType, ttlSeconds, now) => (await signedPutUrlV4({bucket, object, now, ttlSeconds, signer, contentType})).url,
     signGet: async (object, ttlSeconds, now) => (await signedGetUrlV4({bucket, object, now, ttlSeconds, signer})).url,
+    ...(webBase ? {webUrl: (signed: string) => signed.replace(/^https:\/\/storage\.googleapis\.com/, webBase.replace(/\/$/, ''))} : {}),
   };
 }
 
@@ -55,7 +58,8 @@ export async function proposalPhoto(
   if (!deps.store) return {estado: 'perdida', ...none, ...facts};
   const ttl = STOCK_LIMITS.photoGetTtlSeconds;
   try {
-    const url = await deps.store.signGet(row.object_numerada, ttl, now);
+    const signed = await deps.store.signGet(row.object_numerada, ttl, now);
+    const url = deps.store.webUrl?.(signed) ?? signed;
     return {estado: 'vigente', url, expira_en: new Date(now.getTime() + ttl * 1000).toISOString(), ...facts};
   } catch (error) {
     deps.onSignError?.(error);

@@ -102,7 +102,10 @@ case "${1:-up}" in
     echo "Jolly en este computador: ../jolly-sim/start.sh"
     ;;
   meta-check) exec ../jolly-sim/start.sh meta-check ;;
-  down) "${COMPOSE[@]}" down ;;
+  down)
+    # La VM del asistente la crea cloud-sim fuera de compose: se detiene (sin borrarla) para que nada quede prendido.
+    vms=$(docker ps -q --filter label=ale-jolly.cloud-sim=vm); [ -z "$vms" ] || docker stop $vms >/dev/null
+    "${COMPOSE[@]}" down ;;
   reset)
     # La VM de cada asistente la crea cloud-sim fuera de compose: se borra con sus discos antes de soltar la red.
     vms=$(docker ps -aq --filter label=ale-jolly.cloud-sim=vm); [ -z "$vms" ] || docker rm -f $vms >/dev/null

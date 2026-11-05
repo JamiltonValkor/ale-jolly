@@ -479,7 +479,7 @@ async function main(): Promise<void> {
     locale: async userId => (await languages.get(userId))?.response_locale ?? null,
     ownerMcp: {mcp: ownerMcp, accessToken: userId => renewal.accessToken(userId), timeoutMs: config.SEED_TOOL_TIMEOUT_MS},
     assertOwned: (userId, businessId) => businessProfiles.assertOwned(userId, businessId),
-    ...(config.STOCK_BUCKET ? {photoStore: gcsPhotoStore(config.STOCK_BUCKET, signer),
+    ...(config.STOCK_BUCKET ? {photoStore: gcsPhotoStore(config.STOCK_BUCKET, signer, config.STOCK_PHOTO_WEB_BASE),
       documentStore: gcsDocumentStore(config.STOCK_BUCKET, signer, new GcsArchiveStore(config.STORAGE_API_BASE, gcpTokens, fetcher), objectReader)} : {}),
     ...(config.STOCK_EXTRACT_MODEL && config.MANAGED_META_API_KEY ? {invoiceModel: metaInvoiceModel({apiKey: config.MANAGED_META_API_KEY, model: config.STOCK_EXTRACT_MODEL, baseUrl: META_API_BASE_URL,
       fetcher: outboundFetch({userAgent: config.OUTBOUND_USER_AGENT, timeoutMs: STOCK_LIMITS.extractTimeoutMs})})} : {}),
